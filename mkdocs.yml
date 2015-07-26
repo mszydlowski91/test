@@ -1,5 +1,3 @@
 site_name: My Docs
 pages:
 - Home: overview.md
-- Definitions: definitions.md
-- Paths: paths.md
