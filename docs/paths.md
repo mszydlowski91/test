@@ -1,253 +1,252 @@
-## Paths
-### POST /bundle
+## POST /bundle
 ```
 POST /bundle
 ```
 
-#### Description
+### Description
 
 Adds a new bundle
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |BodyParameter|body||false|Bundle||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
 
 
-#### Tags
+### Tags
 
 * Lesson
 
-### GET /bundle/{bundleId}
+## GET /bundle/{bundleId}
 ```
 GET /bundle/{bundleId}
 ```
 
-#### Description
+### Description
 
 Gets a bundle by ID
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|bundleId||true|integer (int32)||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|Bundle|
 |404|Error 404|No Content|
 
 
-#### Tags
+### Tags
 
 * Lesson
 
-### PUT /bundle/{bundleId}
+## PUT /bundle/{bundleId}
 ```
 PUT /bundle/{bundleId}
 ```
 
-#### Description
+### Description
 
 Modifies an existing bundle
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|bundleId||true|integer (int32)||
 |BodyParameter|body||false|Bundle||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
 
 
-#### Tags
+### Tags
 
 * Lesson
 
-### DELETE /bundle/{bundleId}
+## DELETE /bundle/{bundleId}
 ```
 DELETE /bundle/{bundleId}
 ```
 
-#### Description
+### Description
 
 Deletes a bundle
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|bundleId||true|integer (int32)||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
 |404|Error 404|No Content|
 
 
-#### Tags
+### Tags
 
 * Lesson
 
-### DELETE /bundle/{bundleId}/lesson
+## DELETE /bundle/{bundleId}/lesson
 ```
 DELETE /bundle/{bundleId}/lesson
 ```
 
-#### Description
+### Description
 
 Removes a lesson from a bundle
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|bundleId||true|integer (int32)||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
 |404|Error 404|No Content|
 
 
-#### Tags
+### Tags
 
 * Lesson
 
-### POST /bundle/{bundleId}/lesson
+## POST /bundle/{bundleId}/lesson
 ```
 POST /bundle/{bundleId}/lesson
 ```
 
-#### Description
+### Description
 
 Adds a new lesson to the bundle
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |BodyParameter|body||false|Lesson||
 |PathParameter|bundleId||true|integer (int32)||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
 
 
-#### Tags
+### Tags
 
 * Lesson
 
-### POST /feedback
+## POST /feedback
 ```
 POST /feedback
 ```
 
-#### Description
+### Description
 
 Adds new feedback to db
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |BodyParameter|body||false|Feedback||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
 |400|Error 400|No Content|
 
 
-#### Tags
+### Tags
 
 * Messages
 
-### POST /generator
+## POST /generator
 ```
 POST /generator
 ```
 
-#### Description
+### Description
 
 Creates a new generator
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |BodyParameter|body||false|Generator||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
 |400|Error 400|No Content|
 
 
-#### Tags
+### Tags
 
 * Lesson
 
-### GET /generator/{generatorId}
+## GET /generator/{generatorId}
 ```
 GET /generator/{generatorId}
 ```
 
-#### Description
+### Description
 
 Gets a generator by ID
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|generatorId||true|integer (int32)||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
 
 
-#### Tags
+### Tags
 
 * Lesson
 
-### PUT /generator/{generatorId}
+## PUT /generator/{generatorId}
 ```
 PUT /generator/{generatorId}
 ```
 
-#### Description
+### Description
 
 Edits an existing generator
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |BodyParameter|body||false|Generator||
 |PathParameter|generatorId||true|integer (int32)||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
@@ -256,46 +255,46 @@ Edits an existing generator
 |405|Error 405|No Content|
 
 
-#### Tags
+### Tags
 
 * Lesson
 
-### DELETE /generator/{generatorId}
+## DELETE /generator/{generatorId}
 ```
 DELETE /generator/{generatorId}
 ```
 
-#### Description
+### Description
 
 Deletes a generator
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|generatorId||true|integer (int32)||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
 |404|Error 404|No Content|
 
 
-#### Tags
+### Tags
 
 * Lesson
 
-### GET /lesson
+## GET /lesson
 ```
 GET /lesson
 ```
 
-#### Description
+### Description
 
 Gets lessons by parameters
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |QueryParameter|maxPrice||false|string||
@@ -314,79 +313,79 @@ Gets lessons by parameters
 |QueryParameter|single||false|string||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|Lesson|
 |404|Error 404|No Content|
 
 
-#### Tags
+### Tags
 
 * Lesson
 
-### POST /lesson
+## POST /lesson
 ```
 POST /lesson
 ```
 
-#### Description
+### Description
 
 Creates a new lesson
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
 
 
-#### Tags
+### Tags
 
 * Lesson
 
-### GET /lesson/{lessonId}
+## GET /lesson/{lessonId}
 ```
 GET /lesson/{lessonId}
 ```
 
-#### Description
+### Description
 
 Gets a lesson by ID
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|lessonId|ID of the lesson to work with.|true|integer (int32)||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|Lesson|
 |404|Error 404|No Content|
 
 
-#### Tags
+### Tags
 
 * Lesson
 
-### PUT /lesson/{lessonId}
+## PUT /lesson/{lessonId}
 ```
 PUT /lesson/{lessonId}
 ```
 
-#### Description
+### Description
 
 Modifies an existing lesson
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|lessonId|ID of the lesson to work with.|true|integer (int32)||
 |BodyParameter|body||false|Lesson||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
@@ -395,72 +394,72 @@ Modifies an existing lesson
 |405|Error 405|No Content|
 
 
-#### Tags
+### Tags
 
 * Lesson
 
-### DELETE /lesson/{lessonId}
+## DELETE /lesson/{lessonId}
 ```
 DELETE /lesson/{lessonId}
 ```
 
-#### Description
+### Description
 
 Deletes a lesson by ID
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|lessonId|ID of the lesson to work with.|true|integer (int32)||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
 |404|Error 404|No Content|
 
 
-#### Tags
+### Tags
 
 * Lesson
 
-### GET /lesson/{lessonId}/assignment
+## GET /lesson/{lessonId}/assignment
 ```
 GET /lesson/{lessonId}/assignment
 ```
 
-#### Description
+### Description
 
 Get the assigned instructor
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|lessonId||true|integer (int32)||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|User array|
 |404|Error 404|No Content|
 
 
-#### Tags
+### Tags
 
 * Lesson
 
-### PUT /lesson/{lessonId}/assignment/{instructorId}
+## PUT /lesson/{lessonId}/assignment/{instructorId}
 ```
 PUT /lesson/{lessonId}/assignment/{instructorId}
 ```
 
-#### Description
+### Description
 
 Changes the current lesson instructor
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|lessonId||true|integer (int32)||
@@ -469,7 +468,7 @@ Changes the current lesson instructor
 |QueryParameter|id||false|string||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
@@ -477,20 +476,20 @@ Changes the current lesson instructor
 |404|Error 404|No Content|
 
 
-#### Tags
+### Tags
 
 * Lesson
 
-### PUT /lesson/{lessonId}/participant/{participantId}
+## PUT /lesson/{lessonId}/participant/{participantId}
 ```
 PUT /lesson/{lessonId}/participant/{participantId}
 ```
 
-#### Description
+### Description
 
 Removes or adds a participant to a lesson
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|lessonId||true|integer (int32)||
@@ -498,7 +497,7 @@ Removes or adds a participant to a lesson
 |BodyParameter|body||false|Lesson||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
@@ -507,216 +506,216 @@ Removes or adds a participant to a lesson
 |405|Error 405|No Content|
 
 
-#### Tags
+### Tags
 
 * Lesson
 
-### POST /login
+## POST /login
 ```
 POST /login
 ```
 
-#### Description
+### Description
 
 Stub login method
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
 |401|Error 400|No Content|
 
 
-#### Tags
+### Tags
 
 * Default
 
-### POST /logout
+## POST /logout
 ```
 POST /logout
 ```
 
-#### Description
+### Description
 
 Stub logout method
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
 
 
-#### Tags
+### Tags
 
 * Default
 
-### GET /message
+## GET /message
 ```
 GET /message
 ```
 
-#### Description
+### Description
 
 Gets messages having specific parameters
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
 |404|Error 404|No Content|
 
 
-#### Tags
+### Tags
 
 * Messages
 
-### POST /message
+## POST /message
 ```
 POST /message
 ```
 
-#### Description
+### Description
 
 Adds a new message to db
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |BodyParameter|body||false|Message||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
 |400|Error 400|No Content|
 
 
-#### Tags
+### Tags
 
 * Messages
 
-### GET /message/{messageId}
+## GET /message/{messageId}
 ```
 GET /message/{messageId}
 ```
 
-#### Description
+### Description
 
 Gets a message by id
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|messageId||true|integer (int32)||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|Message|
 |404|Error 404|No Content|
 
 
-#### Tags
+### Tags
 
 * Messages
 
-### DELETE /message/{messageId}
+## DELETE /message/{messageId}
 ```
 DELETE /message/{messageId}
 ```
 
-#### Description
+### Description
 
 Deletes a message
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|messageId||true|integer (int32)||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
 |404|Error 404|No Content|
 
 
-#### Tags
+### Tags
 
 * Messages
 
-### POST /school
+## POST /school
 ```
 POST /school
 ```
 
-#### Description
+### Description
 
 Creates a new school
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |BodyParameter|body||false|School||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
 |400|Error 400|No Content|
 
 
-#### Tags
+### Tags
 
 * School
 
-### GET /school/{schoolId}
+## GET /school/{schoolId}
 ```
 GET /school/{schoolId}
 ```
 
-#### Description
+### Description
 
 Gets a school by ID
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|schoolId||true|integer (int32)||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|School|
 |404|Error 404|No Content|
 
 
-#### Tags
+### Tags
 
 * School
 
-### PUT /school/{schoolId}
+## PUT /school/{schoolId}
 ```
 PUT /school/{schoolId}
 ```
 
-#### Description
+### Description
 
 Modifies an existing school
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|schoolId||true|integer (int32)||
 |BodyParameter|body||false|School||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
@@ -725,55 +724,55 @@ Modifies an existing school
 |405|Error 405|No Content|
 
 
-#### Tags
+### Tags
 
 * School
 
-### POST /transaction
+## POST /transaction
 ```
 POST /transaction
 ```
 
-#### Description
+### Description
 
 Creates a new transaction
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |BodyParameter|body||false|Transaction||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
 |400|Error 400|No Content|
 
 
-#### Tags
+### Tags
 
 * Payments
 
-### GET /transaction/summary
+## GET /transaction/summary
 ```
 GET /transaction/summary
 ```
 
-#### Description
+### Description
 
 If userId is specifiec, returns JSON: {amount: paidCredit, bonus:savedCredit} 
 If schoolId, returns JSON:  {amount: earnedCredit, bonus: credit gave away in promotions}
 If both, returns JSON:  {amount: credits earned on a given user by the school, bonus: credit awarder for the user by the school}
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |QueryParameter|userId||false|string||
 |QueryParameter|schoolId||false|string||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Outputs a JSON object, representation to be defined.|No Content|
@@ -782,72 +781,72 @@ If both, returns JSON:  {amount: credits earned on a given user by the school, b
 |404|Error 404|No Content|
 
 
-#### Tags
+### Tags
 
 * Payments
 
-### GET /transaction/{transactionId}
+## GET /transaction/{transactionId}
 ```
 GET /transaction/{transactionId}
 ```
 
-#### Description
+### Description
 
 Gets a transaction by ID
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|transactionId||true|integer (int32)||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|Transaction|
 |404|Error 404|No Content|
 
 
-#### Tags
+### Tags
 
 * Payments
 
-### GET /transactions/{schoolId}
+## GET /transactions/{schoolId}
 ```
 GET /transactions/{schoolId}
 ```
 
-#### Description
+### Description
 
 Gets all transactions for a given school
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|schoolId||true|integer (int32)||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|Transaction array|
 |404|Error 404|No Content|
 
 
-#### Tags
+### Tags
 
 * Payments
 
-### GET /user
+## GET /user
 ```
 GET /user
 ```
 
-#### Description
+### Description
 
 Gets users according to parameters (will be paged to avoid huge lists).
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |QueryParameter|startPage|Index of the page to fetch|false|string||
@@ -855,84 +854,84 @@ Gets users according to parameters (will be paged to avoid huge lists).
 |QueryParameter|type|User type to fetch|false|string||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|User array|
 |404|Error 404|No Content|
 
 
-#### Tags
+### Tags
 
 * Users
 
-### POST /user
+## POST /user
 ```
 POST /user
 ```
 
-#### Description
+### Description
 
 Creates a new user.
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |BodyParameter|body||false|User||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
 |400|Error 400|No Content|
 
 
-#### Tags
+### Tags
 
 * Users
 
-### POST /user/stub
+## POST /user/stub
 ```
 POST /user/stub
 ```
 
-#### Description
+### Description
 
 Creates a new stub user.
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |BodyParameter|body||false|User||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
 
 
-#### Tags
+### Tags
 
 * Users
 
-### GET /user/{userId}
+## GET /user/{userId}
 ```
 GET /user/{userId}
 ```
 
-#### Description
+### Description
 
 Gets a user by ID
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|userId|ID of the user to work with|true|integer (int64)||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|User array|
@@ -940,27 +939,27 @@ Gets a user by ID
 |404|Error 404|No Content|
 
 
-#### Tags
+### Tags
 
 * Users
 
-### PUT /user/{userId}
+## PUT /user/{userId}
 ```
 PUT /user/{userId}
 ```
 
-#### Description
+### Description
 
 Updates a selected user
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|userId|ID of the user to work with|true|integer (int64)||
 |BodyParameter|body||false|User||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
@@ -969,26 +968,26 @@ Updates a selected user
 |405|Error 405|No Content|
 
 
-#### Tags
+### Tags
 
 * Users
 
-### DELETE /user/{userId}
+## DELETE /user/{userId}
 ```
 DELETE /user/{userId}
 ```
 
-#### Description
+### Description
 
 Deletes a user by ID
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|userId|ID of the user to work with|true|integer (int64)||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
@@ -996,57 +995,57 @@ Deletes a user by ID
 |404|Error 404|No Content|
 
 
-#### Tags
+### Tags
 
 * Users
 
-### GET /user/{userId}/feedbacks
+## GET /user/{userId}/feedbacks
 ```
 GET /user/{userId}/feedbacks
 ```
 
-#### Description
+### Description
 
 Gets all user feedbacks
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|userId||true|integer (int32)||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200||Feedback array|
 
 
-#### Tags
+### Tags
 
 * Users
 
-### GET /user/{userId}/messages
+## GET /user/{userId}/messages
 ```
 GET /user/{userId}/messages
 ```
 
-#### Description
+### Description
 
 Gets all user messages.
 
-#### Parameters
+### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|userId|ID of the user to get the messages for|true|integer (int32)||
 
 
-#### Responses
+### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200||Message array|
 
 
-#### Tags
+### Tags
 
 * Users
 
