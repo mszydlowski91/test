@@ -1,4 +1,4 @@
-## Paths
+Paths
 ### POST /bundle
 ```
 POST /bundle
