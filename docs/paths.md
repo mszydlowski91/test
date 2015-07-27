@@ -1,5 +1,5 @@
 ## Paths
-### Adds a new bundle
+### POST /bundle
 ```
 POST /bundle
 ```
@@ -24,7 +24,7 @@ Adds a new bundle
 
 * Lesson
 
-### Gets a bundle by ID
+### GET /bundle/{bundleId}
 ```
 GET /bundle/{bundleId}
 ```
@@ -50,7 +50,7 @@ Gets a bundle by ID
 
 * Lesson
 
-### Modifies an existing bundle
+### PUT /bundle/{bundleId}
 ```
 PUT /bundle/{bundleId}
 ```
@@ -76,7 +76,7 @@ Modifies an existing bundle
 
 * Lesson
 
-### Deletes a bundle
+### DELETE /bundle/{bundleId}
 ```
 DELETE /bundle/{bundleId}
 ```
@@ -102,7 +102,7 @@ Deletes a bundle
 
 * Lesson
 
-### Removes a lesson from a bundle
+### DELETE /bundle/{bundleId}/lesson
 ```
 DELETE /bundle/{bundleId}/lesson
 ```
@@ -128,7 +128,7 @@ Removes a lesson from a bundle
 
 * Lesson
 
-### Adds a new lesson to the bundle
+### POST /bundle/{bundleId}/lesson
 ```
 POST /bundle/{bundleId}/lesson
 ```
@@ -154,7 +154,7 @@ Adds a new lesson to the bundle
 
 * Lesson
 
-### Adds new feedback to db
+### POST /feedback
 ```
 POST /feedback
 ```
@@ -180,7 +180,7 @@ Adds new feedback to db
 
 * Messages
 
-### Creates a new generator
+### POST /generator
 ```
 POST /generator
 ```
@@ -206,7 +206,7 @@ Creates a new generator
 
 * Lesson
 
-### Gets a generator by ID
+### GET /generator/{generatorId}
 ```
 GET /generator/{generatorId}
 ```
@@ -231,7 +231,7 @@ Gets a generator by ID
 
 * Lesson
 
-### Edits an existing generator
+### PUT /generator/{generatorId}
 ```
 PUT /generator/{generatorId}
 ```
@@ -260,7 +260,7 @@ Edits an existing generator
 
 * Lesson
 
-### Deletes a generator
+### DELETE /generator/{generatorId}
 ```
 DELETE /generator/{generatorId}
 ```
@@ -286,7 +286,7 @@ Deletes a generator
 
 * Lesson
 
-### Gets lessons by parameters
+### GET /lesson
 ```
 GET /lesson
 ```
@@ -325,7 +325,7 @@ Gets lessons by parameters
 
 * Lesson
 
-### Creates a new lesson
+### POST /lesson
 ```
 POST /lesson
 ```
@@ -344,7 +344,7 @@ Creates a new lesson
 
 * Lesson
 
-### Gets a lesson by ID
+### GET /lesson/{lessonId}
 ```
 GET /lesson/{lessonId}
 ```
@@ -370,7 +370,7 @@ Gets a lesson by ID
 
 * Lesson
 
-### Modifies an existing lesson
+### PUT /lesson/{lessonId}
 ```
 PUT /lesson/{lessonId}
 ```
@@ -399,7 +399,7 @@ Modifies an existing lesson
 
 * Lesson
 
-### Deletes a lesson by ID
+### DELETE /lesson/{lessonId}
 ```
 DELETE /lesson/{lessonId}
 ```
@@ -425,7 +425,7 @@ Deletes a lesson by ID
 
 * Lesson
 
-### Get the assigned instructor
+### GET /lesson/{lessonId}/assignment
 ```
 GET /lesson/{lessonId}/assignment
 ```
@@ -451,7 +451,7 @@ Get the assigned instructor
 
 * Lesson
 
-### Changes the current lesson instructor
+### PUT /lesson/{lessonId}/assignment/{instructorId}
 ```
 PUT /lesson/{lessonId}/assignment/{instructorId}
 ```
@@ -481,7 +481,7 @@ Changes the current lesson instructor
 
 * Lesson
 
-### Removes or adds a participant to a lesson
+### PUT /lesson/{lessonId}/participant/{participantId}
 ```
 PUT /lesson/{lessonId}/participant/{participantId}
 ```
@@ -511,7 +511,7 @@ Removes or adds a participant to a lesson
 
 * Lesson
 
-### Stub login method
+### POST /login
 ```
 POST /login
 ```
@@ -531,7 +531,7 @@ Stub login method
 
 * Default
 
-### Stub logout method
+### POST /logout
 ```
 POST /logout
 ```
@@ -550,7 +550,7 @@ Stub logout method
 
 * Default
 
-### Gets messages having specific parameters
+### GET /message
 ```
 GET /message
 ```
@@ -570,7 +570,7 @@ Gets messages having specific parameters
 
 * Messages
 
-### Adds a new message to db
+### POST /message
 ```
 POST /message
 ```
@@ -596,7 +596,7 @@ Adds a new message to db
 
 * Messages
 
-### Gets a message by id
+### GET /message/{messageId}
 ```
 GET /message/{messageId}
 ```
@@ -622,7 +622,7 @@ Gets a message by id
 
 * Messages
 
-### Deletes a message
+### DELETE /message/{messageId}
 ```
 DELETE /message/{messageId}
 ```
@@ -648,7 +648,7 @@ Deletes a message
 
 * Messages
 
-### Creates a new school
+### POST /school
 ```
 POST /school
 ```
@@ -674,7 +674,7 @@ Creates a new school
 
 * School
 
-### Gets a school by ID
+### GET /school/{schoolId}
 ```
 GET /school/{schoolId}
 ```
@@ -700,7 +700,7 @@ Gets a school by ID
 
 * School
 
-### Modifies an existing school
+### PUT /school/{schoolId}
 ```
 PUT /school/{schoolId}
 ```
@@ -729,7 +729,7 @@ Modifies an existing school
 
 * School
 
-### Creates a new transaction
+### POST /transaction
 ```
 POST /transaction
 ```
@@ -755,8 +755,7 @@ Creates a new transaction
 
 * Payments
 
-### If userId is specifiec, returns JSON: {amount: paidCredit, bonus:savedCredit} 
-If schoolId, returns JSON:  {amount: earn
+### GET /transaction/summary
 ```
 GET /transaction/summary
 ```
@@ -787,7 +786,7 @@ If both, returns JSON:  {amount: credits earned on a given user by the school, b
 
 * Payments
 
-### Gets a transaction by ID
+### GET /transaction/{transactionId}
 ```
 GET /transaction/{transactionId}
 ```
@@ -813,7 +812,7 @@ Gets a transaction by ID
 
 * Payments
 
-### Gets all transactions for a given school
+### GET /transactions/{schoolId}
 ```
 GET /transactions/{schoolId}
 ```
@@ -839,7 +838,7 @@ Gets all transactions for a given school
 
 * Payments
 
-### Gets users according to parameters (will be paged to avoid huge lists).
+### GET /user
 ```
 GET /user
 ```
@@ -867,7 +866,7 @@ Gets users according to parameters (will be paged to avoid huge lists).
 
 * Users
 
-### Creates a new user.
+### POST /user
 ```
 POST /user
 ```
@@ -893,7 +892,7 @@ Creates a new user.
 
 * Users
 
-### Creates a new stub user.
+### POST /user/stub
 ```
 POST /user/stub
 ```
@@ -918,7 +917,7 @@ Creates a new stub user.
 
 * Users
 
-### Gets a user by ID
+### GET /user/{userId}
 ```
 GET /user/{userId}
 ```
@@ -945,7 +944,7 @@ Gets a user by ID
 
 * Users
 
-### Updates a selected user
+### PUT /user/{userId}
 ```
 PUT /user/{userId}
 ```
@@ -974,7 +973,7 @@ Updates a selected user
 
 * Users
 
-### Deletes a user by ID
+### DELETE /user/{userId}
 ```
 DELETE /user/{userId}
 ```
@@ -1001,7 +1000,7 @@ Deletes a user by ID
 
 * Users
 
-### Gets all user feedbacks
+### GET /user/{userId}/feedbacks
 ```
 GET /user/{userId}/feedbacks
 ```
@@ -1026,7 +1025,7 @@ Gets all user feedbacks
 
 * Users
 
-### Gets all user messages.
+### GET /user/{userId}/messages
 ```
 GET /user/{userId}/messages
 ```
