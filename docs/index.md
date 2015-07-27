@@ -1,6 +1,5 @@
 # Skipodium API
 
-## Overview
 REST-ful API used to communicate with the Skipodium backend.
 
 ### Version information
