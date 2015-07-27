@@ -1,4 +1,3 @@
-
 ### Address
 
 Internal object of a School entity.
