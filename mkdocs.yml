@@ -1,1 +1,3 @@
 site_name: Skipodium API Docs
+pages:
+- Home: overview.md
