@@ -1,3 +1,5 @@
 site_name: Skipodium API Docs
 pages:
 - Overview: overview.md
+- Definitions: definitions.md
+- Paths: paths.md
