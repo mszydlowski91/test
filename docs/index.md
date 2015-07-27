@@ -1,17 +1,22 @@
-# Welcome to MkDocs
+# Skipodium API
 
-For full documentation visit [mkdocs.org](http://mkdocs.org).
+## Overview
+REST-ful API used to communicate with the Skipodium backend.
 
-## Commands
+### Version information
+Version: 0.0.0
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs help` - Print this help message.
+### Contact information
+Contact: Blue Brick API Team
+Contact Email: adam.domagalski@blue-brick.com
 
-## Project layout
+### URI scheme
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+### Tags
+
+* Default
+* School
+* Messages
+* Users
+* Lesson
+* Payments
