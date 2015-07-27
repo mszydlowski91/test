@@ -1,0 +1,2306 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "REST-ful API used to communicate with the Skipodium backend.",
+        "version": "0.0.0",
+        "title": "Skipodium API",
+        "contact": {
+            "name": "Blue Brick API Team",
+            "url": "",
+            "email": "adam.domagalski@blue-brick.com"
+        }
+    },
+    "tags": [
+        {
+            "name": "Default"
+        },
+        {
+            "name": "School"
+        },
+        {
+            "name": "Messages"
+        },
+        {
+            "name": "Users"
+        },
+        {
+            "name": "Lesson"
+        },
+        {
+            "name": "Payments"
+        }
+    ],
+    "paths": {
+        "/bundle": {
+            "post": {
+                "tags": [
+                    "Lesson"
+                ],
+                "summary": "Adds a new bundle",
+                "description": "Adds a new bundle",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Bundle"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/bundle/{bundleId}": {
+            "get": {
+                "tags": [
+                    "Lesson"
+                ],
+                "summary": "Gets a bundle by ID",
+                "description": "Gets a bundle by ID",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "bundleId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Bundle"
+                        }
+                    },
+                    "404": {
+                        "description": "Error 404"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Lesson"
+                ],
+                "summary": "Modifies an existing bundle",
+                "description": "Modifies an existing bundle",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "bundleId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Bundle"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Lesson"
+                ],
+                "summary": "Deletes a bundle",
+                "description": "Deletes a bundle",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "bundleId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Error 404"
+                    }
+                }
+            }
+        },
+        "/bundle/{bundleId}/lesson": {
+            "post": {
+                "tags": [
+                    "Lesson"
+                ],
+                "summary": "Adds a new lesson to the bundle",
+                "description": "Adds a new lesson to the bundle",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Lesson"
+                        }
+                    },
+                    {
+                        "name": "bundleId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Lesson"
+                ],
+                "summary": "Removes a lesson from a bundle",
+                "description": "Removes a lesson from a bundle",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "bundleId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Error 404"
+                    }
+                }
+            }
+        },
+        "/feedback": {
+            "post": {
+                "tags": [
+                    "Messages"
+                ],
+                "summary": "Adds new feedback to db",
+                "description": "Adds new feedback to db",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Feedback"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Error 400"
+                    }
+                }
+            }
+        },
+        "/generator": {
+            "post": {
+                "tags": [
+                    "Lesson"
+                ],
+                "summary": "Creates a new generator",
+                "description": "Creates a new generator",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Generator"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Error 400"
+                    }
+                }
+            }
+        },
+        "/generator/{generatorId}": {
+            "get": {
+                "tags": [
+                    "Lesson"
+                ],
+                "summary": "Gets a generator by ID",
+                "description": "Gets a generator by ID",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "generatorId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Lesson"
+                ],
+                "summary": "Edits an existing generator",
+                "description": "Edits an existing generator",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Generator"
+                        }
+                    },
+                    {
+                        "name": "generatorId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Error 400"
+                    },
+                    "404": {
+                        "description": "Error 404"
+                    },
+                    "405": {
+                        "description": "Error 405"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Lesson"
+                ],
+                "summary": "Deletes a generator",
+                "description": "Deletes a generator",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "generatorId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Error 404"
+                    }
+                }
+            }
+        },
+        "/lesson": {
+            "get": {
+                "tags": [
+                    "Lesson"
+                ],
+                "summary": "Gets lessons by parameters",
+                "description": "Gets lessons by parameters",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "maxPrice",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "bookingType",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "schoolId",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "instructorId",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "speciality",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "level",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "meetingPoint",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "dateFrom",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "dateTo",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "clientSource",
+                        "in": "query",
+                        "description": "Skipodium user, manually booked by school, white label etc",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "booked",
+                        "in": "query",
+                        "description": "Whether it's already booked or not",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "generatorId",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "bundled",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "single",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Lesson"
+                        }
+                    },
+                    "404": {
+                        "description": "Error 404"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Lesson"
+                ],
+                "summary": "Creates a new lesson",
+                "description": "Creates a new lesson",
+                "consumes": [],
+                "produces": [],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/lesson/{lessonId}": {
+            "get": {
+                "tags": [
+                    "Lesson"
+                ],
+                "summary": "Gets a lesson by ID",
+                "description": "Gets a lesson by ID",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "lessonId",
+                        "in": "path",
+                        "description": "ID of the lesson to work with.",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Lesson"
+                        }
+                    },
+                    "404": {
+                        "description": "Error 404"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Lesson"
+                ],
+                "summary": "Modifies an existing lesson",
+                "description": "Modifies an existing lesson",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "lessonId",
+                        "in": "path",
+                        "description": "ID of the lesson to work with.",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Lesson"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Error 400"
+                    },
+                    "404": {
+                        "description": "Error 404"
+                    },
+                    "405": {
+                        "description": "Error 405"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Lesson"
+                ],
+                "summary": "Deletes a lesson by ID",
+                "description": "Deletes a lesson by ID",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "lessonId",
+                        "in": "path",
+                        "description": "ID of the lesson to work with.",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Error 404"
+                    }
+                }
+            }
+        },
+        "/lesson/{lessonId}/assignment": {
+            "get": {
+                "tags": [
+                    "Lesson"
+                ],
+                "summary": "Get the assigned instructor",
+                "description": "Get the assigned instructor",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "lessonId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/User"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Error 404"
+                    }
+                }
+            }
+        },
+        "/lesson/{lessonId}/assignment/{instructorId}": {
+            "put": {
+                "tags": [
+                    "Lesson"
+                ],
+                "summary": "Changes the current lesson instructor",
+                "description": "Changes the current lesson instructor",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "lessonId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "instructorId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Error 400"
+                    },
+                    "404": {
+                        "description": "Error 404"
+                    }
+                }
+            }
+        },
+        "/lesson/{lessonId}/participant/{participantId}": {
+            "put": {
+                "tags": [
+                    "Lesson"
+                ],
+                "summary": "Removes or adds a participant to a lesson",
+                "description": "Removes or adds a participant to a lesson",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "lessonId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "participantId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Lesson"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Error 400"
+                    },
+                    "404": {
+                        "description": "Error 404"
+                    },
+                    "405": {
+                        "description": "Error 405"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "Default"
+                ],
+                "summary": "Stub login method",
+                "description": "Stub login method",
+                "consumes": [],
+                "produces": [],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Error 400"
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "Default"
+                ],
+                "summary": "Stub logout method",
+                "description": "Stub logout method",
+                "consumes": [],
+                "produces": [],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/message": {
+            "get": {
+                "tags": [
+                    "Messages"
+                ],
+                "summary": "Gets messages having specific parameters",
+                "description": "Gets messages having specific parameters",
+                "consumes": [],
+                "produces": [],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Error 404"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Messages"
+                ],
+                "summary": "Adds a new message to db",
+                "description": "Adds a new message to db",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Message"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Error 400"
+                    }
+                }
+            }
+        },
+        "/message/{messageId}": {
+            "get": {
+                "tags": [
+                    "Messages"
+                ],
+                "summary": "Gets a message by id",
+                "description": "Gets a message by id",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "messageId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Message"
+                        }
+                    },
+                    "404": {
+                        "description": "Error 404"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Messages"
+                ],
+                "summary": "Deletes a message",
+                "description": "Deletes a message",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "messageId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Error 404"
+                    }
+                }
+            }
+        },
+        "/school": {
+            "post": {
+                "tags": [
+                    "School"
+                ],
+                "summary": "Creates a new school",
+                "description": "Creates a new school",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/School"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Error 400"
+                    }
+                }
+            }
+        },
+        "/school/{schoolId}": {
+            "get": {
+                "tags": [
+                    "School"
+                ],
+                "summary": "Gets a school by ID",
+                "description": "Gets a school by ID",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "schoolId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/School"
+                        }
+                    },
+                    "404": {
+                        "description": "Error 404"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "School"
+                ],
+                "summary": "Modifies an existing school",
+                "description": "Modifies an existing school",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "schoolId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/School"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Error 400"
+                    },
+                    "404": {
+                        "description": "Error 404"
+                    },
+                    "405": {
+                        "description": "Error 405"
+                    }
+                }
+            }
+        },
+        "/transaction": {
+            "post": {
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "Creates a new transaction",
+                "description": "Creates a new transaction",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Transaction"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Error 400"
+                    }
+                }
+            }
+        },
+        "/transaction/summary": {
+            "get": {
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "If userId is specifiec, returns JSON: {amount: paidCredit, bonus:savedCredit} \nIf schoolId, returns JSON:  {amount: earn",
+                "description": "If userId is specifiec, returns JSON: {amount: paidCredit, bonus:savedCredit} \nIf schoolId, returns JSON:  {amount: earnedCredit, bonus: credit gave away in promotions}\nIf both, returns JSON:  {amount: credits earned on a given user by the school, bonus: credit awarder for the user by the school}",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "schoolId",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Outputs a JSON object, representation to be defined."
+                    },
+                    "401": {
+                        "description": "Error 401"
+                    },
+                    "403": {
+                        "description": "Error 403"
+                    },
+                    "404": {
+                        "description": "Error 404"
+                    }
+                }
+            }
+        },
+        "/transaction/{transactionId}": {
+            "get": {
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "Gets a transaction by ID",
+                "description": "Gets a transaction by ID",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "transactionId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Transaction"
+                        }
+                    },
+                    "404": {
+                        "description": "Error 404"
+                    }
+                }
+            }
+        },
+        "/transactions/{schoolId}": {
+            "get": {
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "Gets all transactions for a given school",
+                "description": "Gets all transactions for a given school",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "schoolId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Transaction"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Error 404"
+                    }
+                }
+            }
+        },
+        "/user": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Gets users according to parameters (will be paged to avoid huge lists).",
+                "description": "Gets users according to parameters (will be paged to avoid huge lists).",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "startPage",
+                        "in": "query",
+                        "description": "Index of the page to fetch",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "Size of a page",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "User type to fetch",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/User"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Error 404"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Creates a new user.",
+                "description": "Creates a new user.",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Error 400"
+                    }
+                }
+            }
+        },
+        "/user/stub": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Creates a new stub user.",
+                "description": "Creates a new stub user.",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/user/{userId}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Gets a user by ID",
+                "description": "Gets a user by ID",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "description": "ID of the user to work with",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/User"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error 400"
+                    },
+                    "404": {
+                        "description": "Error 404"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Updates a selected user",
+                "description": "Updates a selected user",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "description": "ID of the user to work with",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Error 400"
+                    },
+                    "404": {
+                        "description": "Error 404"
+                    },
+                    "405": {
+                        "description": "Error 405"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Deletes a user by ID",
+                "description": "Deletes a user by ID",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "description": "ID of the user to work with",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Error 400"
+                    },
+                    "404": {
+                        "description": "Error 404"
+                    }
+                }
+            }
+        },
+        "/user/{userId}/feedbacks": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Gets all user feedbacks",
+                "description": "Gets all user feedbacks",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Feedback"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/{userId}/messages": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Gets all user messages.",
+                "description": "Gets all user messages.",
+                "consumes": [],
+                "produces": [],
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "description": "ID of the user to get the messages for",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Message"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Address": {
+            "required": [
+                "_id",
+                "geo"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": "1"
+                },
+                "city": {
+                    "type": "string",
+                    "example": "sample city"
+                },
+                "country": {
+                    "type": "string",
+                    "example": "sample country"
+                },
+                "geo": {
+                    "$ref": "#/definitions/Geo"
+                },
+                "street": {
+                    "type": "string",
+                    "example": "sample street"
+                },
+                "streetNum": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": "1"
+                },
+                "zipcode": {
+                    "type": "string",
+                    "example": "sample zipcode"
+                }
+            },
+            "description": "Internal object of a School entity."
+        },
+        "Authentication": {
+            "required": [
+                "_id",
+                "emails",
+                "password",
+                "type"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": "1"
+                },
+                "emails": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "example": "sample emails"
+                    }
+                },
+                "name": {
+                    "type": "string",
+                    "example": "sample name"
+                },
+                "ownerId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": "1"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "sample password"
+                },
+                "token": {
+                    "type": "string",
+                    "example": "sample token"
+                },
+                "type": {
+                    "type": "string",
+                    "example": "sample type"
+                },
+                "username": {
+                    "type": "string",
+                    "example": "sample username"
+                }
+            }
+        },
+        "BankDetails": {
+            "required": [
+                "_id",
+                "accountNumber",
+                "currency"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": "1"
+                },
+                "accountNumber": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": "1"
+                },
+                "currency": {
+                    "type": "string",
+                    "example": "sample currency"
+                }
+            },
+            "description": "This will be an internal object of an entity of type School."
+        },
+        "Bundle": {
+            "required": [
+                "_id",
+                "deleted",
+                "discount",
+                "mandatoryFlag",
+                "name",
+                "publicFlag",
+                "schoolId"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": "1"
+                },
+                "comment": {
+                    "type": "string",
+                    "example": "sample comment"
+                },
+                "deleted": {
+                    "type": "boolean",
+                    "example": "false",
+                    "description": "Says whether the bundle has been deleted. If true - it is scheduled for permanent deletion."
+                },
+                "discount": {
+                    "type": "number",
+                    "format": "double",
+                    "example": "1.1",
+                    "description": "The discount the user gets for this lesson"
+                },
+                "generatorId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": "1"
+                },
+                "lessons": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "1"
+                    }
+                },
+                "mandatoryFlag": {
+                    "type": "boolean",
+                    "example": "false"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "sample name"
+                },
+                "publicFlag": {
+                    "type": "boolean",
+                    "example": "false"
+                },
+                "schoolId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": "1"
+                }
+            }
+        },
+        "Feedback": {
+            "required": [
+                "_id",
+                "fromWhom",
+                "lessonId",
+                "schoolId",
+                "toWhom"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": "1"
+                },
+                "fromWhom": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": "1"
+                },
+                "lessonId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": "1"
+                },
+                "role": {
+                    "type": "string",
+                    "example": "sample role"
+                },
+                "schoolId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": "1"
+                },
+                "toWhom": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": "1"
+                }
+            }
+        },
+        "Generator": {
+            "required": [
+                "_id",
+                "deleted",
+                "name",
+                "type"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": "1"
+                },
+                "comment": {
+                    "type": "string",
+                    "example": "sample comment"
+                },
+                "deleted": {
+                    "type": "boolean",
+                    "example": "false",
+                    "description": "Says whether the generator has been deleted. If true - it is scheduled for permanent deletion."
+                },
+                "generatedLessons": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "1"
+                    }
+                },
+                "lessonsManaged": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "1"
+                    }
+                },
+                "name": {
+                    "type": "string",
+                    "example": "sample name"
+                },
+                "type": {
+                    "type": "string",
+                    "example": "sample type"
+                }
+            }
+        },
+        "Geo": {
+            "required": [
+                "_id",
+                "lat",
+                "lng"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": "1"
+                },
+                "lat": {
+                    "type": "number",
+                    "format": "double",
+                    "example": "1.1"
+                },
+                "lng": {
+                    "type": "number",
+                    "format": "double",
+                    "example": "1.1"
+                }
+            },
+            "description": "Internal coordinate object used for meeting points."
+        },
+        "Lesson": {
+            "required": [
+                "_id",
+                "booked",
+                "bookingType",
+                "clientSource",
+                "deleted",
+                "level",
+                "meetingPoint",
+                "name",
+                "participants",
+                "schoolId"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": "1"
+                },
+                "booked": {
+                    "type": "boolean",
+                    "example": "false",
+                    "description": "Whether it is booked or not"
+                },
+                "bookingType": {
+                    "type": "string",
+                    "example": "sample bookingType",
+                    "description": "Whether it's booked by one or multiple persons"
+                },
+                "bundleId": {
+                    "type": "string",
+                    "example": "1",
+                    "description": "Id of the bundle containing the lesson"
+                },
+                "clientSource": {
+                    "type": "string",
+                    "example": "sample clientSource",
+                    "description": "Skipodium user, manually booked by school, white label etc"
+                },
+                "comment": {
+                    "type": "string",
+                    "example": "sample comment"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "deleted": {
+                    "type": "boolean",
+                    "example": "false",
+                    "description": "Says whether the lesson has been deleted. If true - it is scheduled for permanent deletion."
+                },
+                "discount": {
+                    "type": "number",
+                    "format": "double",
+                    "example": "1.1",
+                    "description": "The discount the user gets for this lesson"
+                },
+                "generatorId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": "1"
+                },
+                "hourFrom": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "hourTo": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "instructorBonusFlag": {
+                    "type": "boolean",
+                    "example": "false",
+                    "description": "Bonus the instructor gets for the lesson"
+                },
+                "instructorId": {
+                    "type": "string",
+                    "example": "1"
+                },
+                "level": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "example": "sample level"
+                    }
+                },
+                "maxAge": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": "1"
+                },
+                "maxParticipants": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": "1"
+                },
+                "meetingPoint": {
+                    "$ref": "#/definitions/Geo"
+                },
+                "minAge": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": "1"
+                },
+                "minParticipants": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": "1"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "sample name"
+                },
+                "participants": {
+                    "type": "array",
+                    "description": "List of ids of users attending this lesson",
+                    "items": {
+                        "type": "string",
+                        "example": "sample participants"
+                    }
+                },
+                "prices": {
+                    "type": "array",
+                    "items": {
+                        "type": "number",
+                        "format": "float"
+                    }
+                },
+                "schoolId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": "1"
+                },
+                "specialties": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "example": "sample specialties"
+                    }
+                }
+            }
+        },
+        "MeetingPoint": {
+            "required": [
+                "Geo",
+                "Name",
+                "_id"
+            ],
+            "properties": {
+                "Geo": {
+                    "$ref": "#/definitions/Geo"
+                },
+                "Name": {
+                    "type": "string",
+                    "example": "sample Name"
+                },
+                "_id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": "1"
+                }
+            },
+            "description": "Default meeting point for a lesson"
+        },
+        "Message": {
+            "required": [
+                "_id",
+                "accepted",
+                "datetime",
+                "deleted",
+                "fromId",
+                "important",
+                "read",
+                "role",
+                "timesOff",
+                "toId",
+                "type"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "example": "1"
+                },
+                "accepted": {
+                    "type": "boolean",
+                    "example": "false"
+                },
+                "assignedInstructorId": {
+                    "type": "string",
+                    "example": "sample assignedInstructorId"
+                },
+                "bookerId": {
+                    "type": "string",
+                    "example": "sample bookerId"
+                },
+                "changedFields": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "example": "sample changedFields"
+                    }
+                },
+                "datetime": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "deleted": {
+                    "type": "boolean",
+                    "example": "false",
+                    "description": "Says whether the message has been deleted. If true - it is scheduled for permanent deletion."
+                },
+                "formerInstructorId": {
+                    "type": "string",
+                    "example": "sample formerInstructorId"
+                },
+                "fromId": {
+                    "type": "string",
+                    "example": "1"
+                },
+                "important": {
+                    "type": "boolean",
+                    "example": "false",
+                    "description": "Whether it is in the 'important' category."
+                },
+                "lessonId": {
+                    "type": "string",
+                    "example": "sample lessonId"
+                },
+                "memberId": {
+                    "type": "string",
+                    "example": "sample memberId"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "sample message"
+                },
+                "oldProducts": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "example": "sample oldProducts"
+                    }
+                },
+                "oldRole": {
+                    "type": "string",
+                    "example": "sample oldRole"
+                },
+                "participantId": {
+                    "type": "string",
+                    "example": "sample participantId"
+                },
+                "productId": {
+                    "type": "string",
+                    "example": "sample productId"
+                },
+                "products": {
+                    "type": "array",
+                    "description": "",
+                    "items": {
+                        "type": "string",
+                        "example": "sample products"
+                    }
+                },
+                "read": {
+                    "type": "boolean",
+                    "example": "false",
+                    "description": "Whether it has already been read."
+                },
+                "requestId": {
+                    "type": "string",
+                    "example": "sample requestId"
+                },
+                "role": {
+                    "type": "string",
+                    "example": "sample role"
+                },
+                "timesOff": {
+                    "description": "A list of periods where the instructor will not be available",
+                    "$ref": "#/definitions/TimeInterval"
+                },
+                "toId": {
+                    "type": "string",
+                    "example": "1"
+                },
+                "type": {
+                    "type": "string",
+                    "example": "sample type",
+                    "description": "Type of message - request, notification etc."
+                }
+            },
+            "description": "A generic Message entity, having all possible fields that could appear in any message type. \nTypes and type-specific fields:\n - time off request: timesOff, timeOffRepeats\n - lesson request: role, accepted\n - lesson booked/unbooked: lessonId, bookerId, participantId\n - assigned lesson: memberId, assignedInstructorId, lessonId\n - unassigned lesson: memberId, lessonId, formerInstructorId\n - product added/removed/changed: productId, changedFields\n - product order changed: products, oldProducts\n - membership accepted/refused: requestId, memberId\n - membership over/changed: memberId, oldRole"
+        },
+        "School": {
+            "required": [
+                "_id",
+                "address",
+                "bankDetails",
+                "defaultMeetingPoints",
+                "deleted",
+                "email",
+                "employees",
+                "logo",
+                "name",
+                "openingHours",
+                "resort"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": "1"
+                },
+                "address": {
+                    "$ref": "#/definitions/Address"
+                },
+                "bankDetails": {
+                    "$ref": "#/definitions/BankDetails"
+                },
+                "bundles": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "1"
+                    }
+                },
+                "contacts": {
+                    "type": "array",
+                    "description": "A list of phone numbers, emails, or any contact details the school possesses.",
+                    "items": {
+                        "type": "string",
+                        "example": "sample contacts"
+                    }
+                },
+                "defaultMeetingPoints": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/MeetingPoint"
+                    }
+                },
+                "deleted": {
+                    "type": "boolean",
+                    "example": "false",
+                    "description": "Says whether the school has been deleted. If true - it is scheduled for permanent deletion."
+                },
+                "email": {
+                    "type": "string",
+                    "example": "sample email"
+                },
+                "employees": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "example": "1"
+                    }
+                },
+                "feedbacks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Feedback"
+                    }
+                },
+                "generators": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Generator"
+                    }
+                },
+                "lessons": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "1"
+                    }
+                },
+                "logo": {
+                    "type": "string",
+                    "example": "sample logo"
+                },
+                "messages": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Message"
+                    }
+                },
+                "name": {
+                    "type": "string",
+                    "example": "sample name",
+                    "description": ""
+                },
+                "openingHours": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "School working time (internal object with start and end time)."
+                },
+                "resort": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "example": "sample resort"
+                    }
+                }
+            },
+            "description": "Information about a given school"
+        },
+        "TimeInterval": {
+            "required": [
+                "_id",
+                "endTime",
+                "startTime"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "example": "sample _id"
+                },
+                "endTime": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "startTime": {
+                    "type": "string",
+                    "format": "date"
+                }
+            },
+            "description": "An entity representing a pair of times - starting and ending."
+        },
+        "TimeOffRepeats": {
+            "required": [
+                "_id",
+                "accepted",
+                "end",
+                "frequency",
+                "start"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "example": "sample _id"
+                },
+                "accepted": {
+                    "type": "boolean",
+                    "example": "false"
+                },
+                "end": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "frequency": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": "1"
+                },
+                "start": {
+                    "type": "string",
+                    "format": "date"
+                }
+            }
+        },
+        "Transaction": {
+            "required": [
+                "_id",
+                "amount",
+                "currency",
+                "date",
+                "schoolId",
+                "userId"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": "1"
+                },
+                "amount": {
+                    "type": "number",
+                    "format": "double",
+                    "example": "1.1"
+                },
+                "bonus": {
+                    "type": "number",
+                    "format": "double",
+                    "example": "1.1",
+                    "description": "Amount of bonus money awarded in case of a special transaction"
+                },
+                "comment": {
+                    "type": "string",
+                    "example": "sample comment"
+                },
+                "currency": {
+                    "type": "string",
+                    "example": "sample currency"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "1.1"
+                },
+                "productId": {
+                    "type": "string",
+                    "example": "sample productId",
+                    "description": "ID of lesson or bundle ordered (or null if it's a refund/referral etc)"
+                },
+                "schoolId": {
+                    "type": "string",
+                    "example": "1.1"
+                },
+                "transactionType": {
+                    "type": "string",
+                    "example": "sample transactionType"
+                },
+                "userId": {
+                    "type": "string",
+                    "example": "1.1"
+                }
+            },
+            "description": "An entity representing a single transaction made by a user or  a school."
+        },
+        "User": {
+            "required": [
+                "_id",
+                "active",
+                "deleted",
+                "email",
+                "name",
+                "privileges",
+                "userType"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": "1"
+                },
+                "active": {
+                    "type": "boolean",
+                    "example": "false",
+                    "description": "Says whether the user confirmed the registration. Also becomes inactive upon account deletion request."
+                },
+                "authentications": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Authentication"
+                    }
+                },
+                "deleted": {
+                    "type": "boolean",
+                    "example": "false",
+                    "description": "Says whether the user has been deleted. If true - it is scheduled for permanent deletion."
+                },
+                "email": {
+                    "type": "string",
+                    "example": "sample email"
+                },
+                "feedbacksIn": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Feedback"
+                    }
+                },
+                "feedbacksOut": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Feedback"
+                    }
+                },
+                "languages": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "example": "sample languages"
+                    }
+                },
+                "lessons": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "example": "sample lessons"
+                    }
+                },
+                "name": {
+                    "type": "string",
+                    "example": "sample name"
+                },
+                "notifications": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Message"
+                    }
+                },
+                "permissions": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "example": "sample permissions"
+                    }
+                },
+                "phoneNumber": {
+                    "type": "string",
+                    "example": "sample phoneNumber"
+                },
+                "photoURL": {
+                    "type": "string",
+                    "example": "sample photoURL"
+                },
+                "privileges": {
+                    "type": "array",
+                    "description": "A list of privileges the user has",
+                    "items": {
+                        "type": "string",
+                        "example": "sample privileges"
+                    }
+                },
+                "resetPasswordToken": {
+                    "type": "string",
+                    "example": "sample resetPasswordToken"
+                },
+                "schoolId": {
+                    "type": "array",
+                    "description": "ids of schools this user is an instructor of",
+                    "items": {
+                        "type": "string",
+                        "example": "sample schoolId"
+                    }
+                },
+                "schools": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "example": "1"
+                    }
+                },
+                "specializations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "example": "sample specializations"
+                    }
+                },
+                "timesOff": {
+                    "type": "array",
+                    "description": "A list of periods where the instructor is unavailable",
+                    "items": {
+                        "$ref": "#/definitions/TimeInterval"
+                    }
+                },
+                "userType": {
+                    "type": "string",
+                    "example": "sample userType",
+                    "description": "Type of the user: regular, instructor, director, manager."
+                }
+            }
+        }
+    }
+}
