@@ -7,7 +7,7 @@
 		"contact": {
 			"name": "Blue Brick API Team",
 			"url": "",
-			"email": "adam.domagalski@blue-brick.com \n michal.szydlowski@blue-brick.com"
+			"email": "\nadam.domagalski@blue-brick.com"
 		}
 	},
 	"tags": [
@@ -2496,7 +2496,7 @@
 					"description": "Type of message - request, notification etc."
 				}
 			},
-			"description": "A generic Message entity, having all possible fields that could appear in any message type. \nTypes and type-specific fields:\n - time off request: timesOff, timeOffRepeats\n - lesson request: role, accepted\n - lesson booked/unbooked: lessonId, bookerId, participantId\n - assigned lesson: memberId, assignedInstructorId, lessonId\n - unassigned lesson: memberId, lessonId, formerInstructorId\n - product added/removed/changed: productId, changedFields\n - product order changed: products, oldProducts\n - membership accepted/refused: requestId, memberId\n - membership over/changed: memberId, oldRole"
+			"description": "A generic Message entity, having all possible fields that could appear in any message type. \\n\nTypes and type-specific fields:\\n\n - time off request: timesOff, timeOffRepeats\\n\n - lesson request: role, accepted\\n\n - lesson booked/unbooked: lessonId, bookerId, participantId\\n\n - assigned lesson: memberId, assignedInstructorId, lessonId\\n\n - unassigned lesson: memberId, lessonId, formerInstructorId\\n\n - product added/removed/changed: productId, changedFields\\n\n - product order changed: products, oldProducts\\n\n - membership accepted/refused: requestId, memberId\\n\n - membership over/changed: memberId, oldRole\\n"
 		},
 		"MeetingPoint": {
 			"required": [

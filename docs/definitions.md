@@ -44,17 +44,17 @@ An entity representing a single transaction made by a user or  a school.
 
 ### Message
 
-A generic Message entity, having all possible fields that could appear in any message type. 
-Types and type-specific fields:
- - time off request: timesOff, timeOffRepeats
- - lesson request: role, accepted
- - lesson booked/unbooked: lessonId, bookerId, participantId
- - assigned lesson: memberId, assignedInstructorId, lessonId
- - unassigned lesson: memberId, lessonId, formerInstructorId
- - product added/removed/changed: productId, changedFields
- - product order changed: products, oldProducts
- - membership accepted/refused: requestId, memberId
- - membership over/changed: memberId, oldRole
+A generic Message entity, having all possible fields that could appear in any message type. \n
+Types and type-specific fields:\n
+ - time off request: timesOff, timeOffRepeats\n
+ - lesson request: role, accepted\n
+ - lesson booked/unbooked: lessonId, bookerId, participantId\n
+ - assigned lesson: memberId, assignedInstructorId, lessonId\n
+ - unassigned lesson: memberId, lessonId, formerInstructorId\n
+ - product added/removed/changed: productId, changedFields\n
+ - product order changed: products, oldProducts\n
+ - membership accepted/refused: requestId, memberId\n
+ - membership over/changed: memberId, oldRole\n
 
 |Name|Description|Required|Schema|Default|
 |----|----|----|----|----|
