@@ -7,8 +7,7 @@ Version: 1.0.0
 
 ### Contact information
 Contact: Blue Brick API Team
-Contact Email: 
-adam.domagalski@blue-brick.com
+Contact Email: adam.domagalski@blue-brick.com
 
 ### URI scheme
 
