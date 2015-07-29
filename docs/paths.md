@@ -18,11 +18,15 @@ Adds a new bundle
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|403|Invalid data provided.|No Content|
+|405|Method not allowed.|No Content|
 
 
 #### Tags
 
-* Lesson
+* Bundle
 
 ### GET /bundle/{bundleId}
 ```
@@ -43,12 +47,14 @@ Gets a bundle by ID
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|Bundle|
-|404|Error 404|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|404|The element with the given ID does not exist.|No Content|
 
 
 #### Tags
 
-* Lesson
+* Bundle
 
 ### PUT /bundle/{bundleId}
 ```
@@ -70,11 +76,16 @@ Modifies an existing bundle
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|403|Invalid data provided.|No Content|
+|404|The element with the given ID does not exist.|No Content|
+|405|Method not allowed.|No Content|
 
 
 #### Tags
 
-* Lesson
+* Bundle
 
 ### DELETE /bundle/{bundleId}
 ```
@@ -95,38 +106,14 @@ Deletes a bundle
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
-|404|Error 404|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|404|The element with the given ID does not exist.|No Content|
 
 
 #### Tags
 
-* Lesson
-
-### DELETE /bundle/{bundleId}/lesson
-```
-DELETE /bundle/{bundleId}/lesson
-```
-
-#### Description
-
-Removes a lesson from a bundle
-
-#### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|PathParameter|bundleId||true|integer (int32)||
-
-
-#### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|Success|No Content|
-|404|Error 404|No Content|
-
-
-#### Tags
-
-* Lesson
+* Bundle
 
 ### POST /bundle/{bundleId}/lesson
 ```
@@ -140,19 +127,84 @@ Adds a new lesson to the bundle
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|BodyParameter|body||false|Lesson||
 |PathParameter|bundleId||true|integer (int32)||
+|BodyParameter|body||false|Lesson||
 
 
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|403|Invalid data provided.|No Content|
+|405|Method not allowed.|No Content|
 
 
 #### Tags
 
-* Lesson
+* Bundle
+
+### DELETE /bundle/{bundleId}/lesson/{lessonId}
+```
+DELETE /bundle/{bundleId}/lesson/{lessonId}
+```
+
+#### Description
+
+Deletes a lesson from a bundle
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|bundleId||true|string||
+|PathParameter|lessonId||true|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|The lesson has been removed from the bundle.|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|404|The element with the given ID does not exist.|No Content|
+
+
+#### Tags
+
+* Bundle
+
+### GET /feedback
+```
+GET /feedback
+```
+
+#### Description
+
+Get a feedback by parameters
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|QueryParameter|schoolId||false|string||
+|QueryParameter|lessonId||false|string||
+|QueryParameter|senderUserId||false|string||
+|QueryParameter|receiverUserId||false|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|Feedback|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|403|Invalid data provided.|No Content|
+|404|The element with the given ID does not exist.|No Content|
+
+
+#### Tags
+
+* Messages
 
 ### POST /feedback
 ```
@@ -163,17 +215,14 @@ POST /feedback
 
 Adds new feedback to db
 
-#### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|BodyParameter|body||false|Feedback||
-
-
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
-|400|Error 400|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|403|Invalid data provided.|No Content|
+|405|Method not allowed.|No Content|
 
 
 #### Tags
@@ -199,12 +248,15 @@ Creates a new generator
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
-|400|Error 400|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|403|Invalid data provided.|No Content|
+|405|Method not allowed.|No Content|
 
 
 #### Tags
 
-* Lesson
+* Generators
 
 ### GET /generator/{generatorId}
 ```
@@ -225,11 +277,14 @@ Gets a generator by ID
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|404|The element with the given ID does not exist.|No Content|
 
 
 #### Tags
 
-* Lesson
+* Generators
 
 ### PUT /generator/{generatorId}
 ```
@@ -243,8 +298,8 @@ Edits an existing generator
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|BodyParameter|body||false|Generator||
 |PathParameter|generatorId||true|integer (int32)||
+|BodyParameter|body||false|Generator||
 
 
 #### Responses
@@ -252,13 +307,15 @@ Edits an existing generator
 |----|----|----|
 |200|Success|No Content|
 |400|Error 400|No Content|
+|401|Permission not granted.|No Content|
+|403|Invalid data provided.|No Content|
 |404|Error 404|No Content|
-|405|Error 405|No Content|
+|405|Method not allowed.|No Content|
 
 
 #### Tags
 
-* Lesson
+* Generators
 
 ### DELETE /generator/{generatorId}
 ```
@@ -279,12 +336,14 @@ Deletes a generator
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
-|404|Error 404|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|404|The element with the given ID does not exist.|No Content|
 
 
 #### Tags
 
-* Lesson
+* Generators
 
 ### GET /lesson
 ```
@@ -298,27 +357,29 @@ Gets lessons by parameters
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|QueryParameter|maxPrice||false|string||
-|QueryParameter|bookingType||false|string||
-|QueryParameter|schoolId||false|string||
-|QueryParameter|instructorId||false|string||
-|QueryParameter|speciality||false|string||
-|QueryParameter|level||false|string||
-|QueryParameter|meetingPoint||false|string||
-|QueryParameter|dateFrom||false|string||
-|QueryParameter|dateTo||false|string||
-|QueryParameter|clientSource|Skipodium user, manually booked by school, white label etc|false|string||
-|QueryParameter|booked|Whether it's already booked or not|false|string||
-|QueryParameter|generatorId||false|string||
-|QueryParameter|bundled||false|string||
-|QueryParameter|single||false|string||
+|QueryParameter|maxPrice||false|null string array||
+|QueryParameter|bookingType||false|null string array||
+|QueryParameter|schoolId||false|null string array||
+|QueryParameter|instructorId||false|null string array||
+|QueryParameter|speciality||false|null string array||
+|QueryParameter|level||false|null string array||
+|QueryParameter|meetingPoint||false|null string array||
+|QueryParameter|dateFrom||false|null string array||
+|QueryParameter|dateTo||false|null string array||
+|QueryParameter|clientSource|Skipodium user, manually booked by school, white label etc|false|null string array||
+|QueryParameter|booked|Whether it's already booked or not|false|null string array||
+|QueryParameter|generatorId||false|null string array||
+|QueryParameter|bundled||false|null string array||
+|QueryParameter|single||false|null string array||
 
 
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|Lesson|
-|404|Error 404|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|404|No lesson with given matching the provided parameters was found.|No Content|
 
 
 #### Tags
@@ -338,6 +399,10 @@ Creates a new lesson
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|403|Invalid data provided.|No Content|
+|405|Method not allowed.|No Content|
 
 
 #### Tags
@@ -363,7 +428,9 @@ Gets a lesson by ID
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|Lesson|
-|404|Error 404|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|You do not have permission to perform this operation|No Content|
+|404|No lesson with the specified id was found|No Content|
 
 
 #### Tags
@@ -384,15 +451,37 @@ Modifies an existing lesson
 |----|----|----|----|----|----|
 |PathParameter|lessonId|ID of the lesson to work with.|true|integer (int32)||
 |BodyParameter|body||false|Lesson||
+|QueryParameter|id|The id of the lesson to be modified - this parameter IS mandatory.|false|null string array||
+|QueryParameter|bookingType|What kind of booking type should this lesson have.|false|null string array||
+|QueryParameter|bundleId|The id of the bundle this lesson should be part of. Empty  for removing from a bundle.|false|null string array||
+|QueryParameter|comment|Modify the comment of a lesson|false|null string array||
+|QueryParameter|discount|Modify the discount applicable for this lesson (if present must be >= 0)|false|null string array||
+|QueryParameter|generatorId|The id of the generator owning this lesson, if a lesson is edited without specifying this parameter than it will be set to null.|false|null string array||
+|QueryParameter|hourFrom|Starting hour of this lesson, must be less than hourTo|false|null string array||
+|QueryParameter|hourTo|Ending hour of this lesson, must be more than hourFrom|false|null string array||
+|QueryParameter|instructorBonusFlag|Does this lesson provide a bonus for the instructor|false|null string array||
+|QueryParameter|instructorId|The id of the new instructor (null for unassigned). If you only wish to modify the instructor assignment use /lesson{lessonId}/assignment|false|null string array||
+|QueryParameter|level|The levels of this lesson|false|null string array||
+|QueryParameter|maxAge|The max age for participants|false|null string array||
+|QueryParameter|maxParticipants|The maximum amount of participants|false|null string array||
+|QueryParameter|meetingPoint|The meeting point of this lesson|false|null string array||
+|QueryParameter|minAge|Minimal age for this lesson|false|null string array||
+|QueryParameter|minParticipants|Minimal number of participants for the lesson to take place|false|null string array||
+|QueryParameter|name|The name of the lesson|false|null string array||
+|QueryParameter|participants|list of id's of users participating in this lesson. If this is the only value you would like to modify please use /lesson{lessonId}/participant/|false|null string array||
+|QueryParameter|prices|Modifies the prices array for this lesson|false|null string array||
+|QueryParameter|specialties|Modifies the specialities available in this lesson|false|null string array||
 
 
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
-|400|Error 400|No Content|
-|404|Error 404|No Content|
-|405|Error 405|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|403|Invalid data provided.|No Content|
+|404|The element with the given ID does not exist.|No Content|
+|405|Method not allowed.|No Content|
 
 
 #### Tags
@@ -418,7 +507,9 @@ Deletes a lesson by ID
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
-|404|Error 404|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|404|The element with the given ID does not exist.|No Content|
 
 
 #### Tags
@@ -444,7 +535,9 @@ Get the assigned instructor
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|User array|
-|404|Error 404|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|404|The element with the given ID does not exist.|No Content|
 
 
 #### Tags
@@ -458,23 +551,57 @@ PUT /lesson/{lessonId}/assignment/{instructorId}
 
 #### Description
 
-Changes the current lesson instructor
+Change the instructor assigned to the lesson
 
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|PathParameter|lessonId||true|integer (int32)||
-|PathParameter|instructorId||true|integer (int32)||
-|BodyParameter|body||false|User||
-|QueryParameter|id||false|string||
+|PathParameter|instructorId||true|string||
+|PathParameter|lessonId||true|string||
+|BodyParameter|body||false|Lesson||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|The instructor has been changed.|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|403|Invalid data provided.|No Content|
+|404|The element with the given ID does not exist.|No Content|
+|405|Method not allowed.|No Content|
+
+
+#### Tags
+
+* Lessons
+
+### PUT /lesson/{lessonId}/participant
+```
+PUT /lesson/{lessonId}/participant
+```
+
+#### Description
+
+Remove or add a participant to a lesson
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|lessonId||true|string||
+|BodyParameter|body||false|Lesson||
+|QueryParameter|participants|A list id containing all of the participants, in order to remove a participant submit a list without his id (just other participants), if you would like to add a participant submit a list containing his id (and all other participants)|false|null string array||
 
 
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
-|400|Error 400|No Content|
-|404|Error 404|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|403|Invalid data provided.|No Content|
+|404|The element with the given ID does not exist.|No Content|
+|405|Method not allowed.|No Content|
 
 
 #### Tags
@@ -488,28 +615,30 @@ PUT /lesson/{lessonId}/participant/{participantId}
 
 #### Description
 
-Removes or adds a participant to a lesson
+Modifies a lesson participant
 
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|PathParameter|lessonId||true|integer (int32)||
-|PathParameter|participantId||true|integer (int32)||
-|BodyParameter|body||false|Lesson||
+|PathParameter|participantId||true|string||
+|PathParameter|lessonId||true|string||
+|BodyParameter|body||false|User||
 
 
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|400|Error 400|No Content|
-|404|Error 404|No Content|
-|405|Error 405|No Content|
+|200|The participant has been modified.|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|403|Invalid data provided.|No Content|
+|404|The element with the given ID does not exist.|No Content|
+|405|Method not allowed.|No Content|
 
 
 #### Tags
 
-* Lesson
+* Default
 
 ### POST /login
 ```
@@ -524,7 +653,10 @@ Stub login method
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
-|401|Error 400|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|The user has been deleted or is inactive.|No Content|
+|403|Wrong combination of email/password.|No Content|
+|404|No user with a given email found.|No Content|
 
 
 #### Tags
@@ -559,11 +691,25 @@ GET /message
 
 Gets messages having specific parameters
 
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|QueryParameter|toId|Get recieved messages of user - THIS IS A TEST METHOD|false|null string array||
+|QueryParameter|startDate|fetch messages from date range|false|null string array||
+|QueryParameter|TYPE|fetch messages of given type|false|null string array||
+|QueryParameter|unread|fetch only messages that are unread|false|null string array||
+|QueryParameter|fromId|Fetch all messages sent from given person/school|false|null string array||
+|QueryParameter|endDate|Fetch messages up to given date|false|null string array||
+
+
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
-|404|Error 404|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|You do not have sufficient access to perform this operation|No Content|
+|403|The provided input is incorrect, please review it and try again.|No Content|
+|404|There is no data identifiable by the given parameters.|No Content|
 
 
 #### Tags
@@ -589,7 +735,10 @@ Adds a new message to db
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
-|400|Error 400|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|403|Invalid data provided.|No Content|
+|405|Method not allowed.|No Content|
 
 
 #### Tags
@@ -615,7 +764,9 @@ Gets a message by id
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|Message|
-|404|Error 404|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|404|The element with the given ID does not exist.|No Content|
 
 
 #### Tags
@@ -641,12 +792,45 @@ Deletes a message
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
-|404|Error 404|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|404|The element with the given ID does not exist.|No Content|
 
 
 #### Tags
 
 * Messages
+
+### PUT /resetPassword
+```
+PUT /resetPassword
+```
+
+#### Description
+
+Resets a user's password
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|BodyParameter|body||false|User||
+|QueryParameter|email||false|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|The password was reset and a confirmation email is sent.|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|403|Invalid data provided.|No Content|
+|404|The email is not in the database.|No Content|
+|405|Method not allowed.|No Content|
+
+
+#### Tags
+
+* Default
 
 ### POST /school
 ```
@@ -667,7 +851,10 @@ Creates a new school
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
-|400|Error 400|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|403|Invalid data provided.|No Content|
+|405|Method not allowed.|No Content|
 
 
 #### Tags
@@ -693,7 +880,9 @@ Gets a school by ID
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|School|
-|404|Error 404|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|404|The element with the given ID does not exist.|No Content|
 
 
 #### Tags
@@ -720,9 +909,11 @@ Modifies an existing school
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
-|400|Error 400|No Content|
-|404|Error 404|No Content|
-|405|Error 405|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|403|Invalid data provided.|No Content|
+|404|The element with the given ID does not exist.|No Content|
+|405|Method not allowed.|No Content|
 
 
 #### Tags
@@ -748,7 +939,10 @@ Creates a new transaction
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
-|400|Error 400|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|403|Invalid data provided.|No Content|
+|405|Method not allowed.|No Content|
 
 
 #### Tags
@@ -769,17 +963,18 @@ If both, returns JSON:  {amount: credits earned on a given user by the school, b
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|QueryParameter|userId||false|string||
-|QueryParameter|schoolId||false|string||
+|QueryParameter|userId||false|null string array||
+|QueryParameter|schoolId||false|null string array||
 
 
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Outputs a JSON object, representation to be defined.|No Content|
-|401|Error 401|No Content|
-|403|Error 403|No Content|
-|404|Error 404|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|403|Invalid data provided.|No Content|
+|404|The element with the given ID does not exist.|No Content|
 
 
 #### Tags
@@ -805,7 +1000,9 @@ Gets a transaction by ID
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|Transaction|
-|404|Error 404|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|404|The element with the given ID does not exist.|No Content|
 
 
 #### Tags
@@ -831,7 +1028,9 @@ Gets all transactions for a given school
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|Transaction array|
-|404|Error 404|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|404|The element with the given ID does not exist.|No Content|
 
 
 #### Tags
@@ -850,16 +1049,18 @@ Gets users according to parameters (will be paged to avoid huge lists).
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|QueryParameter|startPage|Index of the page to fetch|false|string||
-|QueryParameter|pageSize|Size of a page|false|string||
-|QueryParameter|type|User type to fetch|false|string||
+|QueryParameter|startPage|Index of the page to fetch|false|null string array||
+|QueryParameter|pageSize|Size of a page|false|null string array||
+|QueryParameter|type|User type to fetch|false|null string array||
 
 
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|User array|
-|404|Error 404|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|404|The element with the given ID does not exist.|No Content|
 
 
 #### Tags
@@ -885,7 +1086,10 @@ Creates a new user.
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
-|400|Error 400|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|403|Invalid data provided.|No Content|
+|405|Method not allowed.|No Content|
 
 
 #### Tags
@@ -905,12 +1109,19 @@ Creates a new stub user.
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |BodyParameter|body||false|User||
+|QueryParameter|email|The email of the stub user - This parameter IS mandatory|false|null string array||
+|QueryParameter|firstName|The name of the stub user - This parameter is NOT mandatory|false|null string array||
+|QueryParameter|lastName|The lastName of the stub user - This parameter is NOT mandatory|false|null string array||
 
 
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|You do not have sufficient access to perform this operation|No Content|
+|403|The provided input is incorrect, please review it and try again.|No Content|
+|405|Method not allowed.|No Content|
 
 
 #### Tags
@@ -936,8 +1147,9 @@ Gets a user by ID
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|User array|
-|400|Error 400|No Content|
-|404|Error 404|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|404|The element with the given ID does not exist.|No Content|
 
 
 #### Tags
@@ -964,9 +1176,11 @@ Updates a selected user
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
-|400|Error 400|No Content|
-|404|Error 404|No Content|
-|405|Error 405|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|403|Invalid data provided.|No Content|
+|404|The element with the given ID does not exist.|No Content|
+|405|Method not allowed.|No Content|
 
 
 #### Tags
@@ -992,8 +1206,9 @@ Deletes a user by ID
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
-|400|Error 400|No Content|
-|404|Error 404|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|404|The element with the given ID does not exist.|No Content|
 
 
 #### Tags
@@ -1019,6 +1234,9 @@ Gets all user feedbacks
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200||Feedback array|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|404|The element with the given ID does not exist.|No Content|
 
 
 #### Tags
@@ -1044,6 +1262,9 @@ Gets all user messages.
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200||Message array|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|404|The element with the given ID does not exist.|No Content|
 
 
 #### Tags

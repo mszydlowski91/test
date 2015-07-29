@@ -3,21 +3,24 @@
 REST-ful API used to communicate with the Skipodium backend.
 
 ### Version information
-Version: 0.0.0
+Version: 1.0.0
 
 ### Contact information
 Contact: Blue Brick API Team
-Contact Email: adam.domagalski@blue-brick.com
+Contact Email: adam.domagalski@blue-brick.com 
+ michal.szydlowski@blue-brick.com
 
 ### URI scheme
 
 ### Tags
 
 * Default
-* School
+* Schools
 * Messages
 * Users
-* Lesson
+* Lessons
 * Payments
+* Bundles
+* Generators
 
 
