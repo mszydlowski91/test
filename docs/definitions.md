@@ -10,7 +10,7 @@
 |feedbacksIn|A list of all feedbacks the user has received.|false|Feedback array||
 |feedbacksOut|A list of all feedbacks the user has given.|false|Feedback array||
 |languages|A list of languages offered by an instructor.|false|string array||
-|lessons|A list of lessons booked by the user / assigned to the instructor.|false|string array||
+|lessons|A list of lessons booked by the user|false|string array||
 |name|The user's name.|true|string||
 |notifications|A list of notifications the user received.|false|Message array||
 |permissions|A list of user's permissions (depending on the user type).|false|string array||
@@ -22,6 +22,7 @@
 |timesOff|A list of periods where the instructor is unavailable.|false|TimeInterval array||
 |userType|Type of the user: regular, instructor, director, manager.|true|string||
 |surname|The user's surname.|true|string||
+|refferalToken|The token assigned to a user when he will try to generate referal links|false|Address||
 
 
 ### Transaction
@@ -31,8 +32,8 @@ An entity representing a single transaction made by a user or  a school.
 |Name|Description|Required|Schema|Default|
 |----|----|----|----|----|
 |_id||true|string||
-|amount|The amount of money to be transferred.|true|number (double)||
-|bonus|Amount of bonus money awarded in case of a special transaction|false|number (double)||
+|amount|The amount of money to be transferred from the purchaser to the school.|true|number (double)||
+|bonus|Amount of bonus money awarded by the school in case of a special transaction or promotion|false|number (double)||
 |comment|A brief description of transaction's purpose.|false|string||
 |currency|The currency in which the transaction will be done.|true|string||
 |date|A date at which the transaction occurs.|true|string (date)||
@@ -52,7 +53,6 @@ Types and type-specific fields:
  - assigned lesson: memberId, assignedInstructorId, lessonId
  - unassigned lesson: memberId, lessonId, formerInstructorId
  - product added/removed/changed: productId, changedFields
- - product order changed: products, oldProducts
  - membership accepted/refused: requestId, memberId
  - membership over/changed: memberId, oldRole
 
@@ -70,17 +70,14 @@ The time of this message creation|true|string (date)||
 |fromId|Id of the person / school which sent this message|true|string||
 |important|Whether it is in the 'important' category.|true|boolean||
 |lessonId|The id of the lesson that was changed|false|string||
-|memberId - INVESTIGATE|INVESTIGATE|false|string||
+|memberId||false|string||
 |message|The content of the message|true|string||
-|oldProducts - INVESTIGATE|INVESTIGATE|false|string array||
-|oldRole||false|string||
-|participantId||false|string||
-|productId||false|string||
-|products||false|string array||
+|oldRole|The previous role of the user who changed|false|string||
+|participantId|Person for whom the lesson was booked/unbooked for.|false|string||
+|productId|Id of added/removed/changed  lesson / bundle|false|string||
 |read|Whether it has already been read.|true|boolean||
-|requestId||false|string||
-|role||true|string||
-|timesOff|A list of periods where the instructor will not be available|true|TimeInterval||
+|role|The role of the person requesting the lesson|false|string||
+|timesOff|A list of periods where the instructor will not be available|false|TimeInterval||
 |toId|Id of the user/school that is the receiver of this message.|true|string||
 |type|Type of message - request, notification etc.|true|string||
 
@@ -116,7 +113,6 @@ An entity representing a pair of times - starting and ending.
 |----|----|----|----|----|
 |endTime||true|string (date)||
 |startTime||true|string (date)||
-|_id||true|string||
 
 
 ### Authentication
@@ -125,11 +121,9 @@ An object describing a user's authentication (facebook, google, regular, etc).
 
 |Name|Description|Required|Schema|Default|
 |----|----|----|----|----|
-|emails||true|string array||
-|password|User password.|true|string||
+|password|User password.|false|string||
 |token||false|string||
 |type|Authentication type.|true|string||
-|username|User's username.|true|string||
 
 
 ### Bundle
@@ -139,9 +133,9 @@ A group of lessons with a discount if a user will decide to purchase all of them
 |Name|Description|Required|Schema|Default|
 |----|----|----|----|----|
 |_id||true|string||
-|comment|A user's comment towards the bundle.|false|string||
+|comment|A creators comment towards the bundle.|false|string||
 |deleted|Says whether the bundle has been deleted. If true - it is scheduled for permanent deletion.|true|boolean||
-|discount|The discount the user gets for this lesson|true|number (double)||
+|discount|The discount the user gets for the lessons in this bundle|true|number (double)||
 |generatorId|The ID of the generator by which this bundle was generated.|true|string||
 |lessons|A list of lessons belonging to this bundle.|true|string array||
 |name|The name of the bundle.|true|string||
@@ -157,11 +151,10 @@ Internal object of a School entity.
 |----|----|----|----|----|
 |city||false|string||
 |country||false|string||
-|geo||true|Geo||
 |street||false|string||
 |streetNum||false|integer (int32)||
 |zipcode||false|string||
-|_id||true|string||
+|state||false|string||
 
 
 ### Feedback
@@ -180,9 +173,38 @@ Internal coordinate object used for meeting points.
 
 |Name|Description|Required|Schema|Default|
 |----|----|----|----|----|
-|_id||true|integer (int64)||
 |lat||true|number (double)||
 |lng||true|number (double)||
+
+
+### Lesson
+|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|
+|_id||true|string||
+|booked|Whether it is booked or not|true|boolean||
+|bookingType|Whether it's booked by one or multiple persons|true|string||
+|bundleId|Id of the bundle containing the lesson|false|string||
+|clientSource|Skipodium user, manually booked by school, white label etc|true|string||
+|comment|A brief comment about the lesson.|false|string||
+|deleted|Says whether the lesson has been deleted. If true - it is scheduled for permanent deletion.|true|boolean||
+|discount|The discount the user gets for this lesson|false|number (double)||
+|generatorId|ID of the generator the lesson was generated by.|false|string||
+|hourFrom|Starting hour of the lesson|false|string (date)||
+|hourTo|Ending hour of the lesson|false|string (date)||
+|instructorBonusFlag|Bonus the instructor gets for the lesson|false|boolean||
+|instructorId|ID of the instructor running the lesson.|true|string||
+|level|The skill levels involved in this lesson.|true|string array||
+|maxAge|Maximum age for this lesson.|false|integer (int32)||
+|maxParticipants|Maximum number of participants.|false|integer (int32)||
+|meetingPoint|A meeting point for this lesson.|true|Geo||
+|minAge|Minimum age for this lesson.|false|integer (int32)||
+|minParticipants|Minimum number of participants for this lesson.|false|integer (int32)||
+|name|Name of the lesson.|true|string||
+|participants|List of ids of users attending this lesson|true|string array||
+|prices|A list of price thresholds, depending on the time of booking|false|number (double) array||
+|schoolId|ID of the school at which the lesson was carried out.|true|string||
+|specialties|The specialities covered by the lesson|false|string array||
+|previousInstructorId|Id of the previous instructor|false|string||
 
 
 ### School
@@ -204,35 +226,6 @@ Information about a given school
 |name|The name of the school|true|string||
 |openingHours|School working time (internal object with start and end time).|true|string (date)||
 |resort|A list of all resorts of given school - a minimum of one is required|true|string array||
-
-
-### Lesson
-|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|
-|_id||true|string||
-|booked|Whether it is booked or not|true|boolean||
-|bookingType|Whether it's booked by one or multiple persons|true|string||
-|bundleId|Id of the bundle containing the lesson|false|string||
-|clientSource|Skipodium user, manually booked by school, white label etc|true|string||
-|comment|A brief comment about the lesson.|false|string||
-|deleted|Says whether the lesson has been deleted. If true - it is scheduled for permanent deletion.|true|boolean||
-|discount|The discount the user gets for this lesson|false|number (double)||
-|generatorId|ID of the generator the lesson was generated by.|false|string||
-|hourFrom||false|string (date)||
-|hourTo||false|string (date)||
-|instructorBonusFlag|Bonus the instructor gets for the lesson|false|boolean||
-|instructorId|ID of the instructor running the lesson.|true|string||
-|level|The skill levels involved in this lesson (could differ for different participants?).|true|string array||
-|maxAge|Maximum age for this lesson.|false|integer (int32)||
-|maxParticipants|Maximum number of participants.|false|integer (int32)||
-|meetingPoint|A meeting point for this lesson.|true|Geo||
-|minAge|Minimum age for this lesson.|false|integer (int32)||
-|minParticipants|Minimum number of participants for this lesson.|false|integer (int32)||
-|name|Name of the lesson.|true|string||
-|participants|List of ids of users attending this lesson|true|string array||
-|prices|A list of price thresholds, depending on the time of booking?|false|number (double) array||
-|schoolId|ID of the school at which the lesson was carried out.|true|string||
-|specialties||false|string array||
 
 
 ### BankDetails

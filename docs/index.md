@@ -14,6 +14,7 @@ Contact Email: adam.domagalski@blue-brick.com
 ### Tags
 
 * Default
+* Schools: Items related to School management
 * Schools
 * Messages
 * Users

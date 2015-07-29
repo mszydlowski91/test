@@ -26,7 +26,7 @@ Adds a new bundle
 
 #### Tags
 
-* Bundle
+* Bundles
 
 ### GET /bundle/{bundleId}
 ```
@@ -54,7 +54,7 @@ Gets a bundle by ID
 
 #### Tags
 
-* Bundle
+* Bundles
 
 ### PUT /bundle/{bundleId}
 ```
@@ -85,7 +85,7 @@ Modifies an existing bundle
 
 #### Tags
 
-* Bundle
+* Bundles
 
 ### DELETE /bundle/{bundleId}
 ```
@@ -113,7 +113,7 @@ Deletes a bundle
 
 #### Tags
 
-* Bundle
+* Bundles
 
 ### POST /bundle/{bundleId}/lesson
 ```
@@ -143,7 +143,7 @@ Adds a new lesson to the bundle
 
 #### Tags
 
-* Bundle
+* Bundles
 
 ### DELETE /bundle/{bundleId}/lesson/{lessonId}
 ```
@@ -172,7 +172,7 @@ Deletes a lesson from a bundle
 
 #### Tags
 
-* Bundle
+* Bundles
 
 ### GET /feedback
 ```
@@ -186,10 +186,10 @@ Get a feedback by parameters
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|QueryParameter|schoolId||false|string||
-|QueryParameter|lessonId||false|string||
-|QueryParameter|senderUserId||false|string||
-|QueryParameter|receiverUserId||false|string||
+|QueryParameter|schoolId||false|null string array||
+|QueryParameter|lessonId||false|null string array||
+|QueryParameter|senderUserId||false|null string array||
+|QueryParameter|receiverUserId||false|null string array||
 
 
 #### Responses
@@ -384,7 +384,7 @@ Gets lessons by parameters
 
 #### Tags
 
-* Lesson
+* Lessons
 
 ### POST /lesson
 ```
@@ -407,7 +407,7 @@ Creates a new lesson
 
 #### Tags
 
-* Lesson
+* Lessons
 
 ### GET /lesson/{lessonId}
 ```
@@ -435,7 +435,7 @@ Gets a lesson by ID
 
 #### Tags
 
-* Lesson
+* Lessons
 
 ### PUT /lesson/{lessonId}
 ```
@@ -486,7 +486,7 @@ Modifies an existing lesson
 
 #### Tags
 
-* Lesson
+* Lessons
 
 ### DELETE /lesson/{lessonId}
 ```
@@ -514,7 +514,7 @@ Deletes a lesson by ID
 
 #### Tags
 
-* Lesson
+* Lessons
 
 ### GET /lesson/{lessonId}/assignment
 ```
@@ -542,7 +542,7 @@ Get the assigned instructor
 
 #### Tags
 
-* Lesson
+* Lessons
 
 ### PUT /lesson/{lessonId}/assignment/{instructorId}
 ```
@@ -606,7 +606,7 @@ Remove or add a participant to a lesson
 
 #### Tags
 
-* Lesson
+* Lessons
 
 ### PUT /lesson/{lessonId}/participant/{participantId}
 ```
@@ -638,7 +638,7 @@ Modifies a lesson participant
 
 #### Tags
 
-* Default
+* Lessons
 
 ### POST /login
 ```
@@ -647,15 +647,14 @@ POST /login
 
 #### Description
 
-Stub login method
+Login
 
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
-|400|The submitted request is malformed.|No Content|
+|400|Wrong combination of email/password.|No Content|
 |401|The user has been deleted or is inactive.|No Content|
-|403|Wrong combination of email/password.|No Content|
 |404|No user with a given email found.|No Content|
 
 
@@ -670,7 +669,7 @@ POST /logout
 
 #### Description
 
-Stub logout method
+Logout
 
 #### Responses
 |HTTP Code|Description|Schema|
@@ -801,9 +800,9 @@ Deletes a message
 
 * Messages
 
-### PUT /resetPassword
+### GET /resetPassword
 ```
-PUT /resetPassword
+GET /resetPassword
 ```
 
 #### Description
@@ -814,7 +813,7 @@ Resets a user's password
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |BodyParameter|body||false|User||
-|QueryParameter|email||false|string||
+|QueryParameter|email||false|null string array||
 
 
 #### Responses
@@ -859,7 +858,7 @@ Creates a new school
 
 #### Tags
 
-* School
+* Schools
 
 ### GET /school/{schoolId}
 ```
@@ -887,7 +886,7 @@ Gets a school by ID
 
 #### Tags
 
-* School
+* Schools
 
 ### PUT /school/{schoolId}
 ```
@@ -918,7 +917,7 @@ Modifies an existing school
 
 #### Tags
 
-* School
+* Schools
 
 ### POST /transaction
 ```
