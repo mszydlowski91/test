@@ -15,7 +15,8 @@
 			"name": "Default"
 		},
 		{
-			"name": "Schools"
+			"name": "Schools",
+			"description": "Items related to School management"
 		},
 		{
 			"name": "Messages"
@@ -40,7 +41,7 @@
 		"/bundle": {
 			"post": {
 				"tags": [
-					"Bundle"
+					"Bundles"
 				],
 				"summary": "Adds a new bundle",
 				"description": "Adds a new bundle",
@@ -78,7 +79,7 @@
 		"/bundle/{bundleId}": {
 			"get": {
 				"tags": [
-					"Bundle"
+					"Bundles"
 				],
 				"summary": "Gets a bundle by ID",
 				"description": "Gets a bundle by ID",
@@ -113,7 +114,7 @@
 			},
 			"put": {
 				"tags": [
-					"Bundle"
+					"Bundles"
 				],
 				"summary": "Modifies an existing bundle",
 				"description": "Modifies an existing bundle",
@@ -159,7 +160,7 @@
 			},
 			"delete": {
 				"tags": [
-					"Bundle"
+					"Bundles"
 				],
 				"summary": "Deletes a bundle",
 				"description": "Deletes a bundle",
@@ -193,7 +194,7 @@
 		"/bundle/{bundleId}/lesson": {
 			"post": {
 				"tags": [
-					"Bundle"
+					"Bundles"
 				],
 				"summary": "Adds a new lesson to the bundle",
 				"description": "Adds a new lesson to the bundle",
@@ -238,7 +239,7 @@
 		"/bundle/{bundleId}/lesson/{lessonId}": {
 			"delete": {
 				"tags": [
-					"Bundle"
+					"Bundles"
 				],
 				"summary": "Deletes a lesson from a bundle",
 				"description": "Deletes a lesson from a bundle",
@@ -288,25 +289,37 @@
 						"name": "schoolId",
 						"in": "query",
 						"required": false,
-						"type": "string"
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
 					},
 					{
 						"name": "lessonId",
 						"in": "query",
 						"required": false,
-						"type": "string"
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
 					},
 					{
 						"name": "senderUserId",
 						"in": "query",
 						"required": false,
-						"type": "string"
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
 					},
 					{
 						"name": "receiverUserId",
 						"in": "query",
 						"required": false,
-						"type": "string"
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
 					}
 				],
 				"responses": {
@@ -511,7 +524,7 @@
 		"/lesson": {
 			"get": {
 				"tags": [
-					"Lesson"
+					"Lessons"
 				],
 				"summary": "Gets lessons by parameters",
 				"description": "Gets lessons by parameters",
@@ -667,7 +680,7 @@
 			},
 			"post": {
 				"tags": [
-					"Lesson"
+					"Lessons"
 				],
 				"summary": "Creates a new lesson",
 				"description": "Creates a new lesson",
@@ -696,7 +709,7 @@
 		"/lesson/{lessonId}": {
 			"get": {
 				"tags": [
-					"Lesson"
+					"Lessons"
 				],
 				"summary": "Gets a lesson by ID",
 				"description": "Gets a lesson by ID",
@@ -732,7 +745,7 @@
 			},
 			"put": {
 				"tags": [
-					"Lesson"
+					"Lessons"
 				],
 				"summary": "Modifies an existing lesson",
 				"description": "Modifies an existing lesson",
@@ -979,7 +992,7 @@
 			},
 			"delete": {
 				"tags": [
-					"Lesson"
+					"Lessons"
 				],
 				"summary": "Deletes a lesson by ID",
 				"description": "Deletes a lesson by ID",
@@ -1014,7 +1027,7 @@
 		"/lesson/{lessonId}/assignment": {
 			"get": {
 				"tags": [
-					"Lesson"
+					"Lessons"
 				],
 				"summary": "Get the assigned instructor",
 				"description": "Get the assigned instructor",
@@ -1107,7 +1120,7 @@
 		"/lesson/{lessonId}/participant": {
 			"put": {
 				"tags": [
-					"Lesson"
+					"Lessons"
 				],
 				"summary": "Remove or add a participant to a lesson",
 				"description": "Remove or add a participant to a lesson",
@@ -1164,7 +1177,7 @@
 		"/lesson/{lessonId}/participant/{participantId}": {
 			"put": {
 				"tags": [
-					"Default"
+					"Lessons"
 				],
 				"summary": "Modifies a lesson participant",
 				"description": "Modifies a lesson participant",
@@ -1219,8 +1232,8 @@
 				"tags": [
 					"Default"
 				],
-				"summary": "Stub login method",
-				"description": "Stub login method",
+				"summary": "Login",
+				"description": "Login",
 				"consumes": [],
 				"produces": [],
 				"parameters": [],
@@ -1229,13 +1242,10 @@
 						"description": "Success"
 					},
 					"400": {
-						"description": "The submitted request is malformed."
+						"description": "Wrong combination of email/password."
 					},
 					"401": {
 						"description": "The user has been deleted or is inactive."
-					},
-					"403": {
-						"description": "Wrong combination of email/password."
 					},
 					"404": {
 						"description": "No user with a given email found."
@@ -1248,8 +1258,8 @@
 				"tags": [
 					"Default"
 				],
-				"summary": "Stub logout method",
-				"description": "Stub logout method",
+				"summary": "Logout",
+				"description": "Logout",
 				"consumes": [],
 				"produces": [],
 				"parameters": [],
@@ -1456,7 +1466,7 @@
 			}
 		},
 		"/resetPassword": {
-			"put": {
+			"get": {
 				"tags": [
 					"Default"
 				],
@@ -1477,7 +1487,10 @@
 						"name": "email",
 						"in": "query",
 						"required": false,
-						"type": "string"
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
 					}
 				],
 				"responses": {
@@ -1505,7 +1518,7 @@
 		"/school": {
 			"post": {
 				"tags": [
-					"School"
+					"Schools"
 				],
 				"summary": "Creates a new school",
 				"description": "Creates a new school",
@@ -1543,7 +1556,7 @@
 		"/school/{schoolId}": {
 			"get": {
 				"tags": [
-					"School"
+					"Schools"
 				],
 				"summary": "Gets a school by ID",
 				"description": "Gets a school by ID",
@@ -1578,7 +1591,7 @@
 			},
 			"put": {
 				"tags": [
-					"School"
+					"Schools"
 				],
 				"summary": "Modifies an existing school",
 				"description": "Modifies an existing school",
@@ -2218,7 +2231,7 @@
 				},
 				"lessons": {
 					"type": "array",
-					"description": "A list of lessons booked by the user / assigned to the instructor.",
+					"description": "A list of lessons booked by the user",
 					"items": {
 						"type": "string",
 						"example": "sample lessons"
@@ -2291,6 +2304,10 @@
 					"type": "string",
 					"example": "sample surname",
 					"description": "The user's surname."
+				},
+				"refferalToken": {
+					"description": "The token assigned to a user when he will try to generate referal links",
+					"$ref": "#/definitions/Address"
 				}
 			}
 		},
@@ -2311,13 +2328,13 @@
 					"type": "number",
 					"format": "double",
 					"example": "1.1",
-					"description": "The amount of money to be transferred."
+					"description": "The amount of money to be transferred from the purchaser to the school."
 				},
 				"bonus": {
 					"type": "number",
 					"format": "double",
 					"example": "1.1",
-					"description": "Amount of bonus money awarded in case of a special transaction"
+					"description": "Amount of bonus money awarded by the school in case of a special transaction or promotion"
 				},
 				"comment": {
 					"type": "string",
@@ -2366,8 +2383,6 @@
 				"important",
 				"message",
 				"read",
-				"role",
-				"timesOff",
 				"timestamp",
 				"toId",
 				"type"
@@ -2430,56 +2445,40 @@
 					"example": "sample lessonId",
 					"description": "The id of the lesson that was changed"
 				},
-				"memberId - INVESTIGATE": {
+				"memberId": {
 					"type": "string",
 					"example": "sample memberId",
-					"description": "INVESTIGATE"
+					"description": ""
 				},
 				"message": {
 					"type": "string",
 					"example": "sample message",
 					"description": "The content of the message"
 				},
-				"oldProducts - INVESTIGATE": {
-					"type": "array",
-					"description": "INVESTIGATE",
-					"items": {
-						"type": "string",
-						"example": "sample oldProducts"
-					}
-				},
 				"oldRole": {
 					"type": "string",
-					"example": "sample oldRole"
+					"example": "sample oldRole",
+					"description": "The previous role of the user who changed"
 				},
 				"participantId": {
 					"type": "string",
-					"example": "sample participantId"
+					"example": "sample participantId",
+					"description": "Person for whom the lesson was booked/unbooked for."
 				},
 				"productId": {
 					"type": "string",
-					"example": "sample productId"
-				},
-				"products": {
-					"type": "array",
-					"description": "",
-					"items": {
-						"type": "string",
-						"example": "sample products"
-					}
+					"example": "sample productId",
+					"description": "Id of added/removed/changed  lesson / bundle"
 				},
 				"read": {
 					"type": "boolean",
 					"example": "false",
 					"description": "Whether it has already been read."
 				},
-				"requestId": {
-					"type": "string",
-					"example": "sample requestId"
-				},
 				"role": {
 					"type": "string",
-					"example": "sample role"
+					"example": "sample role",
+					"description": "The role of the person requesting the lesson"
 				},
 				"timesOff": {
 					"description": "A list of periods where the instructor will not be available",
@@ -2496,7 +2495,7 @@
 					"description": "Type of message - request, notification etc."
 				}
 			},
-			"description": "A generic Message entity, having all possible fields that could appear in any message type. \nTypes and type-specific fields:\n - time off request: timesOff, timeOffRepeats\n - lesson request: role, accepted\n - lesson booked/unbooked: lessonId, bookerId, participantId\n - assigned lesson: memberId, assignedInstructorId, lessonId\n - unassigned lesson: memberId, lessonId, formerInstructorId\n - product added/removed/changed: productId, changedFields\n - product order changed: products, oldProducts\n - membership accepted/refused: requestId, memberId\n - membership over/changed: memberId, oldRole"
+			"description": "A generic Message entity, having all possible fields that could appear in any message type. \nTypes and type-specific fields:\n - time off request: timesOff, timeOffRepeats\n - lesson request: role, accepted\n - lesson booked/unbooked: lessonId, bookerId, participantId\n - assigned lesson: memberId, assignedInstructorId, lessonId\n - unassigned lesson: memberId, lessonId, formerInstructorId\n - product added/removed/changed: productId, changedFields\n - membership accepted/refused: requestId, memberId\n - membership over/changed: memberId, oldRole"
 		},
 		"MeetingPoint": {
 			"required": [
@@ -2575,7 +2574,6 @@
 		},
 		"TimeInterval": {
 			"required": [
-				"_id",
 				"endTime",
 				"startTime"
 			],
@@ -2587,29 +2585,15 @@
 				"startTime": {
 					"type": "string",
 					"format": "date"
-				},
-				"_id": {
-					"type": "string",
-					"example": "sample _id"
 				}
 			},
 			"description": "An entity representing a pair of times - starting and ending."
 		},
 		"Authentication": {
 			"required": [
-				"emails",
-				"password",
-				"type",
-				"username"
+				"type"
 			],
 			"properties": {
-				"emails": {
-					"type": "array",
-					"items": {
-						"type": "string",
-						"example": "sample emails"
-					}
-				},
 				"password": {
 					"type": "string",
 					"example": "sample password",
@@ -2623,11 +2607,6 @@
 					"type": "string",
 					"example": "sample type",
 					"description": "Authentication type."
-				},
-				"username": {
-					"type": "string",
-					"example": "sample username",
-					"description": "User's username."
 				}
 			},
 			"description": "An object describing a user's authentication (facebook, google, regular, etc)."
@@ -2651,7 +2630,7 @@
 				"comment": {
 					"type": "string",
 					"example": "sample comment",
-					"description": "A user's comment towards the bundle."
+					"description": "A creators comment towards the bundle."
 				},
 				"deleted": {
 					"type": "boolean",
@@ -2662,7 +2641,7 @@
 					"type": "number",
 					"format": "double",
 					"example": "1.1",
-					"description": "The discount the user gets for this lesson"
+					"description": "The discount the user gets for the lessons in this bundle"
 				},
 				"generatorId": {
 					"type": "string",
@@ -2696,10 +2675,6 @@
 			"description": "A group of lessons with a discount if a user will decide to purchase all of them."
 		},
 		"Address": {
-			"required": [
-				"_id",
-				"geo"
-			],
 			"properties": {
 				"city": {
 					"type": "string",
@@ -2708,9 +2683,6 @@
 				"country": {
 					"type": "string",
 					"example": "sample country"
-				},
-				"geo": {
-					"$ref": "#/definitions/Geo"
 				},
 				"street": {
 					"type": "string",
@@ -2725,9 +2697,9 @@
 					"type": "string",
 					"example": "sample zipcode"
 				},
-				"_id": {
+				"state": {
 					"type": "string",
-					"example": "sample _id"
+					"example": "sample state"
 				}
 			},
 			"description": "Internal object of a School entity."
@@ -2769,16 +2741,10 @@
 		},
 		"Geo": {
 			"required": [
-				"_id",
 				"lat",
 				"lng"
 			],
 			"properties": {
-				"_id": {
-					"type": "integer",
-					"format": "int64",
-					"example": "1"
-				},
 				"lat": {
 					"type": "number",
 					"format": "double",
@@ -2791,6 +2757,164 @@
 				}
 			},
 			"description": "Internal coordinate object used for meeting points."
+		},
+		"Lesson": {
+			"required": [
+				"_id",
+				"booked",
+				"bookingType",
+				"clientSource",
+				"deleted",
+				"instructorId",
+				"level",
+				"meetingPoint",
+				"name",
+				"participants",
+				"schoolId"
+			],
+			"properties": {
+				"_id": {
+					"type": "string",
+					"example": "1"
+				},
+				"booked": {
+					"type": "boolean",
+					"example": "false",
+					"description": "Whether it is booked or not"
+				},
+				"bookingType": {
+					"type": "string",
+					"example": "sample bookingType",
+					"description": "Whether it's booked by one or multiple persons"
+				},
+				"bundleId": {
+					"type": "string",
+					"example": "1",
+					"description": "Id of the bundle containing the lesson"
+				},
+				"clientSource": {
+					"type": "string",
+					"example": "sample clientSource",
+					"description": "Skipodium user, manually booked by school, white label etc"
+				},
+				"comment": {
+					"type": "string",
+					"example": "sample comment",
+					"description": "A brief comment about the lesson."
+				},
+				"deleted": {
+					"type": "boolean",
+					"example": "false",
+					"description": "Says whether the lesson has been deleted. If true - it is scheduled for permanent deletion."
+				},
+				"discount": {
+					"type": "number",
+					"format": "double",
+					"example": "1.1",
+					"description": "The discount the user gets for this lesson"
+				},
+				"generatorId": {
+					"type": "string",
+					"example": "1",
+					"description": "ID of the generator the lesson was generated by."
+				},
+				"hourFrom": {
+					"type": "string",
+					"format": "date",
+					"description": "Starting hour of the lesson"
+				},
+				"hourTo": {
+					"type": "string",
+					"format": "date",
+					"description": "Ending hour of the lesson"
+				},
+				"instructorBonusFlag": {
+					"type": "boolean",
+					"example": "false",
+					"description": "Bonus the instructor gets for the lesson"
+				},
+				"instructorId": {
+					"type": "string",
+					"example": "1",
+					"description": "ID of the instructor running the lesson."
+				},
+				"level": {
+					"type": "array",
+					"description": "The skill levels involved in this lesson.",
+					"items": {
+						"type": "string",
+						"example": "sample level"
+					}
+				},
+				"maxAge": {
+					"type": "integer",
+					"format": "int32",
+					"example": "1",
+					"description": "Maximum age for this lesson."
+				},
+				"maxParticipants": {
+					"type": "integer",
+					"format": "int32",
+					"example": "1",
+					"description": "Maximum number of participants."
+				},
+				"meetingPoint": {
+					"description": "A meeting point for this lesson.",
+					"$ref": "#/definitions/Geo"
+				},
+				"minAge": {
+					"type": "integer",
+					"format": "int32",
+					"example": "1",
+					"description": "Minimum age for this lesson."
+				},
+				"minParticipants": {
+					"type": "integer",
+					"format": "int32",
+					"example": "1",
+					"description": "Minimum number of participants for this lesson."
+				},
+				"name": {
+					"type": "string",
+					"example": "sample name",
+					"description": "Name of the lesson."
+				},
+				"participants": {
+					"type": "array",
+					"description": "List of ids of users attending this lesson",
+					"items": {
+						"type": "string",
+						"example": "sample participants"
+					}
+				},
+				"prices": {
+					"type": "array",
+					"description": "A list of price thresholds, depending on the time of booking",
+					"items": {
+						"type": "number",
+						"format": "double",
+						"example": "1.1"
+					}
+				},
+				"schoolId": {
+					"type": "string",
+					"example": "1",
+					"description": "ID of the school at which the lesson was carried out."
+				},
+				"specialties": {
+					"type": "array",
+					"description": "The specialities covered by the lesson",
+					"items": {
+						"type": "string",
+						"example": "sample specialties"
+					}
+				},
+				"previousInstructorId": {
+					"type": "string",
+					"example": "sample previousInstructorId",
+					"description": "Id of the previous instructor"
+				}
+			}
 		},
 		"School": {
 			"required": [
@@ -2886,156 +3010,6 @@
 				}
 			},
 			"description": "Information about a given school"
-		},
-		"Lesson": {
-			"required": [
-				"_id",
-				"booked",
-				"bookingType",
-				"clientSource",
-				"deleted",
-				"instructorId",
-				"level",
-				"meetingPoint",
-				"name",
-				"participants",
-				"schoolId"
-			],
-			"properties": {
-				"_id": {
-					"type": "string",
-					"example": "1"
-				},
-				"booked": {
-					"type": "boolean",
-					"example": "false",
-					"description": "Whether it is booked or not"
-				},
-				"bookingType": {
-					"type": "string",
-					"example": "sample bookingType",
-					"description": "Whether it's booked by one or multiple persons"
-				},
-				"bundleId": {
-					"type": "string",
-					"example": "1",
-					"description": "Id of the bundle containing the lesson"
-				},
-				"clientSource": {
-					"type": "string",
-					"example": "sample clientSource",
-					"description": "Skipodium user, manually booked by school, white label etc"
-				},
-				"comment": {
-					"type": "string",
-					"example": "sample comment",
-					"description": "A brief comment about the lesson."
-				},
-				"deleted": {
-					"type": "boolean",
-					"example": "false",
-					"description": "Says whether the lesson has been deleted. If true - it is scheduled for permanent deletion."
-				},
-				"discount": {
-					"type": "number",
-					"format": "double",
-					"example": "1.1",
-					"description": "The discount the user gets for this lesson"
-				},
-				"generatorId": {
-					"type": "string",
-					"example": "1",
-					"description": "ID of the generator the lesson was generated by."
-				},
-				"hourFrom": {
-					"type": "string",
-					"format": "date"
-				},
-				"hourTo": {
-					"type": "string",
-					"format": "date"
-				},
-				"instructorBonusFlag": {
-					"type": "boolean",
-					"example": "false",
-					"description": "Bonus the instructor gets for the lesson"
-				},
-				"instructorId": {
-					"type": "string",
-					"example": "1",
-					"description": "ID of the instructor running the lesson."
-				},
-				"level": {
-					"type": "array",
-					"description": "The skill levels involved in this lesson (could differ for different participants?).",
-					"items": {
-						"type": "string",
-						"example": "sample level"
-					}
-				},
-				"maxAge": {
-					"type": "integer",
-					"format": "int32",
-					"example": "1",
-					"description": "Maximum age for this lesson."
-				},
-				"maxParticipants": {
-					"type": "integer",
-					"format": "int32",
-					"example": "1",
-					"description": "Maximum number of participants."
-				},
-				"meetingPoint": {
-					"description": "A meeting point for this lesson.",
-					"$ref": "#/definitions/Geo"
-				},
-				"minAge": {
-					"type": "integer",
-					"format": "int32",
-					"example": "1",
-					"description": "Minimum age for this lesson."
-				},
-				"minParticipants": {
-					"type": "integer",
-					"format": "int32",
-					"example": "1",
-					"description": "Minimum number of participants for this lesson."
-				},
-				"name": {
-					"type": "string",
-					"example": "sample name",
-					"description": "Name of the lesson."
-				},
-				"participants": {
-					"type": "array",
-					"description": "List of ids of users attending this lesson",
-					"items": {
-						"type": "string",
-						"example": "sample participants"
-					}
-				},
-				"prices": {
-					"type": "array",
-					"description": "A list of price thresholds, depending on the time of booking?",
-					"items": {
-						"type": "number",
-						"format": "double",
-						"example": "1.1"
-					}
-				},
-				"schoolId": {
-					"type": "string",
-					"example": "1",
-					"description": "ID of the school at which the lesson was carried out."
-				},
-				"specialties": {
-					"type": "array",
-					"items": {
-						"type": "string",
-						"example": "sample specialties"
-					}
-				}
-			}
 		},
 		"BankDetails": {
 			"required": [

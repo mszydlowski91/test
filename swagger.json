@@ -62,16 +62,10 @@
 						"description": "Success"
 					},
 					"400": {
-						"description": "The submitted request is malformed."
+						"description": "Invalid data provided."
 					},
 					"401": {
 						"description": "Permission not granted."
-					},
-					"403": {
-						"description": "Invalid data provided."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			}
@@ -147,14 +141,8 @@
 					"401": {
 						"description": "Permission not granted."
 					},
-					"403": {
-						"description": "Invalid data provided."
-					},
 					"404": {
 						"description": "The element with the given ID does not exist."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			},
@@ -178,9 +166,6 @@
 				"responses": {
 					"200": {
 						"description": "Success"
-					},
-					"400": {
-						"description": "The submitted request is malformed."
 					},
 					"401": {
 						"description": "Permission not granted."
@@ -226,12 +211,6 @@
 					},
 					"401": {
 						"description": "Permission not granted."
-					},
-					"403": {
-						"description": "Invalid data provided."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			}
@@ -262,9 +241,6 @@
 				"responses": {
 					"200": {
 						"description": "The lesson has been removed from the bundle."
-					},
-					"400": {
-						"description": "The submitted request is malformed."
 					},
 					"401": {
 						"description": "Permission not granted."
@@ -335,9 +311,6 @@
 					"401": {
 						"description": "Permission not granted."
 					},
-					"403": {
-						"description": "Invalid data provided."
-					},
 					"404": {
 						"description": "The element with the given ID does not exist."
 					}
@@ -351,7 +324,16 @@
 				"description": "Adds new feedback to db",
 				"consumes": [],
 				"produces": [],
-				"parameters": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"required": false,
+						"schema": {
+							"$ref": "#/definitions/Feedback"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Success"
@@ -364,9 +346,6 @@
 					},
 					"403": {
 						"description": "Invalid data provided."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			}
@@ -399,12 +378,6 @@
 					},
 					"401": {
 						"description": "Permission not granted."
-					},
-					"403": {
-						"description": "Invalid data provided."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			}
@@ -430,9 +403,6 @@
 				"responses": {
 					"200": {
 						"description": "Success"
-					},
-					"400": {
-						"description": "The submitted request is malformed."
 					},
 					"401": {
 						"description": "Permission not granted."
@@ -477,14 +447,8 @@
 					"401": {
 						"description": "Permission not granted."
 					},
-					"403": {
-						"description": "Invalid data provided."
-					},
 					"404": {
 						"description": "Error 404"
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			},
@@ -508,9 +472,6 @@
 				"responses": {
 					"200": {
 						"description": "Success"
-					},
-					"400": {
-						"description": "The submitted request is malformed."
 					},
 					"401": {
 						"description": "Permission not granted."
@@ -696,12 +657,6 @@
 					},
 					"401": {
 						"description": "Permission not granted."
-					},
-					"403": {
-						"description": "Invalid data provided."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			}
@@ -731,9 +686,6 @@
 						"schema": {
 							"$ref": "#/definitions/Lesson"
 						}
-					},
-					"400": {
-						"description": "The submitted request is malformed."
 					},
 					"401": {
 						"description": "You do not have permission to perform this operation"
@@ -979,14 +931,8 @@
 					"401": {
 						"description": "Permission not granted."
 					},
-					"403": {
-						"description": "Invalid data provided."
-					},
 					"404": {
 						"description": "The element with the given ID does not exist."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			},
@@ -1011,9 +957,6 @@
 				"responses": {
 					"200": {
 						"description": "Success"
-					},
-					"400": {
-						"description": "The submitted request is malformed."
 					},
 					"401": {
 						"description": "Permission not granted."
@@ -1051,9 +994,6 @@
 								"$ref": "#/definitions/User"
 							}
 						}
-					},
-					"400": {
-						"description": "The submitted request is malformed."
 					},
 					"401": {
 						"description": "Permission not granted."
@@ -1105,14 +1045,8 @@
 					"401": {
 						"description": "Permission not granted."
 					},
-					"403": {
-						"description": "Invalid data provided."
-					},
 					"404": {
 						"description": "The element with the given ID does not exist."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			}
@@ -1162,14 +1096,8 @@
 					"401": {
 						"description": "Permission not granted."
 					},
-					"403": {
-						"description": "Invalid data provided."
-					},
 					"404": {
 						"description": "The element with the given ID does not exist."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			}
@@ -1215,14 +1143,8 @@
 					"401": {
 						"description": "Permission not granted."
 					},
-					"403": {
-						"description": "Invalid data provided."
-					},
 					"404": {
 						"description": "The element with the given ID does not exist."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			}
@@ -1351,9 +1273,6 @@
 					"401": {
 						"description": "You do not have sufficient access to perform this operation"
 					},
-					"403": {
-						"description": "The provided input is incorrect, please review it and try again."
-					},
 					"404": {
 						"description": "There is no data identifiable by the given parameters."
 					}
@@ -1389,9 +1308,6 @@
 					},
 					"403": {
 						"description": "Invalid data provided."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			}
@@ -1497,20 +1413,11 @@
 					"200": {
 						"description": "The password was reset and a confirmation email is sent."
 					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
 					"401": {
 						"description": "Permission not granted."
 					},
-					"403": {
-						"description": "Invalid data provided."
-					},
 					"404": {
 						"description": "The email is not in the database."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			}
@@ -1543,12 +1450,6 @@
 					},
 					"401": {
 						"description": "Permission not granted."
-					},
-					"403": {
-						"description": "Invalid data provided."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			}
@@ -1577,9 +1478,6 @@
 						"schema": {
 							"$ref": "#/definitions/School"
 						}
-					},
-					"400": {
-						"description": "The submitted request is malformed."
 					},
 					"401": {
 						"description": "Permission not granted."
@@ -1624,14 +1522,8 @@
 					"401": {
 						"description": "Permission not granted."
 					},
-					"403": {
-						"description": "Invalid data provided."
-					},
 					"404": {
 						"description": "The element with the given ID does not exist."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			}
@@ -1664,12 +1556,6 @@
 					},
 					"401": {
 						"description": "Permission not granted."
-					},
-					"403": {
-						"description": "Invalid data provided."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			}
@@ -1712,9 +1598,6 @@
 					},
 					"401": {
 						"description": "Permission not granted."
-					},
-					"403": {
-						"description": "Invalid data provided."
 					},
 					"404": {
 						"description": "The element with the given ID does not exist."
@@ -1888,12 +1771,6 @@
 					},
 					"401": {
 						"description": "Permission not granted."
-					},
-					"403": {
-						"description": "Invalid data provided."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			}
@@ -1956,9 +1833,6 @@
 					},
 					"401": {
 						"description": "You do not have sufficient access to perform this operation"
-					},
-					"403": {
-						"description": "The provided input is incorrect, please review it and try again."
 					},
 					"405": {
 						"description": "Method not allowed."
@@ -2042,14 +1916,8 @@
 					"401": {
 						"description": "Permission not granted."
 					},
-					"403": {
-						"description": "Invalid data provided."
-					},
 					"404": {
 						"description": "The element with the given ID does not exist."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			},
@@ -2183,7 +2051,8 @@
 			"properties": {
 				"_id": {
 					"type": "string",
-					"example": "1"
+					"example": "1",
+					"description": "INTERNAL PARAMETER"
 				},
 				"active": {
 					"type": "boolean",
@@ -2211,14 +2080,16 @@
 					"type": "array",
 					"description": "A list of all feedbacks the user has received.",
 					"items": {
-						"$ref": "#/definitions/Feedback"
+						"type": "string",
+						"example": "sample feedbacksIn"
 					}
 				},
 				"feedbacksOut": {
 					"type": "array",
 					"description": "A list of all feedbacks the user has given.",
 					"items": {
-						"$ref": "#/definitions/Feedback"
+						"type": "string",
+						"example": "sample feedbacksOut"
 					}
 				},
 				"languages": {
@@ -2246,7 +2117,8 @@
 					"type": "array",
 					"description": "A list of notifications the user received.",
 					"items": {
-						"$ref": "#/definitions/Message"
+						"type": "string",
+						"example": "sample notifications"
 					}
 				},
 				"permissions": {
@@ -2306,8 +2178,9 @@
 					"description": "The user's surname."
 				},
 				"refferalToken": {
-					"description": "The token assigned to a user when he will try to generate referal links",
-					"$ref": "#/definitions/Address"
+					"type": "string",
+					"example": "sample refferalToken",
+					"description": "The token assigned to a user when he will try to generate referal links"
 				}
 			}
 		},
@@ -2987,7 +2860,8 @@
 					"type": "array",
 					"description": "An inbox containing all messages sent to the school",
 					"items": {
-						"$ref": "#/definitions/Message"
+						"type": "string",
+						"example": "sample messages"
 					}
 				},
 				"name": {

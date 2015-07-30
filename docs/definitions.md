@@ -2,17 +2,17 @@
 ### User
 |Name|Description|Required|Schema|Default|
 |----|----|----|----|----|
-|_id||true|string||
+|_id|INTERNAL PARAMETER|true|string||
 |active|Says whether the user confirmed the registration. Also becomes inactive upon account deletion request.|true|boolean||
 |authentications|A list of available authentication methods configured for the user.|false|Authentication array||
 |deleted|Says whether the user has been deleted. If true - it is scheduled for permanent deletion.|true|boolean||
 |email|The user's email address.|true|string||
-|feedbacksIn|A list of all feedbacks the user has received.|false|Feedback array||
-|feedbacksOut|A list of all feedbacks the user has given.|false|Feedback array||
+|feedbacksIn|A list of all feedbacks the user has received.|false|string array||
+|feedbacksOut|A list of all feedbacks the user has given.|false|string array||
 |languages|A list of languages offered by an instructor.|false|string array||
 |lessons|A list of lessons booked by the user|false|string array||
 |name|The user's name.|true|string||
-|notifications|A list of notifications the user received.|false|Message array||
+|notifications|A list of notifications the user received.|false|string array||
 |permissions|A list of user's permissions (depending on the user type).|false|string array||
 |phoneNumber|User's contact number.|false|string||
 |photoURL|URL of user's avatar.|false|string||
@@ -22,7 +22,7 @@
 |timesOff|A list of periods where the instructor is unavailable.|false|TimeInterval array||
 |userType|Type of the user: regular, instructor, director, manager.|true|string||
 |surname|The user's surname.|true|string||
-|refferalToken|The token assigned to a user when he will try to generate referal links|false|Address||
+|refferalToken|The token assigned to a user when he will try to generate referal links|false|string||
 
 
 ### Transaction
@@ -222,7 +222,7 @@ Information about a given school
 |email|Main email address which can be used to contact the school|true|string||
 |employees|List of id's of all school employees.|true|string array||
 |logo|An url  with the school logo file|true|string||
-|messages|An inbox containing all messages sent to the school|true|Message array||
+|messages|An inbox containing all messages sent to the school|true|string array||
 |name|The name of the school|true|string||
 |openingHours|School working time (internal object with start and end time).|true|string (date)||
 |resort|A list of all resorts of given school - a minimum of one is required|true|string array||
