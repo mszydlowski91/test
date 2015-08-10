@@ -101,9 +101,6 @@
 							"$ref": "#/definitions/Bundle"
 						}
 					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
 					"401": {
 						"description": "Permission not granted."
 					},
@@ -215,14 +212,8 @@
 					"401": {
 						"description": "Permission not granted."
 					},
-					"403": {
-						"description": "Forbidden access."
-					},
 					"404": {
 						"description": "The requested resource does not exist."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			}
@@ -256,14 +247,8 @@
 					"401": {
 						"description": "Permission not granted."
 					},
-					"403": {
-						"description": "Forbidden access."
-					},
 					"404": {
 						"description": "The requested resource does not exist."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			}
@@ -294,9 +279,6 @@
 								"$ref": "#/definitions/Lesson"
 							}
 						}
-					},
-					"400": {
-						"description": "The submitted request is malformed."
 					},
 					"401": {
 						"description": "Permission not granted."
@@ -358,7 +340,10 @@
 					"200": {
 						"description": "Success",
 						"schema": {
-							"$ref": "#/definitions/Feedback"
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Feedback"
+							}
 						}
 					},
 					"400": {
@@ -399,9 +384,6 @@
 					},
 					"401": {
 						"description": "Permission not granted."
-					},
-					"403": {
-						"description": "Invalid data provided."
 					}
 				}
 			}
@@ -457,7 +439,10 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "Success",
+						"schema": {
+							"$ref": "#/definitions/Generator"
+						}
 					},
 					"401": {
 						"description": "Permission not granted."
@@ -710,7 +695,16 @@
 				"description": "Creates a new lesson",
 				"consumes": [],
 				"produces": [],
-				"parameters": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"required": false,
+						"schema": {
+							"$ref": "#/definitions/Lesson"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Success"
@@ -1279,7 +1273,7 @@
 						}
 					},
 					{
-						"name": "TYPE",
+						"name": "type",
 						"in": "query",
 						"description": "fetch messages of given type",
 						"required": false,
@@ -1397,9 +1391,6 @@
 						"schema": {
 							"$ref": "#/definitions/Message"
 						}
-					},
-					"400": {
-						"description": "The submitted request is malformed."
 					},
 					"401": {
 						"description": "Permission not granted."
@@ -1613,9 +1604,6 @@
 							}
 						}
 					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
 					"401": {
 						"description": "Permission not granted."
 					},
@@ -1644,9 +1632,6 @@
 								"$ref": "#/definitions/Transaction"
 							}
 						}
-					},
-					"400": {
-						"description": "The submitted request is malformed."
 					},
 					"401": {
 						"description": "Permission not granted."
@@ -1757,9 +1742,6 @@
 						"schema": {
 							"$ref": "#/definitions/Transaction"
 						}
-					},
-					"400": {
-						"description": "The submitted request is malformed."
 					},
 					"401": {
 						"description": "Permission not granted."
@@ -1956,9 +1938,6 @@
 							}
 						}
 					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
 					"401": {
 						"description": "Permission not granted."
 					},
@@ -2067,9 +2046,6 @@
 							}
 						}
 					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
 					"401": {
 						"description": "Permission not granted."
 					},
@@ -2106,9 +2082,6 @@
 								"$ref": "#/definitions/Message"
 							}
 						}
-					},
-					"400": {
-						"description": "The submitted request is malformed."
 					},
 					"401": {
 						"description": "Permission not granted."
@@ -2485,6 +2458,10 @@
 						"type": "string",
 						"example": "sample generatedBundles"
 					}
+				},
+				"lessonTemplate": {
+					"description": "Template used to create new lessons",
+					"$ref": "#/definitions/Lesson"
 				}
 			}
 		},

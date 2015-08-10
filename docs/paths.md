@@ -45,7 +45,6 @@ Gets a bundle by ID
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|Bundle|
-|400|The submitted request is malformed.|No Content|
 |401|Permission not granted.|No Content|
 |404|The element with the given ID does not exist.|No Content|
 
@@ -132,9 +131,7 @@ Adds a lesson to the bundle
 |200|Success|No Content|
 |400|The submitted request is malformed.|No Content|
 |401|Permission not granted.|No Content|
-|403|Forbidden access.|No Content|
 |404|The requested resource does not exist.|No Content|
-|405|Method not allowed.|No Content|
 
 
 #### Tags
@@ -162,9 +159,7 @@ Removes a lesson from bundle.
 |200|Success|No Content|
 |400|The submitted request is malformed.|No Content|
 |401|Permission not granted.|No Content|
-|403|Forbidden access.|No Content|
 |404|The requested resource does not exist.|No Content|
-|405|Method not allowed.|No Content|
 
 
 #### Tags
@@ -190,7 +185,6 @@ Gets all lessons of a bundle
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|Lesson array|
-|400|The submitted request is malformed.|No Content|
 |401|Permission not granted.|No Content|
 |404|The requested resource does not exist.|No Content|
 
@@ -220,7 +214,7 @@ Get a feedback by parameters
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|Feedback|
+|200|Success|Feedback array|
 |400|The submitted request is malformed.|No Content|
 |401|Permission not granted.|No Content|
 |404|The element with the given ID does not exist.|No Content|
@@ -251,7 +245,6 @@ Adds new feedback to db
 |200|Success|No Content|
 |400|The submitted request is malformed.|No Content|
 |401|Permission not granted.|No Content|
-|403|Invalid data provided.|No Content|
 
 
 #### Tags
@@ -303,7 +296,7 @@ Gets a generator by ID
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
+|200|Success|Generator|
 |401|Permission not granted.|No Content|
 |404|The element with the given ID does not exist.|No Content|
 
@@ -418,6 +411,12 @@ POST /lesson
 #### Description
 
 Creates a new lesson
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|BodyParameter|body||false|Lesson||
+
 
 #### Responses
 |HTTP Code|Description|Schema|
@@ -706,7 +705,7 @@ Gets messages having specific parameters
 |----|----|----|----|----|----|
 |QueryParameter|toId|Get recieved messages of user - THIS IS A TEST METHOD|false|null string array||
 |QueryParameter|startDate|fetch messages from date range|false|null string array||
-|QueryParameter|TYPE|fetch messages of given type|false|null string array||
+|QueryParameter|type|fetch messages of given type|false|null string array||
 |QueryParameter|unread|fetch only messages that are unread|false|null string array||
 |QueryParameter|fromId|Fetch all messages sent from given person/school|false|null string array||
 |QueryParameter|endDate|Fetch messages up to given date|false|null string array||
@@ -772,7 +771,6 @@ Gets a message by id
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|Message|
-|400|The submitted request is malformed.|No Content|
 |401|Permission not granted.|No Content|
 |404|The element with the given ID does not exist.|No Content|
 
@@ -939,7 +937,6 @@ Gets all generators of a school
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|Generator array|
-|400|The submitted request is malformed.|No Content|
 |401|Permission not granted.|No Content|
 |404|The requested resource does not exist.|No Content|
 
@@ -961,7 +958,6 @@ Gets all transactions for a given school
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|Transaction array|
-|400|The submitted request is malformed.|No Content|
 |401|Permission not granted.|No Content|
 |404|The requested resource does not exist.|No Content|
 
@@ -1047,7 +1043,6 @@ Gets a transaction by ID
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|Transaction|
-|400|The submitted request is malformed.|No Content|
 |401|Permission not granted.|No Content|
 |404|The element with the given ID does not exist.|No Content|
 
@@ -1163,7 +1158,6 @@ Gets a user by ID
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|User array|
-|400|The submitted request is malformed.|No Content|
 |401|Permission not granted.|No Content|
 |404|The element with the given ID does not exist.|No Content|
 
@@ -1248,7 +1242,6 @@ Gets all user feedbacks
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200||Feedback array|
-|400|The submitted request is malformed.|No Content|
 |401|Permission not granted.|No Content|
 |404|The element with the given ID does not exist.|No Content|
 
@@ -1276,7 +1269,6 @@ Gets all user messages.
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200||Message array|
-|400|The submitted request is malformed.|No Content|
 |401|Permission not granted.|No Content|
 |404|The element with the given ID does not exist.|No Content|
 
