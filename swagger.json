@@ -12,29 +12,36 @@
 	},
 	"tags": [
 		{
-			"name": "Default"
+			"name": "Default",
+			"description": "Items either unrelated to any section or used by entities of different sections"
 		},
 		{
 			"name": "Schools",
 			"description": "Items related to School management"
 		},
 		{
-			"name": "Messages"
+			"name": "Messages",
+			"description": "Items related to requests, notifications and feedback management"
 		},
 		{
-			"name": "Users"
+			"name": "Users",
+			"description": "Items related to user management"
 		},
 		{
-			"name": "Lessons"
+			"name": "Lessons",
+			"description": "Items related to lesson management"
 		},
 		{
-			"name": "Payments"
+			"name": "Payments",
+			"description": "Items related to all sorts of payments / awards of bonus money"
 		},
 		{
-			"name": "Bundles"
+			"name": "Bundles",
+			"description": "Items related to lesson bundles"
 		},
 		{
-			"name": "Generators"
+			"name": "Generators",
+			"description": "Items related to lesson/bundle generators"
 		}
 	],
 	"paths": {
@@ -84,8 +91,7 @@
 						"name": "bundleId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					}
 				],
 				"responses": {
@@ -119,8 +125,7 @@
 						"name": "bundleId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					},
 					{
 						"in": "body",
@@ -159,8 +164,7 @@
 						"name": "bundleId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					}
 				],
 				"responses": {
@@ -176,13 +180,13 @@
 				}
 			}
 		},
-		"/bundle/{bundleId}/lesson": {
-			"post": {
+		"/bundle/{bundleId}/addLesson": {
+			"put": {
 				"tags": [
 					"Bundles"
 				],
-				"summary": "Adds a new lesson to the bundle",
-				"description": "Adds a new lesson to the bundle",
+				"summary": "Adds a lesson to the bundle",
+				"description": "Adds a lesson to the bundle",
 				"consumes": [],
 				"produces": [],
 				"parameters": [
@@ -190,8 +194,7 @@
 						"name": "bundleId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					},
 					{
 						"in": "body",
@@ -211,17 +214,67 @@
 					},
 					"401": {
 						"description": "Permission not granted."
+					},
+					"403": {
+						"description": "Forbidden access."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
+					},
+					"405": {
+						"description": "Method not allowed."
 					}
 				}
 			}
 		},
-		"/bundle/{bundleId}/lesson/{lessonId}": {
-			"delete": {
+		"/bundle/{bundleId}/deleteLesson": {
+			"put": {
 				"tags": [
 					"Bundles"
 				],
-				"summary": "Deletes a lesson from a bundle",
-				"description": "Deletes a lesson from a bundle",
+				"summary": "Removes a lesson from bundle.",
+				"description": "Removes a lesson from bundle.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"required": false,
+						"schema": {
+							"$ref": "#/definitions/Lesson"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success"
+					},
+					"400": {
+						"description": "The submitted request is malformed."
+					},
+					"401": {
+						"description": "Permission not granted."
+					},
+					"403": {
+						"description": "Forbidden access."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
+					},
+					"405": {
+						"description": "Method not allowed."
+					}
+				}
+			}
+		},
+		"/bundle/{bundleId}/lessons": {
+			"get": {
+				"tags": [
+					"Bundles"
+				],
+				"summary": "Gets all lessons of a bundle",
+				"description": "Gets all lessons of a bundle",
 				"consumes": [],
 				"produces": [],
 				"parameters": [
@@ -230,23 +283,26 @@
 						"in": "path",
 						"required": true,
 						"type": "string"
-					},
-					{
-						"name": "lessonId",
-						"in": "path",
-						"required": true,
-						"type": "string"
 					}
 				],
 				"responses": {
 					"200": {
-						"description": "The lesson has been removed from the bundle."
+						"description": "Success",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Lesson"
+							}
+						}
+					},
+					"400": {
+						"description": "The submitted request is malformed."
 					},
 					"401": {
 						"description": "Permission not granted."
 					},
 					"404": {
-						"description": "The element with the given ID does not exist."
+						"description": "The requested resource does not exist."
 					}
 				}
 			}
@@ -396,8 +452,7 @@
 						"name": "generatorId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					}
 				],
 				"responses": {
@@ -425,8 +480,7 @@
 						"name": "generatorId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					},
 					{
 						"in": "body",
@@ -465,8 +519,7 @@
 						"name": "generatorId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					}
 				],
 				"responses": {
@@ -625,7 +678,10 @@
 					"200": {
 						"description": "Success",
 						"schema": {
-							"$ref": "#/definitions/Lesson"
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Lesson"
+							}
 						}
 					},
 					"400": {
@@ -676,8 +732,7 @@
 						"in": "path",
 						"description": "ID of the lesson to work with.",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					}
 				],
 				"responses": {
@@ -709,8 +764,7 @@
 						"in": "path",
 						"description": "ID of the lesson to work with.",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					},
 					{
 						"in": "body",
@@ -823,7 +877,7 @@
 					{
 						"name": "level",
 						"in": "query",
-						"description": "The levels of this lesson",
+						"description": "Modifies the level of this lesson.",
 						"required": false,
 						"type": "array",
 						"items": {
@@ -913,7 +967,7 @@
 					{
 						"name": "specialties",
 						"in": "query",
-						"description": "Modifies the specialities available in this lesson",
+						"description": "Modifies the speciality available in this lesson",
 						"required": false,
 						"type": "array",
 						"items": {
@@ -950,8 +1004,7 @@
 						"in": "path",
 						"description": "ID of the lesson to work with.",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					}
 				],
 				"responses": {
@@ -981,18 +1034,14 @@
 						"name": "lessonId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					}
 				],
 				"responses": {
 					"200": {
 						"description": "Success",
 						"schema": {
-							"type": "array",
-							"items": {
-								"$ref": "#/definitions/User"
-							}
+							"$ref": "#/definitions/User"
 						}
 					},
 					"401": {
@@ -1265,7 +1314,13 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "Success",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Message"
+							}
+						}
 					},
 					"400": {
 						"description": "The submitted request is malformed."
@@ -1326,8 +1381,7 @@
 						"name": "messageId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					}
 				],
 				"responses": {
@@ -1361,8 +1415,7 @@
 						"name": "messageId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					}
 				],
 				"responses": {
@@ -1468,8 +1521,7 @@
 						"name": "schoolId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					}
 				],
 				"responses": {
@@ -1500,8 +1552,7 @@
 						"name": "schoolId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					},
 					{
 						"in": "body",
@@ -1524,6 +1575,77 @@
 					},
 					"404": {
 						"description": "The element with the given ID does not exist."
+					}
+				}
+			}
+		},
+		"/school/{schoolId}/generators": {
+			"get": {
+				"tags": [
+					"Schools"
+				],
+				"summary": "Gets all generators of a school",
+				"description": "Gets all generators of a school",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "schoolId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Generator"
+							}
+						}
+					},
+					"400": {
+						"description": "The submitted request is malformed."
+					},
+					"401": {
+						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
+					}
+				}
+			}
+		},
+		"/school/{schoolId}/transactions": {
+			"get": {
+				"tags": [
+					"Schools"
+				],
+				"summary": "Gets all transactions for a given school",
+				"description": "Gets all transactions for a given school",
+				"consumes": [],
+				"produces": [],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Transaction"
+							}
+						}
+					},
+					"400": {
+						"description": "The submitted request is malformed."
+					},
+					"401": {
+						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
 					}
 				}
 			}
@@ -1619,8 +1741,7 @@
 						"name": "transactionId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					}
 				],
 				"responses": {
@@ -1628,46 +1749,6 @@
 						"description": "Success",
 						"schema": {
 							"$ref": "#/definitions/Transaction"
-						}
-					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
-					"401": {
-						"description": "Permission not granted."
-					},
-					"404": {
-						"description": "The element with the given ID does not exist."
-					}
-				}
-			}
-		},
-		"/transactions/{schoolId}": {
-			"get": {
-				"tags": [
-					"Payments"
-				],
-				"summary": "Gets all transactions for a given school",
-				"description": "Gets all transactions for a given school",
-				"consumes": [],
-				"produces": [],
-				"parameters": [
-					{
-						"name": "schoolId",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"format": "int32"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Success",
-						"schema": {
-							"type": "array",
-							"items": {
-								"$ref": "#/definitions/Transaction"
-							}
 						}
 					},
 					"400": {
@@ -1855,8 +1936,7 @@
 						"in": "path",
 						"description": "ID of the user to work with",
 						"required": true,
-						"type": "integer",
-						"format": "int64"
+						"type": "string"
 					}
 				],
 				"responses": {
@@ -1894,8 +1974,7 @@
 						"in": "path",
 						"description": "ID of the user to work with",
 						"required": true,
-						"type": "integer",
-						"format": "int64"
+						"type": "string"
 					},
 					{
 						"in": "body",
@@ -1935,8 +2014,7 @@
 						"in": "path",
 						"description": "ID of the user to work with",
 						"required": true,
-						"type": "integer",
-						"format": "int64"
+						"type": "string"
 					}
 				],
 				"responses": {
@@ -1969,8 +2047,7 @@
 						"name": "userId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					}
 				],
 				"responses": {
@@ -2010,8 +2087,7 @@
 						"in": "path",
 						"description": "ID of the user to get the messages for",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					}
 				],
 				"responses": {
@@ -2045,14 +2121,13 @@
 				"deleted",
 				"email",
 				"name",
-				"surname",
-				"userType"
+				"surname"
 			],
 			"properties": {
 				"_id": {
 					"type": "string",
 					"example": "1",
-					"description": "INTERNAL PARAMETER"
+					"description": ""
 				},
 				"active": {
 					"type": "boolean",
@@ -2076,58 +2151,10 @@
 					"example": "sample email",
 					"description": "The user's email address."
 				},
-				"feedbacksIn": {
-					"type": "array",
-					"description": "A list of all feedbacks the user has received.",
-					"items": {
-						"type": "string",
-						"example": "sample feedbacksIn"
-					}
-				},
-				"feedbacksOut": {
-					"type": "array",
-					"description": "A list of all feedbacks the user has given.",
-					"items": {
-						"type": "string",
-						"example": "sample feedbacksOut"
-					}
-				},
-				"languages": {
-					"type": "array",
-					"description": "A list of languages offered by an instructor.",
-					"items": {
-						"type": "string",
-						"example": "sample languages"
-					}
-				},
-				"lessons": {
-					"type": "array",
-					"description": "A list of lessons booked by the user",
-					"items": {
-						"type": "string",
-						"example": "sample lessons"
-					}
-				},
 				"name": {
 					"type": "string",
 					"example": "sample name",
 					"description": "The user's name."
-				},
-				"notifications": {
-					"type": "array",
-					"description": "A list of notifications the user received.",
-					"items": {
-						"type": "string",
-						"example": "sample notifications"
-					}
-				},
-				"permissions": {
-					"type": "array",
-					"description": "A list of user's permissions (depending on the user type).",
-					"items": {
-						"type": "string",
-						"example": "sample permissions"
-					}
 				},
 				"phoneNumber": {
 					"type": "string",
@@ -2143,34 +2170,6 @@
 					"type": "string",
 					"example": "sample resetPasswordToken",
 					"description": "A unique, random token dedicated for the specific user view to reset the password."
-				},
-				"schools": {
-					"type": "array",
-					"description": "A list of schools the user belongs to.",
-					"items": {
-						"type": "string",
-						"example": "1"
-					}
-				},
-				"specializations": {
-					"type": "array",
-					"description": "A list of specializations offered by the instructor.",
-					"items": {
-						"type": "string",
-						"example": "sample specializations"
-					}
-				},
-				"timesOff": {
-					"type": "array",
-					"description": "A list of periods where the instructor is unavailable.",
-					"items": {
-						"$ref": "#/definitions/TimeInterval"
-					}
-				},
-				"userType": {
-					"type": "string",
-					"example": "sample userType",
-					"description": "Type of the user: regular, instructor, director, manager."
 				},
 				"surname": {
 					"type": "string",
@@ -2368,11 +2367,47 @@
 					"description": "Type of message - request, notification etc."
 				}
 			},
-			"description": "A generic Message entity, having all possible fields that could appear in any message type. \nTypes and type-specific fields:\n - time off request: timesOff, timeOffRepeats\n - lesson request: role, accepted\n - lesson booked/unbooked: lessonId, bookerId, participantId\n - assigned lesson: memberId, assignedInstructorId, lessonId\n - unassigned lesson: memberId, lessonId, formerInstructorId\n - product added/removed/changed: productId, changedFields\n - membership accepted/refused: requestId, memberId\n - membership over/changed: memberId, oldRole"
+			"description": "A generic Message entity, having all possible fields that could appear in any message type. <br>\nTypes and type-specific fields: <br>\n - time off request: timesOff, timeOffRepeats<br>\n - lesson request: role, accepted<br>\n - lesson booked/unbooked: lessonId, bookerId, participantId<br>\n - assigned lesson: memberId, assignedInstructorId, lessonId<br>\n - unassigned lesson: memberId, lessonId, formerInstructorId<br>\n - product added/removed/changed: productId, changedFields<br>\n - membership accepted/refused: requestId, memberId<br>\n - membership over/changed: memberId, oldRole<br>"
+		},
+		"Participant": {
+			"required": [
+				"_id",
+				"bookerId",
+				"bookingCost",
+				"dateOfBooking",
+				"userId"
+			],
+			"properties": {
+				"userId": {
+					"type": "string",
+					"example": "sample userId",
+					"description": "The id of the user participating in the lesson."
+				},
+				"bookingCost": {
+					"type": "number",
+					"format": "double",
+					"example": "1.1",
+					"description": "How much the booker paid for the lesson"
+				},
+				"bookerId": {
+					"type": "string",
+					"example": "sample bookerId",
+					"description": "The person who booked the lesson for the user specified by the userID"
+				},
+				"dateOfBooking": {
+					"type": "string",
+					"format": "date",
+					"description": "When was the booking performed"
+				},
+				"_id": {
+					"type": "string",
+					"example": "sample _id"
+				}
+			},
+			"description": "The participant of a lesson"
 		},
 		"MeetingPoint": {
 			"required": [
-				"_id",
 				"geo",
 				"name"
 			],
@@ -2385,11 +2420,6 @@
 					"type": "string",
 					"example": "sample Name",
 					"description": "Name of the meeting point."
-				},
-				"_id": {
-					"type": "integer",
-					"format": "int64",
-					"example": "1"
 				}
 			},
 			"description": "Default meeting point for a lesson"
@@ -2462,6 +2492,64 @@
 			},
 			"description": "An entity representing a pair of times - starting and ending."
 		},
+		"Employee": {
+			"required": [
+				"_id",
+				"languages",
+				"permissions",
+				"schoolID",
+				"timesOff",
+				"userId"
+			],
+			"properties": {
+				"_id": {
+					"type": "string",
+					"example": "sample _id"
+				},
+				"userId": {
+					"type": "string",
+					"example": "sample userId",
+					"description": "The  id of the user."
+				},
+				"schoolID": {
+					"type": "string",
+					"example": "sample schoolID",
+					"description": "The id of the school which this user is an employee of"
+				},
+				"permissions": {
+					"type": "array",
+					"description": "What the user is allowed to do in this school.",
+					"items": {
+						"type": "string",
+						"example": "sample permissions"
+					}
+				},
+				"timesOff": {
+					"type": "array",
+					"description": "Time intervals during which the user is unavailable",
+					"items": {
+						"$ref": "#/definitions/TimeInterval"
+					}
+				},
+				"specialties": {
+					"type": "array",
+					"description": "Specialties the user can teach.",
+					"items": {
+						"type": "string",
+						"example": "sample specialties"
+					}
+				},
+				"languages": {
+					"type": "array",
+					"description": "The languages this employee can speak",
+					"items": {
+						"type": "string",
+						"example": "sample languages"
+					}
+				}
+			},
+			"description": "School employee"
+		},
 		"Authentication": {
 			"required": [
 				"type"
@@ -2488,8 +2576,6 @@
 			"required": [
 				"_id",
 				"deleted",
-				"discount",
-				"generatorId",
 				"lessons",
 				"name",
 				"publicFlag",
@@ -2511,15 +2597,8 @@
 					"description": "Says whether the bundle has been deleted. If true - it is scheduled for permanent deletion."
 				},
 				"discount": {
-					"type": "number",
-					"format": "double",
-					"example": "1.1",
-					"description": "The discount the user gets for the lessons in this bundle"
-				},
-				"generatorId": {
-					"type": "string",
-					"example": "1",
-					"description": "The ID of the generator by which this bundle was generated."
+					"description": "The discount the user gets for the lessons in this bundle",
+					"$ref": "#/definitions/Discount"
 				},
 				"lessons": {
 					"type": "array",
@@ -2577,11 +2656,36 @@
 			},
 			"description": "Internal object of a School entity."
 		},
+		"EntityType": {
+			"required": [
+				"Entity",
+				"_id"
+			],
+			"properties": {
+				"_id": {
+					"type": "string",
+					"example": "sample _id"
+				},
+				"Entity": {
+					"type": "string",
+					"example": "sample Entity",
+					"description": "Selects an entity type: school, employee, user"
+				},
+				"SchoolType": {
+					"type": "string",
+					"example": "sample SchoolType",
+					"description": "If the field is not null, the entity is of type School"
+				}
+			},
+			"description": "Helper object defining an entity type"
+		},
 		"Feedback": {
 			"required": [
 				"_id",
 				"fromWhom",
 				"lessonId",
+				"rating",
+				"relation",
 				"schoolId",
 				"toWhom"
 			],
@@ -2609,8 +2713,42 @@
 					"type": "string",
 					"example": "1",
 					"description": "ID of the receiver."
+				},
+				"message": {
+					"type": "string",
+					"example": "sample message",
+					"description": "The content of the feedback"
+				},
+				"rating": {
+					"type": "number",
+					"format": "double",
+					"example": "1.1",
+					"description": "The rating of the feedback"
+				},
+				"relation": {
+					"type": "string",
+					"example": "sample relation",
+					"description": "Defines what kind of entity sends and receives the feedback"
 				}
-			}
+			},
+			"description": "Entity representing a feedback (user to instructor, instructor to user or user to school)"
+		},
+		"Discount": {
+			"properties": {
+				"staticAmount": {
+					"type": "number",
+					"format": "double",
+					"example": "1.1",
+					"description": "If the discount to a bundle is a static number value"
+				},
+				"percentageOfFullCost": {
+					"type": "number",
+					"format": "double",
+					"example": "1.1",
+					"description": "If the discount to a bundle is a percentage value of the overal cost"
+				}
+			},
+			"description": "Object representing fields needed for different types of discounts."
 		},
 		"Geo": {
 			"required": [
@@ -2639,7 +2777,6 @@
 				"clientSource",
 				"deleted",
 				"instructorId",
-				"level",
 				"meetingPoint",
 				"name",
 				"participants",
@@ -2686,16 +2823,6 @@
 					"example": "1.1",
 					"description": "The discount the user gets for this lesson"
 				},
-				"generatorId": {
-					"type": "string",
-					"example": "1",
-					"description": "ID of the generator the lesson was generated by."
-				},
-				"hourFrom": {
-					"type": "string",
-					"format": "date",
-					"description": "Starting hour of the lesson"
-				},
 				"hourTo": {
 					"type": "string",
 					"format": "date",
@@ -2712,12 +2839,9 @@
 					"description": "ID of the instructor running the lesson."
 				},
 				"level": {
-					"type": "array",
-					"description": "The skill levels involved in this lesson.",
-					"items": {
-						"type": "string",
-						"example": "sample level"
-					}
+					"type": "string",
+					"example": "sample level",
+					"description": "The skill levels involved in this lesson."
 				},
 				"maxAge": {
 					"type": "integer",
@@ -2754,10 +2878,9 @@
 				},
 				"participants": {
 					"type": "array",
-					"description": "List of ids of users attending this lesson",
+					"description": "List of participants  attending this lesson",
 					"items": {
-						"type": "string",
-						"example": "sample participants"
+						"$ref": "#/definitions/Participant"
 					}
 				},
 				"prices": {
@@ -2775,12 +2898,9 @@
 					"description": "ID of the school at which the lesson was carried out."
 				},
 				"specialties": {
-					"type": "array",
-					"description": "The specialities covered by the lesson",
-					"items": {
-						"type": "string",
-						"example": "sample specialties"
-					}
+					"type": "string",
+					"example": "sample specialties",
+					"description": "The specialities covered by the lesson"
 				},
 				"previousInstructorId": {
 					"type": "string",
@@ -2797,7 +2917,6 @@
 				"defaultMeetingPoints",
 				"deleted",
 				"email",
-				"employees",
 				"logo",
 				"messages",
 				"name",
@@ -2842,14 +2961,6 @@
 					"type": "string",
 					"example": "sample email",
 					"description": "Main email address which can be used to contact the school"
-				},
-				"employees": {
-					"type": "array",
-					"description": "List of id's of all school employees.",
-					"items": {
-						"type": "string",
-						"example": "1"
-					}
 				},
 				"logo": {
 					"type": "string",

@@ -2,25 +2,15 @@
 ### User
 |Name|Description|Required|Schema|Default|
 |----|----|----|----|----|
-|_id|INTERNAL PARAMETER|true|string||
+|_id||true|string||
 |active|Says whether the user confirmed the registration. Also becomes inactive upon account deletion request.|true|boolean||
 |authentications|A list of available authentication methods configured for the user.|false|Authentication array||
 |deleted|Says whether the user has been deleted. If true - it is scheduled for permanent deletion.|true|boolean||
 |email|The user's email address.|true|string||
-|feedbacksIn|A list of all feedbacks the user has received.|false|string array||
-|feedbacksOut|A list of all feedbacks the user has given.|false|string array||
-|languages|A list of languages offered by an instructor.|false|string array||
-|lessons|A list of lessons booked by the user|false|string array||
 |name|The user's name.|true|string||
-|notifications|A list of notifications the user received.|false|string array||
-|permissions|A list of user's permissions (depending on the user type).|false|string array||
 |phoneNumber|User's contact number.|false|string||
 |photoURL|URL of user's avatar.|false|string||
 |resetPasswordToken|A unique, random token dedicated for the specific user view to reset the password.|false|string||
-|schools|A list of schools the user belongs to.|false|string array||
-|specializations|A list of specializations offered by the instructor.|false|string array||
-|timesOff|A list of periods where the instructor is unavailable.|false|TimeInterval array||
-|userType|Type of the user: regular, instructor, director, manager.|true|string||
 |surname|The user's surname.|true|string||
 |refferalToken|The token assigned to a user when he will try to generate referal links|false|string||
 
@@ -45,16 +35,16 @@ An entity representing a single transaction made by a user or  a school.
 
 ### Message
 
-A generic Message entity, having all possible fields that could appear in any message type. 
-Types and type-specific fields:
- - time off request: timesOff, timeOffRepeats
- - lesson request: role, accepted
- - lesson booked/unbooked: lessonId, bookerId, participantId
- - assigned lesson: memberId, assignedInstructorId, lessonId
- - unassigned lesson: memberId, lessonId, formerInstructorId
- - product added/removed/changed: productId, changedFields
- - membership accepted/refused: requestId, memberId
- - membership over/changed: memberId, oldRole
+A generic Message entity, having all possible fields that could appear in any message type. <br>
+Types and type-specific fields: <br>
+ - time off request: timesOff, timeOffRepeats<br>
+ - lesson request: role, accepted<br>
+ - lesson booked/unbooked: lessonId, bookerId, participantId<br>
+ - assigned lesson: memberId, assignedInstructorId, lessonId<br>
+ - unassigned lesson: memberId, lessonId, formerInstructorId<br>
+ - product added/removed/changed: productId, changedFields<br>
+ - membership accepted/refused: requestId, memberId<br>
+ - membership over/changed: memberId, oldRole<br>
 
 |Name|Description|Required|Schema|Default|
 |----|----|----|----|----|
@@ -82,6 +72,19 @@ The time of this message creation|true|string (date)||
 |type|Type of message - request, notification etc.|true|string||
 
 
+### Participant
+
+The participant of a lesson
+
+|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|
+|userId|The id of the user participating in the lesson.|true|string||
+|bookingCost|How much the booker paid for the lesson|true|number (double)||
+|bookerId|The person who booked the lesson for the user specified by the userID|true|string||
+|dateOfBooking|When was the booking performed|true|string (date)||
+|_id||true|string||
+
+
 ### MeetingPoint
 
 Default meeting point for a lesson
@@ -90,7 +93,6 @@ Default meeting point for a lesson
 |----|----|----|----|----|
 |geo|Coordinates of the meeting point.|true|Geo||
 |name|Name of the meeting point.|true|string||
-|_id||true|integer (int64)||
 
 
 ### Generator
@@ -115,6 +117,21 @@ An entity representing a pair of times - starting and ending.
 |startTime||true|string (date)||
 
 
+### Employee
+
+School employee
+
+|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|
+|_id||true|string||
+|userId|The  id of the user.|true|string||
+|schoolID|The id of the school which this user is an employee of|true|string||
+|permissions|What the user is allowed to do in this school.|true|string array||
+|timesOff|Time intervals during which the user is unavailable|true|TimeInterval array||
+|specialties|Specialties the user can teach.|false|string array||
+|languages|The languages this employee can speak|true|string array||
+
+
 ### Authentication
 
 An object describing a user's authentication (facebook, google, regular, etc).
@@ -135,8 +152,7 @@ A group of lessons with a discount if a user will decide to purchase all of them
 |_id||true|string||
 |comment|A creators comment towards the bundle.|false|string||
 |deleted|Says whether the bundle has been deleted. If true - it is scheduled for permanent deletion.|true|boolean||
-|discount|The discount the user gets for the lessons in this bundle|true|number (double)||
-|generatorId|The ID of the generator by which this bundle was generated.|true|string||
+|discount|The discount the user gets for the lessons in this bundle|false|Discount||
 |lessons|A list of lessons belonging to this bundle.|true|string array||
 |name|The name of the bundle.|true|string||
 |publicFlag|A flag determining whether the bundle is public or private.|true|boolean||
@@ -157,7 +173,21 @@ Internal object of a School entity.
 |state||false|string||
 
 
+### EntityType
+
+Helper object defining an entity type
+
+|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|
+|_id||true|string||
+|Entity|Selects an entity type: school, employee, user|true|string||
+|SchoolType|If the field is not null, the entity is of type School|false|string||
+
+
 ### Feedback
+
+Entity representing a feedback (user to instructor, instructor to user or user to school)
+
 |Name|Description|Required|Schema|Default|
 |----|----|----|----|----|
 |_id||true|string||
@@ -165,6 +195,19 @@ Internal object of a School entity.
 |lessonId|ID of the lesson the feedback refers to.|true|string||
 |schoolId|ID of the school the lesson was carried out at.|true|string||
 |toWhom|ID of the receiver.|true|string||
+|message|The content of the feedback|false|string||
+|rating|The rating of the feedback|true|number (double)||
+|relation|Defines what kind of entity sends and receives the feedback|true|string||
+
+
+### Discount
+
+Object representing fields needed for different types of discounts.
+
+|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|
+|staticAmount|If the discount to a bundle is a static number value|false|number (double)||
+|percentageOfFullCost|If the discount to a bundle is a percentage value of the overal cost|false|number (double)||
 
 
 ### Geo
@@ -188,22 +231,20 @@ Internal coordinate object used for meeting points.
 |comment|A brief comment about the lesson.|false|string||
 |deleted|Says whether the lesson has been deleted. If true - it is scheduled for permanent deletion.|true|boolean||
 |discount|The discount the user gets for this lesson|false|number (double)||
-|generatorId|ID of the generator the lesson was generated by.|false|string||
-|hourFrom|Starting hour of the lesson|false|string (date)||
 |hourTo|Ending hour of the lesson|false|string (date)||
 |instructorBonusFlag|Bonus the instructor gets for the lesson|false|boolean||
 |instructorId|ID of the instructor running the lesson.|true|string||
-|level|The skill levels involved in this lesson.|true|string array||
+|level|The skill levels involved in this lesson.|false|string||
 |maxAge|Maximum age for this lesson.|false|integer (int32)||
 |maxParticipants|Maximum number of participants.|false|integer (int32)||
 |meetingPoint|A meeting point for this lesson.|true|Geo||
 |minAge|Minimum age for this lesson.|false|integer (int32)||
 |minParticipants|Minimum number of participants for this lesson.|false|integer (int32)||
 |name|Name of the lesson.|true|string||
-|participants|List of ids of users attending this lesson|true|string array||
+|participants|List of participants  attending this lesson|true|Participant array||
 |prices|A list of price thresholds, depending on the time of booking|false|number (double) array||
 |schoolId|ID of the school at which the lesson was carried out.|true|string||
-|specialties|The specialities covered by the lesson|false|string array||
+|specialties|The specialities covered by the lesson|false|string||
 |previousInstructorId|Id of the previous instructor|false|string||
 
 
@@ -220,7 +261,6 @@ Information about a given school
 |defaultMeetingPoints|A list of established meeting points for instructors and students.|true|MeetingPoint array||
 |deleted|Says whether the school has been deleted. If true - it is scheduled for permanent deletion.|true|boolean||
 |email|Main email address which can be used to contact the school|true|string||
-|employees|List of id's of all school employees.|true|string array||
 |logo|An url  with the school logo file|true|string||
 |messages|An inbox containing all messages sent to the school|true|string array||
 |name|The name of the school|true|string||
