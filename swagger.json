@@ -672,6 +672,13 @@
 						"items": {
 							"type": "string"
 						}
+					},
+					{
+						"name": "criteria",
+						"in": "query",
+						"description": "Other additional sorting criteria",
+						"required": false,
+						"type": "string"
 					}
 				],
 				"responses": {
@@ -2189,7 +2196,8 @@
 				"amount",
 				"currency",
 				"date",
-				"transactionType"
+				"transactionType",
+				"userId"
 			],
 			"properties": {
 				"_id": {
@@ -2242,7 +2250,12 @@
 				"userId": {
 					"type": "string",
 					"example": "1.1",
-					"description": "ID of the user booking the transaction (if booked manually)."
+					"description": "ID of the user for whom the lesson was booked"
+				},
+				"bookerId": {
+					"type": "string",
+					"example": "sample bookerId",
+					"description": "ID of the user of stub user who booked this lesson"
 				}
 			},
 			"description": "An entity representing a single transaction made by a user or  a school."
@@ -2734,18 +2747,19 @@
 			"description": "Entity representing a feedback (user to instructor, instructor to user or user to school)"
 		},
 		"Discount": {
+			"required": [
+				"_id",
+				"type"
+			],
 			"properties": {
-				"staticAmount": {
-					"type": "number",
-					"format": "double",
+				"type": {
+					"type": "string",
 					"example": "1.1",
-					"description": "If the discount to a bundle is a static number value"
+					"description": "Enum representing the discount type"
 				},
-				"percentageOfFullCost": {
-					"type": "number",
-					"format": "double",
-					"example": "1.1",
-					"description": "If the discount to a bundle is a percentage value of the overal cost"
+				"_id": {
+					"type": "string",
+					"example": "sample _id"
 				}
 			},
 			"description": "Object representing fields needed for different types of discounts."
@@ -2839,9 +2853,12 @@
 					"description": "ID of the instructor running the lesson."
 				},
 				"level": {
-					"type": "string",
-					"example": "sample level",
-					"description": "The skill levels involved in this lesson."
+					"type": "array",
+					"description": "The skill levels involved in this lesson.",
+					"items": {
+						"type": "string",
+						"example": "sample level"
+					}
 				},
 				"maxAge": {
 					"type": "integer",
@@ -2898,9 +2915,12 @@
 					"description": "ID of the school at which the lesson was carried out."
 				},
 				"specialties": {
-					"type": "string",
-					"example": "sample specialties",
-					"description": "The specialities covered by the lesson"
+					"type": "array",
+					"description": "The specialities covered by the lesson",
+					"items": {
+						"type": "string",
+						"example": "sample specialties"
+					}
 				},
 				"previousInstructorId": {
 					"type": "string",
@@ -2992,6 +3012,12 @@
 						"type": "string",
 						"example": "sample resort"
 					}
+				},
+				"rating": {
+					"type": "number",
+					"format": "double",
+					"example": "1.1",
+					"description": "School's rating"
 				}
 			},
 			"description": "Information about a given school"

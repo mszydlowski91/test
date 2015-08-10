@@ -30,7 +30,8 @@ An entity representing a single transaction made by a user or  a school.
 |productId|ID of lesson or bundle ordered (or null if it's a refund/referral etc)|false|string||
 |schoolId|ID of the school that does the transaction (if it is not manually booked).|false|string||
 |transactionType|Type of the transaction: lesson purchase, refund, referral bonus, etc.|true|string||
-|userId|ID of the user booking the transaction (if booked manually).|false|string||
+|userId|ID of the user for whom the lesson was booked|true|string||
+|bookerId|ID of the user of stub user who booked this lesson|false|string||
 
 
 ### Message
@@ -206,8 +207,8 @@ Object representing fields needed for different types of discounts.
 
 |Name|Description|Required|Schema|Default|
 |----|----|----|----|----|
-|staticAmount|If the discount to a bundle is a static number value|false|number (double)||
-|percentageOfFullCost|If the discount to a bundle is a percentage value of the overal cost|false|number (double)||
+|type|Enum representing the discount type|true|string||
+|_id||true|string||
 
 
 ### Geo
@@ -234,7 +235,7 @@ Internal coordinate object used for meeting points.
 |hourTo|Ending hour of the lesson|false|string (date)||
 |instructorBonusFlag|Bonus the instructor gets for the lesson|false|boolean||
 |instructorId|ID of the instructor running the lesson.|true|string||
-|level|The skill levels involved in this lesson.|false|string||
+|level|The skill levels involved in this lesson.|false|string array||
 |maxAge|Maximum age for this lesson.|false|integer (int32)||
 |maxParticipants|Maximum number of participants.|false|integer (int32)||
 |meetingPoint|A meeting point for this lesson.|true|Geo||
@@ -244,7 +245,7 @@ Internal coordinate object used for meeting points.
 |participants|List of participants  attending this lesson|true|Participant array||
 |prices|A list of price thresholds, depending on the time of booking|false|number (double) array||
 |schoolId|ID of the school at which the lesson was carried out.|true|string||
-|specialties|The specialities covered by the lesson|false|string||
+|specialties|The specialities covered by the lesson|false|string array||
 |previousInstructorId|Id of the previous instructor|false|string||
 
 
@@ -266,6 +267,7 @@ Information about a given school
 |name|The name of the school|true|string||
 |openingHours|School working time (internal object with start and end time).|true|string (date)||
 |resort|A list of all resorts of given school - a minimum of one is required|true|string array||
+|rating|School's rating|false|number (double)||
 
 
 ### BankDetails

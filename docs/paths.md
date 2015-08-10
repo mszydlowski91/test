@@ -394,6 +394,7 @@ Gets lessons by parameters
 |QueryParameter|generatorId||false|null string array||
 |QueryParameter|bundled||false|null string array||
 |QueryParameter|single||false|null string array||
+|QueryParameter|criteria|Other additional sorting criteria|false|string||
 
 
 #### Responses
