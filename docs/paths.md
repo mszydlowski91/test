@@ -388,6 +388,8 @@ Gets lessons by parameters
 |QueryParameter|bundled||false|null string array||
 |QueryParameter|single||false|null string array||
 |QueryParameter|criteria|Other additional sorting criteria|false|string||
+|QueryParameter|startPage|Starting index of the whole list to fetch|false|string||
+|QueryParameter|endPage|Ending index of the whole list to fetch|false|string||
 
 
 #### Responses
@@ -1032,7 +1034,6 @@ Gets users according to parameters (will be paged to avoid huge lists).
 |----|----|----|----|----|----|
 |QueryParameter|startPage|Index of the page to fetch|false|null string array||
 |QueryParameter|pageSize|Size of a page|false|null string array||
-|QueryParameter|type|User type to fetch|false|null string array||
 
 
 #### Responses
@@ -1181,7 +1182,6 @@ Deletes a user by ID
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
-|400|The submitted request is malformed.|No Content|
 |401|Permission not granted.|No Content|
 |404|The element with the given ID does not exist.|No Content|
 
@@ -1208,7 +1208,7 @@ Gets all user feedbacks
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200||Feedback array|
+|200|Success|Feedback array|
 |401|Permission not granted.|No Content|
 |404|The element with the given ID does not exist.|No Content|
 
