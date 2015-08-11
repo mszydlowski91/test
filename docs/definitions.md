@@ -22,7 +22,6 @@
 |name|Template name.|true|string||
 |groupFlag|Determines whether it is an individual or a group lesson.|true|boolean||
 |instructor|Instructor assigned to generated lessons.|true|string||
-|publicFlag|Decides whether the generated lessons are public or private.|true|boolean||
 |minParticipants|Minimum amount of participants (for group lessons).|false|integer (int32)||
 |maxParticipants|Maximum amount of participants (for a group lesson).|false|integer (int32)||
 |prices|A list of prices for subsequent participants.|true|number (double) array||
@@ -78,7 +77,7 @@ Types and type-specific fields: <br>
 The time of this message creation|true|string (date)||
 |deleted|Says whether the message has been deleted. If true - it is scheduled for permanent deletion.|true|boolean||
 |formerInstructorId|The Id of the instructor previously assigned to this lesson.|false|string||
-|fromId|Id of the person / school which sent this message|true|string||
+|fromId|Entity type and ID of the person / school which sent this message|true|EntityID||
 |important|Whether it is in the 'important' category.|true|boolean||
 |lessonId|The id of the lesson that was changed|false|string||
 |memberId||false|string||
@@ -89,7 +88,7 @@ The time of this message creation|true|string (date)||
 |read|Whether it has already been read.|true|boolean||
 |role|The role of the person requesting the lesson|false|string||
 |timesOff|A list of periods where the instructor will not be available|false|TimeInterval||
-|toId|Id of the user/school that is the receiver of this message.|true|string||
+|toId|Entity type and ID of the user/school that is the receiver of this message.|true|EntityID||
 |type|Type of message - request, notification etc.|true|string||
 
 
@@ -127,6 +126,7 @@ Default meeting point for a lesson
 |bundleTemplate|Template used to generate bundles.|false|BundleTemplate||
 |schoolId|ID of the school the generator belongs to.|true|string||
 |times|List of time intervals for which the lessons / bundles will be generated.|true|TimeInterval||
+|publicFlag|Decides whether the generated lessons and bundles are public.|true|boolean||
 
 
 ### TimeInterval
@@ -151,6 +151,7 @@ School employee
 |timesOff|Time intervals during which the user is unavailable|true|TimeInterval array||
 |specialties|Specialties the user can teach.|false|string array||
 |languages|The languages this employee can speak|true|string array||
+|deleted|Says whether the employee was deleted.|true|boolean||
 
 
 ### Authentication

@@ -123,6 +123,7 @@ Adds a lesson to the bundle
 |----|----|----|----|----|----|
 |PathParameter|bundleId||true|string||
 |BodyParameter|body||false|Lesson||
+|QueryParameter|lessonId|ID of the lesson to add|false|string||
 
 
 #### Responses
@@ -151,6 +152,7 @@ Removes a lesson from bundle.
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |BodyParameter|body||false|Lesson||
+|QueryParameter|lessonId|ID of the lesson to remove|false|string||
 
 
 #### Responses
@@ -192,6 +194,103 @@ Gets all lessons of a bundle
 #### Tags
 
 * Bundles
+
+### POST /employee
+```
+POST /employee
+```
+
+#### Description
+
+Adds a new employee
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|BodyParameter|body||false|Employee||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+
+
+#### Tags
+
+* Users
+
+### GET /employee/{employeeId}
+```
+GET /employee/{employeeId}
+```
+
+#### Description
+
+Gets an employee by ID
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Sucess|Employee|
+|401|The submitted request was malformed.|No Content|
+|404|The requested resource does not exist.|No Content|
+
+
+#### Tags
+
+* Users
+
+### PUT /employee/{employeeId}
+```
+PUT /employee/{employeeId}
+```
+
+#### Description
+
+Modifies an existing employee
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|BodyParameter|body||false|Employee||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|404|The requested resource does not exist.|No Content|
+
+
+#### Tags
+
+* Users
+
+### DELETE /employee/{employeeId}
+```
+DELETE /employee/{employeeId}
+```
+
+#### Description
+
+Schedules an employee for deletion.
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|No Content|
+|401|Permission not granted.|No Content|
+|404|The requested resource does not exist.|No Content|
+
+
+#### Tags
+
+* Users
 
 ### GET /feedback
 ```
@@ -264,6 +363,7 @@ Creates a new generator
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |BodyParameter|body||false|Generator||
+|QueryParameter|isBundle|Determines whether the generator will be a bundle generator.|false|string||
 
 
 #### Responses
@@ -361,6 +461,72 @@ Deletes a generator
 
 * Generators
 
+### PUT /generator/{generatorId}/bundleTemplate
+```
+PUT /generator/{generatorId}/bundleTemplate
+```
+
+#### Description
+
+Modifies the bundle template of the generator
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|generatorId||true|string||
+|BodyParameter|body||false|BundleTemplate||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|404|The requested resource does not exist.|No Content|
+
+
+#### Consumes
+
+* application/json
+
+#### Tags
+
+* Generators
+
+### PUT /generator/{generatorId}/lessonTemplate
+```
+PUT /generator/{generatorId}/lessonTemplate
+```
+
+#### Description
+
+Modifies the bundle template of the generator
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|generatorId||true|string||
+|BodyParameter|body||false|LessonTemplate||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|404|The requested resource does not exist.|No Content|
+
+
+#### Consumes
+
+* application/json
+
+#### Tags
+
+* Generators
+
 ### GET /lesson
 ```
 GET /lesson
@@ -388,8 +554,8 @@ Gets lessons by parameters
 |QueryParameter|bundled||false|null string array||
 |QueryParameter|single||false|null string array||
 |QueryParameter|criteria|Other additional sorting criteria|false|string||
-|QueryParameter|startPage|Starting index of the whole list to fetch|false|string||
-|QueryParameter|endPage|Ending index of the whole list to fetch|false|string||
+|QueryParameter|startPage|Starting index of the whole list to fetch|false|integer||
+|QueryParameter|endPage|Ending index of the whole list to fetch|false|integer||
 
 
 #### Responses
@@ -473,26 +639,6 @@ Modifies an existing lesson
 |----|----|----|----|----|----|
 |PathParameter|lessonId|ID of the lesson to work with.|true|string||
 |BodyParameter|body||false|Lesson||
-|QueryParameter|id|The id of the lesson to be modified - this parameter IS mandatory.|false|null string array||
-|QueryParameter|bookingType|What kind of booking type should this lesson have.|false|null string array||
-|QueryParameter|bundleId|The id of the bundle this lesson should be part of. Empty  for removing from a bundle.|false|null string array||
-|QueryParameter|comment|Modify the comment of a lesson|false|null string array||
-|QueryParameter|discount|Modify the discount applicable for this lesson (if present must be >= 0)|false|null string array||
-|QueryParameter|generatorId|The id of the generator owning this lesson, if a lesson is edited without specifying this parameter than it will be set to null.|false|null string array||
-|QueryParameter|hourFrom|Starting hour of this lesson, must be less than hourTo|false|null string array||
-|QueryParameter|hourTo|Ending hour of this lesson, must be more than hourFrom|false|null string array||
-|QueryParameter|instructorBonusFlag|Does this lesson provide a bonus for the instructor|false|null string array||
-|QueryParameter|instructorId|The id of the new instructor (null for unassigned). If you only wish to modify the instructor assignment use /lesson{lessonId}/assignment|false|null string array||
-|QueryParameter|level|Modifies the level of this lesson.|false|null string array||
-|QueryParameter|maxAge|The max age for participants|false|null string array||
-|QueryParameter|maxParticipants|The maximum amount of participants|false|null string array||
-|QueryParameter|meetingPoint|The meeting point of this lesson|false|null string array||
-|QueryParameter|minAge|Minimal age for this lesson|false|null string array||
-|QueryParameter|minParticipants|Minimal number of participants for the lesson to take place|false|null string array||
-|QueryParameter|name|The name of the lesson|false|null string array||
-|QueryParameter|participants|list of id's of users participating in this lesson. If this is the only value you would like to modify please use /lesson{lessonId}/participant/|false|null string array||
-|QueryParameter|prices|Modifies the prices array for this lesson|false|null string array||
-|QueryParameter|specialties|Modifies the speciality available in this lesson|false|null string array||
 
 
 #### Responses
@@ -788,7 +934,6 @@ Resets a user's password
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|BodyParameter|body||false|User||
 |QueryParameter|email||false|null string array||
 
 
@@ -921,7 +1066,7 @@ GET /school/{schoolId}/transactions
 
 #### Description
 
-Gets all transactions for a given school
+Gets all transactions for a given school, for a given user ID
 
 #### Responses
 |HTTP Code|Description|Schema|
@@ -956,37 +1101,6 @@ Creates a new transaction
 |200|Success|No Content|
 |400|The submitted request is malformed.|No Content|
 |401|Permission not granted.|No Content|
-
-
-#### Tags
-
-* Payments
-
-### GET /transaction/summary
-```
-GET /transaction/summary
-```
-
-#### Description
-
-If userId is specifiec, returns JSON: {amount: paidCredit, bonus:savedCredit} 
-If schoolId, returns JSON:  {amount: earnedCredit, bonus: credit gave away in promotions}
-If both, returns JSON:  {amount: credits earned on a given user by the school, bonus: credit awarder for the user by the school}
-
-#### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|QueryParameter|userId||false|null string array||
-|QueryParameter|schoolId||false|null string array||
-
-
-#### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|Outputs a JSON object, representation to be defined.|No Content|
-|400|The submitted request is malformed.|No Content|
-|401|Permission not granted.|No Content|
-|404|The element with the given ID does not exist.|No Content|
 
 
 #### Tags
@@ -1032,8 +1146,8 @@ Gets users according to parameters (will be paged to avoid huge lists).
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|QueryParameter|startPage|Index of the page to fetch|false|null string array||
-|QueryParameter|pageSize|Size of a page|false|null string array||
+|QueryParameter|startPage|Index of the page to fetch|false|integer||
+|QueryParameter|pageSize|Size of a page|false|integer||
 
 
 #### Responses
@@ -1088,7 +1202,6 @@ Creates a new stub user.
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|BodyParameter|body||false|User||
 |QueryParameter|email|The email of the stub user - This parameter IS mandatory|false|null string array||
 |QueryParameter|firstName|The name of the stub user - This parameter is NOT mandatory|false|null string array||
 |QueryParameter|lastName|The lastName of the stub user - This parameter is NOT mandatory|false|null string array||
@@ -1235,9 +1348,37 @@ Gets all user messages.
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200||Message array|
+|200|Success|Message array|
 |401|Permission not granted.|No Content|
 |404|The element with the given ID does not exist.|No Content|
+
+
+#### Tags
+
+* Users
+
+### GET /user/{userId}/transactions
+```
+GET /user/{userId}/transactions
+```
+
+#### Description
+
+Gets all user transactions, for a given school
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|userId||true|string||
+|QueryParameter|schoolId||false|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|Transaction array|
+|401|Permission not granted.|No Content|
+|404|The requested resource does not exist.|No Content|
 
 
 #### Tags
