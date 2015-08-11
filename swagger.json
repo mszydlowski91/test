@@ -1075,22 +1075,11 @@
 						"in": "path",
 						"required": true,
 						"type": "string"
-					},
-					{
-						"in": "body",
-						"name": "body",
-						"required": false,
-						"schema": {
-							"$ref": "#/definitions/Lesson"
-						}
 					}
 				],
 				"responses": {
 					"200": {
 						"description": "The instructor has been changed."
-					},
-					"400": {
-						"description": "The submitted request is malformed."
 					},
 					"401": {
 						"description": "Permission not granted."
@@ -1139,56 +1128,6 @@
 				"responses": {
 					"200": {
 						"description": "Success"
-					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
-					"401": {
-						"description": "Permission not granted."
-					},
-					"404": {
-						"description": "The element with the given ID does not exist."
-					}
-				}
-			}
-		},
-		"/lesson/{lessonId}/participant/{participantId}": {
-			"put": {
-				"tags": [
-					"Lessons"
-				],
-				"summary": "Modifies a lesson participant",
-				"description": "Modifies a lesson participant",
-				"consumes": [],
-				"produces": [],
-				"parameters": [
-					{
-						"name": "participantId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"name": "lessonId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"in": "body",
-						"name": "body",
-						"required": false,
-						"schema": {
-							"$ref": "#/definitions/User"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "The participant has been modified."
-					},
-					"400": {
-						"description": "The submitted request is malformed."
 					},
 					"401": {
 						"description": "Permission not granted."
@@ -2163,6 +2102,103 @@
 				}
 			}
 		},
+		"LessonTemplate": {
+			"required": [
+				"_id",
+				"groupFlag",
+				"instructors",
+				"name",
+				"prices",
+				"publicFlag"
+			],
+			"properties": {
+				"_id": {
+					"type": "string",
+					"example": "sample _id"
+				},
+				"name": {
+					"type": "string",
+					"example": "sample name",
+					"description": "Template name."
+				},
+				"groupFlag": {
+					"type": "boolean",
+					"example": "false",
+					"description": "Determines whether it is an individual or a group lesson."
+				},
+				"instructors": {
+					"type": "array",
+					"description": "Instructors assigned to generated lessons.",
+					"items": {
+						"type": "string",
+						"example": "sample instructors"
+					}
+				},
+				"publicFlag": {
+					"type": "boolean",
+					"example": "false",
+					"description": "Decides whether the generated lessons are public or private."
+				},
+				"minParticipants": {
+					"type": "integer",
+					"format": "int32",
+					"example": "1",
+					"description": "Minimum amount of participants (for group lessons)."
+				},
+				"maxParticipants": {
+					"type": "integer",
+					"format": "int32",
+					"example": "1",
+					"description": "Maximum amount of participants (for a group lesson)."
+				},
+				"prices": {
+					"type": "array",
+					"description": "A list of prices for subsequent participants.",
+					"items": {
+						"type": "number",
+						"format": "double",
+						"example": "1.1"
+					}
+				},
+				"minAge": {
+					"type": "integer",
+					"format": "int32",
+					"example": "1",
+					"description": "Minimum age of the lessons (for group lessons)."
+				},
+				"maxAge": {
+					"type": "integer",
+					"format": "int32",
+					"example": "1",
+					"description": "Maximum age of the lessons (for group lessons)."
+				},
+				"specialty": {
+					"type": "string",
+					"example": "sample specialty",
+					"description": "Specialty of the generated lessons"
+				},
+				"level": {
+					"type": "string",
+					"example": "sample level",
+					"description": "Required skill level for the generated lessons."
+				},
+				"instructorBonusFlag": {
+					"type": "boolean",
+					"example": "false",
+					"description": "Decides whether an instructor will receive bonus for the generated lessons."
+				},
+				"comment": {
+					"type": "string",
+					"example": "sample comment",
+					"description": "A brief description of the template."
+				},
+				"bookingType": {
+					"type": "string",
+					"example": "sample bookingType",
+					"description": "Decides whether it is a manual booking or by a school."
+				}
+			}
+		},
 		"Transaction": {
 			"required": [
 				"_id",
@@ -2355,6 +2391,33 @@
 			},
 			"description": "A generic Message entity, having all possible fields that could appear in any message type. <br>\nTypes and type-specific fields: <br>\n - time off request: timesOff, timeOffRepeats<br>\n - lesson request: role, accepted<br>\n - lesson booked/unbooked: lessonId, bookerId, participantId<br>\n - assigned lesson: memberId, assignedInstructorId, lessonId<br>\n - unassigned lesson: memberId, lessonId, formerInstructorId<br>\n - product added/removed/changed: productId, changedFields<br>\n - membership accepted/refused: requestId, memberId<br>\n - membership over/changed: memberId, oldRole<br>"
 		},
+		"BundleTemplate": {
+			"required": [
+				"_id",
+				"discount",
+				"name"
+			],
+			"properties": {
+				"_id": {
+					"type": "string",
+					"example": "sample _id"
+				},
+				"name": {
+					"type": "string",
+					"example": "sample name",
+					"description": "Name of the generated bundles."
+				},
+				"comment": {
+					"type": "string",
+					"example": "sample comment",
+					"description": "Auto-generated comment for every bundle."
+				},
+				"discount": {
+					"description": "Discount for the generated bundles.",
+					"$ref": "#/definitions/Discount"
+				}
+			}
+		},
 		"Participant": {
 			"required": [
 				"_id",
@@ -2414,7 +2477,11 @@
 			"required": [
 				"_id",
 				"deleted",
+				"lessonTemplate",
 				"name",
+				"priority",
+				"schoolId",
+				"times",
 				"type"
 			],
 			"properties": {
@@ -2460,8 +2527,27 @@
 					}
 				},
 				"lessonTemplate": {
-					"description": "Template used to create new lessons",
-					"$ref": "#/definitions/Lesson"
+					"description": "Template used to create new lessons.",
+					"$ref": "#/definitions/LessonTemplate"
+				},
+				"priority": {
+					"type": "integer",
+					"format": "int32",
+					"example": "1",
+					"description": "The generator priority (starting from 1, 2, 3, ...), determines the generator precedence in case of overlapping lessons."
+				},
+				"bundleTemplate": {
+					"description": "Template used to generate bundles.",
+					"$ref": "#/definitions/BundleTemplate"
+				},
+				"schoolId": {
+					"type": "string",
+					"example": "sample schoolId",
+					"description": "ID of the school the generator belongs to."
+				},
+				"times": {
+					"description": "List of time intervals for which the lessons / bundles will be generated.",
+					"$ref": "#/definitions/TimeInterval"
 				}
 			}
 		},
@@ -2807,12 +2893,6 @@
 					"type": "boolean",
 					"example": "false",
 					"description": "Says whether the lesson has been deleted. If true - it is scheduled for permanent deletion."
-				},
-				"discount": {
-					"type": "number",
-					"format": "double",
-					"example": "1.1",
-					"description": "The discount the user gets for this lesson"
 				},
 				"hourTo": {
 					"type": "string",

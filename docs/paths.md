@@ -574,14 +574,12 @@ Change the instructor assigned to the lesson
 |----|----|----|----|----|----|
 |PathParameter|instructorId||true|string||
 |PathParameter|lessonId||true|string||
-|BodyParameter|body||false|Lesson||
 
 
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|The instructor has been changed.|No Content|
-|400|The submitted request is malformed.|No Content|
 |401|Permission not granted.|No Content|
 |404|The element with the given ID does not exist.|No Content|
 
@@ -611,37 +609,6 @@ Remove or add a participant to a lesson
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
-|400|The submitted request is malformed.|No Content|
-|401|Permission not granted.|No Content|
-|404|The element with the given ID does not exist.|No Content|
-
-
-#### Tags
-
-* Lessons
-
-### PUT /lesson/{lessonId}/participant/{participantId}
-```
-PUT /lesson/{lessonId}/participant/{participantId}
-```
-
-#### Description
-
-Modifies a lesson participant
-
-#### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|PathParameter|participantId||true|string||
-|PathParameter|lessonId||true|string||
-|BodyParameter|body||false|User||
-
-
-#### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|The participant has been modified.|No Content|
-|400|The submitted request is malformed.|No Content|
 |401|Permission not granted.|No Content|
 |404|The element with the given ID does not exist.|No Content|
 
