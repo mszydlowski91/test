@@ -2548,15 +2548,15 @@
 				"languages",
 				"permissions",
 				"timesOff",
-				"user"
+				"userId"
 			],
 			"properties": {
 				"_id": {
 					"type": "string",
 					"example": "sample _id"
 				},
-				"user": {
-					"description": "The corresponding User object",
+				"userId": {
+					"description": "The corresponding `User`, stored as ID, but will be fetched as an entire embedded object at backend side.",
 					"$ref": "#/definitions/User"
 				},
 				"permissions": {

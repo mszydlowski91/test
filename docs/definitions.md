@@ -145,7 +145,7 @@ School employee
 |Name|Description|Required|Schema|Default|
 |----|----|----|----|----|
 |_id||true|string||
-|user|The corresponding User object|true|User||
+|userId|The corresponding `User`, stored as ID, but will be fetched as an entire embedded object at backend side.|true|User||
 |permissions|What the user is allowed to do in this school.|true|string array||
 |timesOff|Time intervals during which the user is unavailable|true|TimeInterval array||
 |specialties|Specialties the user can teach.|false|string array||
