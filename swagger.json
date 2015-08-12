@@ -2250,7 +2250,7 @@
 				},
 				"product": {
 					"description": "Entity defining the product that has been ordered.",
-					"$ref": "#/definitions/EntityType"
+					"$ref": "#/definitions/EntityID"
 				},
 				"schoolId": {
 					"type": "string",
@@ -2746,7 +2746,7 @@
 				},
 				"fromWhom": {
 					"description": "ID and entity type of the sender.",
-					"$ref": "#/definitions/EntityType"
+					"$ref": "#/definitions/EntityID"
 				},
 				"lessonId": {
 					"type": "string",
@@ -2760,7 +2760,7 @@
 				},
 				"toWhom": {
 					"description": "ID and entity type of the receiver.",
-					"$ref": "#/definitions/EntityType"
+					"$ref": "#/definitions/EntityID"
 				},
 				"message": {
 					"type": "string",

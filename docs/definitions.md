@@ -46,7 +46,7 @@ An entity representing a single transaction made by a user or  a school.
 |comment|A brief description of transaction's purpose.|false|string||
 |currency|The currency in which the transaction will be done.|true|string||
 |date|A date at which the transaction occurs.|true|string (date)||
-|product|Entity defining the product that has been ordered.|true|EntityType||
+|product|Entity defining the product that has been ordered.|true|EntityID||
 |schoolId|ID of the school that does the transaction (if it is not manually booked).|false|string||
 |transactionType|Type of the transaction: lesson purchase, refund, referral bonus, etc.|true|string||
 |userId|ID of the user for whom the lesson was booked|true|string||
@@ -213,10 +213,10 @@ Entity representing a feedback (user to instructor, instructor to user or user t
 |Name|Description|Required|Schema|Default|
 |----|----|----|----|----|
 |_id||true|string||
-|fromWhom|ID and entity type of the sender.|true|EntityType||
+|fromWhom|ID and entity type of the sender.|true|EntityID||
 |lessonId|ID of the lesson the feedback refers to.|true|string||
 |schoolId|ID of the school the lesson was carried out at.|true|string||
-|toWhom|ID and entity type of the receiver.|true|EntityType||
+|toWhom|ID and entity type of the receiver.|true|EntityID||
 |message|The content of the feedback|false|string||
 |rating|The rating of the feedback|true|number (double)||
 |relation|Defines what kind of entity sends and receives the feedback|true|string||
