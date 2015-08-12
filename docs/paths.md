@@ -554,8 +554,8 @@ Gets lessons by parameters
 |QueryParameter|bundled||false|null string array||
 |QueryParameter|single||false|null string array||
 |QueryParameter|criteria|Other additional sorting criteria|false|string||
-|QueryParameter|startPage|Starting index of the whole list to fetch|false|integer||
-|QueryParameter|endPage|Ending index of the whole list to fetch|false|integer||
+|QueryParameter|startPage|Starting index of the whole list to fetch|false|string||
+|QueryParameter|endPage|Ending index of the whole list to fetch|false|string||
 
 
 #### Responses
@@ -934,6 +934,7 @@ Resets a user's password
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
+|BodyParameter|body||false|User||
 |QueryParameter|email||false|null string array||
 
 
@@ -1146,8 +1147,8 @@ Gets users according to parameters (will be paged to avoid huge lists).
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|QueryParameter|startPage|Index of the page to fetch|false|integer||
-|QueryParameter|pageSize|Size of a page|false|integer||
+|QueryParameter|startPage|Index of the page to fetch|false|null string array||
+|QueryParameter|pageSize|Size of a page|false|null string array||
 
 
 #### Responses

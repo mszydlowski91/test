@@ -73,14 +73,13 @@ Types and type-specific fields: <br>
 |assignedInstructorId|The id of the newly assigned instructor.|false|string||
 |bookerId|The id of the person (or school) who booked the lesson for you|false|string||
 |changedFields|The names of fields that were changed in the given lesson.|false|string array||
-|timestamp|READ ONLY
-The time of this message creation|true|string (date)||
+|timestamp|The time of this message creation|true|string (date)||
 |deleted|Says whether the message has been deleted. If true - it is scheduled for permanent deletion.|true|boolean||
 |formerInstructorId|The Id of the instructor previously assigned to this lesson.|false|string||
 |fromId|Entity type and ID of the person / school which sent this message|true|EntityID||
 |important|Whether it is in the 'important' category.|true|boolean||
 |lessonId|The id of the lesson that was changed|false|string||
-|memberId||false|string||
+|memberId|ID of the member assigning or unassigning the lesson.|false|string||
 |message|The content of the message|true|string||
 |oldRole|The previous role of the user who changed|false|string||
 |participantId|Person for whom the lesson was booked/unbooked for.|false|string||
@@ -146,7 +145,7 @@ School employee
 |Name|Description|Required|Schema|Default|
 |----|----|----|----|----|
 |_id||true|string||
-|userId|The  id of the user.|true|string||
+|user|The corresponding User object|true|User||
 |permissions|What the user is allowed to do in this school.|true|string array||
 |timesOff|Time intervals during which the user is unavailable|true|TimeInterval array||
 |specialties|Specialties the user can teach.|false|string array||
@@ -300,6 +299,5 @@ This will be an internal object of an entity of type School.
 |----|----|----|----|----|
 |accountNumber|Bank account number.|true|integer (int64)||
 |currency|Currency the account number is in.|true|string||
-|_id||true|string||
 
 

@@ -889,14 +889,14 @@
 						"in": "query",
 						"description": "Starting index of the whole list to fetch",
 						"required": false,
-						"type": "integer"
+						"type": "string"
 					},
 					{
 						"name": "endPage",
 						"in": "query",
 						"description": "Ending index of the whole list to fetch",
 						"required": false,
-						"type": "integer"
+						"type": "string"
 					}
 				],
 				"responses": {
@@ -1415,6 +1415,14 @@
 				"produces": [],
 				"parameters": [
 					{
+						"in": "body",
+						"name": "body",
+						"required": false,
+						"schema": {
+							"$ref": "#/definitions/User"
+						}
+					},
+					{
 						"name": "email",
 						"in": "query",
 						"required": false,
@@ -1686,15 +1694,20 @@
 						"in": "query",
 						"description": "Index of the page to fetch",
 						"required": false,
-						"type": "integer"
-						
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
 					},
 					{
 						"name": "pageSize",
 						"in": "query",
 						"description": "Size of a page",
 						"required": false,
-						"type": "integer"
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
 					}
 				],
 				"responses": {
@@ -2305,7 +2318,7 @@
 				"timestamp": {
 					"type": "string",
 					"format": "date",
-					"description": "READ ONLY\nThe time of this message creation"
+					"description": "The time of this message creation"
 				},
 				"deleted": {
 					"type": "boolean",
@@ -2334,7 +2347,7 @@
 				"memberId": {
 					"type": "string",
 					"example": "sample memberId",
-					"description": ""
+					"description": "ID of the member assigning or unassigning the lesson."
 				},
 				"message": {
 					"type": "string",
@@ -2535,17 +2548,16 @@
 				"languages",
 				"permissions",
 				"timesOff",
-				"userId"
+				"user"
 			],
 			"properties": {
 				"_id": {
 					"type": "string",
 					"example": "sample _id"
 				},
-				"userId": {
-					"type": "string",
-					"example": "sample userId",
-					"description": "The  id of the user."
+				"user": {
+					"description": "The corresponding User object",
+					"$ref": "#/definitions/User"
 				},
 				"permissions": {
 					"type": "array",
@@ -3047,7 +3059,6 @@
 		},
 		"BankDetails": {
 			"required": [
-				"_id",
 				"accountNumber",
 				"currency"
 			],
@@ -3062,10 +3073,6 @@
 					"type": "string",
 					"example": "sample currency",
 					"description": "Currency the account number is in."
-				},
-				"_id": {
-					"type": "string",
-					"example": "sample _id"
 				}
 			},
 			"description": "This will be an internal object of an entity of type School."
