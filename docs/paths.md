@@ -151,6 +151,7 @@ Removes a lesson from bundle.
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
+|PathParameter|bundleId||true|string||
 |BodyParameter|body||false|Lesson||
 |QueryParameter|lessonId|ID of the lesson to remove|false|string||
 
@@ -231,6 +232,12 @@ GET /employee/{employeeId}
 
 Gets an employee by ID
 
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|employeeId||true|string||
+
+
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
@@ -255,6 +262,7 @@ Modifies an existing employee
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
+|PathParameter|employeeId||true|string||
 |BodyParameter|body||false|Employee||
 
 
@@ -280,6 +288,12 @@ DELETE /employee/{employeeId}
 
 Schedules an employee for deletion.
 
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|employeeId||true|string||
+
+
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
@@ -291,64 +305,6 @@ Schedules an employee for deletion.
 #### Tags
 
 * Users
-
-### GET /feedback
-```
-GET /feedback
-```
-
-#### Description
-
-Get a feedback by parameters
-
-#### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|QueryParameter|schoolId||false|null string array||
-|QueryParameter|lessonId||false|null string array||
-|QueryParameter|senderUserId||false|null string array||
-|QueryParameter|receiverUserId||false|null string array||
-
-
-#### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|Success|Feedback array|
-|400|The submitted request is malformed.|No Content|
-|401|Permission not granted.|No Content|
-|404|The element with the given ID does not exist.|No Content|
-
-
-#### Tags
-
-* Messages
-
-### POST /feedback
-```
-POST /feedback
-```
-
-#### Description
-
-Adds new feedback to db
-
-#### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|BodyParameter|body||false|Feedback||
-
-
-#### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|Success|No Content|
-|400|The submitted request is malformed.|No Content|
-|401|Permission not granted.|No Content|
-
-
-#### Tags
-
-* Messages
 
 ### POST /generator
 ```
@@ -806,67 +762,6 @@ Logout
 
 * Default
 
-### GET /message
-```
-GET /message
-```
-
-#### Description
-
-Gets messages having specific parameters
-
-#### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|QueryParameter|toId|Get recieved messages of user - THIS IS A TEST METHOD|false|null string array||
-|QueryParameter|startDate|fetch messages from date range|false|null string array||
-|QueryParameter|type|fetch messages of given type|false|null string array||
-|QueryParameter|unread|fetch only messages that are unread|false|null string array||
-|QueryParameter|fromId|Fetch all messages sent from given person/school|false|null string array||
-|QueryParameter|endDate|Fetch messages up to given date|false|null string array||
-
-
-#### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|Success|Message array|
-|400|The submitted request is malformed.|No Content|
-|401|You do not have sufficient access to perform this operation|No Content|
-|404|There is no data identifiable by the given parameters.|No Content|
-
-
-#### Tags
-
-* Messages
-
-### POST /message
-```
-POST /message
-```
-
-#### Description
-
-Adds a new message to db
-
-#### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|BodyParameter|body||false|Message||
-
-
-#### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|Success|No Content|
-|400|The submitted request is malformed.|No Content|
-|401|Permission not granted.|No Content|
-|403|Invalid data provided.|No Content|
-
-
-#### Tags
-
-* Messages
-
 ### GET /message/{messageId}
 ```
 GET /message/{messageId}
@@ -1068,6 +963,12 @@ GET /school/{schoolId}/transactions
 #### Description
 
 Gets all transactions for a given school, for a given user ID
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|schoolId||true|string||
+
 
 #### Responses
 |HTTP Code|Description|Schema|

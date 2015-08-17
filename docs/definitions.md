@@ -51,6 +51,7 @@ An entity representing a single transaction made by a user or  a school.
 |transactionType|Type of the transaction: lesson purchase, refund, referral bonus, etc.|true|string||
 |userId|ID of the user for whom the lesson was booked|true|string||
 |bookerId|ID of the user of stub user who booked this lesson|false|string||
+|royaltyPercent|The percentage of money the school gets for the lesson.|true|number (double)||
 
 
 ### Message
@@ -219,7 +220,8 @@ Entity representing a feedback (user to instructor, instructor to user or user t
 |toWhom|ID and entity type of the receiver.|true|EntityID||
 |message|The content of the feedback|false|string||
 |rating|The rating of the feedback|true|number (double)||
-|relation|Defines what kind of entity sends and receives the feedback|true|string||
+|absences|A list of users who didn't show up for the lesson in case it didn't occur after all.|false|string array||
+|comment|A note on the lesson in case of special situations (e.g. if it didn't happen for whatever reason).|false|string||
 
 
 ### EntityID
@@ -252,13 +254,13 @@ Internal coordinate object used for meeting points.
 |clientSource|Skipodium user, manually booked by school, white label etc|true|string||
 |comment|A brief comment about the lesson.|false|string||
 |deleted|Says whether the lesson has been deleted. If true - it is scheduled for permanent deletion.|true|boolean||
-|hourTo|Ending hour of the lesson|false|string (date)||
+|timeTo|Ending time of the lesson|false|string (date)||
 |instructorBonusFlag|Bonus the instructor gets for the lesson|false|boolean||
 |instructorId|ID of the instructor running the lesson.|true|string||
 |level|The skill levels involved in this lesson.|false|string array||
 |maxAge|Maximum age for this lesson.|false|integer (int32)||
 |maxParticipants|Maximum number of participants.|false|integer (int32)||
-|meetingPoint|A meeting point for this lesson.|true|Geo||
+|meetingPoint|A meeting point for this lesson.|true|MeetingPoint||
 |minAge|Minimum age for this lesson.|false|integer (int32)||
 |minParticipants|Minimum number of participants for this lesson.|false|integer (int32)||
 |name|Name of the lesson.|true|string||
@@ -268,6 +270,7 @@ Internal coordinate object used for meeting points.
 |specialties|The specialities covered by the lesson|false|string array||
 |previousInstructorId|Id of the previous instructor|false|string||
 |generatorId|ID of the generator the lesson comes from (if any).|false|string||
+|timeFrom|Starting time of the lesson.|false|string (date)||
 
 
 ### School
@@ -289,6 +292,8 @@ Information about a given school
 |openingHours|School working time (internal object with start and end time).|true|string (date)||
 |resort|A list of all resorts of given school - a minimum of one is required|true|string array||
 |manuallySetRating|School's rating|false|number (double)||
+|enabled|Says whether the school lesson is enabled (e.g. whether its lessons appear for users).|true|boolean||
+|royaltyPercent|The percentage of money the school receives for every lesson.|true|number (double)||
 
 
 ### BankDetails

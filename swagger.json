@@ -236,6 +236,12 @@
 				"produces": [],
 				"parameters": [
 					{
+						"name": "bundleId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
 						"in": "body",
 						"name": "body",
 						"required": false,
@@ -344,7 +350,14 @@
 				"description": "Gets an employee by ID",
 				"consumes": [],
 				"produces": [],
-				"parameters": [],
+				"parameters": [
+					{
+						"name": "employeeId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Sucess",
@@ -369,6 +382,12 @@
 				"consumes": [],
 				"produces": [],
 				"parameters": [
+					{
+						"name": "employeeId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
 					{
 						"in": "body",
 						"name": "body",
@@ -401,7 +420,14 @@
 				"description": "Schedules an employee for deletion.",
 				"consumes": [],
 				"produces": [],
-				"parameters": [],
+				"parameters": [
+					{
+						"name": "employeeId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Success"
@@ -411,105 +437,6 @@
 					},
 					"404": {
 						"description": "The requested resource does not exist."
-					}
-				}
-			}
-		},
-		"/feedback": {
-			"get": {
-				"tags": [
-					"Messages"
-				],
-				"summary": "Get a feedback by parameters",
-				"description": "Get a feedback by parameters",
-				"consumes": [],
-				"produces": [],
-				"parameters": [
-					{
-						"name": "schoolId",
-						"in": "query",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "lessonId",
-						"in": "query",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "senderUserId",
-						"in": "query",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "receiverUserId",
-						"in": "query",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Success",
-						"schema": {
-							"type": "array",
-							"items": {
-								"$ref": "#/definitions/Feedback"
-							}
-						}
-					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
-					"401": {
-						"description": "Permission not granted."
-					},
-					"404": {
-						"description": "The element with the given ID does not exist."
-					}
-				}
-			},
-			"post": {
-				"tags": [
-					"Messages"
-				],
-				"summary": "Adds new feedback to db",
-				"description": "Adds new feedback to db",
-				"consumes": [],
-				"produces": [],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"required": false,
-						"schema": {
-							"$ref": "#/definitions/Feedback"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Success"
-					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
-					"401": {
-						"description": "Permission not granted."
 					}
 				}
 			}
@@ -1214,132 +1141,6 @@
 				}
 			}
 		},
-		"/message": {
-			"get": {
-				"tags": [
-					"Messages"
-				],
-				"summary": "Gets messages having specific parameters",
-				"description": "Gets messages having specific parameters",
-				"consumes": [],
-				"produces": [],
-				"parameters": [
-					{
-						"name": "toId",
-						"in": "query",
-						"description": "Get recieved messages of user - THIS IS A TEST METHOD",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "startDate",
-						"in": "query",
-						"description": "fetch messages from date range",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "type",
-						"in": "query",
-						"description": "fetch messages of given type",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "unread",
-						"in": "query",
-						"description": "fetch only messages that are unread",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "fromId",
-						"in": "query",
-						"description": "Fetch all messages sent from given person/school",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "endDate",
-						"in": "query",
-						"description": "Fetch messages up to given date",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Success",
-						"schema": {
-							"type": "array",
-							"items": {
-								"$ref": "#/definitions/Message"
-							}
-						}
-					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
-					"401": {
-						"description": "You do not have sufficient access to perform this operation"
-					},
-					"404": {
-						"description": "There is no data identifiable by the given parameters."
-					}
-				}
-			},
-			"post": {
-				"tags": [
-					"Messages"
-				],
-				"summary": "Adds a new message to db",
-				"description": "Adds a new message to db",
-				"consumes": [],
-				"produces": [],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"required": false,
-						"schema": {
-							"$ref": "#/definitions/Message"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Success"
-					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
-					"401": {
-						"description": "Permission not granted."
-					},
-					"403": {
-						"description": "Invalid data provided."
-					}
-				}
-			}
-		},
 		"/message/{messageId}": {
 			"get": {
 				"tags": [
@@ -1594,7 +1395,14 @@
 				"description": "Gets all transactions for a given school, for a given user ID",
 				"consumes": [],
 				"produces": [],
-				"parameters": [],
+				"parameters": [
+					{
+						"name": "schoolId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Success",
@@ -2212,6 +2020,7 @@
 				"currency",
 				"date",
 				"product",
+				"royaltyPercent",
 				"transactionType",
 				"userId"
 			],
@@ -2271,6 +2080,12 @@
 					"type": "string",
 					"example": "sample bookerId",
 					"description": "ID of the user of stub user who booked this lesson"
+				},
+				"royaltyPercent": {
+					"type": "number",
+					"format": "double",
+					"example": "1.1",
+					"description": "The percentage of money the school gets for the lesson."
 				}
 			},
 			"description": "An entity representing a single transaction made by a user or  a school."
@@ -2735,7 +2550,6 @@
 				"fromWhom",
 				"lessonId",
 				"rating",
-				"relation",
 				"schoolId",
 				"toWhom"
 			],
@@ -2773,10 +2587,18 @@
 					"example": "1.1",
 					"description": "The rating of the feedback"
 				},
-				"relation": {
+				"absences": {
+					"type": "array",
+					"description": "A list of users who didn't show up for the lesson in case it didn't occur after all.",
+					"items": {
+						"type": "string",
+						"example": "sample absences"
+					}
+				},
+				"comment": {
 					"type": "string",
-					"example": "sample relation",
-					"description": "Defines what kind of entity sends and receives the feedback"
+					"example": "sample comment",
+					"description": "A note on the lesson in case of special situations (e.g. if it didn't happen for whatever reason)."
 				}
 			},
 			"description": "Entity representing a feedback (user to instructor, instructor to user or user to school)"
@@ -2867,10 +2689,10 @@
 					"example": "false",
 					"description": "Says whether the lesson has been deleted. If true - it is scheduled for permanent deletion."
 				},
-				"hourTo": {
+				"timeTo": {
 					"type": "string",
 					"format": "date",
-					"description": "Ending hour of the lesson"
+					"description": "Ending time of the lesson"
 				},
 				"instructorBonusFlag": {
 					"type": "boolean",
@@ -2904,7 +2726,7 @@
 				},
 				"meetingPoint": {
 					"description": "A meeting point for this lesson.",
-					"$ref": "#/definitions/Geo"
+					"$ref": "#/definitions/MeetingPoint"
 				},
 				"minAge": {
 					"type": "integer",
@@ -2962,6 +2784,11 @@
 					"type": "string",
 					"example": "sample generatorId",
 					"description": "ID of the generator the lesson comes from (if any)."
+				},
+				"timeFrom": {
+					"type": "string",
+					"format": "date",
+					"description": "Starting time of the lesson."
 				}
 			}
 		},
@@ -2973,11 +2800,13 @@
 				"defaultMeetingPoints",
 				"deleted",
 				"email",
+				"enabled",
 				"logo",
 				"messages",
 				"name",
 				"openingHours",
-				"resort"
+				"resort",
+				"royaltyPercent"
 			],
 			"properties": {
 				"_id": {
@@ -3053,6 +2882,17 @@
 					"format": "double",
 					"example": "1.1",
 					"description": "School's rating"
+				},
+				"enabled": {
+					"type": "boolean",
+					"example": "false",
+					"description": "Says whether the school lesson is enabled (e.g. whether its lessons appear for users)."
+				},
+				"royaltyPercent": {
+					"type": "number",
+					"format": "double",
+					"example": "1.1",
+					"description": "The percentage of money the school receives for every lesson."
 				}
 			},
 			"description": "Information about a given school"
