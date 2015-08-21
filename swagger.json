@@ -405,7 +405,7 @@
 							"$ref": "#/definitions/Employee"
 						}
 					},
-					"401": {
+					"400": {
 						"description": "The submitted request was malformed."
 					},
 					"404": {
@@ -1183,20 +1183,17 @@
 				"tags": [
 					"Default"
 				],
-				"summary": "Login",
-				"description": "Login",
+				"summary": "Login method",
+				"description": "Login method",
 				"consumes": [],
 				"produces": [],
 				"parameters": [],
 				"responses": {
 					"200": {
 						"description": "Success"
-					},
-					"400": {
-						"description": "Wrong combination of email/password."
-					},
+					},					
 					"401": {
-						"description": "The user has been deleted or is inactive."
+						"description": "The user has been deleted or invalid password."
 					},
 					"404": {
 						"description": "No user with a given email found."
@@ -1204,8 +1201,28 @@
 				}
 			}
 		},
-		"/logout": {
+		"/signup": {
 			"post": {
+				"tags": [
+					"Default"
+				],
+				"summary": "Signup method",
+				"description": "Signup method",
+				"consumes": [],
+				"produces": [],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Success"
+					},					
+					"401": {
+						"description": "The user has been deleted or invalid password."
+					}					
+				}
+			}
+		},
+		"/logout": {
+			"get": {
 				"tags": [
 					"Default"
 				],

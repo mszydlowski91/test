@@ -270,7 +270,7 @@ Gets an employee by ID
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Sucess|Employee|
-|401|The submitted request was malformed.|No Content|
+|400|The submitted request was malformed.|No Content|
 |404|The requested resource does not exist.|No Content|
 
 
@@ -784,14 +784,13 @@ POST /login
 
 #### Description
 
-Login
+Login method
 
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|No Content|
-|400|Wrong combination of email/password.|No Content|
-|401|The user has been deleted or is inactive.|No Content|
+|401|The user has been deleted or invalid password.|No Content|
 |404|No user with a given email found.|No Content|
 
 
@@ -799,9 +798,9 @@ Login
 
 * Default
 
-### POST /logout
+### GET /logout
 ```
-POST /logout
+GET /logout
 ```
 
 #### Description
@@ -1118,6 +1117,26 @@ Gets all transactions for a given school, for a given user ID
 #### Tags
 
 * Schools
+
+### POST /signup
+```
+POST /signup
+```
+
+#### Description
+
+Signup method
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|No Content|
+|401|The user has been deleted or invalid password.|No Content|
+
+
+#### Tags
+
+* Default
 
 ### POST /transaction
 ```
