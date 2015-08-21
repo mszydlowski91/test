@@ -196,6 +196,34 @@ Gets all lessons of a bundle
 
 * Bundles
 
+### POST /bundle/{bundleId}/purchase
+```
+POST /bundle/{bundleId}/purchase
+```
+
+#### Description
+
+Purchase a new bundle.
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|bundleId||true|string||
+|QueryParameter|guestIds|A list of IDs of users for which the bundle is purchased.|false|null string array||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|The instructor has been changed.|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+
+
+#### Tags
+
+* Lessons
+
 ### POST /employee
 ```
 POST /employee
@@ -721,6 +749,34 @@ Remove or add a participant to a lesson
 
 * Lessons
 
+### POST /lesson/{lessonId}/purchase
+```
+POST /lesson/{lessonId}/purchase
+```
+
+#### Description
+
+Purchase a new lesson.
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|lessonId||true|string||
+|QueryParameter|id|A list of IDs of users the lesson was bought for.|false|null string array||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|The instructor has been changed.|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+
+
+#### Tags
+
+* Lessons
+
 ### POST /login
 ```
 POST /login
@@ -922,6 +978,33 @@ Modifies an existing school
 |400|The submitted request is malformed.|No Content|
 |401|Permission not granted.|No Content|
 |404|The element with the given ID does not exist.|No Content|
+
+
+#### Tags
+
+* Schools
+
+### GET /school/{schoolId}/employees
+```
+GET /school/{schoolId}/employees
+```
+
+#### Description
+
+Gets all school employees
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|schoolId||true|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|Employee array|
+|401|Permission not granted.|No Content|
+|404|The requested resource does not exist.|No Content|
 
 
 #### Tags
@@ -1278,6 +1361,33 @@ Gets all user feedbacks
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|Feedback array|
+|401|Permission not granted.|No Content|
+|404|The element with the given ID does not exist.|No Content|
+
+
+#### Tags
+
+* Users
+
+### GET /user/{userId}/lessons
+```
+GET /user/{userId}/lessons
+```
+
+#### Description
+
+Gets all user lessons
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|userId||true|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|Lesson array|
 |401|Permission not granted.|No Content|
 |404|The element with the given ID does not exist.|No Content|
 

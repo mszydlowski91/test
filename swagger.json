@@ -273,6 +273,46 @@
 				}
 			}
 		},
+		"/bundle/{bundleId}/purchase": {
+			"post": {
+				"tags": [
+					"Lessons"
+				],
+				"summary": "Purchase a new bundle.",
+				"description": "Purchase a new bundle.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "bundleId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "guestIds",
+						"in": "query",
+						"description": "A list of IDs of users for which the bundle is purchased.",
+						"required": false,
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The instructor has been changed."
+					},
+					"400": {
+						"description": "The submitted request is malformed."
+					},
+					"401": {
+						"description": "Permission not granted."
+					}
+				}
+			}
+		},
 		"/bundle/{bundleId}/lessons": {
 			"get": {
 				"tags": [
@@ -1050,6 +1090,46 @@
 				}
 			}
 		},
+		"/lesson/{lessonId}/purchase": {
+			"post": {
+				"tags": [
+					"Lessons"
+				],
+				"summary": "Purchase a new lesson.",
+				"description": "Purchase a new lesson.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "lessonId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "id",
+						"in": "query",
+						"description": "A list of IDs of users the lesson was bought for.",
+						"required": false,
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The instructor has been changed."
+					},
+					"400": {
+						"description": "The submitted request is malformed."
+					},
+					"401": {
+						"description": "Permission not granted."
+					}
+				}
+			}
+		},
 		"/lesson/{lessonId}/participant": {
 			"put": {
 				"tags": [
@@ -1374,6 +1454,42 @@
 							"type": "array",
 							"items": {
 								"$ref": "#/definitions/Feedback"
+							}
+						}
+					},
+					"401": {
+						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
+					}
+				}
+			}
+		},
+		"/school/{schoolId}/employees": {
+			"get": {
+				"tags": [
+					"Schools"
+				],
+				"summary": "Gets all school employees",
+				"description": "Gets all school employees",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "schoolId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Employee"
 							}
 						}
 					},
@@ -1838,6 +1954,43 @@
 					"404": {
 						"description": "The element with the given ID does not exist."
 					}
+				}
+			}
+		},
+		"/user/{userId}/lessons": {
+			"get": {
+				"tags": [
+					"Users"
+				],
+				"summary": "Gets all user lessons",
+				"description": "Gets all user lessons",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Lesson"
+							}
+						}
+					},
+					"401": {
+						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The element with the given ID does not exist."
+					}
+
 				}
 			}
 		},
