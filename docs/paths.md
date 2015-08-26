@@ -1443,7 +1443,7 @@ GET /user/{userId}/feedbacks/random
 
 #### Description
 
-Gets all user feedbacks
+Gets a number of random user feedbacks
 
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|

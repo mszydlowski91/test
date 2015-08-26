@@ -274,7 +274,7 @@ Internal coordinate object used for meeting points.
 
 ### Resort
 
-Internal coordinate object used for meeting points.
+Object representing a skiing resort.
 
 |Name|Description|Required|Schema|Default|
 |----|----|----|----|----|
