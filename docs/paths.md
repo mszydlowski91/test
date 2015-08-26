@@ -224,6 +224,33 @@ Purchase a new bundle.
 
 * Lessons
 
+### POST /contact
+```
+POST /contact
+```
+
+#### Description
+
+Sends a message to Skipodium support
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|BodyParameter|body||false|Message||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|No Content|
+|400|Invalid data provided.|No Content|
+|401|Permission not granted.|No Content|
+
+
+#### Tags
+
+* Default
+
 ### POST /employee
 ```
 POST /employee
@@ -576,6 +603,27 @@ Creates a new lesson
 |200|Success|No Content|
 |400|The submitted request is malformed.|No Content|
 |401|Permission not granted.|No Content|
+
+
+#### Tags
+
+* Lessons
+
+### GET /lesson/search
+```
+GET /lesson/search
+```
+
+#### Description
+
+Gets a list of instructors having lessons with specific parameters
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|Employee array|
+|401|Permission not granted.|No Content|
+|404|The requested resource does not exist.|No Content|
 
 
 #### Tags
@@ -1374,6 +1422,34 @@ Gets all user feedbacks
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|userId||true|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|Feedback array|
+|401|Permission not granted.|No Content|
+|404|The element with the given ID does not exist.|No Content|
+
+
+#### Tags
+
+* Users
+
+### GET /user/{userId}/feedbacks/random
+```
+GET /user/{userId}/feedbacks/random
+```
+
+#### Description
+
+Gets all user feedbacks
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|userId||true|string||
+|QueryParameter|amount|Number of feedbacks to fetch.|false|null string array||
 
 
 #### Responses

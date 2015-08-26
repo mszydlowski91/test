@@ -349,6 +349,38 @@
 				}
 			}
 		},
+		"/contact": {
+			"post": {
+				"tags": [
+					"Default"
+				],
+				"summary": "Sends a message to Skipodium support",
+				"description": "Sends a message to Skipodium support",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"required": false,
+						"schema": {
+							"$ref": "#/definitions/Message"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success"
+					},
+					"400": {
+						"description": "Invalid data provided."
+					},
+					"401": {
+						"description": "Permission not granted."
+					}
+				}
+			}
+		},
 		"/employee": {
 			"post": {
 				"tags": [
@@ -914,6 +946,36 @@
 					},
 					"401": {
 						"description": "Permission not granted."
+					}
+				}
+			}
+		},
+		"/lesson/search": {
+			"get": {
+				"tags": [
+					"Lessons"
+				],
+				"summary": "Gets a list of instructors having lessons with specific parameters",
+				"description": "Gets a list of instructors having lessons with specific parameters",
+				"consumes": [],
+				"produces": [],
+				"parameters": [					
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Employee"
+							}
+						}
+					},					
+					"401": {
+						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
 					}
 				}
 			}
@@ -1953,6 +2015,52 @@
 						"in": "path",
 						"required": true,
 						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Feedback"
+							}
+						}
+					},
+					"401": {
+						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The element with the given ID does not exist."
+					}
+				}
+			}
+		},
+		"/user/{userId}/feedbacks/random": {
+			"get": {
+				"tags": [
+					"Users"
+				],
+				"summary": "Gets all user feedbacks",
+				"description": "Gets all user feedbacks",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "amount",
+						"in": "query",
+						"description": "Number of feedbacks to fetch.",
+						"required": false,
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
 					}
 				],
 				"responses": {
@@ -3028,6 +3136,38 @@
 				}
 			}
 		},
+		"Resort": {
+			"required": [
+				"coords",
+				"name",
+				"schools"
+			],
+			"properties": {
+				"name": {
+					"type": "string",
+					"example": "sample name",
+					"description": "The name of the resort"
+				},
+				"coords": {
+					"description" : "Resort's location",
+					"$ref": "#/definitions/Address"
+				},
+				"pictureURL": {
+					"type": "string",
+					"example": "sample name",
+					"description": "Resort picture URL."
+				},				
+				"schools": {
+					"type": "array",
+					"description": "A list of schools working in this resort.",
+					"items": {
+						"type": "string",
+						"example": "1"
+					}
+				}
+			},
+			"description": "Internal coordinate object used for meeting points."
+		},
 		"School": {
 			"required": [
 				"_id",
@@ -3106,13 +3246,9 @@
 					"format": "date",
 					"description": "School working time (internal object with start and end time)."
 				},
-				"resort": {
-					"type": "array",
+				"resort": {					
 					"description": "A list of all resorts of given school - a minimum of one is required",
-					"items": {
-						"type": "string",
-						"example": "sample resort"
-					}
+					"$ref": "#/definitions/Resort"						
 				},
 				"manuallySetRating": {
 					"type": "number",

@@ -272,6 +272,18 @@ Internal coordinate object used for meeting points.
 |generatorId|ID of the generator the lesson comes from (if any).|false|string||
 
 
+### Resort
+
+Internal coordinate object used for meeting points.
+
+|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|
+|name|The name of the resort|true|string||
+|coords|Resort's location|true|Address||
+|pictureURL|Resort picture URL.|false|string||
+|schools|A list of schools working in this resort.|true|string array||
+
+
 ### School
 
 Information about a given school
@@ -289,7 +301,7 @@ Information about a given school
 |messages|An inbox containing all messages sent to the school|true|string array||
 |name|The name of the school|true|string||
 |openingHours|School working time (internal object with start and end time).|true|string (date)||
-|resort|A list of all resorts of given school - a minimum of one is required|true|string array||
+|resort|A list of all resorts of given school - a minimum of one is required|true|Resort||
 |manuallySetRating|School's rating|false|number (double)||
 |enabled|Says whether the school lesson is enabled (e.g. whether its lessons appear for users).|true|boolean||
 |royaltyPercent|The percentage of money the school receives for every lesson.|true|number (double)||

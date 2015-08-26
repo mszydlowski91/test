@@ -12,29 +12,36 @@
 	},
 	"tags": [
 		{
-			"name": "Default"
+			"name": "Default",
+			"description": "Items either unrelated to any section or used by entities of different sections"
 		},
 		{
 			"name": "Schools",
 			"description": "Items related to School management"
 		},
 		{
-			"name": "Messages"
+			"name": "Messages",
+			"description": "Items related to requests, notifications and feedback management"
 		},
 		{
-			"name": "Users"
+			"name": "Users",
+			"description": "Items related to user management"
 		},
 		{
-			"name": "Lessons"
+			"name": "Lessons",
+			"description": "Items related to lesson management"
 		},
 		{
-			"name": "Payments"
+			"name": "Payments",
+			"description": "Items related to all sorts of payments / awards of bonus money"
 		},
 		{
-			"name": "Bundles"
+			"name": "Bundles",
+			"description": "Items related to lesson bundles"
 		},
 		{
-			"name": "Generators"
+			"name": "Generators",
+			"description": "Items related to lesson/bundle generators"
 		}
 	],
 	"paths": {
@@ -62,16 +69,10 @@
 						"description": "Success"
 					},
 					"400": {
-						"description": "The submitted request is malformed."
+						"description": "Invalid data provided."
 					},
 					"401": {
 						"description": "Permission not granted."
-					},
-					"403": {
-						"description": "Invalid data provided."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			}
@@ -90,8 +91,7 @@
 						"name": "bundleId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					}
 				],
 				"responses": {
@@ -100,9 +100,6 @@
 						"schema": {
 							"$ref": "#/definitions/Bundle"
 						}
-					},
-					"400": {
-						"description": "The submitted request is malformed."
 					},
 					"401": {
 						"description": "Permission not granted."
@@ -125,8 +122,7 @@
 						"name": "bundleId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					},
 					{
 						"in": "body",
@@ -147,14 +143,8 @@
 					"401": {
 						"description": "Permission not granted."
 					},
-					"403": {
-						"description": "Invalid data provided."
-					},
 					"404": {
 						"description": "The element with the given ID does not exist."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			},
@@ -171,16 +161,12 @@
 						"name": "bundleId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					}
 				],
 				"responses": {
 					"200": {
 						"description": "Success"
-					},
-					"400": {
-						"description": "The submitted request is malformed."
 					},
 					"401": {
 						"description": "Permission not granted."
@@ -191,13 +177,13 @@
 				}
 			}
 		},
-		"/bundle/{bundleId}/lesson": {
-			"post": {
+		"/bundle/{bundleId}/addLesson": {
+			"put": {
 				"tags": [
 					"Bundles"
 				],
-				"summary": "Adds a new lesson to the bundle",
-				"description": "Adds a new lesson to the bundle",
+				"summary": "Adds a lesson to the bundle",
+				"description": "Adds a lesson to the bundle",
 				"consumes": [],
 				"produces": [],
 				"parameters": [
@@ -205,8 +191,7 @@
 						"name": "bundleId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					},
 					{
 						"in": "body",
@@ -215,6 +200,13 @@
 						"schema": {
 							"$ref": "#/definitions/Lesson"
 						}
+					},
+					{
+						"name": "lessonId",
+						"in": "query",
+						"description": "ID of the lesson to add",
+						"required": false,
+						"type": "string"
 					}
 				],
 				"responses": {
@@ -227,22 +219,19 @@
 					"401": {
 						"description": "Permission not granted."
 					},
-					"403": {
-						"description": "Invalid data provided."
-					},
-					"405": {
-						"description": "Method not allowed."
+					"404": {
+						"description": "The requested resource does not exist."
 					}
 				}
 			}
 		},
-		"/bundle/{bundleId}/lesson/{lessonId}": {
-			"delete": {
+		"/bundle/{bundleId}/deleteLesson": {
+			"put": {
 				"tags": [
 					"Bundles"
 				],
-				"summary": "Deletes a lesson from a bundle",
-				"description": "Deletes a lesson from a bundle",
+				"summary": "Removes a lesson from bundle.",
+				"description": "Removes a lesson from bundle.",
 				"consumes": [],
 				"produces": [],
 				"parameters": [
@@ -253,105 +242,21 @@
 						"type": "string"
 					},
 					{
+						"in": "body",
+						"name": "body",
+						"required": false,
+						"schema": {
+							"$ref": "#/definitions/Lesson"
+						}
+					},
+					{
 						"name": "lessonId",
-						"in": "path",
-						"required": true,
+						"in": "query",
+						"description": "ID of the lesson to remove",
+						"required": false,
 						"type": "string"
 					}
 				],
-				"responses": {
-					"200": {
-						"description": "The lesson has been removed from the bundle."
-					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
-					"401": {
-						"description": "Permission not granted."
-					},
-					"404": {
-						"description": "The element with the given ID does not exist."
-					}
-				}
-			}
-		},
-		"/feedback": {
-			"get": {
-				"tags": [
-					"Messages"
-				],
-				"summary": "Get a feedback by parameters",
-				"description": "Get a feedback by parameters",
-				"consumes": [],
-				"produces": [],
-				"parameters": [
-					{
-						"name": "schoolId",
-						"in": "query",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "lessonId",
-						"in": "query",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "senderUserId",
-						"in": "query",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "receiverUserId",
-						"in": "query",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Success",
-						"schema": {
-							"$ref": "#/definitions/Feedback"
-						}
-					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
-					"401": {
-						"description": "Permission not granted."
-					},
-					"403": {
-						"description": "Invalid data provided."
-					},
-					"404": {
-						"description": "The element with the given ID does not exist."
-					}
-				}
-			},
-			"post": {
-				"tags": [
-					"Messages"
-				],
-				"summary": "Adds new feedback to db",
-				"description": "Adds new feedback to db",
-				"consumes": [],
-				"produces": [],
-				"parameters": [],
 				"responses": {
 					"200": {
 						"description": "Success"
@@ -362,11 +267,248 @@
 					"401": {
 						"description": "Permission not granted."
 					},
-					"403": {
+					"404": {
+						"description": "The requested resource does not exist."
+					}
+				}
+			}
+		},
+		"/bundle/{bundleId}/purchase": {
+			"post": {
+				"tags": [
+					"Lessons"
+				],
+				"summary": "Purchase a new bundle.",
+				"description": "Purchase a new bundle.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "bundleId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "guestIds",
+						"in": "query",
+						"description": "A list of IDs of users for which the bundle is purchased.",
+						"required": false,
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The instructor has been changed."
+					},
+					"400": {
+						"description": "The submitted request is malformed."
+					},
+					"401": {
+						"description": "Permission not granted."
+					}
+				}
+			}
+		},
+		"/bundle/{bundleId}/lessons": {
+			"get": {
+				"tags": [
+					"Bundles"
+				],
+				"summary": "Gets all lessons of a bundle",
+				"description": "Gets all lessons of a bundle",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "bundleId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Lesson"
+							}
+						}
+					},
+					"401": {
+						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
+					}
+				}
+			}
+		},
+		"/contact": {
+			"post": {
+				"tags": [
+					"Default"
+				],
+				"summary": "Sends a message to Skipodium support
+				"description": "Adds a new bundle",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"required": false,
+						"schema": {
+							"$ref": "#/definitions/Bundle"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success"
+					},
+					"400": {
 						"description": "Invalid data provided."
 					},
-					"405": {
-						"description": "Method not allowed."
+					"401": {
+						"description": "Permission not granted."
+					}
+				}
+			}
+		},
+		"/employee": {
+			"post": {
+				"tags": [
+					"Users"
+				],
+				"summary": "Adds a new employee",
+				"description": "Adds a new employee",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"required": false,
+						"schema": {
+							"$ref": "#/definitions/Employee"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success"
+					},
+					"400": {
+						"description": "The submitted request is malformed."
+					},
+					"401": {
+						"description": "Permission not granted."
+					}
+				}
+			}
+		},
+		"/employee/{employeeId}": {
+			"get": {
+				"tags": [
+					"Users"
+				],
+				"summary": "Gets an employee by ID",
+				"description": "Gets an employee by ID",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "employeeId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Sucess",
+						"schema": {
+							"$ref": "#/definitions/Employee"
+						}
+					},
+					"400": {
+						"description": "The submitted request was malformed."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"Users"
+				],
+				"summary": "Modifies an existing employee",
+				"description": "Modifies an existing employee",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "employeeId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "body",
+						"name": "body",
+						"required": false,
+						"schema": {
+							"$ref": "#/definitions/Employee"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success"
+					},
+					"400": {
+						"description": "The submitted request is malformed."
+					},
+					"401": {
+						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"Users"
+				],
+				"summary": "Schedules an employee for deletion.",
+				"description": "Schedules an employee for deletion.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "employeeId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success"
+					},
+					"401": {
+						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
 					}
 				}
 			}
@@ -388,6 +530,13 @@
 						"schema": {
 							"$ref": "#/definitions/Generator"
 						}
+					},
+					{
+						"name": "isBundle",
+						"in": "query",
+						"description": "Determines whether the generator will be a bundle generator.",
+						"required": false,
+						"type": "string"
 					}
 				],
 				"responses": {
@@ -399,12 +548,6 @@
 					},
 					"401": {
 						"description": "Permission not granted."
-					},
-					"403": {
-						"description": "Invalid data provided."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			}
@@ -423,16 +566,15 @@
 						"name": "generatorId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					}
 				],
 				"responses": {
 					"200": {
-						"description": "Success"
-					},
-					"400": {
-						"description": "The submitted request is malformed."
+						"description": "Success",
+						"schema": {
+							"$ref": "#/definitions/Generator"
+						}
 					},
 					"401": {
 						"description": "Permission not granted."
@@ -455,8 +597,7 @@
 						"name": "generatorId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					},
 					{
 						"in": "body",
@@ -477,14 +618,8 @@
 					"401": {
 						"description": "Permission not granted."
 					},
-					"403": {
-						"description": "Invalid data provided."
-					},
 					"404": {
 						"description": "Error 404"
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			},
@@ -501,8 +636,47 @@
 						"name": "generatorId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success"
+					},
+					"401": {
+						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The element with the given ID does not exist."
+					}
+				}
+			}
+		},
+		"/generator/{generatorId}/bundleTemplate": {
+			"put": {
+				"tags": [
+					"Generators"
+				],
+				"summary": "Modifies the bundle template of the generator",
+				"description": "Modifies the bundle template of the generator",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "generatorId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "body",
+						"name": "body",
+						"required": false,
+						"schema": {
+							"$ref": "#/definitions/BundleTemplate"
+						}
 					}
 				],
 				"responses": {
@@ -516,7 +690,50 @@
 						"description": "Permission not granted."
 					},
 					"404": {
-						"description": "The element with the given ID does not exist."
+						"description": "The requested resource does not exist."
+					}
+				}
+			}
+		},
+		"/generator/{generatorId}/lessonTemplate": {
+			"put": {
+				"tags": [
+					"Generators"
+				],
+				"summary": "Modifies the bundle template of the generator",
+				"description": "Modifies the bundle template of the generator",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "generatorId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "body",
+						"name": "body",
+						"required": false,
+						"schema": {
+							"$ref": "#/definitions/LessonTemplate"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success"
+					},
+					"400": {
+						"description": "The submitted request is malformed."
+					},
+					"401": {
+						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
 					}
 				}
 			}
@@ -658,13 +875,37 @@
 						"items": {
 							"type": "string"
 						}
+					},
+					{
+						"name": "criteria",
+						"in": "query",
+						"description": "Other additional sorting criteria",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "startPage",
+						"in": "query",
+						"description": "Starting index of the whole list to fetch",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "endPage",
+						"in": "query",
+						"description": "Ending index of the whole list to fetch",
+						"required": false,
+						"type": "string"
 					}
 				],
 				"responses": {
 					"200": {
 						"description": "Success",
 						"schema": {
-							"$ref": "#/definitions/Lesson"
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Lesson"
+							}
 						}
 					},
 					"400": {
@@ -686,7 +927,16 @@
 				"description": "Creates a new lesson",
 				"consumes": [],
 				"produces": [],
-				"parameters": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"required": false,
+						"schema": {
+							"$ref": "#/definitions/Lesson"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Success"
@@ -696,12 +946,6 @@
 					},
 					"401": {
 						"description": "Permission not granted."
-					},
-					"403": {
-						"description": "Invalid data provided."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			}
@@ -721,8 +965,7 @@
 						"in": "path",
 						"description": "ID of the lesson to work with.",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					}
 				],
 				"responses": {
@@ -731,9 +974,6 @@
 						"schema": {
 							"$ref": "#/definitions/Lesson"
 						}
-					},
-					"400": {
-						"description": "The submitted request is malformed."
 					},
 					"401": {
 						"description": "You do not have permission to perform this operation"
@@ -757,8 +997,7 @@
 						"in": "path",
 						"description": "ID of the lesson to work with.",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					},
 					{
 						"in": "body",
@@ -766,206 +1005,6 @@
 						"required": false,
 						"schema": {
 							"$ref": "#/definitions/Lesson"
-						}
-					},
-					{
-						"name": "id",
-						"in": "query",
-						"description": "The id of the lesson to be modified - this parameter IS mandatory.",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "bookingType",
-						"in": "query",
-						"description": "What kind of booking type should this lesson have.",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "bundleId",
-						"in": "query",
-						"description": "The id of the bundle this lesson should be part of. Empty  for removing from a bundle.",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "comment",
-						"in": "query",
-						"description": "Modify the comment of a lesson",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "discount",
-						"in": "query",
-						"description": "Modify the discount applicable for this lesson (if present must be >= 0)",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "generatorId",
-						"in": "query",
-						"description": "The id of the generator owning this lesson, if a lesson is edited without specifying this parameter than it will be set to null.",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "hourFrom",
-						"in": "query",
-						"description": "Starting hour of this lesson, must be less than hourTo",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "hourTo",
-						"in": "query",
-						"description": "Ending hour of this lesson, must be more than hourFrom",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "instructorBonusFlag",
-						"in": "query",
-						"description": "Does this lesson provide a bonus for the instructor",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "instructorId",
-						"in": "query",
-						"description": "The id of the new instructor (null for unassigned). If you only wish to modify the instructor assignment use /lesson{lessonId}/assignment",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "level",
-						"in": "query",
-						"description": "The levels of this lesson",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "maxAge",
-						"in": "query",
-						"description": "The max age for participants",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "maxParticipants",
-						"in": "query",
-						"description": "The maximum amount of participants",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "meetingPoint",
-						"in": "query",
-						"description": "The meeting point of this lesson",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "minAge",
-						"in": "query",
-						"description": "Minimal age for this lesson",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "minParticipants",
-						"in": "query",
-						"description": "Minimal number of participants for the lesson to take place",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "name",
-						"in": "query",
-						"description": "The name of the lesson",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "participants",
-						"in": "query",
-						"description": "list of id's of users participating in this lesson. If this is the only value you would like to modify please use /lesson{lessonId}/participant/",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "prices",
-						"in": "query",
-						"description": "Modifies the prices array for this lesson",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "specialties",
-						"in": "query",
-						"description": "Modifies the specialities available in this lesson",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
 						}
 					}
 				],
@@ -979,14 +1018,8 @@
 					"401": {
 						"description": "Permission not granted."
 					},
-					"403": {
-						"description": "Invalid data provided."
-					},
 					"404": {
 						"description": "The element with the given ID does not exist."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			},
@@ -1004,16 +1037,12 @@
 						"in": "path",
 						"description": "ID of the lesson to work with.",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					}
 				],
 				"responses": {
 					"200": {
 						"description": "Success"
-					},
-					"400": {
-						"description": "The submitted request is malformed."
 					},
 					"401": {
 						"description": "Permission not granted."
@@ -1038,22 +1067,15 @@
 						"name": "lessonId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					}
 				],
 				"responses": {
 					"200": {
 						"description": "Success",
 						"schema": {
-							"type": "array",
-							"items": {
-								"$ref": "#/definitions/User"
-							}
+							"$ref": "#/definitions/User"
 						}
-					},
-					"400": {
-						"description": "The submitted request is malformed."
 					},
 					"401": {
 						"description": "Permission not granted."
@@ -1085,13 +1107,45 @@
 						"in": "path",
 						"required": true,
 						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The instructor has been changed."
+					},
+					"401": {
+						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The element with the given ID does not exist."
+					}
+				}
+			}
+		},
+		"/lesson/{lessonId}/purchase": {
+			"post": {
+				"tags": [
+					"Lessons"
+				],
+				"summary": "Purchase a new lesson.",
+				"description": "Purchase a new lesson.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "lessonId",
+						"in": "path",
+						"required": true,
+						"type": "string"
 					},
 					{
-						"in": "body",
-						"name": "body",
+						"name": "id",
+						"in": "query",
+						"description": "A list of IDs of users the lesson was bought for.",
 						"required": false,
-						"schema": {
-							"$ref": "#/definitions/Lesson"
+						"type": "array",
+						"items": {
+							"type": "string"
 						}
 					}
 				],
@@ -1104,15 +1158,6 @@
 					},
 					"401": {
 						"description": "Permission not granted."
-					},
-					"403": {
-						"description": "Invalid data provided."
-					},
-					"404": {
-						"description": "The element with the given ID does not exist."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			}
@@ -1156,73 +1201,11 @@
 					"200": {
 						"description": "Success"
 					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
 					"401": {
 						"description": "Permission not granted."
 					},
-					"403": {
-						"description": "Invalid data provided."
-					},
 					"404": {
 						"description": "The element with the given ID does not exist."
-					},
-					"405": {
-						"description": "Method not allowed."
-					}
-				}
-			}
-		},
-		"/lesson/{lessonId}/participant/{participantId}": {
-			"put": {
-				"tags": [
-					"Lessons"
-				],
-				"summary": "Modifies a lesson participant",
-				"description": "Modifies a lesson participant",
-				"consumes": [],
-				"produces": [],
-				"parameters": [
-					{
-						"name": "participantId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"name": "lessonId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"in": "body",
-						"name": "body",
-						"required": false,
-						"schema": {
-							"$ref": "#/definitions/User"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "The participant has been modified."
-					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
-					"401": {
-						"description": "Permission not granted."
-					},
-					"403": {
-						"description": "Invalid data provided."
-					},
-					"404": {
-						"description": "The element with the given ID does not exist."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			}
@@ -1232,20 +1215,17 @@
 				"tags": [
 					"Default"
 				],
-				"summary": "Login",
-				"description": "Login",
+				"summary": "Login method",
+				"description": "Login method",
 				"consumes": [],
 				"produces": [],
 				"parameters": [],
 				"responses": {
 					"200": {
 						"description": "Success"
-					},
-					"400": {
-						"description": "Wrong combination of email/password."
-					},
+					},					
 					"401": {
-						"description": "The user has been deleted or is inactive."
+						"description": "The user has been deleted or invalid password."
 					},
 					"404": {
 						"description": "No user with a given email found."
@@ -1253,8 +1233,28 @@
 				}
 			}
 		},
-		"/logout": {
+		"/signup": {
 			"post": {
+				"tags": [
+					"Default"
+				],
+				"summary": "Signup method",
+				"description": "Signup method",
+				"consumes": [],
+				"produces": [],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Success"
+					},					
+					"401": {
+						"description": "The user has been deleted or invalid password."
+					}					
+				}
+			}
+		},
+		"/logout": {
+			"get": {
 				"tags": [
 					"Default"
 				],
@@ -1266,132 +1266,6 @@
 				"responses": {
 					"200": {
 						"description": "Success"
-					}
-				}
-			}
-		},
-		"/message": {
-			"get": {
-				"tags": [
-					"Messages"
-				],
-				"summary": "Gets messages having specific parameters",
-				"description": "Gets messages having specific parameters",
-				"consumes": [],
-				"produces": [],
-				"parameters": [
-					{
-						"name": "toId",
-						"in": "query",
-						"description": "Get recieved messages of user - THIS IS A TEST METHOD",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "startDate",
-						"in": "query",
-						"description": "fetch messages from date range",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "TYPE",
-						"in": "query",
-						"description": "fetch messages of given type",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "unread",
-						"in": "query",
-						"description": "fetch only messages that are unread",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "fromId",
-						"in": "query",
-						"description": "Fetch all messages sent from given person/school",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "endDate",
-						"in": "query",
-						"description": "Fetch messages up to given date",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Success"
-					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
-					"401": {
-						"description": "You do not have sufficient access to perform this operation"
-					},
-					"403": {
-						"description": "The provided input is incorrect, please review it and try again."
-					},
-					"404": {
-						"description": "There is no data identifiable by the given parameters."
-					}
-				}
-			},
-			"post": {
-				"tags": [
-					"Messages"
-				],
-				"summary": "Adds a new message to db",
-				"description": "Adds a new message to db",
-				"consumes": [],
-				"produces": [],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"required": false,
-						"schema": {
-							"$ref": "#/definitions/Message"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Success"
-					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
-					"401": {
-						"description": "Permission not granted."
-					},
-					"403": {
-						"description": "Invalid data provided."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			}
@@ -1410,8 +1284,7 @@
 						"name": "messageId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					}
 				],
 				"responses": {
@@ -1420,9 +1293,6 @@
 						"schema": {
 							"$ref": "#/definitions/Message"
 						}
-					},
-					"400": {
-						"description": "The submitted request is malformed."
 					},
 					"401": {
 						"description": "Permission not granted."
@@ -1445,8 +1315,7 @@
 						"name": "messageId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					}
 				],
 				"responses": {
@@ -1497,20 +1366,11 @@
 					"200": {
 						"description": "The password was reset and a confirmation email is sent."
 					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
 					"401": {
 						"description": "Permission not granted."
 					},
-					"403": {
-						"description": "Invalid data provided."
-					},
 					"404": {
 						"description": "The email is not in the database."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			}
@@ -1543,12 +1403,6 @@
 					},
 					"401": {
 						"description": "Permission not granted."
-					},
-					"403": {
-						"description": "Invalid data provided."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			}
@@ -1567,8 +1421,7 @@
 						"name": "schoolId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					}
 				],
 				"responses": {
@@ -1577,9 +1430,6 @@
 						"schema": {
 							"$ref": "#/definitions/School"
 						}
-					},
-					"400": {
-						"description": "The submitted request is malformed."
 					},
 					"401": {
 						"description": "Permission not granted."
@@ -1602,8 +1452,7 @@
 						"name": "schoolId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					},
 					{
 						"in": "body",
@@ -1624,14 +1473,188 @@
 					"401": {
 						"description": "Permission not granted."
 					},
-					"403": {
-						"description": "Invalid data provided."
-					},
 					"404": {
 						"description": "The element with the given ID does not exist."
+					}
+				}
+			}
+		},
+		"/school/{schoolId}/feedbacks": {
+			"get": {
+				"tags": [
+					"Schools"
+				],
+				"summary": "Gets all school feedbacks",
+				"description": "Gets all school feedbacks",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "schoolId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Feedback"
+							}
+						}
 					},
-					"405": {
-						"description": "Method not allowed."
+					"401": {
+						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
+					}
+				}
+			}
+		},
+		"/school/{schoolId}/employees": {
+			"get": {
+				"tags": [
+					"Schools"
+				],
+				"summary": "Gets all school employees",
+				"description": "Gets all school employees",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "schoolId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Employee"
+							}
+						}
+					},
+					"401": {
+						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
+					}
+				}
+			}
+		},
+		"/school/{schoolId}/generators": {
+			"get": {
+				"tags": [
+					"Schools"
+				],
+				"summary": "Gets all generators of a school",
+				"description": "Gets all generators of a school",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "schoolId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Generator"
+							}
+						}
+					},
+					"401": {
+						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
+					}
+				}
+			}
+		},
+		"/school/{schoolId}/messages": {
+			"get": {
+				"tags": [
+					"Schools"
+				],
+				"summary": "Gets all school messages",
+				"description": "Gets all school messages",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "schoolId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Message"
+							}
+						}
+					},
+					"401": {
+						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
+					}
+				}
+			}
+		},
+		"/school/{schoolId}/transactions": {
+			"get": {
+				"tags": [
+					"Schools"
+				],
+				"summary": "Gets all transactions for a given school, for a given user ID",
+				"description": "Gets all transactions for a given school, for a given user ID",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "schoolId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Transaction"
+							}
+						}
+					},
+					"401": {
+						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
 					}
 				}
 			}
@@ -1664,60 +1687,6 @@
 					},
 					"401": {
 						"description": "Permission not granted."
-					},
-					"403": {
-						"description": "Invalid data provided."
-					},
-					"405": {
-						"description": "Method not allowed."
-					}
-				}
-			}
-		},
-		"/transaction/summary": {
-			"get": {
-				"tags": [
-					"Payments"
-				],
-				"summary": "If userId is specifiec, returns JSON: {amount: paidCredit, bonus:savedCredit} \nIf schoolId, returns JSON:  {amount: earn",
-				"description": "If userId is specifiec, returns JSON: {amount: paidCredit, bonus:savedCredit} \nIf schoolId, returns JSON:  {amount: earnedCredit, bonus: credit gave away in promotions}\nIf both, returns JSON:  {amount: credits earned on a given user by the school, bonus: credit awarder for the user by the school}",
-				"consumes": [],
-				"produces": [],
-				"parameters": [
-					{
-						"name": "userId",
-						"in": "query",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "schoolId",
-						"in": "query",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Outputs a JSON object, representation to be defined."
-					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
-					"401": {
-						"description": "Permission not granted."
-					},
-					"403": {
-						"description": "Invalid data provided."
-					},
-					"404": {
-						"description": "The element with the given ID does not exist."
 					}
 				}
 			}
@@ -1736,8 +1705,7 @@
 						"name": "transactionId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					}
 				],
 				"responses": {
@@ -1746,49 +1714,6 @@
 						"schema": {
 							"$ref": "#/definitions/Transaction"
 						}
-					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
-					"401": {
-						"description": "Permission not granted."
-					},
-					"404": {
-						"description": "The element with the given ID does not exist."
-					}
-				}
-			}
-		},
-		"/transactions/{schoolId}": {
-			"get": {
-				"tags": [
-					"Payments"
-				],
-				"summary": "Gets all transactions for a given school",
-				"description": "Gets all transactions for a given school",
-				"consumes": [],
-				"produces": [],
-				"parameters": [
-					{
-						"name": "schoolId",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"format": "int32"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Success",
-						"schema": {
-							"type": "array",
-							"items": {
-								"$ref": "#/definitions/Transaction"
-							}
-						}
-					},
-					"400": {
-						"description": "The submitted request is malformed."
 					},
 					"401": {
 						"description": "Permission not granted."
@@ -1823,16 +1748,6 @@
 						"name": "pageSize",
 						"in": "query",
 						"description": "Size of a page",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "type",
-						"in": "query",
-						"description": "User type to fetch",
 						"required": false,
 						"type": "array",
 						"items": {
@@ -1888,12 +1803,6 @@
 					},
 					"401": {
 						"description": "Permission not granted."
-					},
-					"403": {
-						"description": "Invalid data provided."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			}
@@ -1908,14 +1817,6 @@
 				"consumes": [],
 				"produces": [],
 				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"required": false,
-						"schema": {
-							"$ref": "#/definitions/User"
-						}
-					},
 					{
 						"name": "email",
 						"in": "query",
@@ -1957,9 +1858,6 @@
 					"401": {
 						"description": "You do not have sufficient access to perform this operation"
 					},
-					"403": {
-						"description": "The provided input is incorrect, please review it and try again."
-					},
 					"405": {
 						"description": "Method not allowed."
 					}
@@ -1981,8 +1879,7 @@
 						"in": "path",
 						"description": "ID of the user to work with",
 						"required": true,
-						"type": "integer",
-						"format": "int64"
+						"type": "string"
 					}
 				],
 				"responses": {
@@ -1994,9 +1891,6 @@
 								"$ref": "#/definitions/User"
 							}
 						}
-					},
-					"400": {
-						"description": "The submitted request is malformed."
 					},
 					"401": {
 						"description": "Permission not granted."
@@ -2020,8 +1914,7 @@
 						"in": "path",
 						"description": "ID of the user to work with",
 						"required": true,
-						"type": "integer",
-						"format": "int64"
+						"type": "string"
 					},
 					{
 						"in": "body",
@@ -2042,14 +1935,8 @@
 					"401": {
 						"description": "Permission not granted."
 					},
-					"403": {
-						"description": "Invalid data provided."
-					},
 					"404": {
 						"description": "The element with the given ID does not exist."
-					},
-					"405": {
-						"description": "Method not allowed."
 					}
 				}
 			},
@@ -2067,16 +1954,12 @@
 						"in": "path",
 						"description": "ID of the user to work with",
 						"required": true,
-						"type": "integer",
-						"format": "int64"
+						"type": "string"
 					}
 				],
 				"responses": {
 					"200": {
 						"description": "Success"
-					},
-					"400": {
-						"description": "The submitted request is malformed."
 					},
 					"401": {
 						"description": "Permission not granted."
@@ -2101,13 +1984,12 @@
 						"name": "userId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					}
 				],
 				"responses": {
 					"200": {
-						"description": "",
+						"description": "Success",
 						"schema": {
 							"type": "array",
 							"items": {
@@ -2115,8 +1997,41 @@
 							}
 						}
 					},
-					"400": {
-						"description": "The submitted request is malformed."
+					"401": {
+						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The element with the given ID does not exist."
+					}
+				}
+			}
+		},
+		"/user/{userId}/lessons": {
+			"get": {
+				"tags": [
+					"Users"
+				],
+				"summary": "Gets all user lessons",
+				"description": "Gets all user lessons",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Lesson"
+							}
+						}
 					},
 					"401": {
 						"description": "Permission not granted."
@@ -2124,6 +2039,7 @@
 					"404": {
 						"description": "The element with the given ID does not exist."
 					}
+
 				}
 			}
 		},
@@ -2142,13 +2058,12 @@
 						"in": "path",
 						"description": "ID of the user to get the messages for",
 						"required": true,
-						"type": "integer",
-						"format": "int32"
+						"type": "string"
 					}
 				],
 				"responses": {
 					"200": {
-						"description": "",
+						"description": "Success",
 						"schema": {
 							"type": "array",
 							"items": {
@@ -2156,14 +2071,53 @@
 							}
 						}
 					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
 					"401": {
 						"description": "Permission not granted."
 					},
 					"404": {
 						"description": "The element with the given ID does not exist."
+					}
+				}
+			}
+		},
+		"/user/{userId}/transactions": {
+			"get": {
+				"tags": [
+					"Users"
+				],
+				"summary": "Gets all user transactions, for a given school",
+				"description": "Gets all user transactions, for a given school",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "schoolId",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Transaction"
+							}
+						}
+					},
+					"401": {
+						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
 					}
 				}
 			}
@@ -2177,13 +2131,13 @@
 				"deleted",
 				"email",
 				"name",
-				"surname",
-				"userType"
+				"surname"
 			],
 			"properties": {
 				"_id": {
 					"type": "string",
-					"example": "1"
+					"example": "1",
+					"description": ""
 				},
 				"active": {
 					"type": "boolean",
@@ -2207,55 +2161,10 @@
 					"example": "sample email",
 					"description": "The user's email address."
 				},
-				"feedbacksIn": {
-					"type": "array",
-					"description": "A list of all feedbacks the user has received.",
-					"items": {
-						"$ref": "#/definitions/Feedback"
-					}
-				},
-				"feedbacksOut": {
-					"type": "array",
-					"description": "A list of all feedbacks the user has given.",
-					"items": {
-						"$ref": "#/definitions/Feedback"
-					}
-				},
-				"languages": {
-					"type": "array",
-					"description": "A list of languages offered by an instructor.",
-					"items": {
-						"type": "string",
-						"example": "sample languages"
-					}
-				},
-				"lessons": {
-					"type": "array",
-					"description": "A list of lessons booked by the user",
-					"items": {
-						"type": "string",
-						"example": "sample lessons"
-					}
-				},
 				"name": {
 					"type": "string",
 					"example": "sample name",
 					"description": "The user's name."
-				},
-				"notifications": {
-					"type": "array",
-					"description": "A list of notifications the user received.",
-					"items": {
-						"$ref": "#/definitions/Message"
-					}
-				},
-				"permissions": {
-					"type": "array",
-					"description": "A list of user's permissions (depending on the user type).",
-					"items": {
-						"type": "string",
-						"example": "sample permissions"
-					}
 				},
 				"phoneNumber": {
 					"type": "string",
@@ -2272,42 +2181,109 @@
 					"example": "sample resetPasswordToken",
 					"description": "A unique, random token dedicated for the specific user view to reset the password."
 				},
-				"schools": {
-					"type": "array",
-					"description": "A list of schools the user belongs to.",
-					"items": {
-						"type": "string",
-						"example": "1"
-					}
-				},
-				"specializations": {
-					"type": "array",
-					"description": "A list of specializations offered by the instructor.",
-					"items": {
-						"type": "string",
-						"example": "sample specializations"
-					}
-				},
-				"timesOff": {
-					"type": "array",
-					"description": "A list of periods where the instructor is unavailable.",
-					"items": {
-						"$ref": "#/definitions/TimeInterval"
-					}
-				},
-				"userType": {
-					"type": "string",
-					"example": "sample userType",
-					"description": "Type of the user: regular, instructor, director, manager."
-				},
 				"surname": {
 					"type": "string",
 					"example": "sample surname",
 					"description": "The user's surname."
 				},
 				"refferalToken": {
-					"description": "The token assigned to a user when he will try to generate referal links",
-					"$ref": "#/definitions/Address"
+					"type": "string",
+					"example": "sample refferalToken",
+					"description": "The token assigned to a user when he will try to generate referal links"
+				}
+			}
+		},
+		"LessonTemplate": {
+			"required": [
+				"_id",
+				"groupFlag",
+				"instructor",
+				"name",
+				"prices"
+			],
+			"properties": {
+				"_id": {
+					"type": "string",
+					"example": "sample _id"
+				},
+				"name": {
+					"type": "string",
+					"example": "sample name",
+					"description": "Template name."
+				},
+				"groupFlag": {
+					"type": "boolean",
+					"example": "false",
+					"description": "Determines whether it is an individual or a group lesson."
+				},
+				"instructor": {
+					"type": "string",
+					"example": "sample instructor",
+					"description": "Instructor assigned to generated lessons."
+				},
+				"minParticipants": {
+					"type": "integer",
+					"format": "int32",
+					"example": "1",
+					"description": "Minimum amount of participants (for group lessons)."
+				},
+				"maxParticipants": {
+					"type": "integer",
+					"format": "int32",
+					"example": "1",
+					"description": "Maximum amount of participants (for a group lesson)."
+				},
+				"prices": {
+					"type": "array",
+					"description": "A list of prices for subsequent participants.",
+					"items": {
+						"type": "number",
+						"format": "double",
+						"example": "1.1"
+					}
+				},
+				"minAge": {
+					"type": "integer",
+					"format": "int32",
+					"example": "1",
+					"description": "Minimum age of the lessons (for group lessons)."
+				},
+				"maxAge": {
+					"type": "integer",
+					"format": "int32",
+					"example": "1",
+					"description": "Maximum age of the lessons (for group lessons)."
+				},
+				"specialty": {
+					"type": "array",
+					"description": "Specialty of the generated lessons",
+					"items": {
+						"type": "string",
+						"example": "sample specialty"
+					}
+				},
+				"level": {
+					"type": "array",
+					"description": "Required skill level for the generated lessons.",
+					"items": {
+						"type": "string",
+						"example": "sample level"
+					}
+				},
+				"instructorBonusFlag": {
+					"type": "boolean",
+					"example": "false",
+					"description": "Decides whether an instructor will receive bonus for the generated lessons."
+				},
+				"comment": {
+					"type": "string",
+					"example": "sample comment",
+					"description": "A brief description of the template."
+				},
+				"bookingType": {
+					"type": "string",
+					"example": "sample bookingType",
+					"description": "Decides whether it is a manual booking or by a school."
 				}
 			}
 		},
@@ -2317,7 +2293,10 @@
 				"amount",
 				"currency",
 				"date",
-				"transactionType"
+				"product",
+				"royaltyPercent",
+				"transactionType",
+				"userId"
 			],
 			"properties": {
 				"_id": {
@@ -2352,10 +2331,9 @@
 					"example": "1.1",
 					"description": "A date at which the transaction occurs."
 				},
-				"productId": {
-					"type": "string",
-					"example": "sample productId",
-					"description": "ID of lesson or bundle ordered (or null if it's a refund/referral etc)"
+				"product": {
+					"description": "Entity defining the product that has been ordered.",
+					"$ref": "#/definitions/EntityID"
 				},
 				"schoolId": {
 					"type": "string",
@@ -2370,7 +2348,18 @@
 				"userId": {
 					"type": "string",
 					"example": "1.1",
-					"description": "ID of the user booking the transaction (if booked manually)."
+					"description": "ID of the user for whom the lesson was booked"
+				},
+				"bookerId": {
+					"type": "string",
+					"example": "sample bookerId",
+					"description": "ID of the user of stub user who booked this lesson"
+				},
+				"royaltyPercent": {
+					"type": "number",
+					"format": "double",
+					"example": "1.1",
+					"description": "The percentage of money the school gets for the lesson."
 				}
 			},
 			"description": "An entity representing a single transaction made by a user or  a school."
@@ -2418,7 +2407,7 @@
 				"timestamp": {
 					"type": "string",
 					"format": "date",
-					"description": "READ ONLY\nThe time of this message creation"
+					"description": "The time of this message creation"
 				},
 				"deleted": {
 					"type": "boolean",
@@ -2431,9 +2420,8 @@
 					"description": "The Id of the instructor previously assigned to this lesson."
 				},
 				"fromId": {
-					"type": "string",
-					"example": "1",
-					"description": "Id of the person / school which sent this message"
+					"description": "Entity type and ID of the person / school which sent this message",
+					"$ref": "#/definitions/EntityID"
 				},
 				"important": {
 					"type": "boolean",
@@ -2448,7 +2436,7 @@
 				"memberId": {
 					"type": "string",
 					"example": "sample memberId",
-					"description": ""
+					"description": "ID of the member assigning or unassigning the lesson."
 				},
 				"message": {
 					"type": "string",
@@ -2485,9 +2473,8 @@
 					"$ref": "#/definitions/TimeInterval"
 				},
 				"toId": {
-					"type": "string",
-					"example": "1",
-					"description": "Id of the user/school that is the receiver of this message."
+					"description": "Entity type and ID of the user/school that is the receiver of this message.",
+					"$ref": "#/definitions/EntityID"
 				},
 				"type": {
 					"type": "string",
@@ -2495,11 +2482,37 @@
 					"description": "Type of message - request, notification etc."
 				}
 			},
-			"description": "A generic Message entity, having all possible fields that could appear in any message type. \nTypes and type-specific fields:\n - time off request: timesOff, timeOffRepeats\n - lesson request: role, accepted\n - lesson booked/unbooked: lessonId, bookerId, participantId\n - assigned lesson: memberId, assignedInstructorId, lessonId\n - unassigned lesson: memberId, lessonId, formerInstructorId\n - product added/removed/changed: productId, changedFields\n - membership accepted/refused: requestId, memberId\n - membership over/changed: memberId, oldRole"
+			"description": "A generic Message entity, having all possible fields that could appear in any message type. <br>\nTypes and type-specific fields: <br>\n - time off request: timesOff, timeOffRepeats<br>\n - lesson request: role, accepted<br>\n - lesson booked/unbooked: lessonId, bookerId, participantId<br>\n - assigned lesson: memberId, assignedInstructorId, lessonId<br>\n - unassigned lesson: memberId, lessonId, formerInstructorId<br>\n - product added/removed/changed: productId, changedFields<br>\n - membership accepted/refused: requestId, memberId<br>\n - membership over/changed: memberId, oldRole<br>"
+		},
+		"BundleTemplate": {
+			"required": [
+				"_id",
+				"discount",
+				"name"
+			],
+			"properties": {
+				"_id": {
+					"type": "string",
+					"example": "sample _id"
+				},
+				"name": {
+					"type": "string",
+					"example": "sample name",
+					"description": "Name of the generated bundles."
+				},
+				"comment": {
+					"type": "string",
+					"example": "sample comment",
+					"description": "Auto-generated comment for every bundle."
+				},
+				"discount": {
+					"description": "Discount for the generated bundles.",
+					"$ref": "#/definitions/Discount"
+				}
+			}
 		},
 		"MeetingPoint": {
 			"required": [
-				"_id",
 				"geo",
 				"name"
 			],
@@ -2512,11 +2525,6 @@
 					"type": "string",
 					"example": "sample Name",
 					"description": "Name of the meeting point."
-				},
-				"_id": {
-					"type": "integer",
-					"format": "int64",
-					"example": "1"
 				}
 			},
 			"description": "Default meeting point for a lesson"
@@ -2525,7 +2533,12 @@
 			"required": [
 				"_id",
 				"deleted",
+				"lessonTemplate",
 				"name",
+				"priority",
+				"publicFlag",
+				"schoolId",
+				"times",
 				"type"
 			],
 			"properties": {
@@ -2546,7 +2559,7 @@
 				},
 				"generatedLessons": {
 					"type": "array",
-					"description": "A list of lessons generated by this generator.",
+					"description": "A list of IDs of lessons generated by this generator.",
 					"items": {
 						"type": "string",
 						"example": "1"
@@ -2564,11 +2577,39 @@
 				},
 				"generatedBundles": {
 					"type": "array",
-					"description": "A list of bundles generated by this generator.",
+					"description": "A list of IDs of bundles generated by this generator.",
 					"items": {
 						"type": "string",
 						"example": "sample generatedBundles"
 					}
+				},
+				"lessonTemplate": {
+					"description": "Template used to create new lessons.",
+					"$ref": "#/definitions/LessonTemplate"
+				},
+				"priority": {
+					"type": "integer",
+					"format": "int32",
+					"example": "1",
+					"description": "The generator priority (starting from 1, 2, 3, ...), determines the generator precedence in case of overlapping lessons."
+				},
+				"bundleTemplate": {
+					"description": "Template used to generate bundles.",
+					"$ref": "#/definitions/BundleTemplate"
+				},
+				"schoolId": {
+					"type": "string",
+					"example": "sample schoolId",
+					"description": "ID of the school the generator belongs to."
+				},
+				"times": {
+					"description": "List of time intervals for which the lessons / bundles will be generated.",
+					"$ref": "#/definitions/TimeInterval"
+				},
+				"publicFlag": {
+					"type": "boolean",
+					"example": "false",
+					"description": "Decides whether the generated lessons and bundles are public."
 				}
 			}
 		},
@@ -2588,6 +2629,63 @@
 				}
 			},
 			"description": "An entity representing a pair of times - starting and ending."
+		},
+		"Employee": {
+			"required": [
+				"_id",
+				"deleted",
+				"languages",
+				"permissions",
+				"timesOff",
+				"userId"
+			],
+			"properties": {
+				"_id": {
+					"type": "string",
+					"example": "sample _id"
+				},
+				"userId": {
+					"description": "The corresponding `User`, stored as ID, but will be fetched as an entire embedded object at backend side.",
+					"$ref": "#/definitions/User"
+				},
+				"permissions": {
+					"type": "array",
+					"description": "What the user is allowed to do in this school.",
+					"items": {
+						"type": "string",
+						"example": "sample permissions"
+					}
+				},
+				"timesOff": {
+					"type": "array",
+					"description": "Time intervals during which the user is unavailable",
+					"items": {
+						"$ref": "#/definitions/TimeInterval"
+					}
+				},
+				"specialties": {
+					"type": "array",
+					"description": "Specialties the user can teach.",
+					"items": {
+						"type": "string",
+						"example": "sample specialties"
+					}
+				},
+				"languages": {
+					"type": "array",
+					"description": "The languages this employee can speak",
+					"items": {
+						"type": "string",
+						"example": "sample languages"
+					}
+				},
+				"deleted": {
+					"type": "boolean",
+					"example": "false",
+					"description": "Says whether the employee was deleted."
+				}
+			},
+			"description": "School employee"
 		},
 		"Authentication": {
 			"required": [
@@ -2609,14 +2707,12 @@
 					"description": "Authentication type."
 				}
 			},
-			"description": "An object describing a user's authentication (facebook, google, regular, etc)."
+			"description": "An object describing a user's authentication (facebook, google, regular, etc). \nWIP - will be modified once passport is implemented"
 		},
 		"Bundle": {
 			"required": [
 				"_id",
 				"deleted",
-				"discount",
-				"generatorId",
 				"lessons",
 				"name",
 				"publicFlag",
@@ -2638,15 +2734,8 @@
 					"description": "Says whether the bundle has been deleted. If true - it is scheduled for permanent deletion."
 				},
 				"discount": {
-					"type": "number",
-					"format": "double",
-					"example": "1.1",
-					"description": "The discount the user gets for the lessons in this bundle"
-				},
-				"generatorId": {
-					"type": "string",
-					"example": "1",
-					"description": "The ID of the generator by which this bundle was generated."
+					"description": "The discount the user gets for the lessons in this bundle",
+					"$ref": "#/definitions/Discount"
 				},
 				"lessons": {
 					"type": "array",
@@ -2670,6 +2759,11 @@
 					"type": "string",
 					"example": "1",
 					"description": "ID of the school at which the bundle's lessons will occur."
+				},
+				"generatorId": {
+					"type": "string",
+					"example": "sample generatorId",
+					"description": "ID of the generator the bundle comes from (if any)."
 				}
 			},
 			"description": "A group of lessons with a discount if a user will decide to purchase all of them."
@@ -2704,11 +2798,32 @@
 			},
 			"description": "Internal object of a School entity."
 		},
+		"Discount": {
+			"required": [
+				"type",
+				"value"
+			],
+			"properties": {
+				"type": {
+					"type": "string",
+					"example": "1.1",
+					"description": "Enum representing the discount type - flatPerLesson / flatTotal / percentage"
+				},
+				"value": {
+					"type": "number",
+					"format": "double",
+					"example": "1.1",
+					"description": "Numerical value of the discount"
+				}
+			},
+			"description": "Object representing fields needed for different types of discounts."
+		},
 		"Feedback": {
 			"required": [
 				"_id",
 				"fromWhom",
 				"lessonId",
+				"rating",
 				"schoolId",
 				"toWhom"
 			],
@@ -2718,9 +2833,8 @@
 					"example": "1"
 				},
 				"fromWhom": {
-					"type": "string",
-					"example": "1",
-					"description": "ID of the sender."
+					"description": "ID and entity type of the sender.",
+					"$ref": "#/definitions/EntityID"
 				},
 				"lessonId": {
 					"type": "string",
@@ -2733,11 +2847,54 @@
 					"description": "ID of the school the lesson was carried out at."
 				},
 				"toWhom": {
+					"description": "ID and entity type of the receiver.",
+					"$ref": "#/definitions/EntityID"
+				},
+				"message": {
 					"type": "string",
-					"example": "1",
-					"description": "ID of the receiver."
+					"example": "sample message",
+					"description": "The content of the feedback"
+				},
+				"rating": {
+					"type": "number",
+					"format": "double",
+					"example": "1.1",
+					"description": "The rating of the feedback"
+				},
+				"absences": {
+					"type": "array",
+					"description": "A list of users who didn't show up for the lesson in case it didn't occur after all.",
+					"items": {
+						"type": "string",
+						"example": "sample absences"
+					}
+				},
+				"comment": {
+					"type": "string",
+					"example": "sample comment",
+					"description": "A note on the lesson in case of special situations (e.g. if it didn't happen for whatever reason)."
 				}
-			}
+			},
+			"description": "Entity representing a feedback (user to instructor, instructor to user or user to school)"
+		},
+		"EntityID": {
+			"required": [
+				"entity",
+				"entityId"
+			],
+			"properties": {
+				"entityId": {
+					"type": "string",
+					"example": "sample entityId",
+					"description": "ID of the object selected by `entity` field"
+				},
+				"entity": {
+					"type": "string",
+					"example": "sample entity",
+					"description": "Selects an entity type: school, employee, user, lesson, bundle"
+				}
+			},
+			"description": "Helper object defining an entity type"
 		},
 		"Geo": {
 			"required": [
@@ -2766,7 +2923,6 @@
 				"clientSource",
 				"deleted",
 				"instructorId",
-				"level",
 				"meetingPoint",
 				"name",
 				"participants",
@@ -2807,26 +2963,9 @@
 					"example": "false",
 					"description": "Says whether the lesson has been deleted. If true - it is scheduled for permanent deletion."
 				},
-				"discount": {
-					"type": "number",
-					"format": "double",
-					"example": "1.1",
-					"description": "The discount the user gets for this lesson"
-				},
-				"generatorId": {
-					"type": "string",
-					"example": "1",
-					"description": "ID of the generator the lesson was generated by."
-				},
-				"hourFrom": {
-					"type": "string",
-					"format": "date",
-					"description": "Starting hour of the lesson"
-				},
-				"hourTo": {
-					"type": "string",
-					"format": "date",
-					"description": "Ending hour of the lesson"
+				"timeSpan": {
+					"description": "Lesson time span",
+					"$ref": "#/definitions/TimeInterval"
 				},
 				"instructorBonusFlag": {
 					"type": "boolean",
@@ -2860,7 +2999,7 @@
 				},
 				"meetingPoint": {
 					"description": "A meeting point for this lesson.",
-					"$ref": "#/definitions/Geo"
+					"$ref": "#/definitions/MeetingPoint"
 				},
 				"minAge": {
 					"type": "integer",
@@ -2881,7 +3020,7 @@
 				},
 				"participants": {
 					"type": "array",
-					"description": "List of ids of users attending this lesson",
+					"description": "List of participants  attending this lesson",
 					"items": {
 						"type": "string",
 						"example": "sample participants"
@@ -2913,6 +3052,11 @@
 					"type": "string",
 					"example": "sample previousInstructorId",
 					"description": "Id of the previous instructor"
+				},
+				"generatorId": {
+					"type": "string",
+					"example": "sample generatorId",
+					"description": "ID of the generator the lesson comes from (if any)."
 				}
 			}
 		},
@@ -2925,16 +3069,17 @@
 				"deleted",
 				"email",
 				"employees",
+				"enabled",
 				"logo",
 				"messages",
 				"name",
 				"openingHours",
-				"resort"
+				"resort",
+				"royaltyPercent"
 			],
 			"properties": {
 				"_id": {
-					"type": "integer",
-					"format": "int64",
+					"type": "string",
 					"example": "1"
 				},
 				"address": {
@@ -2970,14 +3115,6 @@
 					"example": "sample email",
 					"description": "Main email address which can be used to contact the school"
 				},
-				"employees": {
-					"type": "array",
-					"description": "List of id's of all school employees.",
-					"items": {
-						"type": "string",
-						"example": "1"
-					}
-				},
 				"logo": {
 					"type": "string",
 					"example": "sample logo",
@@ -2987,7 +3124,8 @@
 					"type": "array",
 					"description": "An inbox containing all messages sent to the school",
 					"items": {
-						"$ref": "#/definitions/Message"
+						"type": "string",
+						"example": "sample messages"
 					}
 				},
 				"name": {
@@ -3007,20 +3145,42 @@
 						"type": "string",
 						"example": "sample resort"
 					}
+				},
+				"manuallySetRating": {
+					"type": "number",
+					"format": "double",
+					"example": "1.1",
+					"description": "School's rating"
+				},
+				"enabled": {
+					"type": "boolean",
+					"example": "false",
+					"description": "Says whether the school lesson is enabled (e.g. whether its lessons appear for users)."
+				},
+				"royaltyPercent": {
+					"type": "number",
+					"format": "double",
+					"example": "1.1",
+					"description": "The percentage of money the school receives for every lesson."
+				},
+				"employees": {
+					"type": "array",
+					"description": "List of school employees",
+					"items": {
+						"$ref": "#/definitions/Employee"
+					}
 				}
 			},
 			"description": "Information about a given school"
 		},
 		"BankDetails": {
 			"required": [
-				"_id",
 				"accountNumber",
 				"currency"
 			],
 			"properties": {
 				"accountNumber": {
-					"type": "integer",
-					"format": "int64",
+					"type": "string",
 					"example": "1",
 					"description": "Bank account number."
 				},
@@ -3028,10 +3188,6 @@
 					"type": "string",
 					"example": "sample currency",
 					"description": "Currency the account number is in."
-				},
-				"_id": {
-					"type": "string",
-					"example": "sample _id"
 				}
 			},
 			"description": "This will be an internal object of an entity of type School."
