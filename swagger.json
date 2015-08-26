@@ -2041,8 +2041,8 @@
 				"tags": [
 					"Users"
 				],
-				"summary": "Gets all user feedbacks",
-				"description": "Gets all user feedbacks",
+				"summary": "Gets a number of random user feedbacks",
+				"description": "Gets a number of random user feedbacks",
 				"consumes": [],
 				"produces": [],
 				"parameters": [
@@ -3166,7 +3166,7 @@
 					}
 				}
 			},
-			"description": "Internal coordinate object used for meeting points."
+			"description": "Object representing a skiing resort."
 		},
 		"School": {
 			"required": [
