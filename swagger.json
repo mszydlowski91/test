@@ -302,7 +302,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "The instructor has been changed."
+						"description": "Success."
 					},
 					"400": {
 						"description": "The submitted request is malformed."
@@ -360,12 +360,25 @@
 				"produces": [],
 				"parameters": [
 					{
-						"in": "body",
-						"name": "body",
+						"name": "from",
+						"in": "query",
+						"description": "Email address of the sender.",
 						"required": false,
-						"schema": {
-							"$ref": "#/definitions/Message"
-						}
+						"type": "string"
+					},
+					{
+						"name": "topic",
+						"in": "query",
+						"description": "Message topic.",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "message",
+						"in": "query",
+						"description": "Message content.",
+						"required": false,
+						"type": "string"
 					}
 				],
 				"responses": {
@@ -749,6 +762,24 @@
 				"produces": [],
 				"parameters": [
 					{
+						"name": "age",
+						"in": "query",
+						"required": false,
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "numParticipants",
+						"in": "query",
+						"required": false,
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					{
 						"name": "maxPrice",
 						"in": "query",
 						"required": false,
@@ -959,7 +990,9 @@
 				"description": "Gets a list of instructors having lessons with specific parameters",
 				"consumes": [],
 				"produces": [],
-				"parameters": [					
+				"parameters": [	
+
+
 				],
 				"responses": {
 					"200": {
@@ -2221,11 +2254,9 @@
 					"description": "Says whether the user confirmed the registration. Also becomes inactive upon account deletion request."
 				},
 				"authentications": {
-					"type": "array",
-					"description": "A list of available authentication methods configured for the user.",
-					"items": {
-						"$ref": "#/definitions/Authentication"
-					}
+					"type": "string",
+					"description": "A list of available authentication methods configured for the user."
+					
 				},
 				"deleted": {
 					"type": "boolean",
@@ -2273,7 +2304,7 @@
 			"required": [
 				"_id",
 				"groupFlag",
-				"instructor",
+				"instructorId",
 				"name",
 				"prices"
 			],
@@ -2292,7 +2323,7 @@
 					"example": "false",
 					"description": "Determines whether it is an individual or a group lesson."
 				},
-				"instructor": {
+				"instructorId": {
 					"type": "string",
 					"example": "sample instructor",
 					"description": "Instructor assigned to generated lessons."
@@ -2330,7 +2361,7 @@
 					"example": "1",
 					"description": "Maximum age of the lessons (for group lessons)."
 				},
-				"specialty": {
+				"specialties": {
 					"type": "array",
 					"description": "Specialty of the generated lessons",
 					"items": {
@@ -2338,7 +2369,7 @@
 						"example": "sample specialty"
 					}
 				},
-				"level": {
+				"skillLevels": {
 					"type": "array",
 					"description": "Required skill level for the generated lessons.",
 					"items": {
@@ -2355,11 +2386,6 @@
 					"type": "string",
 					"example": "sample comment",
 					"description": "A brief description of the template."
-				},
-				"bookingType": {
-					"type": "string",
-					"example": "sample bookingType",
-					"description": "Decides whether it is a manual booking or by a school."
 				}
 			}
 		},
@@ -2609,13 +2635,14 @@
 			"required": [
 				"_id",
 				"deleted",
-				"lessonTemplate",
+				"lessonTemplateId",
+				"bundleTemplateId",
 				"name",
 				"priority",
 				"publicFlag",
 				"schoolId",
 				"times",
-				"type"
+				"generatorType"
 			],
 			"properties": {
 				"_id": {
@@ -2646,7 +2673,7 @@
 					"example": "sample name",
 					"description": "Name of the generator."
 				},
-				"type": {
+				"generatorType": {
 					"type": "string",
 					"example": "sample type",
 					"description": "Determines whether it is a lesson or a bundle generator."
@@ -2659,7 +2686,7 @@
 						"example": "sample generatedBundles"
 					}
 				},
-				"lessonTemplate": {
+				"lessonTemplateId": {
 					"description": "Template used to create new lessons.",
 					"$ref": "#/definitions/LessonTemplate"
 				},
@@ -2669,7 +2696,7 @@
 					"example": "1",
 					"description": "The generator priority (starting from 1, 2, 3, ...), determines the generator precedence in case of overlapping lessons."
 				},
-				"bundleTemplate": {
+				"bundleTemplateId": {
 					"description": "Template used to generate bundles.",
 					"$ref": "#/definitions/BundleTemplate"
 				},
@@ -2763,28 +2790,7 @@
 			},
 			"description": "School employee"
 		},
-		"Authentication": {
-			"required": [
-				"type"
-			],
-			"properties": {
-				"password": {
-					"type": "string",
-					"example": "sample password",
-					"description": "User password."
-				},
-				"token": {
-					"type": "string",
-					"example": "sample token"
-				},
-				"type": {
-					"type": "string",
-					"example": "sample type",
-					"description": "Authentication type."
-				}
-			},
-			"description": "An object describing a user's authentication (facebook, google, regular, etc). \nWIP - will be modified once passport is implemented"
-		},
+		
 		"Bundle": {
 			"required": [
 				"_id",
@@ -2830,6 +2836,11 @@
 					"type": "boolean",
 					"example": "false",
 					"description": "A flag determining whether the bundle is public or private."
+				},
+				"private": {
+					"type": "boolean",
+					"example": "false",
+					"description": "Whether it's booked by one or multiple persons"
 				},
 				"schoolId": {
 					"type": "string",
@@ -2995,7 +3006,7 @@
 			"required": [
 				"_id",
 				"booked",
-				"bookingType",
+				"private",
 				"clientSource",
 				"deleted",
 				"instructorId",
@@ -3014,9 +3025,9 @@
 					"example": "false",
 					"description": "Whether it is booked or not"
 				},
-				"bookingType": {
-					"type": "string",
-					"example": "sample bookingType",
+				"private": {
+					"type": "boolean",
+					"example": "false",
 					"description": "Whether it's booked by one or multiple persons"
 				},
 				"bundleId": {
@@ -3039,9 +3050,15 @@
 					"example": "false",
 					"description": "Says whether the lesson has been deleted. If true - it is scheduled for permanent deletion."
 				},
-				"timeSpan": {
-					"description": "Lesson time span",
-					"$ref": "#/definitions/TimeInterval"
+				"timeFrom": {
+					"type": "string",
+					"format" : "date",
+					"description": "Lesson start time"					
+				},
+				"timeTo": {
+					"type": "string",
+					"format" : "date",
+					"description": "Lesson end time"					
 				},
 				"instructorBonusFlag": {
 					"type": "boolean",

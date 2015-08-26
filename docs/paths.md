@@ -215,7 +215,7 @@ Purchase a new bundle.
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|The instructor has been changed.|No Content|
+|200|Success.|No Content|
 |400|The submitted request is malformed.|No Content|
 |401|Permission not granted.|No Content|
 
@@ -236,7 +236,9 @@ Sends a message to Skipodium support
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|BodyParameter|body||false|Message||
+|QueryParameter|from|Email address of the sender.|false|string||
+|QueryParameter|topic|Message topic.|false|string||
+|QueryParameter|message|Message content.|false|string||
 
 
 #### Responses
@@ -550,6 +552,8 @@ Gets lessons by parameters
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
+|QueryParameter|age||false|null string array||
+|QueryParameter|numParticipants||false|null string array||
 |QueryParameter|maxPrice||false|null string array||
 |QueryParameter|bookingType||false|null string array||
 |QueryParameter|schoolId||false|null string array||
