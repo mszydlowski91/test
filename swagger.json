@@ -1273,6 +1273,57 @@
 				}
 			}
 		},
+		"/auth/facebook": {
+			"post": {
+				"tags": [
+					"Default"
+				],
+				"summary": "Facebook login method.",
+				"description": "Facebook login method.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Success"
+					}
+				}
+			}
+		},
+		"/auth/google": {
+			"post": {
+				"tags": [
+					"Default"
+				],
+				"summary": "Google login method.",
+				"description": "Google login method.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Success"
+					}
+				}
+			}
+		},
+		"/auth/twitter": {
+			"post": {
+				"tags": [
+					"Default"
+				],
+				"summary": "Twitter login method.",
+				"description": "Twitterlogin method.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Success"
+					}
+				}
+			}
+		},
 		"/login": {
 			"post": {
 				"tags": [

@@ -1,4 +1,61 @@
 ## Paths
+### POST /auth/facebook
+```
+POST /auth/facebook
+```
+
+#### Description
+
+Facebook login method.
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|No Content|
+
+
+#### Tags
+
+* Default
+
+### POST /auth/google
+```
+POST /auth/google
+```
+
+#### Description
+
+Google login method.
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|No Content|
+
+
+#### Tags
+
+* Default
+
+### POST /auth/twitter
+```
+POST /auth/twitter
+```
+
+#### Description
+
+Twitterlogin method.
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|No Content|
+
+
+#### Tags
+
+* Default
+
 ### POST /bundle
 ```
 POST /bundle
