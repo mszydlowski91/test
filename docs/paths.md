@@ -611,21 +611,11 @@ Gets lessons by parameters
 |----|----|----|----|----|----|
 |QueryParameter|age||false|null string array||
 |QueryParameter|numParticipants||false|null string array||
-|QueryParameter|maxPrice||false|null string array||
-|QueryParameter|bookingType||false|null string array||
-|QueryParameter|schoolId||false|null string array||
-|QueryParameter|instructorId||false|null string array||
-|QueryParameter|speciality||false|null string array||
+|QueryParameter|price||false|null string array||
+|QueryParameter|specialty||false|null string array||
 |QueryParameter|level||false|null string array||
-|QueryParameter|meetingPoint||false|null string array||
-|QueryParameter|dateFrom||false|null string array||
-|QueryParameter|dateTo||false|null string array||
-|QueryParameter|clientSource|Skipodium user, manually booked by school, white label etc|false|null string array||
-|QueryParameter|booked|Whether it's already booked or not|false|null string array||
-|QueryParameter|generatorId||false|null string array||
-|QueryParameter|bundled||false|null string array||
-|QueryParameter|single||false|null string array||
-|QueryParameter|criteria|Other additional sorting criteria|false|string||
+|QueryParameter|timeFrom||false|null string array||
+|QueryParameter|timeTo||false|null string array||
 |QueryParameter|startPage|Starting index of the whole list to fetch|false|string||
 |QueryParameter|endPage|Ending index of the whole list to fetch|false|string||
 
@@ -677,13 +667,27 @@ GET /lesson/search
 
 #### Description
 
-Gets a list of instructors having lessons with specific parameters
+Returns a list of entries: {imageUrl, firstName, surname, lowestPrice, specialties}
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|QueryParameter|resort|Resort|false|string||
+|QueryParameter|startDate|Date from which to search.|false|string||
+|QueryParameter|endDate|Date till which to search.|false|string||
+|QueryParameter|numParticipants|Target number of participants.|false|string||
+|QueryParameter|specialty|Target specialty.|false|string||
+|QueryParameter|minPrice|Minimum price.|false|string||
+|QueryParameter|maxPrice|Maximum price.|false|string||
+|QueryParameter|language|Language.|false|string||
+|QueryParameter|expertises|Expertises (array).|false|string||
+
 
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|Employee array|
-|401|Permission not granted.|No Content|
+|200|Success|No Content|
+|400|The submitted request was malformed.|No Content|
 |404|The requested resource does not exist.|No Content|
 
 
@@ -1464,6 +1468,33 @@ Deletes a user by ID
 |200|Success|No Content|
 |401|Permission not granted.|No Content|
 |404|The element with the given ID does not exist.|No Content|
+
+
+#### Tags
+
+* Users
+
+### GET /user/{userId}/employment
+```
+GET /user/{userId}/employment
+```
+
+#### Description
+
+Gets all user employments. Returns an array of pairs {employee, school}.
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|userId||true|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Sucess|No Content|
+|400|The submitted request was malformed.|No Content|
+|404|The requested resource does not exist.|No Content|
 
 
 #### Tags

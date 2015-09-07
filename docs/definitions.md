@@ -164,6 +164,7 @@ A group of lessons with a discount if a user will decide to purchase all of them
 |deleted|Says whether the bundle has been deleted. If true - it is scheduled for permanent deletion.|true|boolean||
 |discount|The discount the user gets for the lessons in this bundle|false|Discount||
 |lessons|A list of lessons belonging to this bundle.|true|string array||
+|mandatoryBooking|Says whether the lessons of the bundle can be booked without purchasing the whole bundle.|false|boolean||
 |name|The name of the bundle.|true|string||
 |publicFlag|A flag determining whether the bundle is public or private.|true|boolean||
 |private|Whether it's booked by one or multiple persons|false|boolean||
@@ -202,10 +203,9 @@ Entity representing a feedback (user to instructor, instructor to user or user t
 |Name|Description|Required|Schema|Default|
 |----|----|----|----|----|
 |_id||true|string||
-|fromWhom|ID and entity type of the sender.|true|EntityID||
+|fromId|ID and entity type of the sender.|true|EntityID||
 |lessonId|ID of the lesson the feedback refers to.|true|string||
-|schoolId|ID of the school the lesson was carried out at.|true|string||
-|toWhom|ID and entity type of the receiver.|true|EntityID||
+|toId|ID and entity type of the receiver.|true|EntityID||
 |message|The content of the feedback|false|string||
 |rating|The rating of the feedback|true|number (double)||
 |absences|A list of users who didn't show up for the lesson in case it didn't occur after all.|false|string array||
@@ -287,7 +287,6 @@ Information about a given school
 |deleted|Says whether the school has been deleted. If true - it is scheduled for permanent deletion.|true|boolean||
 |email|Main email address which can be used to contact the school|true|string||
 |logo|An url  with the school logo file|true|string||
-|messages|An inbox containing all messages sent to the school|true|string array||
 |name|The name of the school|true|string||
 |openingHours|School working time (internal object with start and end time).|true|string (date)||
 |resort|A list of all resorts of given school - a minimum of one is required|true|Resort||

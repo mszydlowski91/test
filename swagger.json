@@ -526,6 +526,123 @@
 				}
 			}
 		},
+		"/user/{userId}/employment": {
+			"get": {
+				"tags": [
+					"Users"
+				],
+				"summary": "Gets all user employments. Returns an array of pairs {employee, school}.",
+				"description": "Gets all user employments. Returns an array of pairs {employee, school}.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Sucess"						
+					},
+					"400": {
+						"description": "The submitted request was malformed."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
+					}
+				}
+			}
+		},
+		"/lesson/search": {
+			"get": {
+				"tags": [
+					"Lessons"
+				],
+				"summary": "Returns a list of entries: {imageUrl, firstName, surname, lowestPrice, specialties}",				
+				"description":  "Returns a list of entries: {imageUrl, firstName, surname, lowestPrice, specialties}",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "resort",
+						"in": "query",
+						"description": "Resort",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "startDate",
+						"in": "query",
+						"description": "Date from which to search.",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "endDate",
+						"in": "query",
+						"description": "Date till which to search.",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "numParticipants",
+						"in": "query",
+						"description": "Target number of participants.",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "specialty",
+						"in": "query",
+						"description": "Target specialty.",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "minPrice",
+						"in": "query",
+						"description": "Minimum price.",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "maxPrice",
+						"in": "query",
+						"description": "Maximum price.",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "language",
+						"in": "query",
+						"description": "Language.",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "expertises",
+						"in": "query",
+						"description": "Expertises (array).",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success"						
+					},
+					"400": {
+						"description": "The submitted request was malformed."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
+					}
+				}
+			}
+		},
 		"/generator": {
 			"post": {
 				"tags": [
@@ -780,7 +897,7 @@
 						}
 					},
 					{
-						"name": "maxPrice",
+						"name": "price",
 						"in": "query",
 						"required": false,
 						"type": "array",
@@ -789,34 +906,7 @@
 						}
 					},
 					{
-						"name": "bookingType",
-						"in": "query",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "schoolId",
-						"in": "query",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "instructorId",
-						"in": "query",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "speciality",
+						"name": "specialty",
 						"in": "query",
 						"required": false,
 						"type": "array",
@@ -834,7 +924,7 @@
 						}
 					},
 					{
-						"name": "meetingPoint",
+						"name": "timeFrom",
 						"in": "query",
 						"required": false,
 						"type": "array",
@@ -843,77 +933,14 @@
 						}
 					},
 					{
-						"name": "dateFrom",
+						"name": "timeTo",
 						"in": "query",
 						"required": false,
 						"type": "array",
 						"items": {
 							"type": "string"
 						}
-					},
-					{
-						"name": "dateTo",
-						"in": "query",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "clientSource",
-						"in": "query",
-						"description": "Skipodium user, manually booked by school, white label etc",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "booked",
-						"in": "query",
-						"description": "Whether it's already booked or not",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "generatorId",
-						"in": "query",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "bundled",
-						"in": "query",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "single",
-						"in": "query",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "criteria",
-						"in": "query",
-						"description": "Other additional sorting criteria",
-						"required": false,
-						"type": "string"
-					},
+					},						
 					{
 						"name": "startPage",
 						"in": "query",
@@ -980,39 +1007,7 @@
 					}
 				}
 			}
-		},
-		"/lesson/search": {
-			"get": {
-				"tags": [
-					"Lessons"
-				],
-				"summary": "Gets a list of instructors having lessons with specific parameters",
-				"description": "Gets a list of instructors having lessons with specific parameters",
-				"consumes": [],
-				"produces": [],
-				"parameters": [	
-
-
-				],
-				"responses": {
-					"200": {
-						"description": "Success",
-						"schema": {
-							"type": "array",
-							"items": {
-								"$ref": "#/definitions/Employee"
-							}
-						}
-					},					
-					"401": {
-						"description": "Permission not granted."
-					},
-					"404": {
-						"description": "The requested resource does not exist."
-					}
-				}
-			}
-		},
+		},		
 		"/lesson/{lessonId}": {
 			"get": {
 				"tags": [
@@ -2878,6 +2873,11 @@
 						"example": "1"
 					}
 				},
+				"mandatoryBooking": {
+					"type": "boolean",
+					"example": "false",
+					"description": "Says whether the lessons of the bundle can be booked without purchasing the whole bundle."
+				},
 				"name": {
 					"type": "string",
 					"example": "sample name",
@@ -2959,18 +2959,17 @@
 		"Feedback": {
 			"required": [
 				"_id",
-				"fromWhom",
+				"fromId",
 				"lessonId",
-				"rating",
-				"schoolId",
-				"toWhom"
+				"rating",				
+				"toId"
 			],
 			"properties": {
 				"_id": {
 					"type": "string",
 					"example": "1"
 				},
-				"fromWhom": {
+				"fromId": {
 					"description": "ID and entity type of the sender.",
 					"$ref": "#/definitions/EntityID"
 				},
@@ -2978,13 +2977,8 @@
 					"type": "string",
 					"example": "1",
 					"description": "ID of the lesson the feedback refers to."
-				},
-				"schoolId": {
-					"type": "string",
-					"example": "1",
-					"description": "ID of the school the lesson was carried out at."
-				},
-				"toWhom": {
+				},				
+				"toId": {
 					"description": "ID and entity type of the receiver.",
 					"$ref": "#/definitions/EntityID"
 				},
@@ -3246,8 +3240,7 @@
 				"email",
 				"employees",
 				"enabled",
-				"logo",
-				"messages",
+				"logo",			
 				"name",
 				"openingHours",
 				"resort",
@@ -3295,15 +3288,7 @@
 					"type": "string",
 					"example": "sample logo",
 					"description": "An url  with the school logo file"
-				},
-				"messages": {
-					"type": "array",
-					"description": "An inbox containing all messages sent to the school",
-					"items": {
-						"type": "string",
-						"example": "sample messages"
-					}
-				},
+				},				
 				"name": {
 					"type": "string",
 					"example": "sample name",
