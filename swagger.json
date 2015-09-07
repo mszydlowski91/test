@@ -2779,7 +2779,7 @@
 					"description": "Expertises the instr can teach."
 				}
 			},
-			"description": "An entity representing a pair of times - starting and ending."
+			"description": "An entity representing an instructor specialty."
 		},
 		"TimeInterval": {
 			"required": [
