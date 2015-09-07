@@ -968,10 +968,7 @@
 					},
 					"400": {
 						"description": "The submitted request is malformed."
-					},
-					"401": {
-						"description": "Permission not granted."
-					},
+					},					
 					"404": {
 						"description": "No lesson with given matching the provided parameters was found."
 					}
@@ -2300,9 +2297,12 @@
 					"description": "Says whether the user confirmed the registration. Also becomes inactive upon account deletion request."
 				},
 				"authentications": {
-					"type": "string",
-					"description": "A list of available authentication methods configured for the user."
-					
+					"type": "array",
+					"description": "A list of available authentication methods (objects) configured for the user.",
+					"items": {
+						"type": "string",	
+						"example": "sample auth"			
+					}
 				},
 				"deleted": {
 					"type": "boolean",
@@ -2412,7 +2412,7 @@
 					"description": "Specialty of the generated lessons",
 					"items": {
 						"type": "string",
-						"example": "sample specialty"
+						"$ref": "#/definitions/Specialty"
 					}
 				},
 				"skillLevels": {
@@ -2762,6 +2762,25 @@
 				}
 			}
 		},
+		"Specialty": {
+			"required": [
+				"type",
+				"expertise"
+			],
+			"properties": {
+				"type": {
+					"type": "string",	
+					"example": "sample type",	
+					"description": "Type of the specialty - ski, snowboard etc."			
+				},
+				"expertise": {
+					"type": "string",	
+					"example": "sample expertise",	
+					"description": "Expertises the instr can teach."
+				}
+			},
+			"description": "An entity representing a pair of times - starting and ending."
+		},
 		"TimeInterval": {
 			"required": [
 				"endTime",
@@ -2817,7 +2836,7 @@
 					"description": "Specialties the user can teach.",
 					"items": {
 						"type": "string",
-						"example": "sample specialties"
+						"$ref": "#/definitions/Specialty"
 					}
 				},
 				"languages": {
@@ -3183,7 +3202,7 @@
 					"description": "The specialities covered by the lesson",
 					"items": {
 						"type": "string",
-						"example": "sample specialties"
+						"$ref": "#/definitions/Specialty"
 					}
 				},
 				"previousInstructorId": {

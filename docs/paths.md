@@ -625,7 +625,6 @@ Gets lessons by parameters
 |----|----|----|
 |200|Success|Lesson array|
 |400|The submitted request is malformed.|No Content|
-|401|Permission not granted.|No Content|
 |404|No lesson with given matching the provided parameters was found.|No Content|
 
 

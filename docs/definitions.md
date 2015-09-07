@@ -4,7 +4,7 @@
 |----|----|----|----|----|
 |_id||true|string||
 |active|Says whether the user confirmed the registration. Also becomes inactive upon account deletion request.|true|boolean||
-|authentications|A list of available authentication methods configured for the user.|false|string||
+|authentications|A list of available authentication methods (objects) configured for the user.|false|string array||
 |deleted|Says whether the user has been deleted. If true - it is scheduled for permanent deletion.|true|boolean||
 |email|The user's email address.|true|string||
 |name|The user's name.|true|string||
@@ -27,7 +27,7 @@
 |prices|A list of prices for subsequent participants.|true|number (double) array||
 |minAge|Minimum age of the lessons (for group lessons).|false|integer (int32)||
 |maxAge|Maximum age of the lessons (for group lessons).|false|integer (int32)||
-|specialties|Specialty of the generated lessons|false|string array||
+|specialties|Specialty of the generated lessons|false|Specialty array||
 |skillLevels|Required skill level for the generated lessons.|false|string array||
 |instructorBonusFlag|Decides whether an instructor will receive bonus for the generated lessons.|false|boolean||
 |comment|A brief description of the template.|false|string||
@@ -128,6 +128,16 @@ Default meeting point for a lesson
 |publicFlag|Decides whether the generated lessons and bundles are public.|true|boolean||
 
 
+### Specialty
+
+An entity representing a pair of times - starting and ending.
+
+|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|
+|type|Type of the specialty - ski, snowboard etc.|true|string||
+|expertise|Expertises the instr can teach.|true|string||
+
+
 ### TimeInterval
 
 An entity representing a pair of times - starting and ending.
@@ -148,7 +158,7 @@ School employee
 |userId|The corresponding `User`, stored as ID, but will be fetched as an entire embedded object at backend side.|true|User||
 |permissions|What the user is allowed to do in this school.|true|string array||
 |timesOff|Time intervals during which the user is unavailable|true|TimeInterval array||
-|specialties|Specialties the user can teach.|false|string array||
+|specialties|Specialties the user can teach.|false|Specialty array||
 |languages|The languages this employee can speak|true|string array||
 |deleted|Says whether the employee was deleted.|true|boolean||
 
@@ -256,7 +266,7 @@ Internal coordinate object used for meeting points.
 |participants|List of participants  attending this lesson|true|string array||
 |prices|A list of price thresholds, depending on the time of booking|false|number (double) array||
 |schoolId|ID of the school at which the lesson was carried out.|true|string||
-|specialties|The specialities covered by the lesson|false|string array||
+|specialties|The specialities covered by the lesson|false|Specialty array||
 |previousInstructorId|Id of the previous instructor|false|string||
 |generatorId|ID of the generator the lesson comes from (if any).|false|string||
 
