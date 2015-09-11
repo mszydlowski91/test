@@ -2282,6 +2282,7 @@
 				"active",
 				"deleted",
 				"email",
+				"languages",
 				"name",
 				"surname"
 			],
@@ -2313,6 +2314,14 @@
 					"type": "string",
 					"example": "sample email",
 					"description": "The user's email address."
+				},
+				"languages": {
+					"type": "array",
+					"description": "The languages this user can speak",
+					"items": {
+						"type": "string",
+						"example": "sample languages"
+					}
 				},
 				"name": {
 					"type": "string",
@@ -2801,8 +2810,7 @@
 		"Employee": {
 			"required": [
 				"_id",
-				"deleted",
-				"languages",
+				"deleted",				
 				"permissions",
 				"timesOff",
 				"userId"
@@ -2831,6 +2839,10 @@
 						"$ref": "#/definitions/TimeInterval"
 					}
 				},
+				"schoolId": {
+					"description": "The school the employee works at.",
+					"$ref": "#/definitions/School"
+				},
 				"specialties": {
 					"type": "array",
 					"description": "Specialties the user can teach.",
@@ -2838,15 +2850,7 @@
 						"type": "string",
 						"$ref": "#/definitions/Specialty"
 					}
-				},
-				"languages": {
-					"type": "array",
-					"description": "The languages this employee can speak",
-					"items": {
-						"type": "string",
-						"example": "sample languages"
-					}
-				},
+				},				
 				"deleted": {
 					"type": "boolean",
 					"example": "false",

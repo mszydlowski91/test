@@ -7,6 +7,7 @@
 |authentications|A list of available authentication methods (objects) configured for the user.|false|string array||
 |deleted|Says whether the user has been deleted. If true - it is scheduled for permanent deletion.|true|boolean||
 |email|The user's email address.|true|string||
+|languages|The languages this user can speak|true|string array||
 |name|The user's name.|true|string||
 |phoneNumber|User's contact number.|false|string||
 |photoURL|URL of user's avatar.|false|string||
@@ -130,7 +131,7 @@ Default meeting point for a lesson
 
 ### Specialty
 
-An entity representing a pair of times - starting and ending.
+An entity representing an instructor specialty.
 
 |Name|Description|Required|Schema|Default|
 |----|----|----|----|----|
@@ -158,8 +159,8 @@ School employee
 |userId|The corresponding `User`, stored as ID, but will be fetched as an entire embedded object at backend side.|true|User||
 |permissions|What the user is allowed to do in this school.|true|string array||
 |timesOff|Time intervals during which the user is unavailable|true|TimeInterval array||
+|schoolId|The school the employee works at.|false|School||
 |specialties|Specialties the user can teach.|false|Specialty array||
-|languages|The languages this employee can speak|true|string array||
 |deleted|Says whether the employee was deleted.|true|boolean||
 
 
