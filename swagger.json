@@ -2450,7 +2450,7 @@
 				"amount",
 				"currency",
 				"date",
-				"product",
+				"productId",
 				"royaltyPercent",
 				"transactionType",
 				"userId"
@@ -2488,7 +2488,7 @@
 					"example": "1.1",
 					"description": "A date at which the transaction occurs."
 				},
-				"product": {
+				"productId": {
 					"description": "Entity defining the product that has been ordered.",
 					"$ref": "#/definitions/EntityID"
 				},
@@ -2691,7 +2691,7 @@
 				"_id",
 				"deleted",
 				"lessonTemplateId",
-				"bundleTemplateId",
+				"generatedLessons",
 				"name",
 				"priority",
 				"publicFlag",
@@ -2813,7 +2813,8 @@
 				"deleted",				
 				"permissions",
 				"timesOff",
-				"userId"
+				"userId",
+				"schoolId"
 			],
 			"properties": {
 				"_id": {
@@ -2985,7 +2986,8 @@
 				"fromId",
 				"lessonId",
 				"rating",				
-				"toId"
+				"toId",
+				"deleted"
 			],
 			"properties": {
 				"_id": {
@@ -2995,6 +2997,11 @@
 				"fromId": {
 					"description": "ID and entity type of the sender.",
 					"$ref": "#/definitions/EntityID"
+				},
+				"deleted": {
+					"type": "boolean",
+					"example": "false",
+					"description": "Whether the feedback has been deleted or not."
 				},
 				"lessonId": {
 					"type": "string",
@@ -3260,13 +3267,12 @@
 				"bankDetails",
 				"defaultMeetingPoints",
 				"deleted",
-				"email",
-				"employees",
+				"email",				
 				"enabled",
 				"logo",			
 				"name",
 				"openingHours",
-				"resort",
+				"resorts",
 				"royaltyPercent"
 			],
 			"properties": {
@@ -3322,9 +3328,12 @@
 					"format": "date",
 					"description": "School working time (internal object with start and end time)."
 				},
-				"resort": {					
-					"description": "A list of all resorts of given school - a minimum of one is required",
-					"$ref": "#/definitions/Resort"						
+				"resorts": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Resort"	
+					},				
+					"description": "A list of all resorts of given school - a minimum of one is required"		
 				},
 				"manuallySetRating": {
 					"type": "number",
@@ -3342,13 +3351,6 @@
 					"format": "double",
 					"example": "1.1",
 					"description": "The percentage of money the school receives for every lesson."
-				},
-				"employees": {
-					"type": "array",
-					"description": "List of school employees",
-					"items": {
-						"$ref": "#/definitions/Employee"
-					}
 				}
 			},
 			"description": "Information about a given school"
