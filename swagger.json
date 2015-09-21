@@ -58,7 +58,7 @@
 					{
 						"in": "body",
 						"name": "body",
-						"required": false,
+						"required": true,
 						"schema": {
 							"$ref": "#/definitions/Bundle"
 						}
@@ -127,7 +127,7 @@
 					{
 						"in": "body",
 						"name": "body",
-						"required": false,
+						"required": true,
 						"schema": {
 							"$ref": "#/definitions/Bundle"
 						}
@@ -196,7 +196,7 @@
 					{
 						"in": "body",
 						"name": "body",
-						"required": false,
+						"required": true,
 						"schema": {
 							"$ref": "#/definitions/Lesson"
 						}
@@ -244,7 +244,7 @@
 					{
 						"in": "body",
 						"name": "body",
-						"required": false,
+						"required": true,
 						"schema": {
 							"$ref": "#/definitions/Lesson"
 						}
@@ -407,7 +407,7 @@
 					{
 						"in": "body",
 						"name": "body",
-						"required": false,
+						"required": true,
 						"schema": {
 							"$ref": "#/definitions/Employee"
 						}
@@ -476,7 +476,7 @@
 					{
 						"in": "body",
 						"name": "body",
-						"required": false,
+						"required": true,
 						"schema": {
 							"$ref": "#/definitions/Employee"
 						}
@@ -656,7 +656,7 @@
 					{
 						"in": "body",
 						"name": "body",
-						"required": false,
+						"required": true,
 						"schema": {
 							"$ref": "#/definitions/Generator"
 						}
@@ -732,7 +732,7 @@
 					{
 						"in": "body",
 						"name": "body",
-						"required": false,
+						"required": true,
 						"schema": {
 							"$ref": "#/definitions/Generator"
 						}
@@ -803,7 +803,7 @@
 					{
 						"in": "body",
 						"name": "body",
-						"required": false,
+						"required": true,
 						"schema": {
 							"$ref": "#/definitions/BundleTemplate"
 						}
@@ -846,7 +846,7 @@
 					{
 						"in": "body",
 						"name": "body",
-						"required": false,
+						"required": true,
 						"schema": {
 							"$ref": "#/definitions/LessonTemplate"
 						}
@@ -986,7 +986,7 @@
 					{
 						"in": "body",
 						"name": "body",
-						"required": false,
+						"required": true,
 						"schema": {
 							"$ref": "#/definitions/Lesson"
 						}
@@ -1057,7 +1057,7 @@
 					{
 						"in": "body",
 						"name": "body",
-						"required": false,
+						"required": true,
 						"schema": {
 							"$ref": "#/definitions/Lesson"
 						}
@@ -1236,7 +1236,7 @@
 					{
 						"in": "body",
 						"name": "body",
-						"required": false,
+						"required": true,
 						"schema": {
 							"$ref": "#/definitions/Lesson"
 						}
@@ -1325,7 +1325,13 @@
 				"description": "Login method",
 				"consumes": [],
 				"produces": [],
-				"parameters": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "login, password",
+						"required": true
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Success"
@@ -1348,7 +1354,16 @@
 				"description": "Signup method",
 				"consumes": [],
 				"produces": [],
-				"parameters": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/User"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Success"
@@ -1453,7 +1468,7 @@
 					{
 						"in": "body",
 						"name": "body",
-						"required": false,
+						"required": true,
 						"schema": {
 							"$ref": "#/definitions/User"
 						}
@@ -1494,7 +1509,7 @@
 					{
 						"in": "body",
 						"name": "body",
-						"required": false,
+						"required": true,
 						"schema": {
 							"$ref": "#/definitions/School"
 						}
@@ -1526,7 +1541,7 @@
 					{
 						"in": "body",
 						"name": "body",
-						"required": false,
+						"required": true,
 						"schema": {
 							"$ref": "#/definitions/Feedback"
 						}
@@ -1595,7 +1610,7 @@
 					{
 						"in": "body",
 						"name": "body",
-						"required": false,
+						"required": true,
 						"schema": {
 							"$ref": "#/definitions/School"
 						}
@@ -1810,7 +1825,7 @@
 					{
 						"in": "body",
 						"name": "body",
-						"required": false,
+						"required": true,
 						"schema": {
 							"$ref": "#/definitions/Transaction"
 						}
@@ -1926,7 +1941,7 @@
 					{
 						"in": "body",
 						"name": "body",
-						"required": false,
+						"required": true,
 						"schema": {
 							"$ref": "#/definitions/User"
 						}
@@ -1959,7 +1974,7 @@
 						"name": "email",
 						"in": "query",
 						"description": "The email of the stub user - This parameter IS mandatory",
-						"required": false,
+						"required": true,
 						"type": "array",
 						"items": {
 							"type": "string"
@@ -2057,7 +2072,7 @@
 					{
 						"in": "body",
 						"name": "body",
-						"required": false,
+						"required": true,
 						"schema": {
 							"$ref": "#/definitions/User"
 						}

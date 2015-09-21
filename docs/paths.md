@@ -68,7 +68,7 @@ Adds a new bundle
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|BodyParameter|body||false|Bundle||
+|BodyParameter|body||true|Bundle||
 
 
 #### Responses
@@ -123,7 +123,7 @@ Modifies an existing bundle
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|bundleId||true|string||
-|BodyParameter|body||false|Bundle||
+|BodyParameter|body||true|Bundle||
 
 
 #### Responses
@@ -179,7 +179,7 @@ Adds a lesson to the bundle
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|bundleId||true|string||
-|BodyParameter|body||false|Lesson||
+|BodyParameter|body||true|Lesson||
 |QueryParameter|lessonId|ID of the lesson to add|false|string||
 
 
@@ -209,7 +209,7 @@ Removes a lesson from bundle.
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|bundleId||true|string||
-|BodyParameter|body||false|Lesson||
+|BodyParameter|body||true|Lesson||
 |QueryParameter|lessonId|ID of the lesson to remove|false|string||
 
 
@@ -322,7 +322,7 @@ Adds a new employee
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|BodyParameter|body||false|Employee||
+|BodyParameter|body||true|Employee||
 
 
 #### Responses
@@ -377,7 +377,7 @@ Modifies an existing employee
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|employeeId||true|string||
-|BodyParameter|body||false|Employee||
+|BodyParameter|body||true|Employee||
 
 
 #### Responses
@@ -432,7 +432,7 @@ Creates a new feedback
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|BodyParameter|body||false|Feedback||
+|BodyParameter|body||true|Feedback||
 
 
 #### Responses
@@ -459,7 +459,7 @@ Creates a new generator
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|BodyParameter|body||false|Generator||
+|BodyParameter|body||true|Generator||
 |QueryParameter|isBundle|Determines whether the generator will be a bundle generator.|false|string||
 
 
@@ -515,7 +515,7 @@ Edits an existing generator
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|generatorId||true|string||
-|BodyParameter|body||false|Generator||
+|BodyParameter|body||true|Generator||
 
 
 #### Responses
@@ -571,7 +571,7 @@ Modifies the bundle template of the generator
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|generatorId||true|string||
-|BodyParameter|body||false|BundleTemplate||
+|BodyParameter|body||true|BundleTemplate||
 
 
 #### Responses
@@ -604,7 +604,7 @@ Modifies the bundle template of the generator
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|generatorId||true|string||
-|BodyParameter|body||false|LessonTemplate||
+|BodyParameter|body||true|LessonTemplate||
 
 
 #### Responses
@@ -671,7 +671,7 @@ Creates a new lesson
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|BodyParameter|body||false|Lesson||
+|BodyParameter|body||true|Lesson||
 
 
 #### Responses
@@ -761,7 +761,7 @@ Modifies an existing lesson
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|lessonId|ID of the lesson to work with.|true|string||
-|BodyParameter|body||false|Lesson||
+|BodyParameter|body||true|Lesson||
 
 
 #### Responses
@@ -872,7 +872,7 @@ Remove or add a participant to a lesson
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|lessonId||true|string||
-|BodyParameter|body||false|Lesson||
+|BodyParameter|body||true|Lesson||
 |QueryParameter|participants|A list id containing all of the participants, in order to remove a participant submit a list without his id (just other participants), if you would like to add a participant submit a list containing his id (and all other participants)|false|null string array||
 
 
@@ -924,6 +924,12 @@ POST /login
 #### Description
 
 Login method
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|BodyParameter|login, password||true|string||
+
 
 #### Responses
 |HTTP Code|Description|Schema|
@@ -1023,7 +1029,7 @@ Resets a user's password
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|BodyParameter|body||false|User||
+|BodyParameter|body||true|User||
 |QueryParameter|email||false|null string array||
 
 
@@ -1051,7 +1057,7 @@ Creates a new school
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|BodyParameter|body||false|School||
+|BodyParameter|body||true|School||
 
 
 #### Responses
@@ -1106,7 +1112,7 @@ Modifies an existing school
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|schoolId||true|string||
-|BodyParameter|body||false|School||
+|BodyParameter|body||true|School||
 
 
 #### Responses
@@ -1266,6 +1272,12 @@ POST /signup
 
 Signup method
 
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|BodyParameter|body||true|User||
+
+
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
@@ -1289,7 +1301,7 @@ Creates a new transaction
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|BodyParameter|body||false|Transaction||
+|BodyParameter|body||true|Transaction||
 
 
 #### Responses
@@ -1372,7 +1384,7 @@ Creates a new user.
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|BodyParameter|body||false|User||
+|BodyParameter|body||true|User||
 
 
 #### Responses
@@ -1399,7 +1411,7 @@ Creates a new stub user.
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|QueryParameter|email|The email of the stub user - This parameter IS mandatory|false|null string array||
+|QueryParameter|email|The email of the stub user - This parameter IS mandatory|true|null string array||
 |QueryParameter|firstName|The name of the stub user - This parameter is NOT mandatory|false|null string array||
 |QueryParameter|lastName|The lastName of the stub user - This parameter is NOT mandatory|false|null string array||
 
@@ -1457,7 +1469,7 @@ Updates a selected user
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|userId|ID of the user to work with|true|string||
-|BodyParameter|body||false|User||
+|BodyParameter|body||true|User||
 
 
 #### Responses
