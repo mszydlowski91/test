@@ -928,7 +928,8 @@ Login method
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|BodyParameter|login, password||true|string||
+|BodyParameter|login||true|string||
+|BodyParameter|password||true|string||
 
 
 #### Responses

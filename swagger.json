@@ -1328,7 +1328,12 @@
 				"parameters": [
 					{
 						"in": "body",
-						"name": "login, password",
+						"name": "login",
+						"required": true
+					},
+					{
+						"in": "body",
+						"name": "password",
 						"required": true
 					}
 				],
