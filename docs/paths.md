@@ -1,7 +1,7 @@
 ## Paths
-### POST /auth/facebook
+### GET /auth/facebook
 ```
-POST /auth/facebook
+GET /auth/facebook
 ```
 
 #### Description
@@ -18,9 +18,9 @@ Facebook login method.
 
 * Default
 
-### POST /auth/google
+### GET /auth/google
 ```
-POST /auth/google
+GET /auth/google
 ```
 
 #### Description
@@ -37,9 +37,9 @@ Google login method.
 
 * Default
 
-### POST /auth/twitter
+### GET /auth/twitter
 ```
-POST /auth/twitter
+GET /auth/twitter
 ```
 
 #### Description
@@ -419,6 +419,33 @@ Schedules an employee for deletion.
 #### Tags
 
 * Users
+
+### POST /feedback
+```
+POST /feedback
+```
+
+#### Description
+
+Creates a new feedback
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|BodyParameter|body||false|Feedback||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+
+
+#### Tags
+
+* Schools
 
 ### POST /generator
 ```

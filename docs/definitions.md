@@ -301,7 +301,7 @@ Information about a given school
 |logo|An url  with the school logo file|true|string||
 |name|The name of the school|true|string||
 |openingHours|School working time (internal object with start and end time).|true|string (date)||
-|resorts|A list of all resorts of given school - a minimum of one is required|true|Resort array||
+|resort|The resort the school belongs to.|true|Resort||
 |manuallySetRating|School's rating|false|number (double)||
 |enabled|Says whether the school lesson is enabled (e.g. whether its lessons appear for users).|true|boolean||
 |royaltyPercent|The percentage of money the school receives for every lesson.|true|number (double)||

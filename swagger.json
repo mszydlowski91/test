@@ -1266,7 +1266,7 @@
 			}
 		},
 		"/auth/facebook": {
-			"post": {
+			"get": {
 				"tags": [
 					"Default"
 				],
@@ -1283,7 +1283,7 @@
 			}
 		},
 		"/auth/google": {
-			"post": {
+			"get": {
 				"tags": [
 					"Default"
 				],
@@ -1300,7 +1300,7 @@
 			}
 		},
 		"/auth/twitter": {
-			"post": {
+			"get": {
 				"tags": [
 					"Default"
 				],
@@ -1497,6 +1497,38 @@
 						"required": false,
 						"schema": {
 							"$ref": "#/definitions/School"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success"
+					},
+					"400": {
+						"description": "The submitted request is malformed."
+					},
+					"401": {
+						"description": "Permission not granted."
+					}
+				}
+			}
+		},
+		"/feedback": {
+			"post": {
+				"tags": [
+					"Schools"
+				],
+				"summary": "Creates a new feedback",
+				"description": "Creates a new feedback",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"required": false,
+						"schema": {
+							"$ref": "#/definitions/Feedback"
 						}
 					}
 				],
@@ -3272,7 +3304,7 @@
 				"logo",			
 				"name",
 				"openingHours",
-				"resorts",
+				"resort",
 				"royaltyPercent"
 			],
 			"properties": {
@@ -3328,12 +3360,9 @@
 					"format": "date",
 					"description": "School working time (internal object with start and end time)."
 				},
-				"resorts": {
-					"type": "array",
-					"items": {
-						"$ref": "#/definitions/Resort"	
-					},				
-					"description": "A list of all resorts of given school - a minimum of one is required"		
+				"resort": {						
+					"$ref": "#/definitions/Resort",						
+					"description": "The resort the school belongs to."		
 				},
 				"manuallySetRating": {
 					"type": "number",
