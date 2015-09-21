@@ -445,7 +445,7 @@ Creates a new feedback
 
 #### Tags
 
-* Schools
+* Messages
 
 ### POST /generator
 ```
