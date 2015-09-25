@@ -397,7 +397,7 @@
 		"/employee": {
 			"post": {
 				"tags": [
-					"Users"
+					"Employees"
 				],
 				"summary": "Adds a new employee",
 				"description": "Adds a new employee",
@@ -419,9 +419,53 @@
 					},
 					"400": {
 						"description": "The submitted request is malformed."
+					}
+				}
+			},
+			"get": {
+				"tags": [
+					"Employees"
+				],
+				"summary": "Gets employees by params",
+				"description": "Gets employees by params",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{						
+						"name": "language",
+						"in": "query",
+						"description": "Language",
+						"required": false,
+						"type": "string"						
 					},
-					"401": {
-						"description": "Permission not granted."
+					{						
+						"name": "specialty",
+						"in": "query",
+						"description": "Specialty",
+						"required": false,
+						"type": "string"						
+					},
+					{						
+						"name": "permissions",
+						"in": "query",
+						"description": "Permission",
+						"required": false,
+						"type": "string"						
+					},
+					{						
+						"name": "expertise",
+						"in": "query",
+						"description": "Expertise",
+						"required": false,
+						"type": "string"						
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success"
+					},
+					"400": {
+						"description": "The submitted request is malformed."
 					}
 				}
 			}
@@ -2336,7 +2380,9 @@
 				"email",
 				"languages",
 				"name",
-				"surname"
+				"surname",
+				"createdAt",
+				"updatedAt"
 			],
 			"properties": {
 				"_id": {
@@ -2356,6 +2402,16 @@
 						"type": "string",	
 						"example": "sample auth"			
 					}
+				},
+				"createdAt": {
+					"type": "string",
+					"format" : "date",
+					"description": "Time the user has been created."					
+				},
+				"updatedAt": {
+					"type": "string",
+					"format" : "date",
+					"description": "Time the user has been updated."					
 				},
 				"deleted": {
 					"type": "boolean",

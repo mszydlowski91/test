@@ -5,6 +5,8 @@
 |_id||true|string||
 |active|Says whether the user confirmed the registration. Also becomes inactive upon account deletion request.|true|boolean||
 |authentications|A list of available authentication methods (objects) configured for the user.|false|string array||
+|createdAt|Time the user has been created.|true|string (date)||
+|updatedAt|Time the user has been updated.|true|string (date)||
 |deleted|Says whether the user has been deleted. If true - it is scheduled for permanent deletion.|true|boolean||
 |email|The user's email address.|true|string||
 |languages|The languages this user can speak|true|string array||

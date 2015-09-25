@@ -310,6 +310,35 @@ Sends a message to Skipodium support
 
 * Default
 
+### GET /employee
+```
+GET /employee
+```
+
+#### Description
+
+Gets employees by params
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|QueryParameter|language|Language|false|string||
+|QueryParameter|specialty|Specialty|false|string||
+|QueryParameter|permissions|Permission|false|string||
+|QueryParameter|expertise|Expertise|false|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|No Content|
+|400|The submitted request is malformed.|No Content|
+
+
+#### Tags
+
+* Employees
+
 ### POST /employee
 ```
 POST /employee
@@ -330,12 +359,11 @@ Adds a new employee
 |----|----|----|
 |200|Success|No Content|
 |400|The submitted request is malformed.|No Content|
-|401|Permission not granted.|No Content|
 
 
 #### Tags
 
-* Users
+* Employees
 
 ### GET /employee/{employeeId}
 ```
