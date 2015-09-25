@@ -326,6 +326,7 @@ Gets employees by params
 |QueryParameter|specialty|Specialty|false|string||
 |QueryParameter|permissions|Permission|false|string||
 |QueryParameter|expertise|Expertise|false|string||
+|QueryParameter|schoolId|School id|false|string||
 
 
 #### Responses
@@ -673,6 +674,8 @@ Gets lessons by parameters
 |QueryParameter|timeTo||false|null string array||
 |QueryParameter|startPage|Starting index of the whole list to fetch|false|string||
 |QueryParameter|endPage|Ending index of the whole list to fetch|false|string||
+|QueryParameter|instructorId|Instructor id|false|string||
+|QueryParameter|schoolId|School id|false|string||
 
 
 #### Responses
@@ -708,41 +711,6 @@ Creates a new lesson
 |200|Success|No Content|
 |400|The submitted request is malformed.|No Content|
 |401|Permission not granted.|No Content|
-
-
-#### Tags
-
-* Lessons
-
-### GET /lesson/search
-```
-GET /lesson/search
-```
-
-#### Description
-
-Returns a list of entries: {imageUrl, firstName, surname, lowestPrice, specialties}
-
-#### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|QueryParameter|resort|Resort|false|string||
-|QueryParameter|startDate|Date from which to search.|false|string||
-|QueryParameter|endDate|Date till which to search.|false|string||
-|QueryParameter|numParticipants|Target number of participants.|false|string||
-|QueryParameter|specialty|Target specialty.|false|string||
-|QueryParameter|minPrice|Minimum price.|false|string||
-|QueryParameter|maxPrice|Maximum price.|false|string||
-|QueryParameter|language|Language.|false|string||
-|QueryParameter|expertises|Expertises (array).|false|string||
-
-
-#### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|Success|No Content|
-|400|The submitted request was malformed.|No Content|
-|404|The requested resource does not exist.|No Content|
 
 
 #### Tags
@@ -938,6 +906,41 @@ Purchase a new lesson.
 |200|The instructor has been changed.|No Content|
 |400|The submitted request is malformed.|No Content|
 |401|Permission not granted.|No Content|
+
+
+#### Tags
+
+* Lessons
+
+### GET /lessonInstructors
+```
+GET /lessonInstructors
+```
+
+#### Description
+
+Returns a list of entries: {imageUrl, firstName, surname, lowestPrice, specialties}
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|QueryParameter|resort|Resort|false|string||
+|QueryParameter|startDate|Date from which to search.|false|string||
+|QueryParameter|endDate|Date till which to search.|false|string||
+|QueryParameter|numParticipants|Target number of participants.|false|string||
+|QueryParameter|specialty|Target specialty.|false|string||
+|QueryParameter|minPrice|Minimum price.|false|string||
+|QueryParameter|maxPrice|Maximum price.|false|string||
+|QueryParameter|language|Language.|false|string||
+|QueryParameter|expertises|Expertises (array).|false|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|No Content|
+|400|The submitted request was malformed.|No Content|
+|404|The requested resource does not exist.|No Content|
 
 
 #### Tags

@@ -458,6 +458,13 @@
 						"description": "Expertise",
 						"required": false,
 						"type": "string"						
+					},
+					{						
+						"name": "schoolId",
+						"in": "query",
+						"description": "School id",
+						"required": false,
+						"type": "string"						
 					}
 				],
 				"responses": {
@@ -600,7 +607,7 @@
 				}
 			}
 		},
-		"/lesson/search": {
+		"/lessonInstructors": {
 			"get": {
 				"tags": [
 					"Lessons"
@@ -996,6 +1003,20 @@
 						"name": "endPage",
 						"in": "query",
 						"description": "Ending index of the whole list to fetch",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "instructorId",
+						"in": "query",
+						"description": "Instructor id",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "schoolId",
+						"in": "query",
+						"description": "School id",
 						"required": false,
 						"type": "string"
 					}
