@@ -449,6 +449,60 @@ Schedules an employee for deletion.
 
 * Users
 
+### GET /employee/{employeeId}/stats
+```
+GET /employee/{employeeId}/stats
+```
+
+#### Description
+
+Gets the stats of the employee. Returns a custom JSON.
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|employeeId||true|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Sucess|No Content|
+|400|The submitted request was malformed.|No Content|
+|404|The requested resource does not exist.|No Content|
+
+
+#### Tags
+
+* Users
+
+### GET /employee/{employeeId}/times
+```
+GET /employee/{employeeId}/times
+```
+
+#### Description
+
+Gets the times off of the employee.
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|employeeId||true|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Sucess|TimeInterval array|
+|400|The submitted request was malformed.|No Content|
+|404|The requested resource does not exist.|No Content|
+
+
+#### Tags
+
+* Users
+
 ### POST /feedback
 ```
 POST /feedback
@@ -912,6 +966,33 @@ Purchase a new lesson.
 
 * Lessons
 
+### GET /lesson/{lessonId}/unbook
+```
+GET /lesson/{lessonId}/unbook
+```
+
+#### Description
+
+Unbooks a specific lesson.
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|lessonId||true|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|Lesson|
+|401|Permission not granted.|No Content|
+|404|The element with the given ID does not exist.|No Content|
+
+
+#### Tags
+
+* Lessons
+
 ### GET /lessonInstructors
 ```
 GET /lessonInstructors
@@ -1160,6 +1241,33 @@ Modifies an existing school
 
 * Schools
 
+### GET /school/{schoolId}/clientList
+```
+GET /school/{schoolId}/clientList
+```
+
+#### Description
+
+Gets the list of all school clients.
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|schoolId||true|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|User array|
+|401|Permission not granted.|No Content|
+|404|The requested resource does not exist.|No Content|
+
+
+#### Tags
+
+* Schools
+
 ### GET /school/{schoolId}/employees
 ```
 GET /school/{schoolId}/employees
@@ -1260,6 +1368,33 @@ Gets all school messages
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|Message array|
+|401|Permission not granted.|No Content|
+|404|The requested resource does not exist.|No Content|
+
+
+#### Tags
+
+* Schools
+
+### GET /school/{schoolId}/stats
+```
+GET /school/{schoolId}/stats
+```
+
+#### Description
+
+Gets the school stats. Returns a custom JSON.
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|schoolId||true|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success.|No Content|
 |401|Permission not granted.|No Content|
 |404|The requested resource does not exist.|No Content|
 
@@ -1674,6 +1809,33 @@ Gets all user messages.
 |200|Success|Message array|
 |401|Permission not granted.|No Content|
 |404|The element with the given ID does not exist.|No Content|
+
+
+#### Tags
+
+* Users
+
+### GET /user/{userId}/stats
+```
+GET /user/{userId}/stats
+```
+
+#### Description
+
+Gets the user stats. Returns a custom JSON.
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|userId||true|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success.|No Content|
+|401|Permission not granted.|No Content|
+|404|The requested resource does not exist.|No Content|
 
 
 #### Tags

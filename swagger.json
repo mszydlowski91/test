@@ -577,6 +577,72 @@
 				}
 			}
 		},
+		"/employee/{employeeId}/times": {
+			"get": {
+				"tags": [
+					"Users"
+				],
+				"summary": "Gets the times off of the employee.",
+				"description": "Gets the times off of the employee.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "employeeId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Sucess",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/TimeInterval"
+							}
+						}
+					},
+					"400": {
+						"description": "The submitted request was malformed."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
+					}
+				}
+			}
+		},
+		"/employee/{employeeId}/stats": {
+			"get": {
+				"tags": [
+					"Users"
+				],
+				"summary": "Gets the stats of the employee.  Returns a custom JSON.",
+				"description": "Gets the stats of the employee. Returns a custom JSON.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "employeeId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Sucess"						
+					},
+					"400": {
+						"description": "The submitted request was malformed."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
+					}
+				}
+			}
+		},
 		"/user/{userId}/employment": {
 			"get": {
 				"tags": [
@@ -1206,6 +1272,39 @@
 				}
 			}
 		},
+		"/lesson/{lessonId}/unbook": {
+			"get": {
+				"tags": [
+					"Lessons"
+				],
+				"summary": "Unbooks a specific lesson.",
+				"description": "Unbooks a specific lesson.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "lessonId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"$ref": "#/definitions/Lesson"
+						}
+					},
+					"401": {
+						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The element with the given ID does not exist."
+					}
+				}
+			}
+		},
 		"/lesson/{lessonId}/assignment/{instructorId}": {
 			"put": {
 				"tags": [
@@ -1738,6 +1837,72 @@
 				}
 			}
 		},
+		"/school/{schoolId}/clientList": {
+			"get": {
+				"tags": [
+					"Schools"
+				],
+				"summary": "Gets the list of all school clients.",
+				"description": "Gets the list of all school clients.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "schoolId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/User"
+							}
+						}
+					},
+					"401": {
+						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
+					}
+				}
+			}
+		},
+		"/school/{schoolId}/stats": {
+			"get": {
+				"tags": [
+					"Schools"
+				],
+				"summary": "Gets the school stats. Returns a custom JSON.",
+				"description": "Gets the school stats. Returns a custom JSON.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "schoolId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success."						
+					},
+					"401": {
+						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
+					}
+				}
+			}
+		},
 		"/school/{schoolId}/employees": {
 			"get": {
 				"tags": [
@@ -2189,6 +2354,36 @@
 					},
 					"404": {
 						"description": "The element with the given ID does not exist."
+					}
+				}
+			}
+		},
+		"/user/{userId}/stats": {
+			"get": {
+				"tags": [
+					"Users"
+				],
+				"summary": "Gets the user stats. Returns a custom JSON.",
+				"description": "Gets the user stats. Returns a custom JSON.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success."						
+					},
+					"401": {
+						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
 					}
 				}
 			}
