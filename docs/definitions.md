@@ -27,7 +27,7 @@
 |instructorId|Instructor assigned to generated lessons.|true|string||
 |minParticipants|Minimum amount of participants (for group lessons).|false|integer (int32)||
 |maxParticipants|Maximum amount of participants (for a group lesson).|false|integer (int32)||
-|prices|A list of prices for subsequent participants.|true|number (double) array||
+|prices|Prices for participants in lesser currency, min 50|true|number (double) array||
 |minAge|Minimum age of the lessons (for group lessons).|false|integer (int32)||
 |maxAge|Maximum age of the lessons (for group lessons).|false|integer (int32)||
 |specialties|Specialty of the generated lessons|false|Specialty array||
@@ -44,16 +44,19 @@ An entity representing a single transaction made by a user or  a school.
 |----|----|----|----|----|
 |_id||true|string||
 |amount|The amount of money to be transferred from the purchaser to the school.|true|number (double)||
+|amountToPay|The amount of money that have to be paid.|false|number (double)||
 |bonus|Amount of bonus money awarded by the school in case of a special transaction or promotion|false|number (double)||
+|channel|The means by which the payment was made (card, manual etc.).|true|string||
 |comment|A brief description of transaction's purpose.|false|string||
 |currency|The currency in which the transaction will be done.|true|string||
 |date|A date at which the transaction occurs.|true|string (date)||
-|productId|Entity defining the product that has been ordered.|true|EntityID||
+|productId|EntityID: Type - lesson or bundle, id - prod ID|true|EntityID||
 |schoolId|ID of the school that does the transaction (if it is not manually booked).|false|string||
+|status|The current state of the payment (paid, upaid, etc.).|true|string||
+|stripeTransactionId|Stripe transaction ID.|true|string||
 |transactionType|Type of the transaction: lesson purchase, refund, referral bonus, etc.|true|string||
 |userId|ID of the user for whom the lesson was booked|true|string||
 |bookerId|ID of the user of stub user who booked this lesson|false|string||
-|royaltyPercent|The percentage of money the school gets for the lesson.|true|number (double)||
 
 
 ### Message
@@ -164,6 +167,7 @@ School employee
 |schoolId|The school the employee works at.|true|School||
 |specialties|Specialties the user can teach.|false|Specialty array||
 |deleted|Says whether the employee was deleted.|true|boolean||
+|comment|Employee comment.|false|string||
 
 
 ### Bundle
@@ -177,7 +181,7 @@ A group of lessons with a discount if a user will decide to purchase all of them
 |deleted|Says whether the bundle has been deleted. If true - it is scheduled for permanent deletion.|true|boolean||
 |discount|The discount the user gets for the lessons in this bundle|false|Discount||
 |lessons|A list of lessons belonging to this bundle.|true|string array||
-|mandatoryBooking|Says whether the lessons of the bundle can be booked without purchasing the whole bundle.|false|boolean||
+|mandatoryBooking|Says whether the lessons of the bundle can be booked without purchasing the whole bundle.|true|boolean||
 |name|The name of the bundle.|true|string||
 |publicFlag|A flag determining whether the bundle is public or private.|true|boolean||
 |private|Whether it's booked by one or multiple persons|false|boolean||
@@ -296,16 +300,16 @@ Information about a given school
 |_id||true|string||
 |address|School address|true|Address||
 |bankDetails|School banking information.|true|BankDetails||
-|contacts|A list of phone numbers, emails, or any contact details the school possesses.|false|string array||
+|contacts|List of o. with: fb,twitter,phone, etc.|false|string array||
 |defaultMeetingPoints|A list of established meeting points for instructors and students.|true|MeetingPoint array||
 |deleted|Says whether the school has been deleted. If true - it is scheduled for permanent deletion.|true|boolean||
 |email|Main email address which can be used to contact the school|true|string||
 |logo|An url  with the school logo file|true|string||
 |name|The name of the school|true|string||
-|openingHours|School working time (internal object with start and end time).|true|string (date)||
 |resort|The resort the school belongs to.|true|Resort||
 |manuallySetRating|School's rating|false|number (double)||
 |enabled|Says whether the school lesson is enabled (e.g. whether its lessons appear for users).|true|boolean||
+|active|Says whether the school is active.|true|boolean||
 |royaltyPercent|The percentage of money the school receives for every lesson.|true|number (double)||
 
 

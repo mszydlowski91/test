@@ -1,4 +1,24 @@
 ## Paths
+### GET /
+```
+GET /
+```
+
+#### Description
+
+Home address. Returns current session data.
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|No Content|
+|401|Permission not granted.|No Content|
+
+
+#### Tags
+
+* Default
+
 ### GET /auth/facebook
 ```
 GET /auth/facebook
@@ -400,7 +420,7 @@ PUT /employee/{employeeId}
 
 #### Description
 
-Modifies an existing employee
+Modifies an existing employee (timeoffs, specialties, permissions).
 
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
@@ -448,6 +468,33 @@ Schedules an employee for deletion.
 #### Tags
 
 * Users
+
+### GET /employee/{employeeId}/lessons
+```
+GET /employee/{employeeId}/lessons
+```
+
+#### Description
+
+Gets the lessons of the employee.
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|employeeId||true|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Sucess|No Content|
+|400|The submitted request was malformed.|No Content|
+|404|The requested resource does not exist.|No Content|
+
+
+#### Tags
+
+* Employees
 
 ### GET /employee/{employeeId}/stats
 ```
@@ -957,7 +1004,7 @@ Purchase a new lesson.
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|The instructor has been changed.|No Content|
+|200|Success.|No Content|
 |400|The submitted request is malformed.|No Content|
 |401|Permission not granted.|No Content|
 
@@ -966,25 +1013,26 @@ Purchase a new lesson.
 
 * Lessons
 
-### GET /lesson/{lessonId}/unbook
+### PUT /lesson/{lessonId}/unbook/{userId}
 ```
-GET /lesson/{lessonId}/unbook
+PUT /lesson/{lessonId}/unbook/{userId}
 ```
 
 #### Description
 
-Unbooks a specific lesson.
+Unbooks a specific lesson for a user.
 
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|lessonId||true|string||
+|PathParameter|userId||true|string||
 
 
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|Lesson|
+|200|Success|No Content|
 |401|Permission not granted.|No Content|
 |404|The element with the given ID does not exist.|No Content|
 
@@ -1241,6 +1289,33 @@ Modifies an existing school
 
 * Schools
 
+### GET /school/{schoolId}/bookedClients
+```
+GET /school/{schoolId}/bookedClients
+```
+
+#### Description
+
+Gets a list of school clients
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|schoolId||true|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|User array|
+|401|Permission not granted.|No Content|
+|404|The requested resource does not exist.|No Content|
+
+
+#### Tags
+
+* Schools
+
 ### GET /school/{schoolId}/clientList
 ```
 GET /school/{schoolId}/clientList
@@ -1260,6 +1335,34 @@ Gets the list of all school clients.
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|User array|
+|401|Permission not granted.|No Content|
+|404|The requested resource does not exist.|No Content|
+
+
+#### Tags
+
+* Schools
+
+### GET /school/{schoolId}/clientStats/{clientId}
+```
+GET /school/{schoolId}/clientStats/{clientId}
+```
+
+#### Description
+
+Gets the school stats for a user. Returns a custom JSON.
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|schoolId||true|string||
+|PathParameter|clientId||true|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success.|No Content|
 |401|Permission not granted.|No Content|
 |404|The requested resource does not exist.|No Content|
 
@@ -1376,33 +1479,6 @@ Gets all school messages
 
 * Schools
 
-### GET /school/{schoolId}/stats
-```
-GET /school/{schoolId}/stats
-```
-
-#### Description
-
-Gets the school stats. Returns a custom JSON.
-
-#### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|PathParameter|schoolId||true|string||
-
-
-#### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|Success.|No Content|
-|401|Permission not granted.|No Content|
-|404|The requested resource does not exist.|No Content|
-
-
-#### Tags
-
-* Schools
-
 ### GET /school/{schoolId}/transactions
 ```
 GET /school/{schoolId}/transactions
@@ -1416,6 +1492,7 @@ Gets all transactions for a given school, for a given user ID
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|schoolId||true|string||
+|QueryParameter|userId||false|string||
 
 
 #### Responses

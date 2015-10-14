@@ -45,6 +45,28 @@
 		}
 	],
 	"paths": {
+		"/": {
+			"get": {
+				"tags": [
+					"Default"
+				],
+				"summary": "Home address. Returns current session data.",
+				"description": "Home address. Returns current session data.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [					
+				],
+				"responses": {
+					"200": {
+						"description": "Success"
+					},
+					"401": {
+						"description": "Permission not granted."
+					}
+				}
+			}
+		},
+
 		"/bundle": {
 			"post": {
 				"tags": [
@@ -513,8 +535,8 @@
 				"tags": [
 					"Users"
 				],
-				"summary": "Modifies an existing employee",
-				"description": "Modifies an existing employee",
+				"summary": "Modifies an existing employee (timeoffs, specialties, permissions).",
+				"description": "Modifies an existing employee (timeoffs, specialties, permissions).",
 				"consumes": [],
 				"produces": [],
 				"parameters": [
@@ -570,6 +592,36 @@
 					},
 					"401": {
 						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
+					}
+				}
+			}
+		},
+		"/employee/{employeeId}/lessons": {
+			"get": {
+				"tags": [
+					"Employees"
+				],
+				"summary": "Gets the lessons of the employee.",
+				"description": "Gets the lessons of the employee.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "employeeId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Sucess"						
+					},
+					"400": {
+						"description": "The submitted request was malformed."
 					},
 					"404": {
 						"description": "The requested resource does not exist."
@@ -1272,13 +1324,13 @@
 				}
 			}
 		},
-		"/lesson/{lessonId}/unbook": {
-			"get": {
+		"/lesson/{lessonId}/unbook/{userId}": {
+			"put": {
 				"tags": [
 					"Lessons"
 				],
-				"summary": "Unbooks a specific lesson.",
-				"description": "Unbooks a specific lesson.",
+				"summary": "Unbooks a specific lesson for a user.",
+				"description": "Unbooks a specific lesson for a user.",
 				"consumes": [],
 				"produces": [],
 				"parameters": [
@@ -1287,14 +1339,17 @@
 						"in": "path",
 						"required": true,
 						"type": "string"
+					},
+					{
+						"name": "userId",
+						"in": "path",
+						"required": true,
+						"type": "string"
 					}
 				],
 				"responses": {
 					"200": {
-						"description": "Success",
-						"schema": {
-							"$ref": "#/definitions/Lesson"
-						}
+						"description": "Success"						
 					},
 					"401": {
 						"description": "Permission not granted."
@@ -1370,7 +1425,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "The instructor has been changed."
+						"description": "Success."
 					},
 					"400": {
 						"description": "The submitted request is malformed."
@@ -1837,6 +1892,42 @@
 				}
 			}
 		},
+		"/school/{schoolId}/bookedClients": {
+			"get": {
+				"tags": [
+					"Schools"
+				],
+				"summary": "Gets a list of school clients",
+				"description": "Gets a list of school clients",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "schoolId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/User"
+							}
+						}
+					},
+					"401": {
+						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
+					}
+				}
+			}
+		},
 		"/school/{schoolId}/clientList": {
 			"get": {
 				"tags": [
@@ -1873,18 +1964,24 @@
 				}
 			}
 		},
-		"/school/{schoolId}/stats": {
+		"/school/{schoolId}/clientStats/{clientId}": {
 			"get": {
 				"tags": [
 					"Schools"
 				],
-				"summary": "Gets the school stats. Returns a custom JSON.",
-				"description": "Gets the school stats. Returns a custom JSON.",
+				"summary": "Gets the school stats for a user. Returns a custom JSON.",
+				"description": "Gets the school stats for a user. Returns a custom JSON.",
 				"consumes": [],
 				"produces": [],
 				"parameters": [
 					{
 						"name": "schoolId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "clientId",
 						"in": "path",
 						"required": true,
 						"type": "string"
@@ -2025,6 +2122,12 @@
 						"name": "schoolId",
 						"in": "path",
 						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "userId",
+						"in": "query",
+						"required": false,
 						"type": "string"
 					}
 				],
@@ -2721,7 +2824,7 @@
 				},
 				"prices": {
 					"type": "array",
-					"description": "A list of prices for subsequent participants.",
+					"description": "Prices for participants in lesser currency, min 50",
 					"items": {
 						"type": "number",
 						"format": "double",
@@ -2775,9 +2878,11 @@
 				"currency",
 				"date",
 				"productId",
-				"royaltyPercent",
 				"transactionType",
-				"userId"
+				"userId",
+				"stripeTransactionId",
+				"channel",
+				"status"
 			],
 			"properties": {
 				"_id": {
@@ -2790,11 +2895,22 @@
 					"example": "1.1",
 					"description": "The amount of money to be transferred from the purchaser to the school."
 				},
+				"amountToPay": {
+					"type": "number",
+					"format": "double",
+					"example": "1.1",
+					"description": "The amount of money that have to be paid."
+				},
 				"bonus": {
 					"type": "number",
 					"format": "double",
 					"example": "1.1",
 					"description": "Amount of bonus money awarded by the school in case of a special transaction or promotion"
+				},
+				"channel": {
+					"type": "string",
+					"example": "sample channel",
+					"description": "The means by which the payment was made (card, manual etc.)."
 				},
 				"comment": {
 					"type": "string",
@@ -2813,13 +2929,23 @@
 					"description": "A date at which the transaction occurs."
 				},
 				"productId": {
-					"description": "Entity defining the product that has been ordered.",
+					"description": "EntityID: Type - lesson or bundle, id - prod ID",
 					"$ref": "#/definitions/EntityID"
 				},
 				"schoolId": {
 					"type": "string",
 					"example": "1.1",
 					"description": "ID of the school that does the transaction (if it is not manually booked)."
+				},
+				"status": {
+					"type": "string",
+					"example": "sample status",
+					"description": "The current state of the payment (paid, upaid, etc.)."
+				},
+				"stripeTransactionId": {
+					"type": "string",
+					"example": "1.1",
+					"description": "Stripe transaction ID."
 				},
 				"transactionType": {
 					"type": "string",
@@ -2835,12 +2961,6 @@
 					"type": "string",
 					"example": "sample bookerId",
 					"description": "ID of the user of stub user who booked this lesson"
-				},
-				"royaltyPercent": {
-					"type": "number",
-					"format": "double",
-					"example": "1.1",
-					"description": "The percentage of money the school gets for the lesson."
 				}
 			},
 			"description": "An entity representing a single transaction made by a user or  a school."
@@ -3138,7 +3258,8 @@
 				"permissions",
 				"timesOff",
 				"userId",
-				"schoolId"
+				"schoolId",
+				"salary"
 			],
 			"properties": {
 				"_id": {
@@ -3180,6 +3301,16 @@
 					"type": "boolean",
 					"example": "false",
 					"description": "Says whether the employee was deleted."
+				},
+				"comment": {
+					"type": "string",
+					"example": "sample comment",
+					"description": "Employee comment."
+				},
+				"salary": {
+					"type": "double",
+					"example": "1.1",
+					"description": "Employee salary."
 				}
 			},
 			"description": "School employee"
@@ -3192,7 +3323,8 @@
 				"lessons",
 				"name",
 				"publicFlag",
-				"schoolId"
+				"schoolId",
+				"mandatoryBooking"
 			],
 			"properties": {
 				"_id": {
@@ -3587,6 +3719,7 @@
 		"School": {
 			"required": [
 				"_id",
+				"active",
 				"address",
 				"bankDetails",
 				"defaultMeetingPoints",
@@ -3614,7 +3747,7 @@
 				},
 				"contacts": {
 					"type": "array",
-					"description": "A list of phone numbers, emails, or any contact details the school possesses.",
+					"description": "List of o. with: fb,twitter,phone, etc.",
 					"items": {
 						"type": "string",
 						"example": "sample contacts"
@@ -3649,8 +3782,8 @@
 				},
 				"openingHours": {
 					"type": "string",
-					"format": "date",
-					"description": "School working time (internal object with start and end time)."
+					"format": "number",
+					"description": "School working time (internal object with start and end hour)."
 				},
 				"resort": {						
 					"$ref": "#/definitions/Resort",						
@@ -3666,6 +3799,11 @@
 					"type": "boolean",
 					"example": "false",
 					"description": "Says whether the school lesson is enabled (e.g. whether its lessons appear for users)."
+				},
+				"active": {
+					"type": "boolean",
+					"example": "false",
+					"description": "Says whether the school is active."
 				},
 				"royaltyPercent": {
 					"type": "number",
