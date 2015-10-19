@@ -1178,6 +1178,33 @@ Deletes a message
 
 * Messages
 
+### PUT /message/{messageId}/markAsRead
+```
+PUT /message/{messageId}/markAsRead
+```
+
+#### Description
+
+Marks the message as read
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|messageId||true|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|No Content|
+|401|Permission not granted.|No Content|
+|404|The element with the given ID does not exist.|No Content|
+
+
+#### Tags
+
+* Messages
+
 ### GET /resetPassword
 ```
 GET /resetPassword

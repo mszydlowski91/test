@@ -142,6 +142,7 @@ An entity representing an instructor specialty.
 |----|----|----|----|----|
 |type|Type of the specialty - ski, snowboard etc.|true|string||
 |expertise|Expertises the instr can teach.|true|string||
+|level|Level the instr can teach.|false|string||
 
 
 ### TimeInterval
@@ -264,7 +265,6 @@ Internal coordinate object used for meeting points.
 |timeTo|Lesson end time|false|string (date)||
 |instructorBonusFlag|Bonus the instructor gets for the lesson|false|boolean||
 |instructorId|ID of the instructor running the lesson.|true|string||
-|level|The skill levels involved in this lesson.|false|string array||
 |maxAge|Maximum age for this lesson.|false|integer (int32)||
 |maxParticipants|Maximum number of participants.|false|integer (int32)||
 |meetingPoint|A meeting point for this lesson.|true|MeetingPoint||
@@ -306,6 +306,7 @@ Information about a given school
 |email|Main email address which can be used to contact the school|true|string||
 |logo|An url  with the school logo file|true|string||
 |name|The name of the school|true|string||
+|openingHours|School working time (internal object with start and end hour).|true|string (date) array||
 |resort|The resort the school belongs to.|true|Resort||
 |manuallySetRating|School's rating|false|number (double)||
 |enabled|Says whether the school lesson is enabled (e.g. whether its lessons appear for users).|true|boolean||

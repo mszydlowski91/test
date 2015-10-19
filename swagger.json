@@ -1679,6 +1679,36 @@
 				}
 			}
 		},
+		"/message/{messageId}/markAsRead": {
+			"put": {
+				"tags": [
+					"Messages"
+				],
+				"summary": "Marks the message as read",
+				"description": "Marks the message as read",
+				"consumes": [],
+				"produces": [],
+				"parameters": [
+					{
+						"name": "messageId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success"						
+					},
+					"401": {
+						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The element with the given ID does not exist."
+					}
+				}
+			}
+		},
 		"/resetPassword": {
 			"get": {
 				"tags": [
@@ -3230,6 +3260,11 @@
 					"type": "string",	
 					"example": "sample expertise",	
 					"description": "Expertises the instr can teach."
+				},
+				"level": {
+					"type": "string",	
+					"example": "sample level",	
+					"description": "Level the instr can teach."
 				}
 			},
 			"description": "An entity representing an instructor specialty."
@@ -3601,14 +3636,6 @@
 					"example": "1",
 					"description": "ID of the instructor running the lesson."
 				},
-				"level": {
-					"type": "array",
-					"description": "The skill levels involved in this lesson.",
-					"items": {
-						"type": "string",
-						"example": "sample level"
-					}
-				},
 				"maxAge": {
 					"type": "integer",
 					"format": "int32",
@@ -3781,8 +3808,11 @@
 					"description": "The name of the school"
 				},
 				"openingHours": {
-					"type": "string",
-					"format": "number",
+					"type": "array",
+					"items": {
+						"type": "string",
+						"format" : "date"
+					},					
 					"description": "School working time (internal object with start and end hour)."
 				},
 				"resort": {						
