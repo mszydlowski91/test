@@ -1134,6 +1134,74 @@ Get a lesson template by ID.
 |200|Success.|No Content|
 |400|The submitted request is malformed.|No Content|
 |401|Permission not granted.|No Content|
+|404|The requested resource does not exist.|No Content|
+
+
+#### Tags
+
+* Lessons
+
+### PUT /lessonTemplate/{lessonTemplateId}
+```
+PUT /lessonTemplate/{lessonTemplateId}
+```
+
+#### Description
+
+Modify a lesson template by ID.
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|lessonTemplateId||true|string||
+|BodyParameter|comment||false|string||
+|BodyParameter|groupFlag||true|string||
+|BodyParameter|instructorBonusFlag||true|string||
+|BodyParameter|maxAge||false|string||
+|BodyParameter|minAge||false|string||
+|BodyParameter|minParticipants||false|string||
+|BodyParameter|maxParticipants||false|string||
+|BodyParameter|name||true|string||
+|BodyParameter|prices||false|string||
+|BodyParameter|schoolId||true|string||
+|BodyParameter|specialties||false|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success.|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|404|The requested resource does not exist.|No Content|
+
+
+#### Tags
+
+* Lessons
+
+### DELETE /lessonTemplate/{lessonTemplateId}
+```
+DELETE /lessonTemplate/{lessonTemplateId}
+```
+
+#### Description
+
+Delete a lesson template by ID.
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|lessonTemplateId||true|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success.|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+|404|The requested resource does not exist.|No Content|
 
 
 #### Tags

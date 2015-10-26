@@ -1589,10 +1589,130 @@
 					},
 					"401": {
 						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"Lessons"
+				],
+				"summary": "Modify a lesson template by ID.",
+				"description": "Modify a lesson template by ID.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [					
+					{
+						"name": "lessonTemplateId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{						
+						"in": "body",
+						"name": "comment",
+						"required": false						
+					},
+					{						
+						"in": "body",
+						"name": "groupFlag",
+						"required": true					
+					},
+					{						
+						"in": "body",
+						"name": "instructorBonusFlag",
+						"required": true						
+					},
+					{						
+						"in": "body",
+						"name": "maxAge",
+						"required": false						
+					},
+					{						
+						"in": "body",
+						"name": "minAge",
+						"required": false						
+					},
+					{						
+						"in": "body",
+						"name": "minParticipants",
+						"required": false						
+					},
+					{						
+						"in": "body",
+						"name": "maxParticipants",
+						"required": false						
+					},
+					{						
+						"in": "body",
+						"name": "name",
+						"required": true					
+					},
+					{						
+						"in": "body",
+						"name": "prices",
+						"required": false						
+					},
+					{						
+						"in": "body",
+						"name": "schoolId",
+						"required": true						
+					},
+					{						
+						"in": "body",
+						"name": "specialties",
+						"required": false						
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success."
+					},
+					"400": {
+						"description": "The submitted request is malformed."
+					},
+					"401": {
+						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"Lessons"
+				],
+				"summary": "Delete a lesson template by ID.",
+				"description": "Delete a lesson template by ID.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [					
+					{
+						"name": "lessonTemplateId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success."
+					},
+					"400": {
+						"description": "The submitted request is malformed."
+					},
+					"401": {
+						"description": "Permission not granted."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
 					}
 				}
 			}
-		},
+		},		
 		"/auth/facebook": {
 			"get": {
 				"tags": [
