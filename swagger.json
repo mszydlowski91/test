@@ -1484,6 +1484,115 @@
 				}
 			}
 		},
+		"/lessonTemplate": {
+			"post": {
+				"tags": [
+					"Lessons"
+				],
+				"summary": "Add a new lesson template.",
+				"description": "Add a new lesson template.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [					
+					{						
+						"in": "body",
+						"name": "comment",
+						"required": false						
+					},
+					{						
+						"in": "body",
+						"name": "groupFlag",
+						"required": true					
+					},
+					{						
+						"in": "body",
+						"name": "instructorBonusFlag",
+						"required": true						
+					},
+					{						
+						"in": "body",
+						"name": "maxAge",
+						"required": false						
+					},
+					{						
+						"in": "body",
+						"name": "minAge",
+						"required": false						
+					},
+					{						
+						"in": "body",
+						"name": "minParticipants",
+						"required": false						
+					},
+					{						
+						"in": "body",
+						"name": "maxParticipants",
+						"required": false						
+					},
+					{						
+						"in": "body",
+						"name": "name",
+						"required": true					
+					},
+					{						
+						"in": "body",
+						"name": "prices",
+						"required": false						
+					},
+					{						
+						"in": "body",
+						"name": "schoolId",
+						"required": true						
+					},
+					{						
+						"in": "body",
+						"name": "specialties",
+						"required": false						
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success."
+					},
+					"400": {
+						"description": "The submitted request is malformed."
+					},
+					"401": {
+						"description": "Permission not granted."
+					}
+				}
+			}
+		},
+		"/lessonTemplate/{lessonTemplateId}": {
+			"get": {
+				"tags": [
+					"Lessons"
+				],
+				"summary": "Get a lesson template by ID.",
+				"description": "Get a lesson template by ID.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [					
+					{
+						"name": "lessonTemplateId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success."
+					},
+					"400": {
+						"description": "The submitted request is malformed."
+					},
+					"401": {
+						"description": "Permission not granted."
+					}
+				}
+			}
+		},
 		"/auth/facebook": {
 			"get": {
 				"tags": [
@@ -2816,7 +2925,7 @@
 			"required": [
 				"_id",
 				"groupFlag",
-				"instructorId",
+				"schoolId",
 				"name",
 				"prices"
 			],
@@ -2835,10 +2944,10 @@
 					"example": "false",
 					"description": "Determines whether it is an individual or a group lesson."
 				},
-				"instructorId": {
+				"schoolId": {
 					"type": "string",
-					"example": "sample instructor",
-					"description": "Instructor assigned to generated lessons."
+					"example": "sample school",
+					"description": "School assigned to generated lessons."
 				},
 				"minParticipants": {
 					"type": "integer",
@@ -2879,14 +2988,6 @@
 					"items": {
 						"type": "string",
 						"$ref": "#/definitions/Specialty"
-					}
-				},
-				"skillLevels": {
-					"type": "array",
-					"description": "Required skill level for the generated lessons.",
-					"items": {
-						"type": "string",
-						"example": "sample level"
 					}
 				},
 				"instructorBonusFlag": {
@@ -3099,6 +3200,16 @@
 					"example": "sample role",
 					"description": "The role of the person requesting the lesson"
 				},
+				"schoolId" : { 
+					"type" : "string",
+					"example" : "sample schoolId",
+					"description": "The corresponding school"
+				},
+				"token" : { 
+					"type" : "string",
+					"example" : "sample token",
+					"description": "Token used in user invitations to be a school employee."
+				},
 				"timesOff": {
 					"description": "A list of periods where the instructor will not be available",
 					"$ref": "#/definitions/TimeInterval"
@@ -3140,7 +3251,8 @@
 					"description": "Discount for the generated bundles.",
 					"$ref": "#/definitions/Discount"
 				}
-			}
+			},
+			"description" : "CURRENTLY SUSPENDED"
 		},
 		"MeetingPoint": {
 			"required": [
@@ -3164,7 +3276,7 @@
 			"required": [
 				"_id",
 				"deleted",
-				"lessonTemplateId",
+				"lessonTemplates",
 				"generatedLessons",
 				"name",
 				"priority",
@@ -3215,9 +3327,14 @@
 						"example": "sample generatedBundles"
 					}
 				},
-				"lessonTemplateId": {
-					"description": "Template used to create new lessons.",
-					"$ref": "#/definitions/LessonTemplate"
+				"lessonTemplates": {
+					"type": "array",
+					"description": "Templates used to create new lessons.",					
+					"items": {
+						"type": "string",
+						"example" : "templ",
+						"$ref": "#/definitions/LessonTemplate"
+					}
 				},
 				"priority": {
 					"type": "integer",

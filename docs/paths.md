@@ -1076,6 +1076,70 @@ Returns a list of entries: {imageUrl, firstName, surname, lowestPrice, specialti
 
 * Lessons
 
+### POST /lessonTemplate
+```
+POST /lessonTemplate
+```
+
+#### Description
+
+Add a new lesson template.
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|BodyParameter|comment||false|string||
+|BodyParameter|groupFlag||true|string||
+|BodyParameter|instructorBonusFlag||true|string||
+|BodyParameter|maxAge||false|string||
+|BodyParameter|minAge||false|string||
+|BodyParameter|minParticipants||false|string||
+|BodyParameter|maxParticipants||false|string||
+|BodyParameter|name||true|string||
+|BodyParameter|prices||false|string||
+|BodyParameter|schoolId||true|string||
+|BodyParameter|specialties||false|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success.|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+
+
+#### Tags
+
+* Lessons
+
+### GET /lessonTemplate/{lessonTemplateId}
+```
+GET /lessonTemplate/{lessonTemplateId}
+```
+
+#### Description
+
+Get a lesson template by ID.
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|lessonTemplateId||true|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success.|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|Permission not granted.|No Content|
+
+
+#### Tags
+
+* Lessons
+
 ### POST /login
 ```
 POST /login
