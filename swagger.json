@@ -1776,7 +1776,7 @@
 				"parameters": [
 					{
 						"in": "body",
-						"name": "login",
+						"name": "email",
 						"required": true
 					},
 					{
