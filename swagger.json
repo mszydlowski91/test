@@ -3580,9 +3580,10 @@
 					"description": "Employee comment."
 				},
 				"salary": {
-					"type": "double",
+					"type": "number",
+					"format": "double",
 					"example": "1.1",
-					"description": "Employee salary."
+					"description": "Salary"
 				}
 			},
 			"description": "School employee"

@@ -1220,7 +1220,7 @@ Login method
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|BodyParameter|login||true|string||
+|BodyParameter|email||true|string||
 |BodyParameter|password||true|string||
 
 

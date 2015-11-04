@@ -173,6 +173,7 @@ School employee
 |specialties|Specialties the user can teach.|false|Specialty array||
 |deleted|Says whether the employee was deleted.|true|boolean||
 |comment|Employee comment.|false|string||
+|salary|Salary|true|number (double)||
 
 
 ### Bundle
