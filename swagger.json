@@ -1,5 +1,12 @@
 {
 	"swagger": "2.0",
+	"consumes": [
+		"application/json"
+	],
+	"produces": [
+		"application/json"
+	],
+	"host": "api.adam.skipodium.com",
 	"info": {
 		"description": "REST-ful API used to communicate with the Skipodium backend.",
 		"version": "1.0.0",
@@ -10,40 +17,34 @@
 			"email": "adam.domagalski@blue-brick.com"
 		}
 	},
-	"tags": [
-		{
-			"name": "Default",
-			"description": "Items either unrelated to any section or used by entities of different sections"
-		},
-		{
-			"name": "Schools",
-			"description": "Items related to School management"
-		},
-		{
-			"name": "Messages",
-			"description": "Items related to requests, notifications and feedback management"
-		},
-		{
-			"name": "Users",
-			"description": "Items related to user management"
-		},
-		{
-			"name": "Lessons",
-			"description": "Items related to lesson management"
-		},
-		{
-			"name": "Payments",
-			"description": "Items related to all sorts of payments / awards of bonus money"
-		},
-		{
-			"name": "Bundles",
-			"description": "Items related to lesson bundles"
-		},
-		{
-			"name": "Generators",
-			"description": "Items related to lesson/bundle generators"
-		}
-	],
+	"tags": [{
+		"name": "Default",
+		"description": "Items either unrelated to any section or used by entities of different sections"
+	}, {
+		"name": "Schools",
+		"description": "Items related to School management"
+	}, {
+		"name": "Messages",
+		"description": "Items related to requests, notifications and feedback management"
+	}, {
+		"name": "Users",
+		"description": "Items related to user management"
+	}, {
+		"name": "Lessons",
+		"description": "Items related to lesson management"
+	}, {
+		"name": "Payments",
+		"description": "Items related to all sorts of payments / awards of bonus money"
+	}, {
+		"name": "Bundles",
+		"description": "Items related to lesson bundles"
+	}, {
+		"name": "Generators",
+		"description": "Items related to lesson/bundle generators"
+	}, {
+		"name": "Employees",
+		"description": "Items related to staff management"
+	}],
 	"paths": {
 		"/": {
 			"get": {
@@ -53,320 +54,16 @@
 				"summary": "Home address. Returns current session data.",
 				"description": "Home address. Returns current session data.",
 				"consumes": [],
-				"produces": [],
-				"parameters": [					
+				"produces": [
+					"application/json"
 				],
+				"parameters": [],
 				"responses": {
 					"200": {
 						"description": "Success"
 					},
 					"401": {
-						"description": "Permission not granted."
-					}
-				}
-			}
-		},
-
-		"/bundle": {
-			"post": {
-				"tags": [
-					"Bundles"
-				],
-				"summary": "Adds a new bundle",
-				"description": "Adds a new bundle",
-				"consumes": [],
-				"produces": [],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/Bundle"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Success"
-					},
-					"400": {
-						"description": "Invalid data provided."
-					},
-					"401": {
-						"description": "Permission not granted."
-					}
-				}
-			}
-		},
-		"/bundle/{bundleId}": {
-			"get": {
-				"tags": [
-					"Bundles"
-				],
-				"summary": "Gets a bundle by ID",
-				"description": "Gets a bundle by ID",
-				"consumes": [],
-				"produces": [],
-				"parameters": [
-					{
-						"name": "bundleId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Success",
-						"schema": {
-							"$ref": "#/definitions/Bundle"
-						}
-					},
-					"401": {
-						"description": "Permission not granted."
-					},
-					"404": {
-						"description": "The element with the given ID does not exist."
-					}
-				}
-			},
-			"put": {
-				"tags": [
-					"Bundles"
-				],
-				"summary": "Modifies an existing bundle",
-				"description": "Modifies an existing bundle",
-				"consumes": [],
-				"produces": [],
-				"parameters": [
-					{
-						"name": "bundleId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"in": "body",
-						"name": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/Bundle"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Success"
-					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
-					"401": {
-						"description": "Permission not granted."
-					},
-					"404": {
-						"description": "The element with the given ID does not exist."
-					}
-				}
-			},
-			"delete": {
-				"tags": [
-					"Bundles"
-				],
-				"summary": "Deletes a bundle",
-				"description": "Deletes a bundle",
-				"consumes": [],
-				"produces": [],
-				"parameters": [
-					{
-						"name": "bundleId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Success"
-					},
-					"401": {
-						"description": "Permission not granted."
-					},
-					"404": {
-						"description": "The element with the given ID does not exist."
-					}
-				}
-			}
-		},
-		"/bundle/{bundleId}/addLesson": {
-			"put": {
-				"tags": [
-					"Bundles"
-				],
-				"summary": "Adds a lesson to the bundle",
-				"description": "Adds a lesson to the bundle",
-				"consumes": [],
-				"produces": [],
-				"parameters": [
-					{
-						"name": "bundleId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"in": "body",
-						"name": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/Lesson"
-						}
-					},
-					{
-						"name": "lessonId",
-						"in": "query",
-						"description": "ID of the lesson to add",
-						"required": false,
-						"type": "string"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Success"
-					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
-					"401": {
-						"description": "Permission not granted."
-					},
-					"404": {
-						"description": "The requested resource does not exist."
-					}
-				}
-			}
-		},
-		"/bundle/{bundleId}/deleteLesson": {
-			"put": {
-				"tags": [
-					"Bundles"
-				],
-				"summary": "Removes a lesson from bundle.",
-				"description": "Removes a lesson from bundle.",
-				"consumes": [],
-				"produces": [],
-				"parameters": [
-					{
-						"name": "bundleId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"in": "body",
-						"name": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/Lesson"
-						}
-					},
-					{
-						"name": "lessonId",
-						"in": "query",
-						"description": "ID of the lesson to remove",
-						"required": false,
-						"type": "string"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Success"
-					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
-					"401": {
-						"description": "Permission not granted."
-					},
-					"404": {
-						"description": "The requested resource does not exist."
-					}
-				}
-			}
-		},
-		"/bundle/{bundleId}/purchase": {
-			"post": {
-				"tags": [
-					"Lessons"
-				],
-				"summary": "Purchase a new bundle.",
-				"description": "Purchase a new bundle.",
-				"consumes": [],
-				"produces": [],
-				"parameters": [
-					{
-						"name": "bundleId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"name": "guestIds",
-						"in": "query",
-						"description": "A list of IDs of users for which the bundle is purchased.",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Success."
-					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
-					"401": {
-						"description": "Permission not granted."
-					}
-				}
-			}
-		},
-		"/bundle/{bundleId}/lessons": {
-			"get": {
-				"tags": [
-					"Bundles"
-				],
-				"summary": "Gets all lessons of a bundle",
-				"description": "Gets all lessons of a bundle",
-				"consumes": [],
-				"produces": [],
-				"parameters": [
-					{
-						"name": "bundleId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Success",
-						"schema": {
-							"type": "array",
-							"items": {
-								"$ref": "#/definitions/Lesson"
-							}
-						}
-					},
-					"401": {
-						"description": "Permission not granted."
-					},
-					"404": {
-						"description": "The requested resource does not exist."
+						"description": "You are not allowed to perform this operation."
 					}
 				}
 			}
@@ -378,40 +75,44 @@
 				],
 				"summary": "Sends a message to Skipodium support",
 				"description": "Sends a message to Skipodium support",
-				"consumes": [],
-				"produces": [],
-				"parameters": [
-					{
-						"name": "from",
-						"in": "query",
-						"description": "Email address of the sender.",
-						"required": false,
-						"type": "string"
-					},
-					{
-						"name": "topic",
-						"in": "query",
-						"description": "Message topic.",
-						"required": false,
-						"type": "string"
-					},
-					{
-						"name": "message",
-						"in": "query",
-						"description": "Message content.",
-						"required": false,
-						"type": "string"
-					}
+				"consumes": [
+					"application/x-www-form-urlencoded"
 				],
+				"produces": [],
+				"parameters": [{
+					"name": "email",
+					"in": "formData",
+					"description": "Email address of the sender.",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "newsletter",
+					"in": "formData",
+					"description": "Newsletter flag.",
+					"required": true,
+					"type": "boolean"
+				}, {
+					"name": "subject",
+					"in": "formData",
+					"description": "Message topic.",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "message",
+					"in": "formData",
+					"description": "Message content.",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success"
 					},
 					"400": {
-						"description": "Invalid data provided."
+						"description": "The submitted request is malformed."
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					}
 				}
 			}
@@ -423,18 +124,75 @@
 				],
 				"summary": "Adds a new employee",
 				"description": "Adds a new employee",
-				"consumes": [],
+				"consumes": ["application/x-www-form-urlencoded"],
 				"produces": [],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/Employee"
-						}
-					}
-				],
+				"parameters": [{
+					"name": "name",
+					"in": "formData",
+					"description": "Name of the employee user (if created from scratch with user).",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "surname",
+					"in": "formData",
+					"description": "Surame of the employee user (if created from scratch with user).",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "email",
+					"in": "formData",
+					"description": "Email of the employee user (if created from scratch with user).",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "userId",
+					"in": "formData",
+					"description": "ID of the user the employee will be assigned to (if created for an existing user).",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "schoolId",
+					"in": "formData",
+					"description": "ID of the school of the new employee.",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "permissions",
+					"in": "formData",
+					"description": "A list of employee permissions.",
+					"required": true,
+					"type": "array",
+					"type": "string"
+				}, {
+					"name": "specialties",
+					"in": "formData",
+					"description": "A list of employee specialties, leave '[]' if none.",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "timesOff",
+					"in": "formData",
+					"description": "A list of employee times off, leave '[]' if none.",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "schedule",
+					"in": "formData",
+					"description": "Employee time off schedule, leave '[]' if none. Warning: remove [] braces if you copy from example!",
+					"type": "string"
+				}, {
+					"name": "salary",
+					"in": "formData",
+					"description": "Employee salary.",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "comment",
+					"in": "formData",
+					"description": "Comment about the employee.",
+					"required": false,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success"
@@ -452,43 +210,37 @@
 				"description": "Gets employees by params",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{						
-						"name": "language",
-						"in": "query",
-						"description": "Language",
-						"required": false,
-						"type": "string"						
-					},
-					{						
-						"name": "specialty",
-						"in": "query",
-						"description": "Specialty",
-						"required": false,
-						"type": "string"						
-					},
-					{						
-						"name": "permissions",
-						"in": "query",
-						"description": "Permission",
-						"required": false,
-						"type": "string"						
-					},
-					{						
-						"name": "expertise",
-						"in": "query",
-						"description": "Expertise",
-						"required": false,
-						"type": "string"						
-					},
-					{						
-						"name": "schoolId",
-						"in": "query",
-						"description": "School id",
-						"required": false,
-						"type": "string"						
-					}
-				],
+				"parameters": [{
+					"name": "language",
+					"in": "query",
+					"description": "Language",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "specialty",
+					"in": "query",
+					"description": "Specialty",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "permissions",
+					"in": "query",
+					"description": "Permission",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "expertise",
+					"in": "query",
+					"description": "Expertise",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "schoolId",
+					"in": "query",
+					"description": "School id",
+					"required": false,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success"
@@ -502,20 +254,18 @@
 		"/employee/{employeeId}": {
 			"get": {
 				"tags": [
-					"Users"
+					"Employees"
 				],
 				"summary": "Gets an employee by ID",
 				"description": "Gets an employee by ID",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "employeeId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "employeeId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Sucess",
@@ -533,28 +283,53 @@
 			},
 			"put": {
 				"tags": [
-					"Users"
+					"Employees"
 				],
-				"summary": "Modifies an existing employee (timeoffs, specialties, permissions).",
-				"description": "Modifies an existing employee (timeoffs, specialties, permissions).",
-				"consumes": [],
+				"summary": "Modifies an existing employee.",
+				"description": "Modifies an existing employee.",
+				"consumes": ["application/x-www-form-urlencoded"],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "employeeId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"in": "body",
-						"name": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/Employee"
-						}
-					}
-				],
+				"parameters": [{
+					"name": "employeeId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "permissions",
+					"in": "formData",
+					"description": "A list of employee permissions.",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "specialties",
+					"in": "formData",
+					"description": "A list of employee specialties, leave '[]' if none.",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "timesOff",
+					"in": "formData",
+					"description": "A list of employee times off, leave '[]' if none.",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "schedule",
+					"in": "formData",
+					"description": "Employee time off schedule, leave '[]' if none. Warning: remove [] braces if you copy from example!",
+					"type": "string"
+				}, {
+					"name": "salary",
+					"in": "formData",
+					"description": "Employee salary.",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "comment",
+					"in": "formData",
+					"description": "Comment about the employee.",
+					"required": false,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success"
@@ -563,7 +338,7 @@
 						"description": "The submitted request is malformed."
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
 						"description": "The requested resource does not exist."
@@ -572,56 +347,24 @@
 			},
 			"delete": {
 				"tags": [
-					"Users"
+					"Employees"
 				],
 				"summary": "Schedules an employee for deletion.",
 				"description": "Schedules an employee for deletion.",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "employeeId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "employeeId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success"
 					},
 					"401": {
-						"description": "Permission not granted."
-					},
-					"404": {
-						"description": "The requested resource does not exist."
-					}
-				}
-			}
-		},
-		"/employee/{employeeId}/lessons": {
-			"get": {
-				"tags": [
-					"Employees"
-				],
-				"summary": "Gets the lessons of the employee.",
-				"description": "Gets the lessons of the employee.",
-				"consumes": [],
-				"produces": [],
-				"parameters": [
-					{
-						"name": "employeeId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Sucess"						
-					},
-					"400": {
-						"description": "The submitted request was malformed."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
 						"description": "The requested resource does not exist."
@@ -632,20 +375,25 @@
 		"/employee/{employeeId}/times": {
 			"get": {
 				"tags": [
-					"Users"
+					"Employees"
 				],
 				"summary": "Gets the times off of the employee.",
 				"description": "Gets the times off of the employee.",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "employeeId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "employeeId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "date",
+					"in": "query",
+					"description": "Month to get the times off for.",
+					"required": true,
+					"type": "string",
+					"format": "date"
+				}],
 				"responses": {
 					"200": {
 						"description": "Sucess",
@@ -668,23 +416,21 @@
 		"/employee/{employeeId}/stats": {
 			"get": {
 				"tags": [
-					"Users"
+					"Employees"
 				],
 				"summary": "Gets the stats of the employee.  Returns a custom JSON.",
 				"description": "Gets the stats of the employee. Returns a custom JSON.",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "employeeId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "employeeId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
-						"description": "Sucess"						
+						"description": "Sucess"
 					},
 					"400": {
 						"description": "The submitted request was malformed."
@@ -704,17 +450,15 @@
 				"description": "Gets all user employments. Returns an array of pairs {employee, school}.",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "userId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "userId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
-						"description": "Sucess"						
+						"description": "Sucess"
 					},
 					"400": {
 						"description": "The submitted request was malformed."
@@ -730,78 +474,68 @@
 				"tags": [
 					"Lessons"
 				],
-				"summary": "Returns a list of entries: {imageUrl, firstName, surname, lowestPrice, specialties}",				
-				"description":  "Returns a list of entries: {imageUrl, firstName, surname, lowestPrice, specialties}",
+				"summary": "Returns a list of entries: {imageUrl, firstName, surname, lowestPrice, specialties}",
+				"description": "Returns a list of entries: {imageUrl, firstName, surname, lowestPrice, specialties}",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "resort",
-						"in": "query",
-						"description": "Resort",
-						"required": false,
-						"type": "string"
-					},
-					{
-						"name": "startDate",
-						"in": "query",
-						"description": "Date from which to search.",
-						"required": false,
-						"type": "string"
-					},
-					{
-						"name": "endDate",
-						"in": "query",
-						"description": "Date till which to search.",
-						"required": false,
-						"type": "string"
-					},
-					{
-						"name": "numParticipants",
-						"in": "query",
-						"description": "Target number of participants.",
-						"required": false,
-						"type": "string"
-					},
-					{
-						"name": "specialty",
-						"in": "query",
-						"description": "Target specialty.",
-						"required": false,
-						"type": "string"
-					},
-					{
-						"name": "minPrice",
-						"in": "query",
-						"description": "Minimum price.",
-						"required": false,
-						"type": "string"
-					},
-					{
-						"name": "maxPrice",
-						"in": "query",
-						"description": "Maximum price.",
-						"required": false,
-						"type": "string"
-					},
-					{
-						"name": "language",
-						"in": "query",
-						"description": "Language.",
-						"required": false,
-						"type": "string"
-					},
-					{
-						"name": "expertises",
-						"in": "query",
-						"description": "Expertises (array).",
-						"required": false,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "resort",
+					"in": "query",
+					"description": "Resort",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "timeFrom",
+					"in": "query",
+					"description": "Date from which to search.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "timeTo",
+					"in": "query",
+					"description": "Date till which to search.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "numParticipants",
+					"in": "query",
+					"description": "Target number of participants.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "specialty",
+					"in": "query",
+					"description": "Target specialty.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "minPrice",
+					"in": "query",
+					"description": "Minimum price.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "maxPrice",
+					"in": "query",
+					"description": "Maximum price.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "language",
+					"in": "query",
+					"description": "Language.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "expertise",
+					"in": "query",
+					"description": "Expertises (can be multiple, separate them by a comma).",
+					"required": false,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
-						"description": "Success"						
+						"description": "Success"
 					},
 					"400": {
 						"description": "The submitted request was malformed."
@@ -821,23 +555,55 @@
 				"description": "Creates a new generator",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/Generator"
-						}
-					},
-					{
-						"name": "isBundle",
-						"in": "query",
-						"description": "Determines whether the generator will be a bundle generator.",
-						"required": false,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "name",
+					"in": "formData",
+					"description": "Name of the new generator.",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "priority",
+					"in": "formData",
+					"description": "Generator priority.",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "generatorType",
+					"in": "formData",
+					"description": "Generator type (lessonGenerator or bundleGenerator).",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "lessonTemplateId",
+					"in": "formData",
+					"description": "ID of the lesson template used by the generator.",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "schoolId",
+					"in": "formData",
+					"description": "ID of the school that owns the generator.",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "comment",
+					"in": "formData",
+					"description": "Comment about the generator.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "instructorIds",
+					"in": "formData",
+					"description": "Array of instructor IDs for this generator.",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "schedule",
+					"in": "formData",
+					"description": "Generator schedule object.",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success"
@@ -846,7 +612,7 @@
 						"description": "The submitted request is malformed."
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					}
 				}
 			}
@@ -860,14 +626,12 @@
 				"description": "Gets a generator by ID",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "generatorId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "generatorId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success",
@@ -876,10 +640,10 @@
 						}
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
-						"description": "The element with the given ID does not exist."
+						"description": "The requested resource does not exist."
 					}
 				}
 			},
@@ -891,34 +655,72 @@
 				"description": "Edits an existing generator",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "generatorId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"in": "body",
-						"name": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/Generator"
-						}
-					}
-				],
+				"parameters": [{
+					"name": "generatorId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "name",
+					"in": "formData",
+					"description": "Name of the new generator.",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "priority",
+					"in": "formData",
+					"description": "Generator priority.",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "generatorType",
+					"in": "formData",
+					"description": "Generator type (lessonGenerator or bundleGenerator).",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "lessonTemplateId",
+					"in": "formData",
+					"description": "ID of the lesson template used by the generator.",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "schoolId",
+					"in": "formData",
+					"description": "ID of the school that owns the generator.",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "comment",
+					"in": "formData",
+					"description": "Comment about the generator.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "instructorIds",
+					"in": "formData",
+					"description": "Array of instructor IDs for this generator.",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "schedule",
+					"in": "formData",
+					"description": "Generator schedule object.",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success"
 					},
 					"400": {
-						"description": "Error 400"
+						"description": "The submitted request is malformed."
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
-						"description": "Error 404"
+						"description": "The requested resource does not exist."
 					}
 				}
 			},
@@ -930,106 +732,18 @@
 				"description": "Deletes a generator",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "generatorId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "generatorId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success"
 					},
 					"401": {
-						"description": "Permission not granted."
-					},
-					"404": {
-						"description": "The element with the given ID does not exist."
-					}
-				}
-			}
-		},
-		"/generator/{generatorId}/bundleTemplate": {
-			"put": {
-				"tags": [
-					"Generators"
-				],
-				"summary": "Modifies the bundle template of the generator",
-				"description": "Modifies the bundle template of the generator",
-				"consumes": [
-					"application/json"
-				],
-				"produces": [],
-				"parameters": [
-					{
-						"name": "generatorId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"in": "body",
-						"name": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/BundleTemplate"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Success"
-					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
-					"401": {
-						"description": "Permission not granted."
-					},
-					"404": {
-						"description": "The requested resource does not exist."
-					}
-				}
-			}
-		},
-		"/generator/{generatorId}/lessonTemplate": {
-			"put": {
-				"tags": [
-					"Generators"
-				],
-				"summary": "Modifies the bundle template of the generator",
-				"description": "Modifies the bundle template of the generator",
-				"consumes": [
-					"application/json"
-				],
-				"produces": [],
-				"parameters": [
-					{
-						"name": "generatorId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"in": "body",
-						"name": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/LessonTemplate"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Success"
-					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
-					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
 						"description": "The requested resource does not exist."
@@ -1046,99 +760,79 @@
 				"description": "Gets lessons by parameters",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "age",
-						"in": "query",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "numParticipants",
-						"in": "query",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "price",
-						"in": "query",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "specialty",
-						"in": "query",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "level",
-						"in": "query",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "timeFrom",
-						"in": "query",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "timeTo",
-						"in": "query",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},						
-					{
-						"name": "startPage",
-						"in": "query",
-						"description": "Starting index of the whole list to fetch",
-						"required": false,
-						"type": "string"
-					},
-					{
-						"name": "endPage",
-						"in": "query",
-						"description": "Ending index of the whole list to fetch",
-						"required": false,
-						"type": "string"
-					},
-					{
-						"name": "instructorId",
-						"in": "query",
-						"description": "Instructor id",
-						"required": false,
-						"type": "string"
-					},
-					{
-						"name": "schoolId",
-						"in": "query",
-						"description": "School id",
-						"required": false,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "timeFrom",
+					"in": "query",
+					"description": "Date from which to search.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "timeTo",
+					"in": "query",
+					"description": "Date till which to search.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "numParticipants",
+					"in": "query",
+					"description": "Target number of participants.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "specialty",
+					"in": "query",
+					"description": "Target specialty.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "minPrice",
+					"in": "query",
+					"description": "Minimum price. Needs numParticipants & maxPrice",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "maxPrice",
+					"in": "query",
+					"description": "Maximum price. Needs numParticipants & minPrice",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "expertise",
+					"in": "query",
+					"description": "Expertises (can be multiple, separate them by a comma).",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "age",
+					"in": "query",
+					"description": "Target age.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "level",
+					"in": "query",
+					"required": false,
+					"type": "array",
+					"type": "string"
+				}, {
+					"name": "instructorId",
+					"in": "query",
+					"description": "Instructor id",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "instructorBonusFlag",
+					"in": "query",
+					"description": "Instructor bonus flag",
+					"required": false,
+					"type": "boolean"
+				}, {
+					"name": "schoolId",
+					"in": "query",
+					"description": "School id",
+					"required": false,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success",
@@ -1151,7 +845,7 @@
 					},
 					"400": {
 						"description": "The submitted request is malformed."
-					},					
+					},
 					"404": {
 						"description": "No lesson with given matching the provided parameters was found."
 					}
@@ -1165,16 +859,121 @@
 				"description": "Creates a new lesson",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/Lesson"
-						}
-					}
-				],
+				"parameters": [{
+					"name": "timeFrom",
+					"in": "formData",
+					"description": "Date from which to search.",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "timeTo",
+					"in": "formData",
+					"description": "Date till which to search.",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "minParticipants",
+					"in": "formData",
+					"description": "Min number of participants.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "maxParticipants",
+					"in": "formData",
+					"description": "Max number of participants.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "specialties",
+					"in": "formData",
+					"description": "Lesson specialties.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "prices",
+					"in": "formData",
+					"description": "Lesson prices for consecutive participant numbers.",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "minAge",
+					"in": "formData",
+					"description": "Min age.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "maxAge",
+					"in": "formData",
+					"description": "Max age.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "instructorId",
+					"in": "formData",
+					"description": "Instructor id",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "instructorBonusFlag",
+					"in": "formData",
+					"description": "Instructor bonus flag",
+					"required": true,
+					"type": "boolean"
+				}, {
+					"name": "schoolId",
+					"in": "formData",
+					"description": "School id",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "name",
+					"in": "formData",
+					"description": "Lesson name.",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "clientSource",
+					"in": "formData",
+					"description": "user/school/whiteLabel",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "comment",
+					"in": "formData",
+					"description": "Comment about the lesson.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "generatorId",
+					"in": "formData",
+					"description": "ID of the generator that created the lesson.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "geoName",
+					"in": "formData",
+					"description": "Name of the meeting point.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "geoLat",
+					"in": "formData",
+					"description": "Latitude of the meeting point.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "geoLng",
+					"in": "formData",
+					"description": "Longitude of the meeting point.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "private",
+					"in": "formData",
+					"description": "Says whether the lesson is private.",
+					"required": false,
+					"type": "boolean"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success"
@@ -1183,11 +982,11 @@
 						"description": "The submitted request is malformed."
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					}
 				}
 			}
-		},		
+		},
 		"/lesson/{lessonId}": {
 			"get": {
 				"tags": [
@@ -1197,15 +996,13 @@
 				"description": "Gets a lesson by ID",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "lessonId",
-						"in": "path",
-						"description": "ID of the lesson to work with.",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "lessonId",
+					"in": "path",
+					"description": "ID of the lesson to work with.",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success",
@@ -1214,10 +1011,10 @@
 						}
 					},
 					"401": {
-						"description": "You do not have permission to perform this operation"
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
-						"description": "No lesson with the specified id was found"
+						"description": "The requested resource does not exist."
 					}
 				}
 			},
@@ -1229,23 +1026,121 @@
 				"description": "Modifies an existing lesson",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "lessonId",
-						"in": "path",
-						"description": "ID of the lesson to work with.",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"in": "body",
-						"name": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/Lesson"
-						}
-					}
-				],
+				"parameters": [{
+					"name": "lessonId",
+					"in": "path",
+					"description": "ID of the lesson to work with.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "timeFrom",
+					"in": "formData",
+					"description": "Date from which to search.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "timeTo",
+					"in": "formData",
+					"description": "Date till which to search.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "minParticipants",
+					"in": "formData",
+					"description": "Min number of participants.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "maxParticipants",
+					"in": "formData",
+					"description": "Max number of participants.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "specialties",
+					"in": "formData",
+					"description": "Lesson specialties.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "prices",
+					"in": "formData",
+					"description": "Lesson prices for consecutive participant numbers.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "minAge",
+					"in": "formData",
+					"description": "Min age.",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "maxAge",
+					"in": "formData",
+					"description": "Max age.",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "instructorId",
+					"in": "formData",
+					"description": "Instructor id",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "instructorBonusFlag",
+					"in": "formData",
+					"description": "Instructor bonus flag",
+					"required": false,
+					"type": "boolean"
+				}, {
+					"name": "schoolId",
+					"in": "formData",
+					"description": "School id",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "name",
+					"in": "formData",
+					"description": "Lesson name.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "clientSource",
+					"in": "formData",
+					"description": "user/school/whiteLabel",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "comment",
+					"in": "formData",
+					"description": "Comment about the lesson.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "generatorId",
+					"in": "formData",
+					"description": "ID of the generator that created the lesson.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "meetingPoint",
+					"in": "formData",
+					"description": "Meeting point JSON.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "private",
+					"in": "formData",
+					"description": "Says whether the lesson is private.",
+					"required": false,
+					"type": "boolean"
+				},{
+					"name": "participants",
+					"in": "formData",
+					"description": "Lesson participants.",
+					"required": false,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success"
@@ -1254,10 +1149,10 @@
 						"description": "The submitted request is malformed."
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
-						"description": "The element with the given ID does not exist."
+						"description": "The requested resource does not exist."
 					}
 				}
 			},
@@ -1269,24 +1164,22 @@
 				"description": "Deletes a lesson by ID",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "lessonId",
-						"in": "path",
-						"description": "ID of the lesson to work with.",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "lessonId",
+					"in": "path",
+					"description": "ID of the lesson to work with.",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success"
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
-						"description": "The element with the given ID does not exist."
+						"description": "The requested resource does not exist."
 					}
 				}
 			}
@@ -1300,14 +1193,12 @@
 				"description": "Get the assigned instructor",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "lessonId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "lessonId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success",
@@ -1316,10 +1207,10 @@
 						}
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
-						"description": "The element with the given ID does not exist."
+						"description": "The requested resource does not exist."
 					}
 				}
 			}
@@ -1333,29 +1224,26 @@
 				"description": "Unbooks a specific lesson for a user.",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "lessonId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"name": "userId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "lessonId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
-						"description": "Success"						
+						"description": "Success"
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
-						"description": "The element with the given ID does not exist."
+						"description": "The requested resource does not exist."
 					}
 				}
 			}
@@ -1369,29 +1257,26 @@
 				"description": "Change the instructor assigned to the lesson",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "instructorId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"name": "lessonId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "instructorId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "lessonId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "The instructor has been changed."
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
-						"description": "The element with the given ID does not exist."
+						"description": "The requested resource does not exist."
 					}
 				}
 			}
@@ -1405,24 +1290,42 @@
 				"description": "Purchase a new lesson.",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "lessonId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"name": "id",
-						"in": "query",
-						"description": "A list of IDs of users the lesson was bought for.",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					}
-				],
+				"parameters": [{
+					"name": "lessonId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "guestIds",
+					"in": "formData",
+					"description": "A list of IDs of users the lesson was bought for (JSON array).",
+					"required": false,					
+					"type": "string"					
+				}, {
+					"name": "number",
+					"in": "formData",
+					"description": "Credit card number.",
+					"required": true,					
+					"type": "string"					
+				}, {
+					"name": "cvc",
+					"in": "formData",
+					"description": "Credit card CVC number.",
+					"required": true,					
+					"type": "string"					
+				}, {
+					"name": "exp_month",
+					"in": "formData",
+					"description": "Expiration month of the credit card.",
+					"required": true,					
+					"type": "string"					
+				}, {
+					"name": "exp_year",
+					"in": "formData",
+					"description": "Expiration year of the credit card.",
+					"required": true,					
+					"type": "string"					
+				}],
 				"responses": {
 					"200": {
 						"description": "Success."
@@ -1431,59 +1334,11 @@
 						"description": "The submitted request is malformed."
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					}
 				}
 			}
-		},
-		"/lesson/{lessonId}/participant": {
-			"put": {
-				"tags": [
-					"Lessons"
-				],
-				"summary": "Remove or add a participant to a lesson",
-				"description": "Remove or add a participant to a lesson",
-				"consumes": [],
-				"produces": [],
-				"parameters": [
-					{
-						"name": "lessonId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"in": "body",
-						"name": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/Lesson"
-						}
-					},
-					{
-						"name": "participants",
-						"in": "query",
-						"description": "A list id containing all of the participants, in order to remove a participant submit a list without his id (just other participants), if you would like to add a participant submit a list containing his id (and all other participants)",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Success"
-					},
-					"401": {
-						"description": "Permission not granted."
-					},
-					"404": {
-						"description": "The element with the given ID does not exist."
-					}
-				}
-			}
-		},
+		},		
 		"/lessonTemplate": {
 			"post": {
 				"tags": [
@@ -1493,63 +1348,51 @@
 				"description": "Add a new lesson template.",
 				"consumes": [],
 				"produces": [],
-				"parameters": [					
-					{						
-						"in": "body",
-						"name": "comment",
-						"required": false						
-					},
-					{						
-						"in": "body",
-						"name": "groupFlag",
-						"required": true					
-					},
-					{						
-						"in": "body",
-						"name": "instructorBonusFlag",
-						"required": true						
-					},
-					{						
-						"in": "body",
-						"name": "maxAge",
-						"required": false						
-					},
-					{						
-						"in": "body",
-						"name": "minAge",
-						"required": false						
-					},
-					{						
-						"in": "body",
-						"name": "minParticipants",
-						"required": false						
-					},
-					{						
-						"in": "body",
-						"name": "maxParticipants",
-						"required": false						
-					},
-					{						
-						"in": "body",
-						"name": "name",
-						"required": true					
-					},
-					{						
-						"in": "body",
-						"name": "prices",
-						"required": false						
-					},
-					{						
-						"in": "body",
-						"name": "schoolId",
-						"required": true						
-					},
-					{						
-						"in": "body",
-						"name": "specialties",
-						"required": false						
-					}
-				],
+				"parameters": [{
+					"in": "body",
+					"name": "comment",
+					"required": false
+				}, {
+					"in": "body",
+					"name": "groupFlag",
+					"required": true
+				}, {
+					"in": "body",
+					"name": "instructorBonusFlag",
+					"required": true
+				}, {
+					"in": "body",
+					"name": "maxAge",
+					"required": false
+				}, {
+					"in": "body",
+					"name": "minAge",
+					"required": false
+				}, {
+					"in": "body",
+					"name": "minParticipants",
+					"required": false
+				}, {
+					"in": "body",
+					"name": "maxParticipants",
+					"required": false
+				}, {
+					"in": "body",
+					"name": "name",
+					"required": true
+				}, {
+					"in": "body",
+					"name": "prices",
+					"required": false
+				}, {
+					"in": "body",
+					"name": "schoolId",
+					"required": true
+				}, {
+					"in": "body",
+					"name": "specialties",
+					"required": false
+				}],
 				"responses": {
 					"200": {
 						"description": "Success."
@@ -1558,7 +1401,7 @@
 						"description": "The submitted request is malformed."
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					}
 				}
 			}
@@ -1572,14 +1415,12 @@
 				"description": "Get a lesson template by ID.",
 				"consumes": [],
 				"produces": [],
-				"parameters": [					
-					{
-						"name": "lessonTemplateId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "lessonTemplateId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success."
@@ -1588,7 +1429,7 @@
 						"description": "The submitted request is malformed."
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
 						"description": "The requested resource does not exist."
@@ -1603,69 +1444,56 @@
 				"description": "Modify a lesson template by ID.",
 				"consumes": [],
 				"produces": [],
-				"parameters": [					
-					{
-						"name": "lessonTemplateId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{						
-						"in": "body",
-						"name": "comment",
-						"required": false						
-					},
-					{						
-						"in": "body",
-						"name": "groupFlag",
-						"required": true					
-					},
-					{						
-						"in": "body",
-						"name": "instructorBonusFlag",
-						"required": true						
-					},
-					{						
-						"in": "body",
-						"name": "maxAge",
-						"required": false						
-					},
-					{						
-						"in": "body",
-						"name": "minAge",
-						"required": false						
-					},
-					{						
-						"in": "body",
-						"name": "minParticipants",
-						"required": false						
-					},
-					{						
-						"in": "body",
-						"name": "maxParticipants",
-						"required": false						
-					},
-					{						
-						"in": "body",
-						"name": "name",
-						"required": true					
-					},
-					{						
-						"in": "body",
-						"name": "prices",
-						"required": false						
-					},
-					{						
-						"in": "body",
-						"name": "schoolId",
-						"required": true						
-					},
-					{						
-						"in": "body",
-						"name": "specialties",
-						"required": false						
-					}
-				],
+				"parameters": [{
+					"name": "lessonTemplateId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "body",
+					"name": "comment",
+					"required": false
+				}, {
+					"in": "body",
+					"name": "groupFlag",
+					"required": true
+				}, {
+					"in": "body",
+					"name": "instructorBonusFlag",
+					"required": true
+				}, {
+					"in": "body",
+					"name": "maxAge",
+					"required": false
+				}, {
+					"in": "body",
+					"name": "minAge",
+					"required": false
+				}, {
+					"in": "body",
+					"name": "minParticipants",
+					"required": false
+				}, {
+					"in": "body",
+					"name": "maxParticipants",
+					"required": false
+				}, {
+					"in": "body",
+					"name": "name",
+					"required": true
+				}, {
+					"in": "body",
+					"name": "prices",
+					"required": false
+				}, {
+					"in": "body",
+					"name": "schoolId",
+					"required": true
+				}, {
+					"in": "body",
+					"name": "specialties",
+					"required": false
+				}],
 				"responses": {
 					"200": {
 						"description": "Success."
@@ -1674,7 +1502,7 @@
 						"description": "The submitted request is malformed."
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
 						"description": "The requested resource does not exist."
@@ -1689,14 +1517,12 @@
 				"description": "Delete a lesson template by ID.",
 				"consumes": [],
 				"produces": [],
-				"parameters": [					
-					{
-						"name": "lessonTemplateId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "lessonTemplateId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success."
@@ -1705,14 +1531,14 @@
 						"description": "The submitted request is malformed."
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
 						"description": "The requested resource does not exist."
 					}
 				}
 			}
-		},		
+		},
 		"/auth/facebook": {
 			"get": {
 				"tags": [
@@ -1771,24 +1597,25 @@
 				],
 				"summary": "Login method",
 				"description": "Login method",
-				"consumes": [],
-				"produces": [],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "email",
-						"required": true
-					},
-					{
-						"in": "body",
-						"name": "password",
-						"required": true
-					}
+				"consumes": [
+					"application/x-www-form-urlencoded"
 				],
+				"produces": [],
+				"parameters": [{
+					"in": "formData",
+					"name": "email",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "formData",
+					"name": "password",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success"
-					},					
+					},
 					"401": {
 						"description": "The user has been deleted or invalid password."
 					},
@@ -1807,23 +1634,21 @@
 				"description": "Signup method",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/User"
-						}
+				"parameters": [{
+					"in": "body",
+					"name": "body",
+					"required": true,
+					"schema": {
+						"$ref": "#/definitions/User"
 					}
-				],
+				}],
 				"responses": {
 					"200": {
 						"description": "Success"
-					},					
+					},
 					"401": {
 						"description": "The user has been deleted or invalid password."
-					}					
+					}
 				}
 			}
 		},
@@ -1853,14 +1678,12 @@
 				"description": "Gets a message by id",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "messageId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "messageId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success",
@@ -1869,10 +1692,10 @@
 						}
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
-						"description": "The element with the given ID does not exist."
+						"description": "The requested resource does not exist."
 					}
 				}
 			},
@@ -1884,14 +1707,12 @@
 				"description": "Deletes a message",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "messageId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "messageId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success"
@@ -1900,10 +1721,10 @@
 						"description": "The submitted request is malformed."
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
-						"description": "The element with the given ID does not exist."
+						"description": "The requested resource does not exist."
 					}
 				}
 			}
@@ -1917,23 +1738,21 @@
 				"description": "Marks the message as read",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "messageId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "messageId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
-						"description": "Success"						
+						"description": "Success"
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
-						"description": "The element with the given ID does not exist."
+						"description": "The requested resource does not exist."
 					}
 				}
 			}
@@ -1947,31 +1766,28 @@
 				"description": "Resets a user's password",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/User"
-						}
-					},
-					{
-						"name": "email",
-						"in": "query",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
+				"parameters": [{
+					"in": "body",
+					"name": "body",
+					"required": true,
+					"schema": {
+						"$ref": "#/definitions/User"
 					}
-				],
+				}, {
+					"name": "email",
+					"in": "query",
+					"required": false,
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}],
 				"responses": {
 					"200": {
 						"description": "The password was reset and a confirmation email is sent."
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
 						"description": "The email is not in the database."
@@ -1988,16 +1804,14 @@
 				"description": "Creates a new school",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/School"
-						}
+				"parameters": [{
+					"in": "body",
+					"name": "body",
+					"required": true,
+					"schema": {
+						"$ref": "#/definitions/School"
 					}
-				],
+				}],
 				"responses": {
 					"200": {
 						"description": "Success"
@@ -2006,7 +1820,7 @@
 						"description": "The submitted request is malformed."
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					}
 				}
 			}
@@ -2020,16 +1834,14 @@
 				"description": "Creates a new feedback",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/Feedback"
-						}
+				"parameters": [{
+					"in": "body",
+					"name": "body",
+					"required": true,
+					"schema": {
+						"$ref": "#/definitions/Feedback"
 					}
-				],
+				}],
 				"responses": {
 					"200": {
 						"description": "Success"
@@ -2038,7 +1850,7 @@
 						"description": "The submitted request is malformed."
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					}
 				}
 			}
@@ -2052,14 +1864,12 @@
 				"description": "Gets a school by ID",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "schoolId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "schoolId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success",
@@ -2068,10 +1878,10 @@
 						}
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
-						"description": "The element with the given ID does not exist."
+						"description": "The requested resource does not exist."
 					}
 				}
 			},
@@ -2083,22 +1893,19 @@
 				"description": "Modifies an existing school",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "schoolId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"in": "body",
-						"name": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/School"
-						}
+				"parameters": [{
+					"name": "schoolId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "body",
+					"name": "body",
+					"required": true,
+					"schema": {
+						"$ref": "#/definitions/School"
 					}
-				],
+				}],
 				"responses": {
 					"200": {
 						"description": "Success"
@@ -2107,10 +1914,10 @@
 						"description": "The submitted request is malformed."
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
-						"description": "The element with the given ID does not exist."
+						"description": "The requested resource does not exist."
 					}
 				}
 			}
@@ -2124,14 +1931,12 @@
 				"description": "Gets all school feedbacks",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "schoolId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "schoolId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success",
@@ -2143,7 +1948,7 @@
 						}
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
 						"description": "The requested resource does not exist."
@@ -2160,14 +1965,12 @@
 				"description": "Gets a list of school clients",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "schoolId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "schoolId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success",
@@ -2179,7 +1982,7 @@
 						}
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
 						"description": "The requested resource does not exist."
@@ -2196,14 +1999,12 @@
 				"description": "Gets the list of all school clients.",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "schoolId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "schoolId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success",
@@ -2215,7 +2016,7 @@
 						}
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
 						"description": "The requested resource does not exist."
@@ -2232,26 +2033,23 @@
 				"description": "Gets the school stats for a user. Returns a custom JSON.",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "schoolId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"name": "clientId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "schoolId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "clientId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
-						"description": "Success."						
+						"description": "Success."
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
 						"description": "The requested resource does not exist."
@@ -2268,14 +2066,12 @@
 				"description": "Gets all school employees",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "schoolId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "schoolId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success",
@@ -2287,7 +2083,7 @@
 						}
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
 						"description": "The requested resource does not exist."
@@ -2304,14 +2100,12 @@
 				"description": "Gets all generators of a school",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "schoolId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "schoolId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success",
@@ -2323,7 +2117,7 @@
 						}
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
 						"description": "The requested resource does not exist."
@@ -2340,14 +2134,12 @@
 				"description": "Gets all school messages",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "schoolId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "schoolId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success",
@@ -2359,7 +2151,7 @@
 						}
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
 						"description": "The requested resource does not exist."
@@ -2376,20 +2168,17 @@
 				"description": "Gets all transactions for a given school, for a given user ID",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "schoolId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"name": "userId",
-						"in": "query",
-						"required": false,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "schoolId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userId",
+					"in": "query",
+					"required": false,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success",
@@ -2401,7 +2190,7 @@
 						}
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
 						"description": "The requested resource does not exist."
@@ -2418,16 +2207,14 @@
 				"description": "Creates a new transaction",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/Transaction"
-						}
+				"parameters": [{
+					"in": "body",
+					"name": "body",
+					"required": true,
+					"schema": {
+						"$ref": "#/definitions/Transaction"
 					}
-				],
+				}],
 				"responses": {
 					"200": {
 						"description": "Success"
@@ -2436,7 +2223,7 @@
 						"description": "The submitted request is malformed."
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					}
 				}
 			}
@@ -2450,14 +2237,12 @@
 				"description": "Gets a transaction by ID",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "transactionId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "transactionId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success",
@@ -2466,10 +2251,10 @@
 						}
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
-						"description": "The element with the given ID does not exist."
+						"description": "The requested resource does not exist."
 					}
 				}
 			}
@@ -2483,28 +2268,25 @@
 				"description": "Gets users according to parameters (will be paged to avoid huge lists).",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "startPage",
-						"in": "query",
-						"description": "Index of the page to fetch",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "pageSize",
-						"in": "query",
-						"description": "Size of a page",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
+				"parameters": [{
+					"name": "startPage",
+					"in": "query",
+					"description": "Index of the page to fetch",
+					"required": false,
+					"type": "array",
+					"items": {
+						"type": "string"
 					}
-				],
+				}, {
+					"name": "pageSize",
+					"in": "query",
+					"description": "Size of a page",
+					"required": false,
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}],
 				"responses": {
 					"200": {
 						"description": "Success",
@@ -2519,10 +2301,10 @@
 						"description": "The submitted request is malformed."
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
-						"description": "The element with the given ID does not exist."
+						"description": "The requested resource does not exist."
 					}
 				}
 			},
@@ -2534,16 +2316,14 @@
 				"description": "Creates a new user.",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"in": "body",
-						"name": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/User"
-						}
+				"parameters": [{
+					"in": "body",
+					"name": "body",
+					"required": true,
+					"schema": {
+						"$ref": "#/definitions/User"
 					}
-				],
+				}],
 				"responses": {
 					"200": {
 						"description": "Success"
@@ -2552,7 +2332,7 @@
 						"description": "The submitted request is malformed."
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					}
 				}
 			}
@@ -2566,38 +2346,34 @@
 				"description": "Creates a new stub user.",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "email",
-						"in": "query",
-						"description": "The email of the stub user - This parameter IS mandatory",
-						"required": true,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "firstName",
-						"in": "query",
-						"description": "The name of the stub user - This parameter is NOT mandatory",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "lastName",
-						"in": "query",
-						"description": "The lastName of the stub user - This parameter is NOT mandatory",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
+				"parameters": [{
+					"name": "email",
+					"in": "query",
+					"description": "The email of the stub user - This parameter IS mandatory",
+					"required": true,
+					"type": "array",
+					"items": {
+						"type": "string"
 					}
-				],
+				}, {
+					"name": "firstName",
+					"in": "query",
+					"description": "The name of the stub user - This parameter is NOT mandatory",
+					"required": false,
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}, {
+					"name": "lastName",
+					"in": "query",
+					"description": "The lastName of the stub user - This parameter is NOT mandatory",
+					"required": false,
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}],
 				"responses": {
 					"200": {
 						"description": "Success"
@@ -2623,15 +2399,13 @@
 				"description": "Gets a user by ID",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "userId",
-						"in": "path",
-						"description": "ID of the user to work with",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "userId",
+					"in": "path",
+					"description": "ID of the user to work with",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success",
@@ -2643,10 +2417,10 @@
 						}
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
-						"description": "The element with the given ID does not exist."
+						"description": "The requested resource does not exist."
 					}
 				}
 			},
@@ -2658,23 +2432,20 @@
 				"description": "Updates a selected user",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "userId",
-						"in": "path",
-						"description": "ID of the user to work with",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"in": "body",
-						"name": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/User"
-						}
+				"parameters": [{
+					"name": "userId",
+					"in": "path",
+					"description": "ID of the user to work with",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "body",
+					"name": "body",
+					"required": true,
+					"schema": {
+						"$ref": "#/definitions/User"
 					}
-				],
+				}],
 				"responses": {
 					"200": {
 						"description": "Success"
@@ -2683,10 +2454,10 @@
 						"description": "The submitted request is malformed."
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
-						"description": "The element with the given ID does not exist."
+						"description": "The requested resource does not exist."
 					}
 				}
 			},
@@ -2698,24 +2469,22 @@
 				"description": "Deletes a user by ID",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "userId",
-						"in": "path",
-						"description": "ID of the user to work with",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "userId",
+					"in": "path",
+					"description": "ID of the user to work with",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success"
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
-						"description": "The element with the given ID does not exist."
+						"description": "The requested resource does not exist."
 					}
 				}
 			}
@@ -2729,20 +2498,18 @@
 				"description": "Gets the user stats. Returns a custom JSON.",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "userId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "userId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
-						"description": "Success."						
+						"description": "Success."
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
 						"description": "The requested resource does not exist."
@@ -2759,14 +2526,12 @@
 				"description": "Gets all user feedbacks",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "userId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "userId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success",
@@ -2778,10 +2543,10 @@
 						}
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
-						"description": "The element with the given ID does not exist."
+						"description": "The requested resource does not exist."
 					}
 				}
 			}
@@ -2795,24 +2560,21 @@
 				"description": "Gets a number of random user feedbacks",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "userId",
-						"in": "path",
-						"required": true,
+				"parameters": [{
+					"name": "userId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "amount",
+					"in": "query",
+					"description": "Number of feedbacks to fetch.",
+					"required": false,
+					"type": "array",
+					"items": {
 						"type": "string"
-					},
-					{
-						"name": "amount",
-						"in": "query",
-						"description": "Number of feedbacks to fetch.",
-						"required": false,
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
 					}
-				],
+				}],
 				"responses": {
 					"200": {
 						"description": "Success",
@@ -2824,10 +2586,10 @@
 						}
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
-						"description": "The element with the given ID does not exist."
+						"description": "The requested resource does not exist."
 					}
 				}
 			}
@@ -2841,14 +2603,12 @@
 				"description": "Gets all user lessons",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "userId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "userId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success",
@@ -2860,10 +2620,10 @@
 						}
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
-						"description": "The element with the given ID does not exist."
+						"description": "The requested resource does not exist."
 					}
 
 				}
@@ -2878,15 +2638,13 @@
 				"description": "Gets all user messages.",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "userId",
-						"in": "path",
-						"description": "ID of the user to get the messages for",
-						"required": true,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "userId",
+					"in": "path",
+					"description": "ID of the user to get the messages for",
+					"required": true,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success",
@@ -2898,10 +2656,10 @@
 						}
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
-						"description": "The element with the given ID does not exist."
+						"description": "The requested resource does not exist."
 					}
 				}
 			}
@@ -2915,20 +2673,17 @@
 				"description": "Gets all user transactions, for a given school",
 				"consumes": [],
 				"produces": [],
-				"parameters": [
-					{
-						"name": "userId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"name": "schoolId",
-						"in": "query",
-						"required": false,
-						"type": "string"
-					}
-				],
+				"parameters": [{
+					"name": "userId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "schoolId",
+					"in": "query",
+					"required": false,
+					"type": "string"
+				}],
 				"responses": {
 					"200": {
 						"description": "Success",
@@ -2940,7 +2695,7 @@
 						}
 					},
 					"401": {
-						"description": "Permission not granted."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
 						"description": "The requested resource does not exist."
@@ -2977,19 +2732,19 @@
 					"type": "array",
 					"description": "A list of available authentication methods (objects) configured for the user.",
 					"items": {
-						"type": "string",	
-						"example": "sample auth"			
+						"type": "string",
+						"example": "sample auth"
 					}
 				},
 				"createdAt": {
 					"type": "string",
-					"format" : "date",
-					"description": "Time the user has been created."					
+					"format": "date",
+					"description": "Time the user has been created."
 				},
 				"updatedAt": {
 					"type": "string",
-					"format" : "date",
-					"description": "Time the user has been updated."					
+					"format": "date",
+					"description": "Time the user has been updated."
 				},
 				"deleted": {
 					"type": "boolean",
@@ -3238,7 +2993,7 @@
 					"example": "false",
 					"description": "Whether the request was accepted."
 				},
-				"assignedInstructorId": {
+				"instructorId": {
 					"type": "string",
 					"example": "sample assignedInstructorId",
 					"description": "The id of the newly assigned instructor."
@@ -3320,14 +3075,14 @@
 					"example": "sample role",
 					"description": "The role of the person requesting the lesson"
 				},
-				"schoolId" : { 
-					"type" : "string",
-					"example" : "sample schoolId",
+				"schoolId": {
+					"type": "string",
+					"example": "sample schoolId",
 					"description": "The corresponding school"
 				},
-				"token" : { 
-					"type" : "string",
-					"example" : "sample token",
+				"token": {
+					"type": "string",
+					"example": "sample token",
 					"description": "Token used in user invitations to be a school employee."
 				},
 				"timesOff": {
@@ -3344,7 +3099,7 @@
 					"description": "Type of message - request, notification etc."
 				}
 			},
-			"description": "A generic Message entity, having all possible fields that could appear in any message type. <br>\nTypes and type-specific fields: <br>\n - time off request: timesOff, timeOffRepeats<br>\n - lesson request: role, accepted<br>\n - lesson booked/unbooked: lessonId, bookerId, participantId<br>\n - assigned lesson: memberId, assignedInstructorId, lessonId<br>\n - unassigned lesson: memberId, lessonId, formerInstructorId<br>\n - product added/removed/changed: productId, changedFields<br>\n - membership accepted/refused: requestId, memberId<br>\n - membership over/changed: memberId, oldRole<br>"
+			"description": "A generic Message entity, having all possible fields that could appear in any message type. <br>\nTypes and type-specific fields: <br>\n - time off request: timesOff, timeOffRepeats<br>\n - lesson request: role, accepted<br>\n - lesson booked/unbooked: lessonId, bookerId, participantId<br>\n - assigned lesson: memberId, instructorId, lessonId<br>\n - unassigned lesson: memberId, lessonId, formerInstructorId<br>\n - product added/removed/changed: productId, changedFields<br>\n - membership accepted/refused: requestId, memberId<br>\n - membership over/changed: memberId, oldRole<br>"
 		},
 		"BundleTemplate": {
 			"required": [
@@ -3372,7 +3127,7 @@
 					"$ref": "#/definitions/Discount"
 				}
 			},
-			"description" : "CURRENTLY SUSPENDED"
+			"description": "CURRENTLY SUSPENDED"
 		},
 		"MeetingPoint": {
 			"required": [
@@ -3449,10 +3204,10 @@
 				},
 				"lessonTemplates": {
 					"type": "array",
-					"description": "Templates used to create new lessons.",					
+					"description": "Templates used to create new lessons.",
 					"items": {
 						"type": "string",
-						"example" : "templ",
+						"example": "templ",
 						"$ref": "#/definitions/LessonTemplate"
 					}
 				},
@@ -3484,23 +3239,23 @@
 		},
 		"Specialty": {
 			"required": [
-				"type",
+				"specialtyType",
 				"expertise"
 			],
 			"properties": {
-				"type": {
-					"type": "string",	
-					"example": "sample type",	
-					"description": "Type of the specialty - ski, snowboard etc."			
+				"specialtyType": {
+					"type": "string",
+					"example": "sample type",
+					"description": "Type of the specialty - ski, snowboard etc."
 				},
 				"expertise": {
-					"type": "string",	
-					"example": "sample expertise",	
+					"type": "string",
+					"example": "sample expertise",
 					"description": "Expertises the instr can teach."
 				},
 				"level": {
-					"type": "string",	
-					"example": "sample level",	
+					"type": "string",
+					"example": "sample level",
 					"description": "Level the instr can teach."
 				}
 			},
@@ -3508,25 +3263,65 @@
 		},
 		"TimeInterval": {
 			"required": [
-				"endTime",
-				"startTime"
+				"timeFrom",
+				"timeTo"
 			],
 			"properties": {
-				"endTime": {
+				"timeFrom": {
 					"type": "string",
 					"format": "date"
 				},
-				"startTime": {
+				"timeTo": {
 					"type": "string",
 					"format": "date"
 				}
 			},
 			"description": "An entity representing a pair of times - starting and ending."
 		},
+		"Schedule": {
+			"required": [
+				"weekdays",
+				"startTimes",
+				"startDate",
+				"endDate"
+			],
+			"properties": {
+				"weekdays": {
+					"type": "string",
+					"description": "weekdays where schedule's applicable",
+					"items": {
+						"type": "integer",
+						"format": "int32",
+						"example": "1"
+					}
+				},
+				"startTimes": {
+					"type": "string",
+					"description": "start times",
+					"items": {
+						"type": "string",
+						"example": "sample start times"
+					}
+				},
+				"startDate": {
+					"type": "string",
+					"format" : "date",
+					"example": "sample startdate",
+					"description": "Start date."
+				},
+				"endDate": {
+					"type": "string",
+					"format" : "date",
+					"example": "sample enddate",
+					"description": "End date."
+				}
+			},
+			"description": "An entity representing a schedule."
+		},
 		"Employee": {
 			"required": [
 				"_id",
-				"deleted",				
+				"deleted",
 				"permissions",
 				"timesOff",
 				"userId",
@@ -3568,7 +3363,7 @@
 						"type": "string",
 						"$ref": "#/definitions/Specialty"
 					}
-				},				
+				},
 				"deleted": {
 					"type": "boolean",
 					"example": "false",
@@ -3588,7 +3383,7 @@
 			},
 			"description": "School employee"
 		},
-		
+
 		"Bundle": {
 			"required": [
 				"_id",
@@ -3714,7 +3509,7 @@
 				"_id",
 				"fromId",
 				"lessonId",
-				"rating",				
+				"rating",
 				"toId",
 				"deleted"
 			],
@@ -3736,7 +3531,7 @@
 					"type": "string",
 					"example": "1",
 					"description": "ID of the lesson the feedback refers to."
-				},				
+				},
 				"toId": {
 					"description": "ID and entity type of the receiver.",
 					"$ref": "#/definitions/EntityID"
@@ -3856,13 +3651,13 @@
 				},
 				"timeFrom": {
 					"type": "string",
-					"format" : "date",
-					"description": "Lesson start time"					
+					"format": "date",
+					"description": "Lesson start time"
 				},
 				"timeTo": {
 					"type": "string",
-					"format" : "date",
-					"description": "Lesson end time"					
+					"format": "date",
+					"description": "Lesson end time"
 				},
 				"instructorBonusFlag": {
 					"type": "boolean",
@@ -3962,14 +3757,14 @@
 					"description": "The name of the resort"
 				},
 				"coords": {
-					"description" : "Resort's location",
+					"description": "Resort's location",
 					"$ref": "#/definitions/Address"
 				},
 				"pictureURL": {
 					"type": "string",
 					"example": "sample name",
 					"description": "Resort picture URL."
-				},				
+				},
 				"schools": {
 					"type": "array",
 					"description": "A list of schools working in this resort.",
@@ -3989,9 +3784,9 @@
 				"bankDetails",
 				"defaultMeetingPoints",
 				"deleted",
-				"email",				
+				"email",
 				"enabled",
-				"logo",			
+				"logo",
 				"name",
 				"openingHours",
 				"resort",
@@ -4039,7 +3834,7 @@
 					"type": "string",
 					"example": "sample logo",
 					"description": "An url  with the school logo file"
-				},				
+				},
 				"name": {
 					"type": "string",
 					"example": "sample name",
@@ -4049,13 +3844,13 @@
 					"type": "array",
 					"items": {
 						"type": "string",
-						"format" : "date"
-					},					
+						"format": "date"
+					},
 					"description": "School working time (internal object with start and end hour)."
 				},
-				"resort": {						
-					"$ref": "#/definitions/Resort",						
-					"description": "The resort the school belongs to."		
+				"resort": {
+					"$ref": "#/definitions/Resort",
+					"description": "The resort the school belongs to."
 				},
 				"manuallySetRating": {
 					"type": "number",

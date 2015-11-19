@@ -10,6 +10,7 @@ Contact: Blue Brick API Team
 Contact Email: adam.domagalski@blue-brick.com
 
 ### URI scheme
+Host: api.adam.skipodium.com
 
 ### Tags
 
@@ -29,5 +30,17 @@ Contact Email: adam.domagalski@blue-brick.com
 * Bundles
 * Generators: Items related to lesson/bundle generators
 * Generators
+* Employees: Items related to staff management
+* Employees
+
+
+### Consumes
+
+* application/json
+
+
+### Produces
+
+* application/json
 
 

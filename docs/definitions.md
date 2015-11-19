@@ -65,7 +65,7 @@ Types and type-specific fields: <br>
  - time off request: timesOff, timeOffRepeats<br>
  - lesson request: role, accepted<br>
  - lesson booked/unbooked: lessonId, bookerId, participantId<br>
- - assigned lesson: memberId, assignedInstructorId, lessonId<br>
+ - assigned lesson: memberId, instructorId, lessonId<br>
  - unassigned lesson: memberId, lessonId, formerInstructorId<br>
  - product added/removed/changed: productId, changedFields<br>
  - membership accepted/refused: requestId, memberId<br>
@@ -75,7 +75,7 @@ Types and type-specific fields: <br>
 |----|----|----|----|----|
 |_id||true|string||
 |accepted|Whether the request was accepted.|false|boolean||
-|assignedInstructorId|The id of the newly assigned instructor.|false|string||
+|instructorId|The id of the newly assigned instructor.|false|string||
 |bookerId|The id of the person (or school) who booked the lesson for you|false|string||
 |changedFields|The names of fields that were changed in the given lesson.|false|string array||
 |timestamp|The time of this message creation|true|string (date)||
@@ -144,7 +144,7 @@ An entity representing an instructor specialty.
 
 |Name|Description|Required|Schema|Default|
 |----|----|----|----|----|
-|type|Type of the specialty - ski, snowboard etc.|true|string||
+|specialtyType|Type of the specialty - ski, snowboard etc.|true|string||
 |expertise|Expertises the instr can teach.|true|string||
 |level|Level the instr can teach.|false|string||
 
@@ -155,8 +155,20 @@ An entity representing a pair of times - starting and ending.
 
 |Name|Description|Required|Schema|Default|
 |----|----|----|----|----|
-|endTime||true|string (date)||
-|startTime||true|string (date)||
+|timeFrom||true|string (date)||
+|timeTo||true|string (date)||
+
+
+### Schedule
+
+An entity representing a schedule.
+
+|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|
+|weekdays|weekdays where schedule's applicable|true|string||
+|startTimes|start times|true|string||
+|startDate|Start date.|true|string (date)||
+|endDate|End date.|true|string (date)||
 
 
 ### Employee
