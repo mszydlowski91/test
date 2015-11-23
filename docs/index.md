@@ -18,8 +18,10 @@ Host: api.adam.skipodium.com
 * Default
 * Schools: Items related to School management
 * Schools
-* Messages: Items related to requests, notifications and feedback management
+* Messages: Items related to requests and notifications.
 * Messages
+* Feedbacks: Items related to feedback management
+* Feedbacks
 * Users: Items related to user management
 * Users
 * Lessons: Items related to lesson management

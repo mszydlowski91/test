@@ -25,8 +25,11 @@
 		"description": "Items related to School management"
 	}, {
 		"name": "Messages",
-		"description": "Items related to requests, notifications and feedback management"
+		"description": "Items related to requests and notifications."
 	}, {
+		"name": "Feedbacks",
+		"description": "Items related to feedback management"
+	},{
 		"name": "Users",
 		"description": "Items related to user management"
 	}, {
@@ -117,6 +120,149 @@
 				}
 			}
 		},
+		"/auth/facebook": {
+			"get": {
+				"tags": [
+					"Default"
+				],
+				"summary": "Facebook login method.",
+				"description": "Facebook login method.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Success"
+					}
+				}
+			}
+		},
+		"/auth/google": {
+			"get": {
+				"tags": [
+					"Default"
+				],
+				"summary": "Google login method.",
+				"description": "Google login method.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Success"
+					}
+				}
+			}
+		},
+		"/auth/twitter": {
+			"get": {
+				"tags": [
+					"Default"
+				],
+				"summary": "Twitter login method.",
+				"description": "Twitterlogin method.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Success"
+					}
+				}
+			}
+		},
+		"/login": {
+			"post": {
+				"tags": [
+					"Default"
+				],
+				"summary": "Login method",
+				"description": "Login method",
+				"consumes": [
+					"application/x-www-form-urlencoded"
+				],
+				"produces": [],
+				"parameters": [{
+					"in": "formData",
+					"name": "email",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "formData",
+					"name": "password",
+					"required": true,
+					"type": "string"
+				}],
+				"responses": {
+					"200": {
+						"description": "Success"
+					},
+					"401": {
+						"description": "The user has been deleted or invalid password."
+					},
+					"404": {
+						"description": "No user with a given email found."
+					}
+				}
+			}
+		},
+		"/signup": {
+			"post": {
+				"tags": [
+					"Default"
+				],
+				"summary": "Signup method",
+				"description": "Signup method",
+				"consumes": [],
+				"produces": [],
+				"parameters": [{
+					"in": "formData",
+					"name": "email",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "formData",
+					"name": "password",
+					"required": true,
+					"type": "string"
+				},{
+					"in": "formData",
+					"name": "name",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "formData",
+					"name": "surname",
+					"required": true,
+					"type": "string"
+				}],
+				"responses": {
+					"200": {
+						"description": "Success"
+					},
+					"401": {
+						"description": "The user has been deleted or invalid password."
+					}
+				}
+			}
+		},
+		"/logout": {
+			"get": {
+				"tags": [
+					"Default"
+				],
+				"summary": "Logout",
+				"description": "Logout",
+				"consumes": [],
+				"produces": [],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Success"
+					}
+				}
+			}
+		},
 		"/employee": {
 			"post": {
 				"tags": [
@@ -159,26 +305,26 @@
 				}, {
 					"name": "permissions",
 					"in": "formData",
-					"description": "A list of employee permissions.",
+					"description": "A list of employee permissions. JSON array: ",
 					"required": true,
-					"type": "array",
 					"type": "string"
 				}, {
 					"name": "specialties",
 					"in": "formData",
-					"description": "A list of employee specialties, leave '[]' if none.",
-					"required": true,
+					"description": "A list of employee specialties, JSON array of objects (see examples).",
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "timesOff",
 					"in": "formData",
-					"description": "A list of employee times off, leave '[]' if none.",
-					"required": true,
+					"description": "A list of employee times off, JSON array of objects (see example).",
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "schedule",
 					"in": "formData",
-					"description": "Employee time off schedule, leave '[]' if none. Warning: remove [] braces if you copy from example!",
+					"description": "Employee time off schedule, JSON object (see example).",
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "salary",
@@ -297,31 +443,32 @@
 				}, {
 					"name": "permissions",
 					"in": "formData",
-					"description": "A list of employee permissions.",
-					"required": true,
+					"description": "A list of employee permissions. JSON array: ",
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "specialties",
 					"in": "formData",
-					"description": "A list of employee specialties, leave '[]' if none.",
-					"required": true,
+					"description": "A list of employee specialties, JSON array of objects (see examples).",
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "timesOff",
 					"in": "formData",
-					"description": "A list of employee times off, leave '[]' if none.",
-					"required": true,
+					"description": "A list of employee times off, JSON array of objects (see example).",
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "schedule",
 					"in": "formData",
-					"description": "Employee time off schedule, leave '[]' if none. Warning: remove [] braces if you copy from example!",
+					"description": "Employee time off schedule, JSON object (see example).",
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "salary",
 					"in": "formData",
 					"description": "Employee salary.",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "comment",
@@ -658,37 +805,37 @@
 				"parameters": [{
 					"name": "generatorId",
 					"in": "path",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "name",
 					"in": "formData",
 					"description": "Name of the new generator.",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "priority",
 					"in": "formData",
 					"description": "Generator priority.",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "generatorType",
 					"in": "formData",
 					"description": "Generator type (lessonGenerator or bundleGenerator).",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "lessonTemplateId",
 					"in": "formData",
 					"description": "ID of the lesson template used by the generator.",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "schoolId",
 					"in": "formData",
 					"description": "ID of the school that owns the generator.",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "comment",
@@ -700,13 +847,13 @@
 					"name": "instructorIds",
 					"in": "formData",
 					"description": "Array of instructor IDs for this generator.",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "schedule",
 					"in": "formData",
 					"description": "Generator schedule object.",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}],
 				"responses": {
@@ -1072,13 +1219,13 @@
 					"name": "minAge",
 					"in": "formData",
 					"description": "Min age.",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "maxAge",
 					"in": "formData",
 					"description": "Max age.",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "instructorId",
@@ -1339,6 +1486,52 @@
 				}
 			}
 		},		
+		"/lesson/{lessonId}/purchaseManual": {
+			"post": {
+				"tags": [
+					"Lessons"
+				],
+				"summary": "Manually purchase a lesson",
+				"description": "Manually purchase a new lesson by a school manager or instructor.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [{
+					"name": "lessonId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "guestIds",
+					"in": "formData",
+					"description": "A list of IDs of users the lesson was bought for (JSON array).",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "amount",
+					"in": "formData",
+					"description": "The amount of money the purchasing person paid.",
+					"required": true,
+					"type": "number"
+				}, {
+					"name": "comment",
+					"in": "formData",
+					"description": "The amount of money the purchasing person paid.",
+					"required": false,
+					"type": "string"
+				}],
+				"responses": {
+					"200": {
+						"description": "Success."
+					},
+					"400": {
+						"description": "The submitted request is malformed."
+					},
+					"401": {
+						"description": "You are not allowed to perform this operation."
+					}
+				}
+			}	
+		},
 		"/lessonTemplate": {
 			"post": {
 				"tags": [
@@ -1349,49 +1542,77 @@
 				"consumes": [],
 				"produces": [],
 				"parameters": [{
-					"in": "body",
+					"in": "formData",
+					"description": "Comment about the lesson template.",
 					"name": "comment",
-					"required": false
+					"required": false,
+					"type": "string"		
 				}, {
-					"in": "body",
-					"name": "groupFlag",
-					"required": true
-				}, {
-					"in": "body",
+					"in": "formData",
+					"description": "Says whether produced lessons will have an instructor bonus.",
 					"name": "instructorBonusFlag",
-					"required": true
+					"required": true,
+					"type": "boolean"
 				}, {
-					"in": "body",
+					"in": "formData",
+					"description": "Maximum age for the produced lessons.",
 					"name": "maxAge",
-					"required": false
+					"required": false,
+					"type": "string"
 				}, {
-					"in": "body",
+					"in": "formData",
+					"description": "Minimum age for the produced lessons.",
 					"name": "minAge",
-					"required": false
+					"required": false,
+					"type": "string"
 				}, {
-					"in": "body",
+					"in": "formData",
+					"description": "Minimum participant count for the produced lessons.",
 					"name": "minParticipants",
-					"required": false
+					"required": false,
+					"type": "string"
 				}, {
-					"in": "body",
+					"in": "formData",
+					"description": "Maximum participant count for the produced lessons.",
 					"name": "maxParticipants",
-					"required": false
+					"required": false,
+					"type": "string"
 				}, {
-					"in": "body",
+					"in": "formData",
+					"description": "Name of the lesson template.",
 					"name": "name",
-					"required": true
+					"required": true,
+					"type": "string"
 				}, {
-					"in": "body",
-					"name": "prices",
-					"required": false
+					"in": "formData",
+					"description": "Name of the lessons produced.",
+					"name": "lessonName",
+					"required": true,
+					"type": "string"
 				}, {
-					"in": "body",
-					"name": "schoolId",
-					"required": true
+					"name": "meetingPoint",
+					"in": "formData",
+					"description": "Meeting point JSON (see example, like in POST /lesson).",
+					"required": true,
+					"type": "string"
 				}, {
-					"in": "body",
 					"name": "specialties",
-					"required": false
+					"in": "formData",
+					"description": "Produced lessons' specialties (JSON object array, see POST /lesson example).",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "prices",
+					"in": "formData",
+					"description": "Produced lessons' prices for consecutive participant numbers (JSON array, see POST /lesson example)",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "schoolId",
+					"in": "formData",
+					"description": "Produced lessons' school id",
+					"required": true,
+					"type": "string"
 				}],
 				"responses": {
 					"200": {
@@ -1450,49 +1671,77 @@
 					"required": true,
 					"type": "string"
 				}, {
-					"in": "body",
+					"in": "formData",
+					"description": "Comment about the lesson template.",
 					"name": "comment",
-					"required": false
+					"required": false,
+					"type": "string"		
 				}, {
-					"in": "body",
-					"name": "groupFlag",
-					"required": true
-				}, {
-					"in": "body",
+					"in": "formData",
+					"description": "Says whether produced lessons will have an instructor bonus.",
 					"name": "instructorBonusFlag",
-					"required": true
+					"required": false,
+					"type": "boolean"
 				}, {
-					"in": "body",
+					"in": "formData",
+					"description": "Maximum age for the produced lessons.",
 					"name": "maxAge",
-					"required": false
+					"required": false,
+					"type": "string"
 				}, {
-					"in": "body",
+					"in": "formData",
+					"description": "Minimum age for the produced lessons.",
 					"name": "minAge",
-					"required": false
+					"required": false,
+					"type": "string"
 				}, {
-					"in": "body",
+					"in": "formData",
+					"description": "Minimum participant count for the produced lessons.",
 					"name": "minParticipants",
-					"required": false
+					"required": false,
+					"type": "string"
 				}, {
-					"in": "body",
+					"in": "formData",
+					"description": "Maximum participant count for the produced lessons.",
 					"name": "maxParticipants",
-					"required": false
+					"required": false,
+					"type": "string"
 				}, {
-					"in": "body",
+					"in": "formData",
+					"description": "Name of the lesson template.",
 					"name": "name",
-					"required": true
+					"required": false,
+					"type": "string"
 				}, {
-					"in": "body",
-					"name": "prices",
-					"required": false
+					"in": "formData",
+					"description": "Name of the lessons produced.",
+					"name": "lessonName",
+					"required": false,
+					"type": "string"
 				}, {
-					"in": "body",
-					"name": "schoolId",
-					"required": true
+					"name": "meetingPoint",
+					"in": "formData",
+					"description": "Meeting point JSON (see example, like in POST /lesson).",
+					"required": false,
+					"type": "string"
 				}, {
-					"in": "body",
 					"name": "specialties",
-					"required": false
+					"in": "formData",
+					"description": "Produced lessons' specialties (JSON object array, see POST /lesson example).",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "prices",
+					"in": "formData",
+					"description": "Produced lessons' prices for consecutive participant numbers (JSON array, see POST /lesson example)",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "schoolId",
+					"in": "formData",
+					"description": "Produced lessons' school id",
+					"required": false,
+					"type": "string"
 				}],
 				"responses": {
 					"200": {
@@ -1538,135 +1787,58 @@
 					}
 				}
 			}
-		},
-		"/auth/facebook": {
-			"get": {
-				"tags": [
-					"Default"
-				],
-				"summary": "Facebook login method.",
-				"description": "Facebook login method.",
-				"consumes": [],
-				"produces": [],
-				"parameters": [],
-				"responses": {
-					"200": {
-						"description": "Success"
-					}
-				}
-			}
-		},
-		"/auth/google": {
-			"get": {
-				"tags": [
-					"Default"
-				],
-				"summary": "Google login method.",
-				"description": "Google login method.",
-				"consumes": [],
-				"produces": [],
-				"parameters": [],
-				"responses": {
-					"200": {
-						"description": "Success"
-					}
-				}
-			}
-		},
-		"/auth/twitter": {
-			"get": {
-				"tags": [
-					"Default"
-				],
-				"summary": "Twitter login method.",
-				"description": "Twitterlogin method.",
-				"consumes": [],
-				"produces": [],
-				"parameters": [],
-				"responses": {
-					"200": {
-						"description": "Success"
-					}
-				}
-			}
-		},
-		"/login": {
+		},		
+		"/message": {
 			"post": {
 				"tags": [
-					"Default"
+					"Messages"
 				],
-				"summary": "Login method",
-				"description": "Login method",
-				"consumes": [
-					"application/x-www-form-urlencoded"
-				],
+				"summary": "Send a message",
+				"description": "Send a message",
+				"consumes": [],
 				"produces": [],
 				"parameters": [{
+					"name": "fromEntity",
 					"in": "formData",
-					"name": "email",
 					"required": true,
 					"type": "string"
-				}, {
+				},{
+					"name": "fromId",
 					"in": "formData",
-					"name": "password",
 					"required": true,
 					"type": "string"
+				},{
+					"name": "toEntity",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				},{
+					"name": "toId",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				},{
+					"name": "message",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				},{
+					"name": "important",
+					"in": "formData",
+					"required": true,
+					"type": "boolean"
 				}],
 				"responses": {
 					"200": {
 						"description": "Success"
 					},
 					"401": {
-						"description": "The user has been deleted or invalid password."
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
-						"description": "No user with a given email found."
+						"description": "The requested resource does not exist."
 					}
-				}
-			}
-		},
-		"/signup": {
-			"post": {
-				"tags": [
-					"Default"
-				],
-				"summary": "Signup method",
-				"description": "Signup method",
-				"consumes": [],
-				"produces": [],
-				"parameters": [{
-					"in": "body",
-					"name": "body",
-					"required": true,
-					"schema": {
-						"$ref": "#/definitions/User"
-					}
-				}],
-				"responses": {
-					"200": {
-						"description": "Success"
-					},
-					"401": {
-						"description": "The user has been deleted or invalid password."
-					}
-				}
-			}
-		},
-		"/logout": {
-			"get": {
-				"tags": [
-					"Default"
-				],
-				"summary": "Logout",
-				"description": "Logout",
-				"consumes": [],
-				"produces": [],
-				"parameters": [],
-				"responses": {
-					"200": {
-						"description": "Success"
-					}
-				}
+				}				
 			}
 		},
 		"/message/{messageId}": {
@@ -1756,41 +1928,61 @@
 					}
 				}
 			}
-		},
-		"/resetPassword": {
-			"get": {
+		},		
+		"/feedback": {
+			"post": {
 				"tags": [
-					"Default"
+					"Feedbacks"
 				],
-				"summary": "Resets a user's password",
-				"description": "Resets a user's password",
+				"summary": "Creates a new feedback",
+				"description": "Creates a new feedback",
 				"consumes": [],
 				"produces": [],
 				"parameters": [{
-					"in": "body",
-					"name": "body",
+					"name": "fromEntity",
+					"in": "formData",
 					"required": true,
-					"schema": {
-						"$ref": "#/definitions/User"
-					}
-				}, {
-					"name": "email",
-					"in": "query",
-					"required": false,
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
+					"type": "string"
+				},{
+					"name": "fromId",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				},{
+					"name": "toEntity",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				},{
+					"name": "toId",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				},{
+					"name": "rating",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				},{
+					"name": "lessonId",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				},{
+					"name": "schoolId",
+					"in": "formData",
+					"required": true,
+					"type": "string"
 				}],
 				"responses": {
 					"200": {
-						"description": "The password was reset and a confirmation email is sent."
+						"description": "Success"
+					},
+					"400": {
+						"description": "The submitted request is malformed."
 					},
 					"401": {
 						"description": "You are not allowed to perform this operation."
-					},
-					"404": {
-						"description": "The email is not in the database."
 					}
 				}
 			}
@@ -1805,12 +1997,140 @@
 				"consumes": [],
 				"produces": [],
 				"parameters": [{
-					"in": "body",
-					"name": "body",
+					"name": "user",
+					"in": "formData",
 					"required": true,
-					"schema": {
-						"$ref": "#/definitions/School"
-					}
+					"type": "string"
+				}, {
+					"name": "userName",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userName",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userName",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userName",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userName",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userName",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userName",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userName",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userName",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userName",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userName",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userName",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userName",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userName",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userName",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userName",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userName",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userName",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userName",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userName",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userName",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userName",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userName",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userName",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userName",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userName",
+					"in": "formData",
+					"required": true,
+					"type": "string"
 				}],
 				"responses": {
 					"200": {
@@ -1824,37 +2144,7 @@
 					}
 				}
 			}
-		},
-		"/feedback": {
-			"post": {
-				"tags": [
-					"Messages"
-				],
-				"summary": "Creates a new feedback",
-				"description": "Creates a new feedback",
-				"consumes": [],
-				"produces": [],
-				"parameters": [{
-					"in": "body",
-					"name": "body",
-					"required": true,
-					"schema": {
-						"$ref": "#/definitions/Feedback"
-					}
-				}],
-				"responses": {
-					"200": {
-						"description": "Success"
-					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
-					"401": {
-						"description": "You are not allowed to perform this operation."
-					}
-				}
-			}
-		},
+		},		
 		"/school/{schoolId}": {
 			"get": {
 				"tags": [
@@ -1944,6 +2234,69 @@
 							"type": "array",
 							"items": {
 								"$ref": "#/definitions/Feedback"
+							}
+						}
+					},
+					"401": {
+						"description": "You are not allowed to perform this operation."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
+					}
+				}
+			}
+		},
+		"/school/{schoolId}/activate": {
+			"put": {
+				"tags": [
+					"Schools"
+				],
+				"summary": "Sends an activation request to skipodium",
+				"description": "Sends an activation request to skipodium, can only be sent by a school director, upon success an email will be sent to skipodium managment to manually activate the school",
+				"consumes": [],
+				"produces": [],
+				"parameters": [{
+					"name": "schoolId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
+				"responses": {
+					"200": {
+						"description": "Success"
+					},
+					"401": {
+						"description": "You are not allowed to perform this operation."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
+					}
+				}
+
+			}
+		},
+		"/school/{schoolId}/lessonTemplates": {
+			"get": {
+				"tags": [
+					"Schools"
+				],
+				"summary": "Gets all school lesson templates",
+				"description": "Gets all school lesson templates",
+				"consumes": [],
+				"produces": [],
+				"parameters": [{
+					"name": "schoolId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/LessonTemplate"
 							}
 						}
 					},
@@ -2699,6 +3052,82 @@
 					},
 					"404": {
 						"description": "The requested resource does not exist."
+					}
+				}
+			}
+		},
+		"/user/{email}/resetPassword": {
+			"get": {
+				"tags": [
+					"Users"
+				],
+				"summary": "Resets a user's password",
+				"description": "Resets a user's password",
+				"consumes": [],
+				"produces": [],
+				"parameters": [{
+					"in": "body",
+					"name": "body",
+					"required": true,
+					"schema": {
+						"$ref": "#/definitions/User"
+					}
+				}, {
+					"name": "email",
+					"in": "query",
+					"required": false,
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"description": "The password was reset and a confirmation email is sent."
+					},
+					"401": {
+						"description": "You are not allowed to perform this operation."
+					},
+					"404": {
+						"description": "The email is not in the database."
+					}
+				}
+			}
+		},
+		"/user/{token}/newPassword": {
+			"get": {
+				"tags": [
+					"Users"
+				],
+				"summary": "Resets a user's password",
+				"description": "Resets a user's password",
+				"consumes": [],
+				"produces": [],
+				"parameters": [{
+					"in": "body",
+					"name": "body",
+					"required": true,
+					"schema": {
+						"$ref": "#/definitions/User"
+					}
+				}, {
+					"name": "email",
+					"in": "query",
+					"required": false,
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"description": "The password was reset and a confirmation email is sent."
+					},
+					"401": {
+						"description": "You are not allowed to perform this operation."
+					},
+					"404": {
+						"description": "The email is not in the database."
 					}
 				}
 			}

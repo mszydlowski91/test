@@ -161,10 +161,10 @@ Adds a new employee
 |FormDataParameter|email|Email of the employee user (if created from scratch with user).|false|string||
 |FormDataParameter|userId|ID of the user the employee will be assigned to (if created for an existing user).|false|string||
 |FormDataParameter|schoolId|ID of the school of the new employee.|true|string||
-|FormDataParameter|permissions|A list of employee permissions.|true|string||
-|FormDataParameter|specialties|A list of employee specialties, leave '[]' if none.|true|string||
-|FormDataParameter|timesOff|A list of employee times off, leave '[]' if none.|true|string||
-|FormDataParameter|schedule|Employee time off schedule, leave '[]' if none. Warning: remove [] braces if you copy from example!|false|string||
+|FormDataParameter|permissions|A list of employee permissions. JSON array: |true|string||
+|FormDataParameter|specialties|A list of employee specialties, JSON array of objects (see examples).|false|string||
+|FormDataParameter|timesOff|A list of employee times off, JSON array of objects (see example).|false|string||
+|FormDataParameter|schedule|Employee time off schedule, JSON object (see example).|false|string||
 |FormDataParameter|salary|Employee salary.|true|string||
 |FormDataParameter|comment|Comment about the employee.|false|string||
 
@@ -224,11 +224,11 @@ Modifies an existing employee.
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|employeeId||true|string||
-|FormDataParameter|permissions|A list of employee permissions.|true|string||
-|FormDataParameter|specialties|A list of employee specialties, leave '[]' if none.|true|string||
-|FormDataParameter|timesOff|A list of employee times off, leave '[]' if none.|true|string||
-|FormDataParameter|schedule|Employee time off schedule, leave '[]' if none. Warning: remove [] braces if you copy from example!|false|string||
-|FormDataParameter|salary|Employee salary.|true|string||
+|FormDataParameter|permissions|A list of employee permissions. JSON array: |false|string||
+|FormDataParameter|specialties|A list of employee specialties, JSON array of objects (see examples).|false|string||
+|FormDataParameter|timesOff|A list of employee times off, JSON array of objects (see example).|false|string||
+|FormDataParameter|schedule|Employee time off schedule, JSON object (see example).|false|string||
+|FormDataParameter|salary|Employee salary.|false|string||
 |FormDataParameter|comment|Comment about the employee.|false|string||
 
 
@@ -343,7 +343,13 @@ Creates a new feedback
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|BodyParameter|body||true|Feedback||
+|FormDataParameter|fromEntity||true|string||
+|FormDataParameter|fromId||true|string||
+|FormDataParameter|toEntity||true|string||
+|FormDataParameter|toId||true|string||
+|FormDataParameter|rating||true|string||
+|FormDataParameter|lessonId||true|string||
+|FormDataParameter|schoolId||true|string||
 
 
 #### Responses
@@ -356,7 +362,7 @@ Creates a new feedback
 
 #### Tags
 
-* Messages
+* Feedbacks
 
 ### POST /generator
 ```
@@ -431,15 +437,15 @@ Edits an existing generator
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|PathParameter|generatorId||true|string||
-|FormDataParameter|name|Name of the new generator.|true|string||
-|FormDataParameter|priority|Generator priority.|true|string||
-|FormDataParameter|generatorType|Generator type (lessonGenerator or bundleGenerator).|true|string||
-|FormDataParameter|lessonTemplateId|ID of the lesson template used by the generator.|true|string||
-|FormDataParameter|schoolId|ID of the school that owns the generator.|true|string||
+|PathParameter|generatorId||false|string||
+|FormDataParameter|name|Name of the new generator.|false|string||
+|FormDataParameter|priority|Generator priority.|false|string||
+|FormDataParameter|generatorType|Generator type (lessonGenerator or bundleGenerator).|false|string||
+|FormDataParameter|lessonTemplateId|ID of the lesson template used by the generator.|false|string||
+|FormDataParameter|schoolId|ID of the school that owns the generator.|false|string||
 |FormDataParameter|comment|Comment about the generator.|false|string||
-|FormDataParameter|instructorIds|Array of instructor IDs for this generator.|true|string||
-|FormDataParameter|schedule|Generator schedule object.|true|string||
+|FormDataParameter|instructorIds|Array of instructor IDs for this generator.|false|string||
+|FormDataParameter|schedule|Generator schedule object.|false|string||
 
 
 #### Responses
@@ -611,8 +617,8 @@ Modifies an existing lesson
 |FormDataParameter|maxParticipants|Max number of participants.|false|string||
 |FormDataParameter|specialties|Lesson specialties.|false|string||
 |FormDataParameter|prices|Lesson prices for consecutive participant numbers.|false|string||
-|FormDataParameter|minAge|Min age.|true|string||
-|FormDataParameter|maxAge|Max age.|true|string||
+|FormDataParameter|minAge|Min age.|false|string||
+|FormDataParameter|maxAge|Max age.|false|string||
 |FormDataParameter|instructorId|Instructor id|false|string||
 |FormDataParameter|instructorBonusFlag|Instructor bonus flag|false|boolean||
 |FormDataParameter|schoolId|School id|false|string||
@@ -752,6 +758,36 @@ Purchase a new lesson.
 
 * Lessons
 
+### POST /lesson/{lessonId}/purchaseManual
+```
+POST /lesson/{lessonId}/purchaseManual
+```
+
+#### Description
+
+Manually purchase a new lesson by a school manager or instructor.
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|lessonId||true|string||
+|FormDataParameter|guestIds|A list of IDs of users the lesson was bought for (JSON array).|true|string||
+|FormDataParameter|amount|The amount of money the purchasing person paid.|true|number||
+|FormDataParameter|comment|The amount of money the purchasing person paid.|false|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success.|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|You are not allowed to perform this operation.|No Content|
+
+
+#### Tags
+
+* Lessons
+
 ### PUT /lesson/{lessonId}/unbook/{userId}
 ```
 PUT /lesson/{lessonId}/unbook/{userId}
@@ -827,17 +863,18 @@ Add a new lesson template.
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|BodyParameter|comment||false|string||
-|BodyParameter|groupFlag||true|string||
-|BodyParameter|instructorBonusFlag||true|string||
-|BodyParameter|maxAge||false|string||
-|BodyParameter|minAge||false|string||
-|BodyParameter|minParticipants||false|string||
-|BodyParameter|maxParticipants||false|string||
-|BodyParameter|name||true|string||
-|BodyParameter|prices||false|string||
-|BodyParameter|schoolId||true|string||
-|BodyParameter|specialties||false|string||
+|FormDataParameter|comment|Comment about the lesson template.|false|string||
+|FormDataParameter|instructorBonusFlag|Says whether produced lessons will have an instructor bonus.|true|boolean||
+|FormDataParameter|maxAge|Maximum age for the produced lessons.|false|string||
+|FormDataParameter|minAge|Minimum age for the produced lessons.|false|string||
+|FormDataParameter|minParticipants|Minimum participant count for the produced lessons.|false|string||
+|FormDataParameter|maxParticipants|Maximum participant count for the produced lessons.|false|string||
+|FormDataParameter|name|Name of the lesson template.|true|string||
+|FormDataParameter|lessonName|Name of the lessons produced.|true|string||
+|FormDataParameter|meetingPoint|Meeting point JSON (see example, like in POST /lesson).|true|string||
+|FormDataParameter|specialties|Produced lessons' specialties (JSON object array, see POST /lesson example).|false|string||
+|FormDataParameter|prices|Produced lessons' prices for consecutive participant numbers (JSON array, see POST /lesson example)|true|string||
+|FormDataParameter|schoolId|Produced lessons' school id|true|string||
 
 
 #### Responses
@@ -893,17 +930,18 @@ Modify a lesson template by ID.
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|lessonTemplateId||true|string||
-|BodyParameter|comment||false|string||
-|BodyParameter|groupFlag||true|string||
-|BodyParameter|instructorBonusFlag||true|string||
-|BodyParameter|maxAge||false|string||
-|BodyParameter|minAge||false|string||
-|BodyParameter|minParticipants||false|string||
-|BodyParameter|maxParticipants||false|string||
-|BodyParameter|name||true|string||
-|BodyParameter|prices||false|string||
-|BodyParameter|schoolId||true|string||
-|BodyParameter|specialties||false|string||
+|FormDataParameter|comment|Comment about the lesson template.|false|string||
+|FormDataParameter|instructorBonusFlag|Says whether produced lessons will have an instructor bonus.|false|boolean||
+|FormDataParameter|maxAge|Maximum age for the produced lessons.|false|string||
+|FormDataParameter|minAge|Minimum age for the produced lessons.|false|string||
+|FormDataParameter|minParticipants|Minimum participant count for the produced lessons.|false|string||
+|FormDataParameter|maxParticipants|Maximum participant count for the produced lessons.|false|string||
+|FormDataParameter|name|Name of the lesson template.|false|string||
+|FormDataParameter|lessonName|Name of the lessons produced.|false|string||
+|FormDataParameter|meetingPoint|Meeting point JSON (see example, like in POST /lesson).|false|string||
+|FormDataParameter|specialties|Produced lessons' specialties (JSON object array, see POST /lesson example).|false|string||
+|FormDataParameter|prices|Produced lessons' prices for consecutive participant numbers (JSON array, see POST /lesson example)|false|string||
+|FormDataParameter|schoolId|Produced lessons' school id|false|string||
 
 
 #### Responses
@@ -998,6 +1036,38 @@ Logout
 
 * Default
 
+### POST /message
+```
+POST /message
+```
+
+#### Description
+
+Send a message
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|FormDataParameter|fromEntity||true|string||
+|FormDataParameter|fromId||true|string||
+|FormDataParameter|toEntity||true|string||
+|FormDataParameter|toId||true|string||
+|FormDataParameter|message||true|string||
+|FormDataParameter|important||true|boolean||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|No Content|
+|401|You are not allowed to perform this operation.|No Content|
+|404|The requested resource does not exist.|No Content|
+
+
+#### Tags
+
+* Messages
+
 ### GET /message/{messageId}
 ```
 GET /message/{messageId}
@@ -1080,34 +1150,6 @@ Marks the message as read
 
 * Messages
 
-### GET /resetPassword
-```
-GET /resetPassword
-```
-
-#### Description
-
-Resets a user's password
-
-#### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|BodyParameter|body||true|User||
-|QueryParameter|email||false|null string array||
-
-
-#### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|The password was reset and a confirmation email is sent.|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The email is not in the database.|No Content|
-
-
-#### Tags
-
-* Default
-
 ### POST /school
 ```
 POST /school
@@ -1120,7 +1162,33 @@ Creates a new school
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|BodyParameter|body||true|School||
+|FormDataParameter|user||true|string||
+|FormDataParameter|userName||true|string||
+|FormDataParameter|userName||true|string||
+|FormDataParameter|userName||true|string||
+|FormDataParameter|userName||true|string||
+|FormDataParameter|userName||true|string||
+|FormDataParameter|userName||true|string||
+|FormDataParameter|userName||true|string||
+|FormDataParameter|userName||true|string||
+|FormDataParameter|userName||true|string||
+|FormDataParameter|userName||true|string||
+|FormDataParameter|userName||true|string||
+|FormDataParameter|userName||true|string||
+|FormDataParameter|userName||true|string||
+|FormDataParameter|userName||true|string||
+|FormDataParameter|userName||true|string||
+|FormDataParameter|userName||true|string||
+|FormDataParameter|userName||true|string||
+|FormDataParameter|userName||true|string||
+|FormDataParameter|userName||true|string||
+|FormDataParameter|userName||true|string||
+|FormDataParameter|userName||true|string||
+|FormDataParameter|userName||true|string||
+|FormDataParameter|userName||true|string||
+|FormDataParameter|userName||true|string||
+|FormDataParameter|userName||true|string||
+|FormDataParameter|userName||true|string||
 
 
 #### Responses
@@ -1183,6 +1251,33 @@ Modifies an existing school
 |----|----|----|
 |200|Success|No Content|
 |400|The submitted request is malformed.|No Content|
+|401|You are not allowed to perform this operation.|No Content|
+|404|The requested resource does not exist.|No Content|
+
+
+#### Tags
+
+* Schools
+
+### PUT /school/{schoolId}/activate
+```
+PUT /school/{schoolId}/activate
+```
+
+#### Description
+
+Sends an activation request to skipodium, can only be sent by a school director, upon success an email will be sent to skipodium managment to manually activate the school
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|schoolId||true|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|No Content|
 |401|You are not allowed to perform this operation.|No Content|
 |404|The requested resource does not exist.|No Content|
 
@@ -1354,6 +1449,33 @@ Gets all generators of a school
 
 * Schools
 
+### GET /school/{schoolId}/lessonTemplates
+```
+GET /school/{schoolId}/lessonTemplates
+```
+
+#### Description
+
+Gets all school lesson templates
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|schoolId||true|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|LessonTemplate array|
+|401|You are not allowed to perform this operation.|No Content|
+|404|The requested resource does not exist.|No Content|
+
+
+#### Tags
+
+* Schools
+
 ### GET /school/{schoolId}/messages
 ```
 GET /school/{schoolId}/messages
@@ -1421,7 +1543,10 @@ Signup method
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|BodyParameter|body||true|User||
+|FormDataParameter|email||true|string||
+|FormDataParameter|password||true|string||
+|FormDataParameter|name||true|string||
+|FormDataParameter|surname||true|string||
 
 
 #### Responses
@@ -1569,6 +1694,62 @@ Creates a new stub user.
 |400|The submitted request is malformed.|No Content|
 |401|You do not have sufficient access to perform this operation|No Content|
 |405|Method not allowed.|No Content|
+
+
+#### Tags
+
+* Users
+
+### GET /user/{email}/resetPassword
+```
+GET /user/{email}/resetPassword
+```
+
+#### Description
+
+Resets a user's password
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|BodyParameter|body||true|User||
+|QueryParameter|email||false|null string array||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|The password was reset and a confirmation email is sent.|No Content|
+|401|You are not allowed to perform this operation.|No Content|
+|404|The email is not in the database.|No Content|
+
+
+#### Tags
+
+* Users
+
+### GET /user/{token}/newPassword
+```
+GET /user/{token}/newPassword
+```
+
+#### Description
+
+Resets a user's password
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|BodyParameter|body||true|User||
+|QueryParameter|email||false|null string array||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|The password was reset and a confirmation email is sent.|No Content|
+|401|You are not allowed to perform this operation.|No Content|
+|404|The email is not in the database.|No Content|
 
 
 #### Tags
