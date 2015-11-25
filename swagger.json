@@ -3128,8 +3128,6 @@
 				"_id",
 				"active",
 				"deleted",
-				"email",
-				"languages",
 				"name",
 				"surname",
 				"createdAt",
@@ -3211,6 +3209,11 @@
 					"type": "string",
 					"example": "sample refferalToken",
 					"description": "The token assigned to a user when he will try to generate referal links"
+				},
+				"ownerSchoolId": {
+					"type": "string",
+					"example": "sample id",
+					"description": "The school that created the stub user"
 				}
 			}
 		},
@@ -3232,10 +3235,20 @@
 					"example": "sample name",
 					"description": "Template name."
 				},
-				"groupFlag": {
+				"lessonName": {
+					"type": "string",
+					"example": "sample lesson name",
+					"description": "Generated lessons name."
+				},
+				"private": {
 					"type": "boolean",
 					"example": "false",
-					"description": "Determines whether it is an individual or a group lesson."
+					"description": "Determines whether it is a public or private lesson."
+				},
+				"instructorBonusFlag": {
+					"type": "boolean",
+					"example": "false",
+					"description": "Determines whether the instructor gets bonus for generated lessons."
 				},
 				"schoolId": {
 					"type": "string",
@@ -3281,6 +3294,14 @@
 					"items": {
 						"type": "string",
 						"$ref": "#/definitions/Specialty"
+					}
+				},
+				"meetingPoint": {
+					"type": "array",
+					"description": "Lesson meeting point",
+					"items": {
+						"type": "string",
+						"$ref": "#/definitions/MeetingPoint"
 					}
 				},
 				"instructorBonusFlag": {
@@ -3351,6 +3372,11 @@
 					"format": "date",
 					"example": "1.1",
 					"description": "A date at which the transaction occurs."
+				},
+				"deleted": {
+					"type": "boolean",
+					"example": "false",
+					"description": "Deleted flag."
 				},
 				"productId": {
 					"description": "EntityID: Type - lesson or bundle, id - prod ID",
@@ -3644,14 +3670,16 @@
 					"example": "sample schoolId",
 					"description": "ID of the school the generator belongs to."
 				},
-				"times": {
-					"description": "List of time intervals for which the lessons / bundles will be generated.",
-					"$ref": "#/definitions/TimeInterval"
+				"schedule": {
+					"description": "Generator lesson generation schedule.",
+					"$ref": "#/definitions/Schedule"
 				},
-				"publicFlag": {
-					"type": "boolean",
-					"example": "false",
-					"description": "Decides whether the generated lessons and bundles are public."
+				"instructorIds": {
+					"type": "array",
+					"description": "A list of instructors available for gen lessons.",
+					"items": {
+						"type": "string"						
+					}
 				}
 			}
 		},
@@ -3797,11 +3825,14 @@
 					"format": "double",
 					"example": "1.1",
 					"description": "Salary"
+				},
+				"schedule": {
+					"description": "Employee time off schedule.",
+					"$ref": "#/definitions/Schedule"
 				}
 			},
 			"description": "School employee"
 		},
-
 		"Bundle": {
 			"required": [
 				"_id",
@@ -3977,7 +4008,15 @@
 					"type": "string",
 					"example": "sample comment",
 					"description": "A note on the lesson in case of special situations (e.g. if it didn't happen for whatever reason)."
+				},
+				"absences" : {
+					"type": "array",
+					"description": "IDs of the employees / users that were absent.",
+					"items": {
+						"type": "string"						
+					}
 				}
+				
 			},
 			"description": "Entity representing a feedback (user to instructor, instructor to user or user to school)"
 		},
@@ -4203,7 +4242,6 @@
 				"defaultMeetingPoints",
 				"deleted",
 				"email",
-				"enabled",
 				"logo",
 				"name",
 				"openingHours",
@@ -4275,12 +4313,7 @@
 					"format": "double",
 					"example": "1.1",
 					"description": "School's rating"
-				},
-				"enabled": {
-					"type": "boolean",
-					"example": "false",
-					"description": "Says whether the school lesson is enabled (e.g. whether its lessons appear for users)."
-				},
+				},				
 				"active": {
 					"type": "boolean",
 					"example": "false",
