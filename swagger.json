@@ -6,7 +6,7 @@
 	"produces": [
 		"application/json"
 	],
-	"host": "api.adam.skipodium.com",
+	"host": "localhost:8080",
 	"info": {
 		"description": "REST-ful API used to communicate with the Skipodium backend.",
 		"version": "1.0.0",
@@ -305,26 +305,8 @@
 				}, {
 					"name": "permissions",
 					"in": "formData",
-					"description": "A list of employee permissions. JSON array: ",
+					"description": "See examples ",
 					"required": true,
-					"type": "string"
-				}, {
-					"name": "specialties",
-					"in": "formData",
-					"description": "A list of employee specialties, JSON array of objects (see examples).",
-					"required": false,
-					"type": "string"
-				}, {
-					"name": "timesOff",
-					"in": "formData",
-					"description": "A list of employee times off, JSON array of objects (see example).",
-					"required": false,
-					"type": "string"
-				}, {
-					"name": "schedule",
-					"in": "formData",
-					"description": "Employee time off schedule, JSON object (see example).",
-					"required": false,
 					"type": "string"
 				}, {
 					"name": "salary",
@@ -443,15 +425,15 @@
 				}, {
 					"name": "permissions",
 					"in": "formData",
-					"description": "A list of employee permissions. JSON array: ",
+					"description": "A list of employee permissions. JSON array.",
 					"required": false,
 					"type": "string"
 				}, {
 					"name": "specialties",
 					"in": "formData",
-					"description": "A list of employee specialties, JSON array of objects (see examples).",
+					"description": "A list of specialties, JSON array of objects (see example).",
 					"required": false,
-					"type": "string"
+					"type": "string"					
 				}, {
 					"name": "timesOff",
 					"in": "formData",
@@ -574,33 +556,17 @@
 					"in": "path",
 					"required": true,
 					"type": "string"
-				}],
-				"responses": {
-					"200": {
-						"description": "Sucess"
-					},
-					"400": {
-						"description": "The submitted request was malformed."
-					},
-					"404": {
-						"description": "The requested resource does not exist."
-					}
-				}
-			}
-		},
-		"/user/{userId}/employment": {
-			"get": {
-				"tags": [
-					"Users"
-				],
-				"summary": "Gets all user employments. Returns an array of pairs {employee, school}.",
-				"description": "Gets all user employments. Returns an array of pairs {employee, school}.",
-				"consumes": [],
-				"produces": [],
-				"parameters": [{
-					"name": "userId",
-					"in": "path",
-					"required": true,
+				}, {
+					"name": "startDate",
+					"in": "query",
+					"description": "Date from which to search.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "endDate",
+					"in": "query",
+					"description": "Date till which to search.",
+					"required": false,
 					"type": "string"
 				}],
 				"responses": {
@@ -616,6 +582,7 @@
 				}
 			}
 		},
+		
 		"/lessonInstructors": {
 			"get": {
 				"tags": [
@@ -1009,13 +976,13 @@
 				"parameters": [{
 					"name": "timeFrom",
 					"in": "formData",
-					"description": "Date from which to search.",
+					"description": "Lesson start time.",
 					"required": true,
 					"type": "string"
 				}, {
 					"name": "timeTo",
 					"in": "formData",
-					"description": "Date till which to search.",
+					"description": "Lesson end time.",
 					"required": true,
 					"type": "string"
 				}, {
@@ -1997,139 +1964,131 @@
 				"consumes": [],
 				"produces": [],
 				"parameters": [{
-					"name": "user",
-					"in": "formData",
-					"required": true,
-					"type": "string"
-				}, {
 					"name": "userName",
 					"in": "formData",
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "userName",
+					"name": "userSurname",
 					"in": "formData",
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "userName",
+					"name": "userEmail",
 					"in": "formData",
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "userName",
+					"name": "addressCity",
 					"in": "formData",
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "userName",
+					"name": "addressCountry",
 					"in": "formData",
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "userName",
+					"name": "addressStreet",
 					"in": "formData",
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "userName",
+					"name": "addressStreetNum",
 					"in": "formData",
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "userName",
+					"name": "addressZipCode",
 					"in": "formData",
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "userName",
+					"name": "addressState",
 					"in": "formData",
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "userName",
+					"name": "bankDetailsAccountNumber",
 					"in": "formData",
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "userName",
+					"name": "bankDetailsCurrency",
 					"in": "formData",
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "userName",
+					"name": "email",
 					"in": "formData",
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "userName",
+					"name": "logo",
 					"in": "formData",
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "userName",
+					"name": "name",
 					"in": "formData",
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "userName",
+					"name": "royaltyPercent",
 					"in": "formData",
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "userName",
+					"name": "resortId",
 					"in": "formData",
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "userName",
+					"name": "openingHours",
 					"in": "formData",
+					"description" : "See examples",
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "userName",
+					"name": "defaultMeetingPoints",
 					"in": "formData",
+					"description" : "See examples",
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "userName",
+					"name": "contactsFacebook",
 					"in": "formData",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
-					"name": "userName",
+					"name": "contactsTwitter",
 					"in": "formData",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
-					"name": "userName",
+					"name": "contactsGoogleplus",
 					"in": "formData",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
-					"name": "userName",
+					"name": "contactsPhone",
 					"in": "formData",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
-					"name": "userName",
+					"name": "contactsMail",
 					"in": "formData",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
-					"name": "userName",
+					"name": "contactsSiteUrl",
 					"in": "formData",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
-					"name": "userName",
+					"name": "manuallySetRating",
 					"in": "formData",
-					"required": true,
-					"type": "string"
-				}, {
-					"name": "userName",
-					"in": "formData",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}],
 				"responses": {
@@ -2189,12 +2148,107 @@
 					"required": true,
 					"type": "string"
 				}, {
-					"in": "body",
-					"name": "body",
-					"required": true,
-					"schema": {
-						"$ref": "#/definitions/School"
-					}
+					"name": "addressCity",
+					"in": "formData",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "addressCountry",
+					"in": "formData",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "addressStreet",
+					"in": "formData",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "addressStreetNum",
+					"in": "formData",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "addressZipCode",
+					"in": "formData",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "addressState",
+					"in": "formData",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "email",
+					"in": "formData",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "logo",
+					"in": "formData",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "name",
+					"in": "formData",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "royaltyPercent",
+					"in": "formData",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "resortId",
+					"in": "formData",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "openingHours",
+					"in": "formData",
+					"description" : "See examples",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "defaultMeetingPoints",
+					"in": "formData",
+					"description" : "See examples",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "contactsFacebook",
+					"in": "formData",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "contactsTwitter",
+					"in": "formData",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "contactsGoogleplus",
+					"in": "formData",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "contactsPhone",
+					"in": "formData",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "contactsMail",
+					"in": "formData",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "contactsSiteUrl",
+					"in": "formData",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "manuallySetRating",
+					"in": "formData",
+					"required": false,
+					"type": "string"
 				}],
 				"responses": {
 					"200": {
@@ -2275,40 +2329,6 @@
 
 			}
 		},
-		"/school/{schoolId}/lessonTemplates": {
-			"get": {
-				"tags": [
-					"Schools"
-				],
-				"summary": "Gets all school lesson templates",
-				"description": "Gets all school lesson templates",
-				"consumes": [],
-				"produces": [],
-				"parameters": [{
-					"name": "schoolId",
-					"in": "path",
-					"required": true,
-					"type": "string"
-				}],
-				"responses": {
-					"200": {
-						"description": "Success",
-						"schema": {
-							"type": "array",
-							"items": {
-								"$ref": "#/definitions/LessonTemplate"
-							}
-						}
-					},
-					"401": {
-						"description": "You are not allowed to perform this operation."
-					},
-					"404": {
-						"description": "The requested resource does not exist."
-					}
-				}
-			}
-		},
 		"/school/{schoolId}/bookedClients": {
 			"get": {
 				"tags": [
@@ -2382,8 +2402,8 @@
 				"tags": [
 					"Schools"
 				],
-				"summary": "Gets the school stats for a user. Returns a custom JSON.",
-				"description": "Gets the school stats for a user. Returns a custom JSON.",
+				"summary": "Gets the stats for a user at school. Returns a custom JSON.",
+				"description": "Gets the stats for a user at school. Returns a custom JSON.",
 				"consumes": [],
 				"produces": [],
 				"parameters": [{
@@ -2395,6 +2415,18 @@
 					"name": "clientId",
 					"in": "path",
 					"required": true,
+					"type": "string"
+				},{
+					"name": "timeFrom",
+					"in": "query",
+					"description": "Date from which to search. Format: 2015-11-01T10:30:00.000Z",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "timeTo",
+					"in": "query",
+					"description": "Date till which to search. Format: 2015-11-01T10:30:00.000Z",
+					"required": false,
 					"type": "string"
 				}],
 				"responses": {
@@ -2531,6 +2563,11 @@
 					"in": "query",
 					"required": false,
 					"type": "string"
+				},{
+					"name": "lessonId",
+					"in": "query",
+					"required": false,
+					"type": "string"
 				}],
 				"responses": {
 					"200": {
@@ -2550,37 +2587,7 @@
 					}
 				}
 			}
-		},
-		"/transaction": {
-			"post": {
-				"tags": [
-					"Payments"
-				],
-				"summary": "Creates a new transaction",
-				"description": "Creates a new transaction",
-				"consumes": [],
-				"produces": [],
-				"parameters": [{
-					"in": "body",
-					"name": "body",
-					"required": true,
-					"schema": {
-						"$ref": "#/definitions/Transaction"
-					}
-				}],
-				"responses": {
-					"200": {
-						"description": "Success"
-					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
-					"401": {
-						"description": "You are not allowed to perform this operation."
-					}
-				}
-			}
-		},
+		},		
 		"/transaction/{transactionId}": {
 			"get": {
 				"tags": [
@@ -2617,28 +2624,20 @@
 				"tags": [
 					"Users"
 				],
-				"summary": "Gets users according to parameters (will be paged to avoid huge lists).",
-				"description": "Gets users according to parameters (will be paged to avoid huge lists).",
+				"summary": "Gets users according to parameters.",
+				"description": "Gets users according to parameters.",
 				"consumes": [],
 				"produces": [],
 				"parameters": [{
-					"name": "startPage",
+					"name": "name",
 					"in": "query",
-					"description": "Index of the page to fetch",
 					"required": false,
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				}, {
-					"name": "pageSize",
+					"type": "string"
+				},{
+					"name": "surname",
 					"in": "query",
-					"description": "Size of a page",
 					"required": false,
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
+					"type": "string"
 				}],
 				"responses": {
 					"200": {
@@ -2660,34 +2659,6 @@
 						"description": "The requested resource does not exist."
 					}
 				}
-			},
-			"post": {
-				"tags": [
-					"Users"
-				],
-				"summary": "Creates a new user.",
-				"description": "Creates a new user.",
-				"consumes": [],
-				"produces": [],
-				"parameters": [{
-					"in": "body",
-					"name": "body",
-					"required": true,
-					"schema": {
-						"$ref": "#/definitions/User"
-					}
-				}],
-				"responses": {
-					"200": {
-						"description": "Success"
-					},
-					"400": {
-						"description": "The submitted request is malformed."
-					},
-					"401": {
-						"description": "You are not allowed to perform this operation."
-					}
-				}
 			}
 		},
 		"/user/stub": {
@@ -2702,30 +2673,27 @@
 				"parameters": [{
 					"name": "email",
 					"in": "query",
-					"description": "The email of the stub user - This parameter IS mandatory",
+					"description": "The email of the stub user",
 					"required": true,
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
+					"type": "string"				
 				}, {
-					"name": "firstName",
+					"name": "name",
 					"in": "query",
-					"description": "The name of the stub user - This parameter is NOT mandatory",
+					"description": "The name of the stub user",
 					"required": false,
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
+					"type": "string"	
 				}, {
-					"name": "lastName",
+					"name": "surname",
 					"in": "query",
-					"description": "The lastName of the stub user - This parameter is NOT mandatory",
+					"description": "The lastName of the stub user",
 					"required": false,
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
+					"type": "string"	
+				}, {
+					"name": "schoolId",
+					"in": "query",
+					"description": "The ID of the school creating the stub user",
+					"required": false,
+					"type": "string"	
 				}],
 				"responses": {
 					"200": {
@@ -2736,10 +2704,7 @@
 					},
 					"401": {
 						"description": "You do not have sufficient access to perform this operation"
-					},
-					"405": {
-						"description": "Method not allowed."
-					}
+					}					
 				}
 			}
 		},
@@ -2792,12 +2757,31 @@
 					"required": true,
 					"type": "string"
 				}, {
-					"in": "body",
-					"name": "body",
-					"required": true,
-					"schema": {
-						"$ref": "#/definitions/User"
-					}
+					"name": "name",
+					"in": "formData",					
+					"required": false,
+					"type": "string"	
+				}, {
+					"name": "surname",
+					"in": "formData",					
+					"required": false,
+					"type": "string"	
+				},{
+					"name": "phoneNumber",
+					"in": "formData",					
+					"required": false,
+					"type": "string"	
+				}, {
+					"name": "languages",
+					"in": "formData",
+					"description": "See examples",
+					"required": false,
+					"type": "string"	
+				},{
+					"name": "photoURL",
+					"in": "formData",					
+					"required": false,
+					"type": "string"	
 				}],
 				"responses": {
 					"200": {
@@ -2842,7 +2826,7 @@
 				}
 			}
 		},
-		"/user/{userId}/stats": {
+		"/user/{userId}/stats/{schoolId}": {
 			"get": {
 				"tags": [
 					"Users"
@@ -2856,6 +2840,11 @@
 					"in": "path",
 					"required": true,
 					"type": "string"
+				},{
+					"name": "schoolId",
+					"in": "path",
+					"required": true,
+					"type": "string"
 				}],
 				"responses": {
 					"200": {
@@ -2863,6 +2852,34 @@
 					},
 					"401": {
 						"description": "You are not allowed to perform this operation."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
+					}
+				}
+			}
+		},
+		"/user/{userId}/employment": {
+			"get": {
+				"tags": [
+					"Users"
+				],
+				"summary": "Gets all user employments. Returns an array of pairs {employee, school}.",
+				"description": "Gets all user employments. Returns an array of pairs {employee, school}.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [{
+					"name": "userId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
+				"responses": {
+					"200": {
+						"description": "Sucess"
+					},
+					"400": {
+						"description": "The submitted request was malformed."
 					},
 					"404": {
 						"description": "The requested resource does not exist."
@@ -2919,14 +2936,11 @@
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "amount",
+					"name": "count",
 					"in": "query",
 					"description": "Number of feedbacks to fetch.",
 					"required": false,
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
+					"type": "string"					
 				}],
 				"responses": {
 					"200": {
@@ -3031,11 +3045,6 @@
 					"in": "path",
 					"required": true,
 					"type": "string"
-				}, {
-					"name": "schoolId",
-					"in": "query",
-					"required": false,
-					"type": "string"
 				}],
 				"responses": {
 					"200": {
@@ -3066,20 +3075,10 @@
 				"consumes": [],
 				"produces": [],
 				"parameters": [{
-					"in": "body",
-					"name": "body",
-					"required": true,
-					"schema": {
-						"$ref": "#/definitions/User"
-					}
-				}, {
 					"name": "email",
-					"in": "query",
-					"required": false,
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
+					"in": "path",
+					"required": true,
+					"type": "string"					
 				}],
 				"responses": {
 					"200": {
@@ -3104,20 +3103,10 @@
 				"consumes": [],
 				"produces": [],
 				"parameters": [{
-					"in": "body",
-					"name": "body",
+					"name": "token",
+					"in": "path",
 					"required": true,
-					"schema": {
-						"$ref": "#/definitions/User"
-					}
-				}, {
-					"name": "email",
-					"in": "query",
-					"required": false,
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
+					"type": "string"					
 				}],
 				"responses": {
 					"200": {

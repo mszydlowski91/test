@@ -161,10 +161,7 @@ Adds a new employee
 |FormDataParameter|email|Email of the employee user (if created from scratch with user).|false|string||
 |FormDataParameter|userId|ID of the user the employee will be assigned to (if created for an existing user).|false|string||
 |FormDataParameter|schoolId|ID of the school of the new employee.|true|string||
-|FormDataParameter|permissions|A list of employee permissions. JSON array: |true|string||
-|FormDataParameter|specialties|A list of employee specialties, JSON array of objects (see examples).|false|string||
-|FormDataParameter|timesOff|A list of employee times off, JSON array of objects (see example).|false|string||
-|FormDataParameter|schedule|Employee time off schedule, JSON object (see example).|false|string||
+|FormDataParameter|permissions|See examples |true|string||
 |FormDataParameter|salary|Employee salary.|true|string||
 |FormDataParameter|comment|Comment about the employee.|false|string||
 
@@ -224,8 +221,8 @@ Modifies an existing employee.
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|employeeId||true|string||
-|FormDataParameter|permissions|A list of employee permissions. JSON array: |false|string||
-|FormDataParameter|specialties|A list of employee specialties, JSON array of objects (see examples).|false|string||
+|FormDataParameter|permissions|A list of employee permissions. JSON array.|false|string||
+|FormDataParameter|specialties|A list of specialties, JSON array of objects (see example).|false|string||
 |FormDataParameter|timesOff|A list of employee times off, JSON array of objects (see example).|false|string||
 |FormDataParameter|schedule|Employee time off schedule, JSON object (see example).|false|string||
 |FormDataParameter|salary|Employee salary.|false|string||
@@ -289,6 +286,8 @@ Gets the stats of the employee. Returns a custom JSON.
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|employeeId||true|string||
+|QueryParameter|startDate|Date from which to search.|false|string||
+|QueryParameter|endDate|Date till which to search.|false|string||
 
 
 #### Responses
@@ -538,8 +537,8 @@ Creates a new lesson
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|FormDataParameter|timeFrom|Date from which to search.|true|string||
-|FormDataParameter|timeTo|Date till which to search.|true|string||
+|FormDataParameter|timeFrom|Lesson start time.|true|string||
+|FormDataParameter|timeTo|Lesson end time.|true|string||
 |FormDataParameter|minParticipants|Min number of participants.|false|string||
 |FormDataParameter|maxParticipants|Max number of participants.|false|string||
 |FormDataParameter|specialties|Lesson specialties.|false|string||
@@ -1162,33 +1161,31 @@ Creates a new school
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|FormDataParameter|user||true|string||
 |FormDataParameter|userName||true|string||
-|FormDataParameter|userName||true|string||
-|FormDataParameter|userName||true|string||
-|FormDataParameter|userName||true|string||
-|FormDataParameter|userName||true|string||
-|FormDataParameter|userName||true|string||
-|FormDataParameter|userName||true|string||
-|FormDataParameter|userName||true|string||
-|FormDataParameter|userName||true|string||
-|FormDataParameter|userName||true|string||
-|FormDataParameter|userName||true|string||
-|FormDataParameter|userName||true|string||
-|FormDataParameter|userName||true|string||
-|FormDataParameter|userName||true|string||
-|FormDataParameter|userName||true|string||
-|FormDataParameter|userName||true|string||
-|FormDataParameter|userName||true|string||
-|FormDataParameter|userName||true|string||
-|FormDataParameter|userName||true|string||
-|FormDataParameter|userName||true|string||
-|FormDataParameter|userName||true|string||
-|FormDataParameter|userName||true|string||
-|FormDataParameter|userName||true|string||
-|FormDataParameter|userName||true|string||
-|FormDataParameter|userName||true|string||
-|FormDataParameter|userName||true|string||
+|FormDataParameter|userSurname||true|string||
+|FormDataParameter|userEmail||true|string||
+|FormDataParameter|addressCity||true|string||
+|FormDataParameter|addressCountry||true|string||
+|FormDataParameter|addressStreet||true|string||
+|FormDataParameter|addressStreetNum||true|string||
+|FormDataParameter|addressZipCode||true|string||
+|FormDataParameter|addressState||true|string||
+|FormDataParameter|bankDetailsAccountNumber||true|string||
+|FormDataParameter|bankDetailsCurrency||true|string||
+|FormDataParameter|email||true|string||
+|FormDataParameter|logo||true|string||
+|FormDataParameter|name||true|string||
+|FormDataParameter|royaltyPercent||true|string||
+|FormDataParameter|resortId||true|string||
+|FormDataParameter|openingHours|See examples|true|string||
+|FormDataParameter|defaultMeetingPoints|See examples|true|string||
+|FormDataParameter|contactsFacebook||false|string||
+|FormDataParameter|contactsTwitter||false|string||
+|FormDataParameter|contactsGoogleplus||false|string||
+|FormDataParameter|contactsPhone||false|string||
+|FormDataParameter|contactsMail||false|string||
+|FormDataParameter|contactsSiteUrl||false|string||
+|FormDataParameter|manuallySetRating||false|string||
 
 
 #### Responses
@@ -1243,7 +1240,26 @@ Modifies an existing school
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|schoolId||true|string||
-|BodyParameter|body||true|School||
+|FormDataParameter|addressCity||false|string||
+|FormDataParameter|addressCountry||false|string||
+|FormDataParameter|addressStreet||false|string||
+|FormDataParameter|addressStreetNum||false|string||
+|FormDataParameter|addressZipCode||false|string||
+|FormDataParameter|addressState||false|string||
+|FormDataParameter|email||false|string||
+|FormDataParameter|logo||false|string||
+|FormDataParameter|name||false|string||
+|FormDataParameter|royaltyPercent||false|string||
+|FormDataParameter|resortId||false|string||
+|FormDataParameter|openingHours|See examples|false|string||
+|FormDataParameter|defaultMeetingPoints|See examples|false|string||
+|FormDataParameter|contactsFacebook||false|string||
+|FormDataParameter|contactsTwitter||false|string||
+|FormDataParameter|contactsGoogleplus||false|string||
+|FormDataParameter|contactsPhone||false|string||
+|FormDataParameter|contactsMail||false|string||
+|FormDataParameter|contactsSiteUrl||false|string||
+|FormDataParameter|manuallySetRating||false|string||
 
 
 #### Responses
@@ -1347,13 +1363,15 @@ GET /school/{schoolId}/clientStats/{clientId}
 
 #### Description
 
-Gets the school stats for a user. Returns a custom JSON.
+Gets the stats for a user at school. Returns a custom JSON.
 
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|schoolId||true|string||
 |PathParameter|clientId||true|string||
+|QueryParameter|timeFrom|Date from which to search. Format: 2015-11-01T10:30:00.000Z|false|string||
+|QueryParameter|timeTo|Date till which to search. Format: 2015-11-01T10:30:00.000Z|false|string||
 
 
 #### Responses
@@ -1449,33 +1467,6 @@ Gets all generators of a school
 
 * Schools
 
-### GET /school/{schoolId}/lessonTemplates
-```
-GET /school/{schoolId}/lessonTemplates
-```
-
-#### Description
-
-Gets all school lesson templates
-
-#### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|PathParameter|schoolId||true|string||
-
-
-#### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|Success|LessonTemplate array|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
-
-
-#### Tags
-
-* Schools
-
 ### GET /school/{schoolId}/messages
 ```
 GET /school/{schoolId}/messages
@@ -1517,6 +1508,7 @@ Gets all transactions for a given school, for a given user ID
 |----|----|----|----|----|----|
 |PathParameter|schoolId||true|string||
 |QueryParameter|userId||false|string||
+|QueryParameter|lessonId||false|string||
 
 
 #### Responses
@@ -1560,33 +1552,6 @@ Signup method
 
 * Default
 
-### POST /transaction
-```
-POST /transaction
-```
-
-#### Description
-
-Creates a new transaction
-
-#### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|BodyParameter|body||true|Transaction||
-
-
-#### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|Success|No Content|
-|400|The submitted request is malformed.|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-
-
-#### Tags
-
-* Payments
-
 ### GET /transaction/{transactionId}
 ```
 GET /transaction/{transactionId}
@@ -1621,13 +1586,13 @@ GET /user
 
 #### Description
 
-Gets users according to parameters (will be paged to avoid huge lists).
+Gets users according to parameters.
 
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|QueryParameter|startPage|Index of the page to fetch|false|null string array||
-|QueryParameter|pageSize|Size of a page|false|null string array||
+|QueryParameter|name||false|string||
+|QueryParameter|surname||false|string||
 
 
 #### Responses
@@ -1637,33 +1602,6 @@ Gets users according to parameters (will be paged to avoid huge lists).
 |400|The submitted request is malformed.|No Content|
 |401|You are not allowed to perform this operation.|No Content|
 |404|The requested resource does not exist.|No Content|
-
-
-#### Tags
-
-* Users
-
-### POST /user
-```
-POST /user
-```
-
-#### Description
-
-Creates a new user.
-
-#### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|BodyParameter|body||true|User||
-
-
-#### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|Success|No Content|
-|400|The submitted request is malformed.|No Content|
-|401|You are not allowed to perform this operation.|No Content|
 
 
 #### Tags
@@ -1682,9 +1620,10 @@ Creates a new stub user.
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|QueryParameter|email|The email of the stub user - This parameter IS mandatory|true|null string array||
-|QueryParameter|firstName|The name of the stub user - This parameter is NOT mandatory|false|null string array||
-|QueryParameter|lastName|The lastName of the stub user - This parameter is NOT mandatory|false|null string array||
+|QueryParameter|email|The email of the stub user|true|string||
+|QueryParameter|name|The name of the stub user|false|string||
+|QueryParameter|surname|The lastName of the stub user|false|string||
+|QueryParameter|schoolId|The ID of the school creating the stub user|false|string||
 
 
 #### Responses
@@ -1693,7 +1632,6 @@ Creates a new stub user.
 |200|Success|No Content|
 |400|The submitted request is malformed.|No Content|
 |401|You do not have sufficient access to perform this operation|No Content|
-|405|Method not allowed.|No Content|
 
 
 #### Tags
@@ -1712,8 +1650,7 @@ Resets a user's password
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|BodyParameter|body||true|User||
-|QueryParameter|email||false|null string array||
+|PathParameter|email||true|string||
 
 
 #### Responses
@@ -1740,8 +1677,7 @@ Resets a user's password
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|BodyParameter|body||true|User||
-|QueryParameter|email||false|null string array||
+|PathParameter|token||true|string||
 
 
 #### Responses
@@ -1796,7 +1732,11 @@ Updates a selected user
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|userId|ID of the user to work with|true|string||
-|BodyParameter|body||true|User||
+|FormDataParameter|name||false|string||
+|FormDataParameter|surname||false|string||
+|FormDataParameter|phoneNumber||false|string||
+|FormDataParameter|languages|See examples|false|string||
+|FormDataParameter|photoURL||false|string||
 
 
 #### Responses
@@ -1906,7 +1846,7 @@ Gets a number of random user feedbacks
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|userId||true|string||
-|QueryParameter|amount|Number of feedbacks to fetch.|false|null string array||
+|QueryParameter|count|Number of feedbacks to fetch.|false|string||
 
 
 #### Responses
@@ -1975,9 +1915,9 @@ Gets all user messages.
 
 * Users
 
-### GET /user/{userId}/stats
+### GET /user/{userId}/stats/{schoolId}
 ```
-GET /user/{userId}/stats
+GET /user/{userId}/stats/{schoolId}
 ```
 
 #### Description
@@ -1988,6 +1928,7 @@ Gets the user stats. Returns a custom JSON.
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|userId||true|string||
+|PathParameter|schoolId||true|string||
 
 
 #### Responses
@@ -2015,7 +1956,6 @@ Gets all user transactions, for a given school
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|userId||true|string||
-|QueryParameter|schoolId||false|string||
 
 
 #### Responses
