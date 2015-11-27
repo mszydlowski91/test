@@ -8,15 +8,14 @@
 |createdAt|Time the user has been created.|true|string (date)||
 |updatedAt|Time the user has been updated.|true|string (date)||
 |deleted|Says whether the user has been deleted. If true - it is scheduled for permanent deletion.|true|boolean||
-|email|The user's email address.|false|string||
-|languages|The languages this user can speak|false|string array||
+|email|The user's email address.|true|string||
+|languages|The languages this user can speak|true|string array||
 |name|The user's name.|true|string||
 |phoneNumber|User's contact number.|false|string||
 |photoURL|URL of user's avatar.|false|string||
 |resetPasswordToken|A unique, random token dedicated for the specific user view to reset the password.|false|string||
 |surname|The user's surname.|true|string||
 |refferalToken|The token assigned to a user when he will try to generate referal links|false|string||
-|ownerSchoolId|The school that created the stub user|false|string||
 
 
 ### LessonTemplate
@@ -24,9 +23,7 @@
 |----|----|----|----|----|
 |_id||true|string||
 |name|Template name.|true|string||
-|lessonName|Generated lessons name.|false|string||
-|private|Determines whether it is a public or private lesson.|false|boolean||
-|instructorBonusFlag|Decides whether an instructor will receive bonus for the generated lessons.|false|boolean||
+|groupFlag|Determines whether it is an individual or a group lesson.|true|boolean||
 |schoolId|School assigned to generated lessons.|true|string||
 |minParticipants|Minimum amount of participants (for group lessons).|false|integer (int32)||
 |maxParticipants|Maximum amount of participants (for a group lesson).|false|integer (int32)||
@@ -34,7 +31,7 @@
 |minAge|Minimum age of the lessons (for group lessons).|false|integer (int32)||
 |maxAge|Maximum age of the lessons (for group lessons).|false|integer (int32)||
 |specialties|Specialty of the generated lessons|false|Specialty array||
-|meetingPoint|Lesson meeting point|false|MeetingPoint array||
+|instructorBonusFlag|Decides whether an instructor will receive bonus for the generated lessons.|false|boolean||
 |comment|A brief description of the template.|false|string||
 
 
@@ -52,7 +49,6 @@ An entity representing a single transaction made by a user or  a school.
 |comment|A brief description of transaction's purpose.|false|string||
 |currency|The currency in which the transaction will be done.|true|string||
 |date|A date at which the transaction occurs.|true|string (date)||
-|deleted|Deleted flag.|false|boolean||
 |productId|EntityID: Type - lesson or bundle, id - prod ID|true|EntityID||
 |schoolId|ID of the school that does the transaction (if it is not manually booked).|false|string||
 |status|The current state of the payment (paid, upaid, etc.).|true|string||
@@ -138,8 +134,8 @@ Default meeting point for a lesson
 |priority|The generator priority (starting from 1, 2, 3, ...), determines the generator precedence in case of overlapping lessons.|true|integer (int32)||
 |bundleTemplateId|Template used to generate bundles.|false|BundleTemplate||
 |schoolId|ID of the school the generator belongs to.|true|string||
-|schedule|Generator lesson generation schedule.|false|Schedule||
-|instructorIds|A list of instructors available for gen lessons.|false|string array||
+|times|List of time intervals for which the lessons / bundles will be generated.|true|TimeInterval||
+|publicFlag|Decides whether the generated lessons and bundles are public.|true|boolean||
 
 
 ### Specialty
@@ -190,7 +186,6 @@ School employee
 |deleted|Says whether the employee was deleted.|true|boolean||
 |comment|Employee comment.|false|string||
 |salary|Salary|true|number (double)||
-|schedule|Employee time off schedule.|false|Schedule||
 
 
 ### Bundle
@@ -249,7 +244,7 @@ Entity representing a feedback (user to instructor, instructor to user or user t
 |toId|ID and entity type of the receiver.|true|EntityID||
 |message|The content of the feedback|false|string||
 |rating|The rating of the feedback|true|number (double)||
-|absences|IDs of the employees / users that were absent.|false|string array||
+|absences|A list of users who didn't show up for the lesson in case it didn't occur after all.|false|string array||
 |comment|A note on the lesson in case of special situations (e.g. if it didn't happen for whatever reason).|false|string||
 
 
@@ -310,7 +305,6 @@ Object representing a skiing resort.
 |name|The name of the resort|true|string||
 |coords|Resort's location|true|Address||
 |pictureURL|Resort picture URL.|false|string||
-|schools|A list of schools working in this resort.|true|string array||
 
 
 ### School
@@ -331,6 +325,7 @@ Information about a given school
 |openingHours|School working time (internal object with start and end hour).|true|string (date) array||
 |resort|The resort the school belongs to.|true|Resort||
 |manuallySetRating|School's rating|false|number (double)||
+|enabled|Says whether the school lesson is enabled (e.g. whether its lessons appear for users).|true|boolean||
 |active|Says whether the school is active.|true|boolean||
 |royaltyPercent|The percentage of money the school receives for every lesson.|true|number (double)||
 

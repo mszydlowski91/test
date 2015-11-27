@@ -10,7 +10,7 @@ Contact: Blue Brick API Team
 Contact Email: adam.domagalski@blue-brick.com
 
 ### URI scheme
-Host: localhost:8080
+Host: api.adam.skipodium.com
 
 ### Tags
 
@@ -34,6 +34,8 @@ Host: localhost:8080
 * Generators
 * Employees: Items related to staff management
 * Employees
+* Resorts: Items related to resorts
+* Resorts
 
 
 ### Consumes

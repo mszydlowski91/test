@@ -6,7 +6,7 @@
 	"produces": [
 		"application/json"
 	],
-	"host": "localhost:8080",
+	"host": "api.adam.skipodium.com",
 	"info": {
 		"description": "REST-ful API used to communicate with the Skipodium backend.",
 		"version": "1.0.0",
@@ -47,6 +47,9 @@
 	}, {
 		"name": "Employees",
 		"description": "Items related to staff management"
+	},{
+		"name": "Resorts",
+		"description": "Items related to resorts"
 	}],
 	"paths": {
 		"/": {
@@ -593,21 +596,27 @@
 				"consumes": [],
 				"produces": [],
 				"parameters": [{
-					"name": "resort",
+					"name": "private",
 					"in": "query",
-					"description": "Resort",
+					"description": "Says whether it is a private or group lesson",
+					"required": true,
+					"type": "boolean"
+				}, {
+					"name": "resortId",
+					"in": "query",
+					"description": "ID of the resort the lesson's school is at",
 					"required": false,
 					"type": "string"
 				}, {
-					"name": "timeFrom",
+					"name": "date",
 					"in": "query",
-					"description": "Date from which to search.",
+					"description": "Date of the lesson.",
 					"required": false,
 					"type": "string"
 				}, {
-					"name": "timeTo",
+					"name": "duration",
 					"in": "query",
-					"description": "Date till which to search.",
+					"description": "Lesson duration.",
 					"required": false,
 					"type": "string"
 				}, {
@@ -617,9 +626,21 @@
 					"required": false,
 					"type": "string"
 				}, {
-					"name": "specialty",
+					"name": "specialtyType",
 					"in": "query",
-					"description": "Target specialty.",
+					"description": "Target specialty type.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "level",
+					"in": "query",
+					"description": "Target skill level.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "age",
+					"in": "query",
+					"description": "Target age.",
 					"required": false,
 					"type": "string"
 				}, {
@@ -641,9 +662,9 @@
 					"required": false,
 					"type": "string"
 				}, {
-					"name": "expertise",
+					"name": "expertises",
 					"in": "query",
-					"description": "Expertises (can be multiple, separate them by a comma).",
+					"description": "Expertises - JSON array of expertises.",
 					"required": false,
 					"type": "string"
 				}],
@@ -901,13 +922,13 @@
 				}, {
 					"name": "minPrice",
 					"in": "query",
-					"description": "Minimum price. Needs numParticipants & maxPrice",
+					"description": "Minimum price.",
 					"required": false,
 					"type": "string"
 				}, {
 					"name": "maxPrice",
 					"in": "query",
-					"description": "Maximum price. Needs numParticipants & minPrice",
+					"description": "Maximum price.",
 					"required": false,
 					"type": "string"
 				}, {
@@ -2041,7 +2062,26 @@
 				}, {
 					"name": "resortId",
 					"in": "formData",
-					"required": true,
+					"description" : "ID of an existing resort",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "resortName",
+					"in": "formData",
+					"description" : "Resort name (if ID not specified)",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "resortLat",
+					"in": "formData",
+					"description" : "Resort lat (if ID not specified)",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "resortLng",
+					"in": "formData",
+					"description" : "Resort lng (if ID not specified)",
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "openingHours",
@@ -3120,6 +3160,41 @@
 					}
 				}
 			}
+		},
+		"/resort": {
+			"get": {
+				"tags": [
+					"Resorts"
+				],
+				"summary": "Gets resorts by params.",
+				"description": "Gets resorts by params.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [{
+					"name": "name",
+					"in": "query",
+					"description": "Resort name.",
+					"required": false,
+					"type": "string"					
+				}],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Resort"
+							}
+						}
+					},
+					"401": {
+						"description": "You are not allowed to perform this operation."
+					},
+					"404": {
+						"description": "The email is not in the database."
+					}
+				}
+			}
 		}
 	},
 	"definitions": {
@@ -3128,6 +3203,8 @@
 				"_id",
 				"active",
 				"deleted",
+				"email",
+				"languages",
 				"name",
 				"surname",
 				"createdAt",
@@ -3209,11 +3286,6 @@
 					"type": "string",
 					"example": "sample refferalToken",
 					"description": "The token assigned to a user when he will try to generate referal links"
-				},
-				"ownerSchoolId": {
-					"type": "string",
-					"example": "sample id",
-					"description": "The school that created the stub user"
 				}
 			}
 		},
@@ -3235,20 +3307,10 @@
 					"example": "sample name",
 					"description": "Template name."
 				},
-				"lessonName": {
-					"type": "string",
-					"example": "sample lesson name",
-					"description": "Generated lessons name."
-				},
-				"private": {
+				"groupFlag": {
 					"type": "boolean",
 					"example": "false",
-					"description": "Determines whether it is a public or private lesson."
-				},
-				"instructorBonusFlag": {
-					"type": "boolean",
-					"example": "false",
-					"description": "Determines whether the instructor gets bonus for generated lessons."
+					"description": "Determines whether it is an individual or a group lesson."
 				},
 				"schoolId": {
 					"type": "string",
@@ -3294,14 +3356,6 @@
 					"items": {
 						"type": "string",
 						"$ref": "#/definitions/Specialty"
-					}
-				},
-				"meetingPoint": {
-					"type": "array",
-					"description": "Lesson meeting point",
-					"items": {
-						"type": "string",
-						"$ref": "#/definitions/MeetingPoint"
 					}
 				},
 				"instructorBonusFlag": {
@@ -3372,11 +3426,6 @@
 					"format": "date",
 					"example": "1.1",
 					"description": "A date at which the transaction occurs."
-				},
-				"deleted": {
-					"type": "boolean",
-					"example": "false",
-					"description": "Deleted flag."
 				},
 				"productId": {
 					"description": "EntityID: Type - lesson or bundle, id - prod ID",
@@ -3670,16 +3719,14 @@
 					"example": "sample schoolId",
 					"description": "ID of the school the generator belongs to."
 				},
-				"schedule": {
-					"description": "Generator lesson generation schedule.",
-					"$ref": "#/definitions/Schedule"
+				"times": {
+					"description": "List of time intervals for which the lessons / bundles will be generated.",
+					"$ref": "#/definitions/TimeInterval"
 				},
-				"instructorIds": {
-					"type": "array",
-					"description": "A list of instructors available for gen lessons.",
-					"items": {
-						"type": "string"						
-					}
+				"publicFlag": {
+					"type": "boolean",
+					"example": "false",
+					"description": "Decides whether the generated lessons and bundles are public."
 				}
 			}
 		},
@@ -3825,14 +3872,11 @@
 					"format": "double",
 					"example": "1.1",
 					"description": "Salary"
-				},
-				"schedule": {
-					"description": "Employee time off schedule.",
-					"$ref": "#/definitions/Schedule"
 				}
 			},
 			"description": "School employee"
 		},
+
 		"Bundle": {
 			"required": [
 				"_id",
@@ -4008,15 +4052,7 @@
 					"type": "string",
 					"example": "sample comment",
 					"description": "A note on the lesson in case of special situations (e.g. if it didn't happen for whatever reason)."
-				},
-				"absences" : {
-					"type": "array",
-					"description": "IDs of the employees / users that were absent.",
-					"items": {
-						"type": "string"						
-					}
 				}
-				
 			},
 			"description": "Entity representing a feedback (user to instructor, instructor to user or user to school)"
 		},
@@ -4204,8 +4240,7 @@
 		"Resort": {
 			"required": [
 				"coords",
-				"name",
-				"schools"
+				"name"				
 			],
 			"properties": {
 				"name": {
@@ -4221,15 +4256,7 @@
 					"type": "string",
 					"example": "sample name",
 					"description": "Resort picture URL."
-				},
-				"schools": {
-					"type": "array",
-					"description": "A list of schools working in this resort.",
-					"items": {
-						"type": "string",
-						"example": "1"
-					}
-				}
+				}				
 			},
 			"description": "Object representing a skiing resort."
 		},
@@ -4242,6 +4269,7 @@
 				"defaultMeetingPoints",
 				"deleted",
 				"email",
+				"enabled",
 				"logo",
 				"name",
 				"openingHours",
@@ -4313,7 +4341,12 @@
 					"format": "double",
 					"example": "1.1",
 					"description": "School's rating"
-				},				
+				},
+				"enabled": {
+					"type": "boolean",
+					"example": "false",
+					"description": "Says whether the school lesson is enabled (e.g. whether its lessons appear for users)."
+				},
 				"active": {
 					"type": "boolean",
 					"example": "false",

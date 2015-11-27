@@ -503,8 +503,8 @@ Gets lessons by parameters
 |QueryParameter|timeTo|Date till which to search.|false|string||
 |QueryParameter|numParticipants|Target number of participants.|false|string||
 |QueryParameter|specialty|Target specialty.|false|string||
-|QueryParameter|minPrice|Minimum price. Needs numParticipants & maxPrice|false|string||
-|QueryParameter|maxPrice|Maximum price. Needs numParticipants & minPrice|false|string||
+|QueryParameter|minPrice|Minimum price.|false|string||
+|QueryParameter|maxPrice|Maximum price.|false|string||
 |QueryParameter|expertise|Expertises (can be multiple, separate them by a comma).|false|string||
 |QueryParameter|age|Target age.|false|string||
 |QueryParameter|level||false|string||
@@ -827,15 +827,18 @@ Returns a list of entries: {imageUrl, firstName, surname, lowestPrice, specialti
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|QueryParameter|resort|Resort|false|string||
-|QueryParameter|timeFrom|Date from which to search.|false|string||
-|QueryParameter|timeTo|Date till which to search.|false|string||
+|QueryParameter|private|Says whether it is a private or group lesson|true|boolean||
+|QueryParameter|resortId|ID of the resort the lesson's school is at|false|string||
+|QueryParameter|date|Date of the lesson.|false|string||
+|QueryParameter|duration|Lesson duration.|false|string||
 |QueryParameter|numParticipants|Target number of participants.|false|string||
-|QueryParameter|specialty|Target specialty.|false|string||
+|QueryParameter|specialtyType|Target specialty type.|false|string||
+|QueryParameter|level|Target skill level.|false|string||
+|QueryParameter|age|Target age.|false|string||
 |QueryParameter|minPrice|Minimum price.|false|string||
 |QueryParameter|maxPrice|Maximum price.|false|string||
 |QueryParameter|language|Language.|false|string||
-|QueryParameter|expertise|Expertises (can be multiple, separate them by a comma).|false|string||
+|QueryParameter|expertises|Expertises - JSON array of expertises.|false|string||
 
 
 #### Responses
@@ -1149,6 +1152,33 @@ Marks the message as read
 
 * Messages
 
+### GET /resort
+```
+GET /resort
+```
+
+#### Description
+
+Gets resorts by params.
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|QueryParameter|name|Resort name.|false|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|Resort array|
+|401|You are not allowed to perform this operation.|No Content|
+|404|The email is not in the database.|No Content|
+
+
+#### Tags
+
+* Resorts
+
 ### POST /school
 ```
 POST /school
@@ -1176,7 +1206,10 @@ Creates a new school
 |FormDataParameter|logo||true|string||
 |FormDataParameter|name||true|string||
 |FormDataParameter|royaltyPercent||true|string||
-|FormDataParameter|resortId||true|string||
+|FormDataParameter|resortId|ID of an existing resort|false|string||
+|FormDataParameter|resortName|Resort name (if ID not specified)|false|string||
+|FormDataParameter|resortLat|Resort lat (if ID not specified)|false|string||
+|FormDataParameter|resortLng|Resort lng (if ID not specified)|false|string||
 |FormDataParameter|openingHours|See examples|true|string||
 |FormDataParameter|defaultMeetingPoints|See examples|true|string||
 |FormDataParameter|contactsFacebook||false|string||
