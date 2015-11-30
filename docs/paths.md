@@ -1500,6 +1500,33 @@ Gets all generators of a school
 
 * Schools
 
+### GET /school/{schoolId}/lessonTemplates
+```
+GET /school/{schoolId}/lessonTemplates
+```
+
+#### Description
+
+Gets all lesson templates of this school
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|schoolId||true|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|LessonTemplate array|
+|401|You are not allowed to perform this operation.|No Content|
+|404|The requested resource does not exist.|No Content|
+
+
+#### Tags
+
+* Schools
+
 ### GET /school/{schoolId}/messages
 ```
 GET /school/{schoolId}/messages
@@ -1770,6 +1797,8 @@ Updates a selected user
 |FormDataParameter|phoneNumber||false|string||
 |FormDataParameter|languages|See examples|false|string||
 |FormDataParameter|photoURL||false|string||
+|FormDataParameter|birthDate||false|string||
+|FormDataParameter|nationality||false|string||
 
 
 #### Responses

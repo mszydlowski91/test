@@ -6,7 +6,7 @@
 	"produces": [
 		"application/json"
 	],
-	"host": "api.adam.skipodium.com",
+	"host": "localhost:8080",
 	"info": {
 		"description": "REST-ful API used to communicate with the Skipodium backend.",
 		"version": "1.0.0",
@@ -2340,6 +2340,40 @@
 				}
 			}
 		},
+		"/school/{schoolId}/lessonTemplates": {
+			"get": {
+				"tags": [
+					"Schools"
+				],
+				"summary": "Gets all lesson templates of this school",
+				"description": "Gets all lesson templates of this school",
+				"consumes": [],
+				"produces": [],
+				"parameters": [{
+					"name": "schoolId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/LessonTemplate"
+							}
+						}
+					},
+					"401": {
+						"description": "You are not allowed to perform this operation."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
+					}
+				}
+			}
+		},
 		"/school/{schoolId}/activate": {
 			"put": {
 				"tags": [
@@ -2822,6 +2856,16 @@
 					"in": "formData",					
 					"required": false,
 					"type": "string"	
+				},{
+					"name": "birthDate",
+					"in": "formData",					
+					"required": false,
+					"type": "string"	
+				},{
+					"name": "nationality",
+					"in": "formData",					
+					"required": false,
+					"type": "string"	
 				}],
 				"responses": {
 					"200": {
@@ -3229,6 +3273,11 @@
 						"example": "sample auth"
 					}
 				},
+				"birthDate": {
+					"type": "string",
+					"format": "date",
+					"description": "User's date of birth."
+				},
 				"createdAt": {
 					"type": "string",
 					"format": "date",
@@ -3256,6 +3305,11 @@
 						"type": "string",
 						"example": "sample languages"
 					}
+				},
+				"nationality": {
+					"type": "string",
+					"example": "Italy",
+					"description": "The user's nationality."
 				},
 				"name": {
 					"type": "string",
