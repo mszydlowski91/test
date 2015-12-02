@@ -382,7 +382,7 @@ Creates a new generator
 |FormDataParameter|schoolId|ID of the school that owns the generator.|true|string||
 |FormDataParameter|comment|Comment about the generator.|false|string||
 |FormDataParameter|instructorIds|Array of instructor IDs for this generator.|true|string||
-|FormDataParameter|schedule|Generator schedule object.|true|string||
+|FormDataParameter|schedules|Generator schedule list. (JSON object array)|true|string||
 
 
 #### Responses
@@ -436,7 +436,7 @@ Edits an existing generator
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|PathParameter|generatorId||false|string||
+|PathParameter|generatorId||true|string||
 |FormDataParameter|name|Name of the new generator.|false|string||
 |FormDataParameter|priority|Generator priority.|false|string||
 |FormDataParameter|generatorType|Generator type (lessonGenerator or bundleGenerator).|false|string||
@@ -444,7 +444,7 @@ Edits an existing generator
 |FormDataParameter|schoolId|ID of the school that owns the generator.|false|string||
 |FormDataParameter|comment|Comment about the generator.|false|string||
 |FormDataParameter|instructorIds|Array of instructor IDs for this generator.|false|string||
-|FormDataParameter|schedule|Generator schedule object.|false|string||
+|FormDataParameter|schedules|Generator schedule list.|false|string||
 
 
 #### Responses
@@ -549,12 +549,11 @@ Creates a new lesson
 |FormDataParameter|instructorBonusFlag|Instructor bonus flag|true|boolean||
 |FormDataParameter|schoolId|School id|true|string||
 |FormDataParameter|name|Lesson name.|true|string||
-|FormDataParameter|clientSource|user/school/whiteLabel|true|string||
 |FormDataParameter|comment|Comment about the lesson.|false|string||
 |FormDataParameter|generatorId|ID of the generator that created the lesson.|false|string||
-|FormDataParameter|geoName|Name of the meeting point.|false|string||
-|FormDataParameter|geoLat|Latitude of the meeting point.|false|string||
-|FormDataParameter|geoLng|Longitude of the meeting point.|false|string||
+|FormDataParameter|geoName|Name of the meeting point.|true|string||
+|FormDataParameter|geoLat|Latitude of the meeting point.|true|string||
+|FormDataParameter|geoLng|Longitude of the meeting point.|true|string||
 |FormDataParameter|private|Says whether the lesson is private.|false|boolean||
 
 
@@ -622,7 +621,6 @@ Modifies an existing lesson
 |FormDataParameter|instructorBonusFlag|Instructor bonus flag|false|boolean||
 |FormDataParameter|schoolId|School id|false|string||
 |FormDataParameter|name|Lesson name.|false|string||
-|FormDataParameter|clientSource|user/school/whiteLabel|false|string||
 |FormDataParameter|comment|Comment about the lesson.|false|string||
 |FormDataParameter|generatorId|ID of the generator that created the lesson.|false|string||
 |FormDataParameter|meetingPoint|Meeting point JSON.|false|string||
@@ -738,7 +736,7 @@ Purchase a new lesson.
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|lessonId||true|string||
-|FormDataParameter|guestIds|A list of IDs of users the lesson was bought for (JSON array).|false|string||
+|FormDataParameter|guestIds|A list of IDs of users the lesson was bought for (comma separated).|false|string||
 |FormDataParameter|number|Credit card number.|true|string||
 |FormDataParameter|cvc|Credit card CVC number.|true|string||
 |FormDataParameter|exp_month|Expiration month of the credit card.|true|string||
@@ -770,7 +768,7 @@ Manually purchase a new lesson by a school manager or instructor.
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|lessonId||true|string||
-|FormDataParameter|guestIds|A list of IDs of users the lesson was bought for (JSON array).|true|string||
+|FormDataParameter|guestIds|A list of IDs of users the lesson was bought for (comma separated).|true|string||
 |FormDataParameter|amount|The amount of money the purchasing person paid.|true|number||
 |FormDataParameter|comment|The amount of money the purchasing person paid.|false|string||
 
@@ -1680,10 +1678,10 @@ Creates a new stub user.
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|QueryParameter|email|The email of the stub user|true|string||
-|QueryParameter|name|The name of the stub user|false|string||
-|QueryParameter|surname|The lastName of the stub user|false|string||
-|QueryParameter|schoolId|The ID of the school creating the stub user|false|string||
+|FormDataParameter|email|The email of the stub user|true|string||
+|FormDataParameter|name|The name of the stub user|true|string||
+|FormDataParameter|surname|The lastName of the stub user|true|string||
+|FormDataParameter|schoolId|The ID of the school creating the stub user|true|string||
 
 
 #### Responses

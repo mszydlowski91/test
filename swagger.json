@@ -733,9 +733,9 @@
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "schedule",
+					"name": "schedules",
 					"in": "formData",
-					"description": "Generator schedule object.",
+					"description": "Generator schedule list. (JSON object array)",
 					"required": true,
 					"type": "string"
 				}],
@@ -793,7 +793,7 @@
 				"parameters": [{
 					"name": "generatorId",
 					"in": "path",
-					"required": false,
+					"required": true,
 					"type": "string"
 				}, {
 					"name": "name",
@@ -838,9 +838,9 @@
 					"required": false,
 					"type": "string"
 				}, {
-					"name": "schedule",
+					"name": "schedules",
 					"in": "formData",
-					"description": "Generator schedule object.",
+					"description": "Generator schedule list.",
 					"required": false,
 					"type": "string"
 				}],
@@ -1067,12 +1067,6 @@
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "clientSource",
-					"in": "formData",
-					"description": "user/school/whiteLabel",
-					"required": true,
-					"type": "string"
-				}, {
 					"name": "comment",
 					"in": "formData",
 					"description": "Comment about the lesson.",
@@ -1088,19 +1082,19 @@
 					"name": "geoName",
 					"in": "formData",
 					"description": "Name of the meeting point.",
-					"required": false,
+					"required": true,
 					"type": "string"
 				}, {
 					"name": "geoLat",
 					"in": "formData",
 					"description": "Latitude of the meeting point.",
-					"required": false,
+					"required": true,
 					"type": "string"
 				}, {
 					"name": "geoLng",
 					"in": "formData",
 					"description": "Longitude of the meeting point.",
-					"required": false,
+					"required": true,
 					"type": "string"
 				}, {
 					"name": "private",
@@ -1237,12 +1231,6 @@
 					"name": "name",
 					"in": "formData",
 					"description": "Lesson name.",
-					"required": false,
-					"type": "string"
-				}, {
-					"name": "clientSource",
-					"in": "formData",
-					"description": "user/school/whiteLabel",
 					"required": false,
 					"type": "string"
 				}, {
@@ -1433,7 +1421,7 @@
 				}, {
 					"name": "guestIds",
 					"in": "formData",
-					"description": "A list of IDs of users the lesson was bought for (JSON array).",
+					"description": "A list of IDs of users the lesson was bought for (comma separated).",
 					"required": false,					
 					"type": "string"					
 				}, {
@@ -1491,7 +1479,7 @@
 				}, {
 					"name": "guestIds",
 					"in": "formData",
-					"description": "A list of IDs of users the lesson was bought for (JSON array).",
+					"description": "A list of IDs of users the lesson was bought for (comma separated).",
 					"required": true,
 					"type": "string"
 				}, {
@@ -2746,27 +2734,27 @@
 				"produces": [],
 				"parameters": [{
 					"name": "email",
-					"in": "query",
+					"in": "formData",
 					"description": "The email of the stub user",
 					"required": true,
 					"type": "string"				
 				}, {
 					"name": "name",
-					"in": "query",
+					"in": "formData",
 					"description": "The name of the stub user",
-					"required": false,
+					"required": true,
 					"type": "string"	
 				}, {
 					"name": "surname",
-					"in": "query",
+					"in": "formData",
 					"description": "The lastName of the stub user",
-					"required": false,
+					"required": true,
 					"type": "string"	
 				}, {
 					"name": "schoolId",
-					"in": "query",
+					"in": "formData",
 					"description": "The ID of the school creating the stub user",
-					"required": false,
+					"required": true,
 					"type": "string"	
 				}],
 				"responses": {
@@ -3705,7 +3693,8 @@
 				"publicFlag",
 				"schoolId",
 				"times",
-				"generatorType"
+				"generatorType",
+				"schedules"
 			],
 			"properties": {
 				"_id": {
@@ -3729,6 +3718,15 @@
 					"items": {
 						"type": "string",
 						"example": "1"
+					}
+				},
+				"schedules": {
+					"type": "array",
+					"description": "A list of generator schedules.",
+					"items": {
+						"type": "string",
+						"example": "templ",
+						"$ref": "#/definitions/Schedule"
 					}
 				},
 				"name": {
@@ -4151,9 +4149,7 @@
 		"Lesson": {
 			"required": [
 				"_id",
-				"booked",
 				"private",
-				"clientSource",
 				"deleted",
 				"instructorId",
 				"meetingPoint",
@@ -4166,11 +4162,6 @@
 					"type": "string",
 					"example": "1"
 				},
-				"booked": {
-					"type": "boolean",
-					"example": "false",
-					"description": "Whether it is booked or not"
-				},
 				"private": {
 					"type": "boolean",
 					"example": "false",
@@ -4180,11 +4171,6 @@
 					"type": "string",
 					"example": "1",
 					"description": "Id of the bundle containing the lesson"
-				},
-				"clientSource": {
-					"type": "string",
-					"example": "sample clientSource",
-					"description": "Skipodium user, manually booked by school, white label etc"
 				},
 				"comment": {
 					"type": "string",
