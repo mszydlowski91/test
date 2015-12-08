@@ -608,7 +608,7 @@ Modifies an existing lesson
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|PathParameter|lessonId|ID of the lesson to work with.|false|string||
+|PathParameter|lessonId|ID of the lesson to work with.|true|string||
 |FormDataParameter|timeFrom|Date from which to search.|false|string||
 |FormDataParameter|timeTo|Date till which to search.|false|string||
 |FormDataParameter|minParticipants|Min number of participants.|false|string||
@@ -707,8 +707,8 @@ Change the instructor assigned to the lesson
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|PathParameter|instructorId||true|string||
 |PathParameter|lessonId||true|string||
+|PathParameter|instructorId||true|string||
 
 
 #### Responses
@@ -1189,27 +1189,24 @@ Creates a new school
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|FormDataParameter|userName||true|string||
-|FormDataParameter|userSurname||true|string||
-|FormDataParameter|userEmail||true|string||
-|FormDataParameter|addressCity||true|string||
-|FormDataParameter|addressCountry||true|string||
-|FormDataParameter|addressStreet||true|string||
-|FormDataParameter|addressStreetNum||true|string||
-|FormDataParameter|addressZipCode||true|string||
-|FormDataParameter|addressState||true|string||
-|FormDataParameter|bankDetailsAccountNumber||true|string||
-|FormDataParameter|bankDetailsCurrency||true|string||
+|FormDataParameter|addressCity||false|string||
+|FormDataParameter|addressCountry||false|string||
+|FormDataParameter|addressStreet||false|string||
+|FormDataParameter|addressStreetNum||false|string||
+|FormDataParameter|addressZipCode||false|string||
+|FormDataParameter|addressState||false|string||
+|FormDataParameter|bankDetailsAccountNumber||false|string||
+|FormDataParameter|bankDetailsCurrency||false|string||
 |FormDataParameter|email||true|string||
-|FormDataParameter|logo||true|string||
+|FormDataParameter|logo||false|string||
 |FormDataParameter|name||true|string||
-|FormDataParameter|royaltyPercent||true|string||
+|FormDataParameter|royaltyPercent||false|string||
 |FormDataParameter|resortId|ID of an existing resort|false|string||
 |FormDataParameter|resortName|Resort name (if ID not specified)|false|string||
 |FormDataParameter|resortLat|Resort lat (if ID not specified)|false|string||
 |FormDataParameter|resortLng|Resort lng (if ID not specified)|false|string||
-|FormDataParameter|openingHours|See examples|true|string||
-|FormDataParameter|defaultMeetingPoints|See examples|true|string||
+|FormDataParameter|openingHours|See examples|false|string||
+|FormDataParameter|defaultMeetingPoints|See examples|false|string||
 |FormDataParameter|contactsFacebook||false|string||
 |FormDataParameter|contactsTwitter||false|string||
 |FormDataParameter|contactsGoogleplus||false|string||
@@ -1346,6 +1343,7 @@ Gets a list of school clients
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|schoolId||true|string||
+|QueryParameter|lessonId|ID of the lesson to get the school clients for.|false|string||
 
 
 #### Responses
@@ -2016,6 +2014,8 @@ Gets all user transactions, for a given school
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|userId||true|string||
+|QueryParameter|timeFrom||false|string||
+|QueryParameter|timeTo||false|string||
 
 
 #### Responses

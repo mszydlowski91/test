@@ -6,7 +6,7 @@
 	"produces": [
 		"application/json"
 	],
-	"host": "localhost:8080",
+	"host": "api.adam.skipodium.com",
 	"info": {
 		"description": "REST-ful API used to communicate with the Skipodium backend.",
 		"version": "1.0.0",
@@ -1159,7 +1159,7 @@
 					"name": "lessonId",
 					"in": "path",
 					"description": "ID of the lesson to work with.",
-					"required": false,
+					"required": true,
 					"type": "string"
 				}, {
 					"name": "timeFrom",
@@ -1381,12 +1381,12 @@
 				"consumes": [],
 				"produces": [],
 				"parameters": [{
-					"name": "instructorId",
+					"name": "lessonId",
 					"in": "path",
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "lessonId",
+					"name": "instructorId",
 					"in": "path",
 					"required": true,
 					"type": "string"
@@ -1973,59 +1973,44 @@
 				"consumes": [],
 				"produces": [],
 				"parameters": [{
-					"name": "userName",
-					"in": "formData",
-					"required": true,
-					"type": "string"
-				}, {
-					"name": "userSurname",
-					"in": "formData",
-					"required": true,
-					"type": "string"
-				}, {
-					"name": "userEmail",
-					"in": "formData",
-					"required": true,
-					"type": "string"
-				}, {
 					"name": "addressCity",
 					"in": "formData",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "addressCountry",
 					"in": "formData",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "addressStreet",
 					"in": "formData",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "addressStreetNum",
 					"in": "formData",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "addressZipCode",
 					"in": "formData",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "addressState",
 					"in": "formData",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "bankDetailsAccountNumber",
 					"in": "formData",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "bankDetailsCurrency",
 					"in": "formData",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "email",
@@ -2035,7 +2020,7 @@
 				}, {
 					"name": "logo",
 					"in": "formData",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "name",
@@ -2045,7 +2030,7 @@
 				}, {
 					"name": "royaltyPercent",
 					"in": "formData",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "resortId",
@@ -2075,13 +2060,13 @@
 					"name": "openingHours",
 					"in": "formData",
 					"description" : "See examples",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "defaultMeetingPoints",
 					"in": "formData",
 					"description" : "See examples",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "contactsFacebook",
@@ -2404,6 +2389,12 @@
 					"name": "schoolId",
 					"in": "path",
 					"required": true,
+					"type": "string"
+				},{
+					"name": "lessonId",
+					"in": "query",
+					"description" : "ID of the lesson to get the school clients for.",
+					"required": false,
 					"type": "string"
 				}],
 				"responses": {
@@ -3116,6 +3107,16 @@
 					"name": "userId",
 					"in": "path",
 					"required": true,
+					"type": "string"
+				}, {
+					"name": "timeFrom",
+					"in": "query",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "timeTo",
+					"in": "query",
+					"required": false,
 					"type": "string"
 				}],
 				"responses": {
