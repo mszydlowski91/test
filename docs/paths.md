@@ -511,6 +511,7 @@ Gets lessons by parameters
 |QueryParameter|instructorId|Instructor id|false|string||
 |QueryParameter|instructorBonusFlag|Instructor bonus flag|false|boolean||
 |QueryParameter|schoolId|School id|false|string||
+|QueryParameter|online||false|boolean||
 
 
 #### Responses

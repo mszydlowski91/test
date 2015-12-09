@@ -257,8 +257,8 @@ Helper object defining an entity type
 
 |Name|Description|Required|Schema|Default|
 |----|----|----|----|----|
-|entityId|ID of the object selected by `entity` field|true|string||
-|entity|Selects an entity type: school, employee, user, lesson, bundle|true|string||
+|id|ID of the object selected by `entityName` field|true|string||
+|entityName|Selects an entity type: school, employee, user, lesson, bundle|true|string||
 
 
 ### Geo
