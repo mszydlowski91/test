@@ -80,6 +80,27 @@ Twitterlogin method.
 
 * Default
 
+### GET /clientToken
+```
+GET /clientToken
+```
+
+#### Description
+
+Gets the Braintree client token
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|No Content|
+|401|You are not allowed to perform this operation.|No Content|
+|404|The requested resource does not exist.|No Content|
+
+
+#### Tags
+
+* Payments
+
 ### POST /contact
 ```
 POST /contact
@@ -286,8 +307,8 @@ Gets the stats of the employee. Returns a custom JSON.
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|employeeId||true|string||
-|QueryParameter|startDate|Date from which to search.|false|string||
-|QueryParameter|endDate|Date till which to search.|false|string||
+|QueryParameter|timeFrom|Date from which to search.|false|string||
+|QueryParameter|timeTo|Date till which to search.|false|string||
 
 
 #### Responses
@@ -315,7 +336,9 @@ Gets the times off of the employee.
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|employeeId||true|string||
-|QueryParameter|date|Month to get the times off for.|true|string (date)||
+|QueryParameter|month|Month to get the times off for (alternatively use timeFrom/timeTo)|false|string||
+|QueryParameter|timeFrom|Lower time bound (alternatively use month)|false|string||
+|QueryParameter|timeTo|Upper time bound (alternatively use month)|false|string||
 
 
 #### Responses
@@ -382,7 +405,7 @@ Creates a new generator
 |FormDataParameter|schoolId|ID of the school that owns the generator.|true|string||
 |FormDataParameter|comment|Comment about the generator.|false|string||
 |FormDataParameter|instructorIds|Array of instructor IDs for this generator.|true|string||
-|FormDataParameter|schedules|Generator schedule list. (JSON object array)|true|string||
+|FormDataParameter|schedule|Generator schedule object.|true|string||
 
 
 #### Responses
@@ -436,7 +459,7 @@ Edits an existing generator
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|PathParameter|generatorId||true|string||
+|PathParameter|generatorId||false|string||
 |FormDataParameter|name|Name of the new generator.|false|string||
 |FormDataParameter|priority|Generator priority.|false|string||
 |FormDataParameter|generatorType|Generator type (lessonGenerator or bundleGenerator).|false|string||
@@ -444,7 +467,7 @@ Edits an existing generator
 |FormDataParameter|schoolId|ID of the school that owns the generator.|false|string||
 |FormDataParameter|comment|Comment about the generator.|false|string||
 |FormDataParameter|instructorIds|Array of instructor IDs for this generator.|false|string||
-|FormDataParameter|schedules|Generator schedule list.|false|string||
+|FormDataParameter|schedule|Generator schedule object.|false|string||
 
 
 #### Responses
@@ -511,7 +534,6 @@ Gets lessons by parameters
 |QueryParameter|instructorId|Instructor id|false|string||
 |QueryParameter|instructorBonusFlag|Instructor bonus flag|false|boolean||
 |QueryParameter|schoolId|School id|false|string||
-|QueryParameter|online||false|boolean||
 
 
 #### Responses
@@ -550,11 +572,12 @@ Creates a new lesson
 |FormDataParameter|instructorBonusFlag|Instructor bonus flag|true|boolean||
 |FormDataParameter|schoolId|School id|true|string||
 |FormDataParameter|name|Lesson name.|true|string||
+|FormDataParameter|clientSource|user/school/whiteLabel|true|string||
 |FormDataParameter|comment|Comment about the lesson.|false|string||
 |FormDataParameter|generatorId|ID of the generator that created the lesson.|false|string||
-|FormDataParameter|geoName|Name of the meeting point.|true|string||
-|FormDataParameter|geoLat|Latitude of the meeting point.|true|string||
-|FormDataParameter|geoLng|Longitude of the meeting point.|true|string||
+|FormDataParameter|geoName|Name of the meeting point.|false|string||
+|FormDataParameter|geoLat|Latitude of the meeting point.|false|string||
+|FormDataParameter|geoLng|Longitude of the meeting point.|false|string||
 |FormDataParameter|private|Says whether the lesson is private.|false|boolean||
 
 
@@ -622,6 +645,7 @@ Modifies an existing lesson
 |FormDataParameter|instructorBonusFlag|Instructor bonus flag|false|boolean||
 |FormDataParameter|schoolId|School id|false|string||
 |FormDataParameter|name|Lesson name.|false|string||
+|FormDataParameter|clientSource|user/school/whiteLabel|false|string||
 |FormDataParameter|comment|Comment about the lesson.|false|string||
 |FormDataParameter|generatorId|ID of the generator that created the lesson.|false|string||
 |FormDataParameter|meetingPoint|Meeting point JSON.|false|string||
@@ -708,8 +732,8 @@ Change the instructor assigned to the lesson
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|PathParameter|lessonId||true|string||
 |PathParameter|instructorId||true|string||
+|PathParameter|lessonId||true|string||
 
 
 #### Responses
@@ -718,38 +742,6 @@ Change the instructor assigned to the lesson
 |200|The instructor has been changed.|No Content|
 |401|You are not allowed to perform this operation.|No Content|
 |404|The requested resource does not exist.|No Content|
-
-
-#### Tags
-
-* Lessons
-
-### POST /lesson/{lessonId}/purchase
-```
-POST /lesson/{lessonId}/purchase
-```
-
-#### Description
-
-Purchase a new lesson.
-
-#### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|PathParameter|lessonId||true|string||
-|FormDataParameter|guestIds|A list of IDs of users the lesson was bought for (comma separated).|false|string||
-|FormDataParameter|number|Credit card number.|true|string||
-|FormDataParameter|cvc|Credit card CVC number.|true|string||
-|FormDataParameter|exp_month|Expiration month of the credit card.|true|string||
-|FormDataParameter|exp_year|Expiration year of the credit card.|true|string||
-
-
-#### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|Success.|No Content|
-|400|The submitted request is malformed.|No Content|
-|401|You are not allowed to perform this operation.|No Content|
 
 
 #### Tags
@@ -769,9 +761,9 @@ Manually purchase a new lesson by a school manager or instructor.
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|lessonId||true|string||
-|FormDataParameter|guestIds|A list of IDs of users the lesson was bought for (comma separated).|true|string||
+|FormDataParameter|clientId|A list of IDs of users the lesson was bought for (JSON array).|true|string||
 |FormDataParameter|amount|The amount of money the purchasing person paid.|true|number||
-|FormDataParameter|comment|The amount of money the purchasing person paid.|false|string||
+|FormDataParameter|paymentMethod|The amount of money the purchasing person paid.|false|string||
 
 
 #### Responses
@@ -814,6 +806,34 @@ Unbooks a specific lesson for a user.
 
 * Lessons
 
+### PUT /lesson/{lessonId}/unbookManual/{userId}
+```
+PUT /lesson/{lessonId}/unbookManual/{userId}
+```
+
+#### Description
+
+Unbooks a manually booked lesson for a user.
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|lessonId||true|string||
+|PathParameter|userId||true|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|No Content|
+|401|You are not allowed to perform this operation.|No Content|
+|404|The requested resource does not exist.|No Content|
+
+
+#### Tags
+
+* Lessons
+
 ### GET /lessonInstructors
 ```
 GET /lessonInstructors
@@ -826,18 +846,15 @@ Returns a list of entries: {imageUrl, firstName, surname, lowestPrice, specialti
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|QueryParameter|private|Says whether it is a private or group lesson|true|boolean||
-|QueryParameter|resortId|ID of the resort the lesson's school is at|false|string||
-|QueryParameter|date|Date of the lesson.|false|string||
-|QueryParameter|duration|Lesson duration.|false|string||
+|QueryParameter|resort|Resort|false|string||
+|QueryParameter|timeFrom|Date from which to search.|false|string||
+|QueryParameter|timeTo|Date till which to search.|false|string||
 |QueryParameter|numParticipants|Target number of participants.|false|string||
-|QueryParameter|specialtyType|Target specialty type.|false|string||
-|QueryParameter|level|Target skill level.|false|string||
-|QueryParameter|age|Target age.|false|string||
+|QueryParameter|specialty|Target specialty.|false|string||
 |QueryParameter|minPrice|Minimum price.|false|string||
 |QueryParameter|maxPrice|Maximum price.|false|string||
 |QueryParameter|language|Language.|false|string||
-|QueryParameter|expertises|Expertises - JSON array of expertises.|false|string||
+|QueryParameter|expertise|Expertises (can be multiple, separate them by a comma).|false|string||
 
 
 #### Responses
@@ -1151,6 +1168,35 @@ Marks the message as read
 
 * Messages
 
+### POST /purchase
+```
+POST /purchase
+```
+
+#### Description
+
+Purchase a new lesson.
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|FormDataParameter|lessons|A list of lessons to buy with their respective participants.|true|string||
+|FormDataParameter|participants|A list of participants with their respective lesson IDs.|true|string||
+|FormDataParameter|paymentNonce|Braintree payment method nonce received from the Braintree server.|false|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success.|No Content|
+|400|The submitted request is malformed.|No Content|
+|401|You are not allowed to perform this operation.|No Content|
+
+
+#### Tags
+
+* Lessons
+
 ### GET /resort
 ```
 GET /resort
@@ -1190,24 +1236,27 @@ Creates a new school
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|FormDataParameter|addressCity||false|string||
-|FormDataParameter|addressCountry||false|string||
-|FormDataParameter|addressStreet||false|string||
-|FormDataParameter|addressStreetNum||false|string||
-|FormDataParameter|addressZipCode||false|string||
-|FormDataParameter|addressState||false|string||
-|FormDataParameter|bankDetailsAccountNumber||false|string||
-|FormDataParameter|bankDetailsCurrency||false|string||
+|FormDataParameter|userName||true|string||
+|FormDataParameter|userSurname||true|string||
+|FormDataParameter|userEmail||true|string||
+|FormDataParameter|addressCity||true|string||
+|FormDataParameter|addressCountry||true|string||
+|FormDataParameter|addressStreet||true|string||
+|FormDataParameter|addressStreetNum||true|string||
+|FormDataParameter|addressZipCode||true|string||
+|FormDataParameter|addressState||true|string||
+|FormDataParameter|bankDetailsAccountNumber||true|string||
+|FormDataParameter|bankDetailsCurrency||true|string||
 |FormDataParameter|email||true|string||
-|FormDataParameter|logo||false|string||
+|FormDataParameter|logo||true|string||
 |FormDataParameter|name||true|string||
-|FormDataParameter|royaltyPercent||false|string||
+|FormDataParameter|royaltyPercent||true|string||
 |FormDataParameter|resortId|ID of an existing resort|false|string||
 |FormDataParameter|resortName|Resort name (if ID not specified)|false|string||
 |FormDataParameter|resortLat|Resort lat (if ID not specified)|false|string||
 |FormDataParameter|resortLng|Resort lng (if ID not specified)|false|string||
-|FormDataParameter|openingHours|See examples|false|string||
-|FormDataParameter|defaultMeetingPoints|See examples|false|string||
+|FormDataParameter|openingHours|See examples|true|string||
+|FormDataParameter|defaultMeetingPoints|See examples|true|string||
 |FormDataParameter|contactsFacebook||false|string||
 |FormDataParameter|contactsTwitter||false|string||
 |FormDataParameter|contactsGoogleplus||false|string||
@@ -1344,7 +1393,6 @@ Gets a list of school clients
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|schoolId||true|string||
-|QueryParameter|lessonId|ID of the lesson to get the school clients for.|false|string||
 
 
 #### Responses
@@ -1372,6 +1420,7 @@ Gets the list of all school clients.
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|schoolId||true|string||
+|QueryParameter|lessonId|ID of the lesson to fetch the clients for|false|string||
 
 
 #### Responses
@@ -1489,33 +1538,6 @@ Gets all generators of a school
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success|Generator array|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
-
-
-#### Tags
-
-* Schools
-
-### GET /school/{schoolId}/lessonTemplates
-```
-GET /school/{schoolId}/lessonTemplates
-```
-
-#### Description
-
-Gets all lesson templates of this school
-
-#### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|PathParameter|schoolId||true|string||
-
-
-#### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|Success|LessonTemplate array|
 |401|You are not allowed to perform this operation.|No Content|
 |404|The requested resource does not exist.|No Content|
 
@@ -1678,9 +1700,13 @@ Creates a new stub user.
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |FormDataParameter|email|The email of the stub user|true|string||
-|FormDataParameter|name|The name of the stub user|true|string||
-|FormDataParameter|surname|The lastName of the stub user|true|string||
-|FormDataParameter|schoolId|The ID of the school creating the stub user|true|string||
+|FormDataParameter|name|The name of the stub user|false|string||
+|FormDataParameter|surname|The lastName of the stub user|false|string||
+|FormDataParameter|schoolId|The ID of the school creating the stub user|false|string||
+|FormDataParameter|birthDate|The birthdate of the stub user|false|string||
+|FormDataParameter|address|The address of the stub user|false|string||
+|FormDataParameter|nationality|The nationality of the stub user|false|string||
+|FormDataParameter|vatCode|The VAT ID of the stub user|false|string||
 
 
 #### Responses
@@ -1790,12 +1816,15 @@ Updates a selected user
 |----|----|----|----|----|----|
 |PathParameter|userId|ID of the user to work with|true|string||
 |FormDataParameter|name||false|string||
+|FormDataParameter|email||false|string||
 |FormDataParameter|surname||false|string||
 |FormDataParameter|phoneNumber||false|string||
 |FormDataParameter|languages|See examples|false|string||
 |FormDataParameter|photoURL||false|string||
 |FormDataParameter|birthDate||false|string||
+|FormDataParameter|address||false|string||
 |FormDataParameter|nationality||false|string||
+|FormDataParameter|vatCode||false|string||
 
 
 #### Responses
@@ -2015,8 +2044,6 @@ Gets all user transactions, for a given school
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|userId||true|string||
-|QueryParameter|timeFrom||false|string||
-|QueryParameter|timeTo||false|string||
 
 
 #### Responses

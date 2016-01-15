@@ -6,7 +6,7 @@
 	"produces": [
 		"application/json"
 	],
-	"host": "api.adam.skipodium.com",
+	"host": "localhost:8080",
 	"info": {
 		"description": "REST-ful API used to communicate with the Skipodium backend.",
 		"version": "1.0.0",
@@ -519,12 +519,23 @@
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "date",
+					"name": "month",
 					"in": "query",
-					"description": "Month to get the times off for.",
-					"required": true,
-					"type": "string",
-					"format": "date"
+					"description" : "Month to get the times off for (alternatively use timeFrom/timeTo)",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "timeFrom",
+					"in": "query",
+					"description" : "Lower time bound (alternatively use month)",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "timeTo",
+					"in": "query",
+					"description" : "Upper time bound (alternatively use month)",
+					"required": false,
+					"type": "string"
 				}],
 				"responses": {
 					"200": {
@@ -560,13 +571,13 @@
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "startDate",
+					"name": "timeFrom",
 					"in": "query",
 					"description": "Date from which to search.",
 					"required": false,
 					"type": "string"
 				}, {
-					"name": "endDate",
+					"name": "timeTo",
 					"in": "query",
 					"description": "Date till which to search.",
 					"required": false,
@@ -596,27 +607,21 @@
 				"consumes": [],
 				"produces": [],
 				"parameters": [{
-					"name": "private",
+					"name": "resort",
 					"in": "query",
-					"description": "Says whether it is a private or group lesson",
-					"required": true,
-					"type": "boolean"
-				}, {
-					"name": "resortId",
-					"in": "query",
-					"description": "ID of the resort the lesson's school is at",
+					"description": "Resort",
 					"required": false,
 					"type": "string"
 				}, {
-					"name": "date",
+					"name": "timeFrom",
 					"in": "query",
-					"description": "Date of the lesson.",
+					"description": "Date from which to search.",
 					"required": false,
 					"type": "string"
 				}, {
-					"name": "duration",
+					"name": "timeTo",
 					"in": "query",
-					"description": "Lesson duration.",
+					"description": "Date till which to search.",
 					"required": false,
 					"type": "string"
 				}, {
@@ -626,21 +631,9 @@
 					"required": false,
 					"type": "string"
 				}, {
-					"name": "specialtyType",
+					"name": "specialty",
 					"in": "query",
-					"description": "Target specialty type.",
-					"required": false,
-					"type": "string"
-				}, {
-					"name": "level",
-					"in": "query",
-					"description": "Target skill level.",
-					"required": false,
-					"type": "string"
-				}, {
-					"name": "age",
-					"in": "query",
-					"description": "Target age.",
+					"description": "Target specialty.",
 					"required": false,
 					"type": "string"
 				}, {
@@ -662,9 +655,9 @@
 					"required": false,
 					"type": "string"
 				}, {
-					"name": "expertises",
+					"name": "expertise",
 					"in": "query",
-					"description": "Expertises - JSON array of expertises.",
+					"description": "Expertises (can be multiple, separate them by a comma).",
 					"required": false,
 					"type": "string"
 				}],
@@ -733,9 +726,9 @@
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "schedules",
+					"name": "schedule",
 					"in": "formData",
-					"description": "Generator schedule list. (JSON object array)",
+					"description": "Generator schedule object.",
 					"required": true,
 					"type": "string"
 				}],
@@ -793,7 +786,7 @@
 				"parameters": [{
 					"name": "generatorId",
 					"in": "path",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "name",
@@ -838,9 +831,9 @@
 					"required": false,
 					"type": "string"
 				}, {
-					"name": "schedules",
+					"name": "schedule",
 					"in": "formData",
-					"description": "Generator schedule list.",
+					"description": "Generator schedule object.",
 					"required": false,
 					"type": "string"
 				}],
@@ -967,12 +960,7 @@
 					"description": "School id",
 					"required": false,
 					"type": "string"
-				}, {
-					"name": "online",
-					"in": "query",
-					"required": false,
-					"type": "boolean"
-				} ],
+				}],
 				"responses": {
 					"200": {
 						"description": "Success",
@@ -1072,6 +1060,12 @@
 					"required": true,
 					"type": "string"
 				}, {
+					"name": "clientSource",
+					"in": "formData",
+					"description": "user/school/whiteLabel",
+					"required": true,
+					"type": "string"
+				}, {
 					"name": "comment",
 					"in": "formData",
 					"description": "Comment about the lesson.",
@@ -1087,19 +1081,19 @@
 					"name": "geoName",
 					"in": "formData",
 					"description": "Name of the meeting point.",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "geoLat",
 					"in": "formData",
 					"description": "Latitude of the meeting point.",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "geoLng",
 					"in": "formData",
 					"description": "Longitude of the meeting point.",
-					"required": true,
+					"required": false,
 					"type": "string"
 				}, {
 					"name": "private",
@@ -1236,6 +1230,12 @@
 					"name": "name",
 					"in": "formData",
 					"description": "Lesson name.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "clientSource",
+					"in": "formData",
+					"description": "user/school/whiteLabel",
 					"required": false,
 					"type": "string"
 				}, {
@@ -1376,6 +1376,39 @@
 				}
 			}
 		},
+		"/lesson/{lessonId}/unbookManual/{userId}": {
+			"put": {
+				"tags": [
+					"Lessons"
+				],
+				"summary": "Unbooks a manually booked lesson for a user.",
+				"description": "Unbooks a manually booked lesson for a user.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [{
+					"name": "lessonId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
+				"responses": {
+					"200": {
+						"description": "Success"
+					},
+					"401": {
+						"description": "You are not allowed to perform this operation."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
+					}
+				}
+			}
+		},
 		"/lesson/{lessonId}/assignment/{instructorId}": {
 			"put": {
 				"tags": [
@@ -1386,12 +1419,12 @@
 				"consumes": [],
 				"produces": [],
 				"parameters": [{
-					"name": "lessonId",
+					"name": "instructorId",
 					"in": "path",
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "instructorId",
+					"name": "lessonId",
 					"in": "path",
 					"required": true,
 					"type": "string"
@@ -1409,7 +1442,7 @@
 				}
 			}
 		},
-		"/lesson/{lessonId}/purchase": {
+		"/purchase": {
 			"post": {
 				"tags": [
 					"Lessons"
@@ -1419,39 +1452,22 @@
 				"consumes": [],
 				"produces": [],
 				"parameters": [{
-					"name": "lessonId",
-					"in": "path",
+					"name": "lessons",
+					"in": "formData",
+					"description": "A list of lessons to buy with their respective participants.",
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "guestIds",
+					"name": "participants",
 					"in": "formData",
-					"description": "A list of IDs of users the lesson was bought for (comma separated).",
+					"description": "A list of participants with their respective lesson IDs.",
+					"required": true,					
+					"type": "string"					
+				}, {
+					"name": "paymentNonce",
+					"in": "formData",
+					"description": "Braintree payment method nonce received from the Braintree server.",
 					"required": false,					
-					"type": "string"					
-				}, {
-					"name": "number",
-					"in": "formData",
-					"description": "Credit card number.",
-					"required": true,					
-					"type": "string"					
-				}, {
-					"name": "cvc",
-					"in": "formData",
-					"description": "Credit card CVC number.",
-					"required": true,					
-					"type": "string"					
-				}, {
-					"name": "exp_month",
-					"in": "formData",
-					"description": "Expiration month of the credit card.",
-					"required": true,					
-					"type": "string"					
-				}, {
-					"name": "exp_year",
-					"in": "formData",
-					"description": "Expiration year of the credit card.",
-					"required": true,					
 					"type": "string"					
 				}],
 				"responses": {
@@ -1482,9 +1498,9 @@
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "guestIds",
+					"name": "clientId",
 					"in": "formData",
-					"description": "A list of IDs of users the lesson was bought for (comma separated).",
+					"description": "A list of IDs of users the lesson was bought for (JSON array).",
 					"required": true,
 					"type": "string"
 				}, {
@@ -1494,7 +1510,7 @@
 					"required": true,
 					"type": "number"
 				}, {
-					"name": "comment",
+					"name": "paymentMethod",
 					"in": "formData",
 					"description": "The amount of money the purchasing person paid.",
 					"required": false,
@@ -1978,44 +1994,59 @@
 				"consumes": [],
 				"produces": [],
 				"parameters": [{
+					"name": "userName",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userSurname",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "userEmail",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
 					"name": "addressCity",
 					"in": "formData",
-					"required": false,
+					"required": true,
 					"type": "string"
 				}, {
 					"name": "addressCountry",
 					"in": "formData",
-					"required": false,
+					"required": true,
 					"type": "string"
 				}, {
 					"name": "addressStreet",
 					"in": "formData",
-					"required": false,
+					"required": true,
 					"type": "string"
 				}, {
 					"name": "addressStreetNum",
 					"in": "formData",
-					"required": false,
+					"required": true,
 					"type": "string"
 				}, {
 					"name": "addressZipCode",
 					"in": "formData",
-					"required": false,
+					"required": true,
 					"type": "string"
 				}, {
 					"name": "addressState",
 					"in": "formData",
-					"required": false,
+					"required": true,
 					"type": "string"
 				}, {
 					"name": "bankDetailsAccountNumber",
 					"in": "formData",
-					"required": false,
+					"required": true,
 					"type": "string"
 				}, {
 					"name": "bankDetailsCurrency",
 					"in": "formData",
-					"required": false,
+					"required": true,
 					"type": "string"
 				}, {
 					"name": "email",
@@ -2025,7 +2056,7 @@
 				}, {
 					"name": "logo",
 					"in": "formData",
-					"required": false,
+					"required": true,
 					"type": "string"
 				}, {
 					"name": "name",
@@ -2035,7 +2066,7 @@
 				}, {
 					"name": "royaltyPercent",
 					"in": "formData",
-					"required": false,
+					"required": true,
 					"type": "string"
 				}, {
 					"name": "resortId",
@@ -2065,13 +2096,13 @@
 					"name": "openingHours",
 					"in": "formData",
 					"description" : "See examples",
-					"required": false,
+					"required": true,
 					"type": "string"
 				}, {
 					"name": "defaultMeetingPoints",
 					"in": "formData",
 					"description" : "See examples",
-					"required": false,
+					"required": true,
 					"type": "string"
 				}, {
 					"name": "contactsFacebook",
@@ -2318,40 +2349,6 @@
 				}
 			}
 		},
-		"/school/{schoolId}/lessonTemplates": {
-			"get": {
-				"tags": [
-					"Schools"
-				],
-				"summary": "Gets all lesson templates of this school",
-				"description": "Gets all lesson templates of this school",
-				"consumes": [],
-				"produces": [],
-				"parameters": [{
-					"name": "schoolId",
-					"in": "path",
-					"required": true,
-					"type": "string"
-				}],
-				"responses": {
-					"200": {
-						"description": "Success",
-						"schema": {
-							"type": "array",
-							"items": {
-								"$ref": "#/definitions/LessonTemplate"
-							}
-						}
-					},
-					"401": {
-						"description": "You are not allowed to perform this operation."
-					},
-					"404": {
-						"description": "The requested resource does not exist."
-					}
-				}
-			}
-		},
 		"/school/{schoolId}/activate": {
 			"put": {
 				"tags": [
@@ -2395,12 +2392,6 @@
 					"in": "path",
 					"required": true,
 					"type": "string"
-				},{
-					"name": "lessonId",
-					"in": "query",
-					"description" : "ID of the lesson to get the school clients for.",
-					"required": false,
-					"type": "string"
 				}],
 				"responses": {
 					"200": {
@@ -2434,6 +2425,12 @@
 					"name": "schoolId",
 					"in": "path",
 					"required": true,
+					"type": "string"
+				}, {
+					"name": "lessonId",
+					"in": "query",
+					"description" : "ID of the lesson to fetch the clients for",
+					"required": false,
 					"type": "string"
 				}],
 				"responses": {
@@ -2646,6 +2643,29 @@
 				}
 			}
 		},		
+		"/clientToken": {
+			"get": {
+				"tags": [
+					"Payments"
+				],
+				"summary": "Gets the Braintree client token",
+				"description": "Gets the Braintree client token",
+				"consumes": [],
+				"produces": [],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Success"						
+					},
+					"401": {
+						"description": "You are not allowed to perform this operation."
+					},
+					"404": {
+						"description": "The requested resource does not exist."
+					}
+				}
+			}
+		},
 		"/transaction/{transactionId}": {
 			"get": {
 				"tags": [
@@ -2738,19 +2758,43 @@
 					"name": "name",
 					"in": "formData",
 					"description": "The name of the stub user",
-					"required": true,
+					"required": false,
 					"type": "string"	
 				}, {
 					"name": "surname",
 					"in": "formData",
 					"description": "The lastName of the stub user",
-					"required": true,
+					"required": false,
 					"type": "string"	
 				}, {
 					"name": "schoolId",
 					"in": "formData",
 					"description": "The ID of the school creating the stub user",
-					"required": true,
+					"required": false,
+					"type": "string"	
+				}, {
+					"name": "birthDate",
+					"in": "formData",
+					"description": "The birthdate of the stub user",
+					"required": false,
+					"type": "string"	
+				}, {
+					"name": "address",
+					"in": "formData",
+					"description": "The address of the stub user",
+					"required": false,
+					"type": "string"	
+				}, {
+					"name": "nationality",
+					"in": "formData",
+					"description": "The nationality of the stub user",
+					"required": false,
+					"type": "string"	
+				}, {
+					"name": "vatCode",
+					"in": "formData",
+					"description": "The VAT ID of the stub user",
+					"required": false,
 					"type": "string"	
 				}],
 				"responses": {
@@ -2820,11 +2864,16 @@
 					"required": false,
 					"type": "string"	
 				}, {
+					"name": "email",
+					"in": "formData",					
+					"required": false,
+					"type": "string"	
+				}, {
 					"name": "surname",
 					"in": "formData",					
 					"required": false,
 					"type": "string"	
-				},{
+				}, {
 					"name": "phoneNumber",
 					"in": "formData",					
 					"required": false,
@@ -2840,14 +2889,24 @@
 					"in": "formData",					
 					"required": false,
 					"type": "string"	
-				},{
+				}, {
 					"name": "birthDate",
-					"in": "formData",					
+					"in": "formData",
 					"required": false,
 					"type": "string"	
-				},{
+				}, {
+					"name": "address",
+					"in": "formData",
+					"required": false,
+					"type": "string"	
+				}, {
 					"name": "nationality",
-					"in": "formData",					
+					"in": "formData",
+					"required": false,
+					"type": "string"	
+				}, {
+					"name": "vatCode",
+					"in": "formData",
 					"required": false,
 					"type": "string"	
 				}],
@@ -3113,16 +3172,6 @@
 					"in": "path",
 					"required": true,
 					"type": "string"
-				}, {
-					"name": "timeFrom",
-					"in": "query",
-					"required": false,
-					"type": "string"
-				}, {
-					"name": "timeTo",
-					"in": "query",
-					"required": false,
-					"type": "string"
 				}],
 				"responses": {
 					"200": {
@@ -3267,11 +3316,6 @@
 						"example": "sample auth"
 					}
 				},
-				"birthDate": {
-					"type": "string",
-					"format": "date",
-					"description": "User's date of birth."
-				},
 				"createdAt": {
 					"type": "string",
 					"format": "date",
@@ -3299,11 +3343,6 @@
 						"type": "string",
 						"example": "sample languages"
 					}
-				},
-				"nationality": {
-					"type": "string",
-					"example": "Italy",
-					"description": "The user's nationality."
 				},
 				"name": {
 					"type": "string",
@@ -3440,13 +3479,13 @@
 					"type": "number",
 					"format": "double",
 					"example": "1.1",
-					"description": "The amount of money to be transferred from the purchaser to the school."
+					"description": "The amount of money that has already been paid."
 				},
 				"amountToPay": {
 					"type": "number",
 					"format": "double",
 					"example": "1.1",
-					"description": "The amount of money that have to be paid."
+					"description": "The total amount of money that has to be paid."
 				},
 				"bonus": {
 					"type": "number",
@@ -3474,6 +3513,11 @@
 					"format": "date",
 					"example": "1.1",
 					"description": "A date at which the transaction occurs."
+				},
+				"paymentMethod": {
+					"type": "string",
+					"example": "cash",
+					"description": "Payment method: bankTransfer, creditCard, debitCard or cash."
 				},
 				"productId": {
 					"description": "EntityID: Type - lesson or bundle, id - prod ID",
@@ -3693,14 +3737,14 @@
 				"_id",
 				"deleted",
 				"lessonTemplates",
+				"lessonTemplateId",
 				"generatedLessons",
 				"name",
 				"priority",
 				"publicFlag",
 				"schoolId",
 				"times",
-				"generatorType",
-				"schedules"
+				"generatorType"
 			],
 			"properties": {
 				"_id": {
@@ -3726,15 +3770,6 @@
 						"example": "1"
 					}
 				},
-				"schedules": {
-					"type": "array",
-					"description": "A list of generator schedules.",
-					"items": {
-						"type": "string",
-						"example": "templ",
-						"$ref": "#/definitions/Schedule"
-					}
-				},
 				"name": {
 					"type": "string",
 					"example": "sample name",
@@ -3744,14 +3779,6 @@
 					"type": "string",
 					"example": "sample type",
 					"description": "Determines whether it is a lesson or a bundle generator."
-				},
-				"generatedBundles": {
-					"type": "array",
-					"description": "A list of IDs of bundles generated by this generator.",
-					"items": {
-						"type": "string",
-						"example": "sample generatedBundles"
-					}
 				},
 				"lessonTemplates": {
 					"type": "array",
@@ -3768,9 +3795,9 @@
 					"example": "1",
 					"description": "The generator priority (starting from 1, 2, 3, ...), determines the generator precedence in case of overlapping lessons."
 				},
-				"bundleTemplateId": {
+				"lessonTemplateId": {
 					"description": "Template used to generate bundles.",
-					"$ref": "#/definitions/BundleTemplate"
+					"$ref": "#/definitions/LessonTemplate"
 				},
 				"schoolId": {
 					"type": "string",
@@ -3935,76 +3962,7 @@
 			"description": "School employee"
 		},
 
-		"Bundle": {
-			"required": [
-				"_id",
-				"deleted",
-				"lessons",
-				"name",
-				"publicFlag",
-				"schoolId",
-				"mandatoryBooking"
-			],
-			"properties": {
-				"_id": {
-					"type": "string",
-					"example": "1"
-				},
-				"comment": {
-					"type": "string",
-					"example": "sample comment",
-					"description": "A creators comment towards the bundle."
-				},
-				"deleted": {
-					"type": "boolean",
-					"example": "false",
-					"description": "Says whether the bundle has been deleted. If true - it is scheduled for permanent deletion."
-				},
-				"discount": {
-					"description": "The discount the user gets for the lessons in this bundle",
-					"$ref": "#/definitions/Discount"
-				},
-				"lessons": {
-					"type": "array",
-					"description": "A list of lessons belonging to this bundle.",
-					"items": {
-						"type": "string",
-						"example": "1"
-					}
-				},
-				"mandatoryBooking": {
-					"type": "boolean",
-					"example": "false",
-					"description": "Says whether the lessons of the bundle can be booked without purchasing the whole bundle."
-				},
-				"name": {
-					"type": "string",
-					"example": "sample name",
-					"description": "The name of the bundle."
-				},
-				"publicFlag": {
-					"type": "boolean",
-					"example": "false",
-					"description": "A flag determining whether the bundle is public or private."
-				},
-				"private": {
-					"type": "boolean",
-					"example": "false",
-					"description": "Whether it's booked by one or multiple persons"
-				},
-				"schoolId": {
-					"type": "string",
-					"example": "1",
-					"description": "ID of the school at which the bundle's lessons will occur."
-				},
-				"generatorId": {
-					"type": "string",
-					"example": "sample generatorId",
-					"description": "ID of the generator the bundle comes from (if any)."
-				}
-			},
-			"description": "A group of lessons with a discount if a user will decide to purchase all of them."
-		},
+		
 		"Address": {
 			"properties": {
 				"city": {
@@ -4116,16 +4074,16 @@
 		},
 		"EntityID": {
 			"required": [
-				"entityName",
-				"id"
+				"entity",
+				"entityId"
 			],
 			"properties": {
-				"id": {
+				"entityId": {
 					"type": "string",
 					"example": "sample entityId",
-					"description": "ID of the object selected by `entityName` field"
+					"description": "ID of the object selected by `entity` field"
 				},
-				"entityName": {
+				"entity": {
 					"type": "string",
 					"example": "sample entity",
 					"description": "Selects an entity type: school, employee, user, lesson, bundle"
@@ -4155,7 +4113,9 @@
 		"Lesson": {
 			"required": [
 				"_id",
+				"booked",
 				"private",
+				"clientSource",
 				"deleted",
 				"instructorId",
 				"meetingPoint",
@@ -4168,6 +4128,11 @@
 					"type": "string",
 					"example": "1"
 				},
+				"booked": {
+					"type": "boolean",
+					"example": "false",
+					"description": "Whether it is booked or not"
+				},
 				"private": {
 					"type": "boolean",
 					"example": "false",
@@ -4177,6 +4142,11 @@
 					"type": "string",
 					"example": "1",
 					"description": "Id of the bundle containing the lesson"
+				},
+				"clientSource": {
+					"type": "string",
+					"example": "sample clientSource",
+					"description": "Skipodium user, manually booked by school, white label etc"
 				},
 				"comment": {
 					"type": "string",
