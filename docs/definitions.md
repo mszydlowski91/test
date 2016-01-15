@@ -167,3 +167,143 @@ Information about a given school
 |royaltyPercent|The percentage of money the school receives for every lesson.|true|number (double)||
 
 
+### Transaction
+
+An entity representing a single transaction made by a user or  a school.
+
+|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|
+|_id||true|string||
+|amount|The amount of money that has already been paid.|true|number (double)||
+|amountToPay|The total amount of money that has to be paid.|false|number (double)||
+|bonus|Amount of bonus money awarded by the school in case of a special transaction or promotion|false|number (double)||
+|channel|The means by which the payment was made (card, manual etc.).|true|string||
+|comment|A brief description of transaction's purpose.|false|string||
+|currency|The currency in which the transaction will be done.|true|string||
+|date|A date at which the transaction occurs.|true|string (date)||
+|paymentMethod|Payment method: bankTransfer, creditCard, debitCard or cash.|false|string||
+|productId|EntityID: Type - lesson or bundle, id - prod ID|true|EntityID||
+|schoolId|ID of the school that does the transaction (if it is not manually booked).|false|string||
+|status|The current state of the payment (paid, upaid, etc.).|true|string||
+|stripeTransactionId|Stripe transaction ID.|true|string||
+|transactionType|Type of the transaction: lesson purchase, refund, referral bonus, etc.|true|string||
+|userId|ID of the user for whom the lesson was booked|true|string||
+|bookerId|ID of the user of stub user who booked this lesson|false|string||
+
+
+### User
+|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|
+|_id||true|string||
+|active|Says whether the user confirmed the registration. Also becomes inactive upon account deletion request.|true|boolean||
+|authentications|A list of available authentication methods (objects) configured for the user.|false|string array||
+|createdAt|Time the user has been created.|true|string (date)||
+|updatedAt|Time the user has been updated.|true|string (date)||
+|deleted|Says whether the user has been deleted. If true - it is scheduled for permanent deletion.|true|boolean||
+|email|The user's email address.|true|string||
+|languages|The languages this user can speak|true|string array||
+|name|The user's name.|true|string||
+|phoneNumber|User's contact number.|false|string||
+|photoURL|URL of user's avatar.|false|string||
+|resetPasswordToken|A unique, random token dedicated for the specific user view to reset the password.|false|string||
+|surname|The user's surname.|true|string||
+|refferalToken|The token assigned to a user when he will try to generate referal links|false|string||
+
+
+### Address
+
+Internal object of a School entity.
+
+|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|
+|city||false|string||
+|country||false|string||
+|street||false|string||
+|streetNum||false|integer (int32)||
+|zipcode||false|string||
+|state||false|string||
+
+
+### BankDetails
+
+This will be an internal object of an entity of type School.
+
+|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|
+|accountNumber|Bank account number.|true|string||
+|currency|Currency the account number is in.|true|string||
+
+
+### Discount
+
+Object representing fields needed for different types of discounts.
+
+|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|
+|type|Enum representing the discount type - flatPerLesson / flatTotal / percentage|true|string||
+|value|Numerical value of the discount|true|number (double)||
+
+
+### EntityID
+
+Helper object defining an entity type
+
+|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|
+|entityId|ID of the object selected by `entity` field|true|string||
+|entity|Selects an entity type: school, employee, user, lesson, bundle|true|string||
+
+
+### Geo
+
+Internal coordinate object used for meeting points.
+
+|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|
+|lat||true|number (double)||
+|lng||true|number (double)||
+
+
+### MeetingPoint
+
+Default meeting point for a lesson
+
+|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|
+|geo|Coordinates of the meeting point.|true|Geo||
+|name|Name of the meeting point.|true|string||
+
+
+### Specialty
+
+An entity representing an instructor specialty.
+
+|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|
+|specialtyType|Type of the specialty - ski, snowboard etc.|true|string||
+|expertise|Expertises the instr can teach.|true|string||
+|level|Level the instr can teach.|false|string||
+
+
+### Schedule
+
+An entity representing a schedule.
+
+|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|
+|weekdays|weekdays where schedule's applicable|true|string||
+|startTimes|start times|true|string||
+|startDate|Start date.|true|string (date)||
+|endDate|End date.|true|string (date)||
+
+
+### TimeInterval
+
+An entity representing a pair of times - starting and ending.
+
+|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|
+|timeFrom||true|string (date)||
+|timeTo||true|string (date)||
+
+
