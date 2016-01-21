@@ -11,8 +11,8 @@ Home address. Returns current session data.
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|401|You are not allowed to perform this operation.|No Content|
+|200|OK|No Content|
+|401|Unauthorized|No Content|
 
 
 #### Produces
@@ -35,7 +35,7 @@ Facebook login method.
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
+|200|OK|No Content|
 
 
 #### Tags
@@ -54,7 +54,7 @@ Google login method.
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
+|200|OK|No Content|
 
 
 #### Tags
@@ -73,7 +73,7 @@ Twitterlogin method.
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
+|200|OK|No Content|
 
 
 #### Tags
@@ -92,9 +92,9 @@ Gets the Braintree client token
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -122,9 +122,8 @@ Sends a message to Skipodium support
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|400|The submitted request is malformed.|No Content|
-|401|You are not allowed to perform this operation.|No Content|
+|200|OK|No Content|
+|400|Bad Request|No Content|
 
 
 #### Consumes
@@ -157,8 +156,8 @@ Gets employees by params
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|400|The submitted request is malformed.|No Content|
+|200|OK|No Content|
+|400|Bad Request|No Content|
 
 
 #### Tags
@@ -190,8 +189,9 @@ Adds a new employee
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|400|The submitted request is malformed.|No Content|
+|200|OK|No Content|
+|400|Bad Request|No Content|
+|403|Forbidden|No Content|
 
 
 #### Consumes
@@ -220,9 +220,8 @@ Gets an employee by ID
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Sucess|Employee|
-|400|The submitted request was malformed.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -253,10 +252,11 @@ Modifies an existing employee.
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|400|The submitted request is malformed.|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|No Content|
+|400|Bad Request|No Content|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
 
 
 #### Consumes
@@ -285,9 +285,10 @@ Schedules an employee for deletion.
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|No Content|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -315,8 +316,9 @@ Gets the stats of the employee. Returns a custom JSON.
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Sucess|No Content|
-|400|The submitted request was malformed.|No Content|
-|404|The requested resource does not exist.|No Content|
+|400|Bad Request|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -344,8 +346,9 @@ Gets the times off of the employee.
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Sucess|TimeInterval array|
-|400|The submitted request was malformed.|No Content|
-|404|The requested resource does not exist.|No Content|
+|400|Bad Request|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -376,9 +379,9 @@ Creates a new feedback
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|400|The submitted request is malformed.|No Content|
-|401|You are not allowed to perform this operation.|No Content|
+|200|OK|No Content|
+|400|Bad Request|No Content|
+|401|Unauthorized|No Content|
 
 
 #### Tags
@@ -410,9 +413,10 @@ Creates a new generator
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|400|The submitted request is malformed.|No Content|
-|401|You are not allowed to perform this operation.|No Content|
+|200|OK|No Content|
+|400|Bad Request|No Content|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
 
 
 #### Tags
@@ -437,9 +441,10 @@ Gets a generator by ID
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|Generator|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|Generator|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -472,10 +477,11 @@ Edits an existing generator
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|400|The submitted request is malformed.|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|No Content|
+|400|Bad Request|No Content|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -500,9 +506,10 @@ Deletes a generator
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|No Content|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -538,9 +545,10 @@ Gets lessons by parameters
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|Lesson array|
-|400|The submitted request is malformed.|No Content|
-|404|No lesson with given matching the provided parameters was found.|No Content|
+|200|OK|Lesson array|
+|400|Bad Request|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -583,9 +591,10 @@ Creates a new lesson
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|400|The submitted request is malformed.|No Content|
-|401|You are not allowed to perform this operation.|No Content|
+|200|OK|No Content|
+|400|Bad Request|No Content|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
 
 
 #### Tags
@@ -610,9 +619,9 @@ Gets a lesson by ID
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|Lesson|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|Lesson|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -655,10 +664,11 @@ Modifies an existing lesson
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|400|The submitted request is malformed.|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|No Content|
+|400|Bad Request|No Content|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -683,9 +693,10 @@ Deletes a lesson by ID
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|No Content|
+|401|Unauthorized|No Content|
+|403|Forbidden|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -710,9 +721,9 @@ Get the assigned instructor
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|User|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|User|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -739,8 +750,8 @@ Change the instructor assigned to the lesson
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|The instructor has been changed.|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -769,8 +780,8 @@ Manually purchase a new lesson by a school manager or instructor.
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success.|No Content|
-|400|The submitted request is malformed.|No Content|
-|401|You are not allowed to perform this operation.|No Content|
+|400|Bad Request|No Content|
+|401|Unauthorized|No Content|
 
 
 #### Tags
@@ -796,9 +807,9 @@ Unbooks a specific lesson for a user.
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -824,9 +835,9 @@ Unbooks a manually booked lesson for a user.
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -859,9 +870,8 @@ Returns a list of entries: {imageUrl, firstName, surname, lowestPrice, specialti
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|400|The submitted request was malformed.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|No Content|
+|400|Bad Request|No Content|
 
 
 #### Tags
@@ -898,8 +908,8 @@ Add a new lesson template.
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success.|No Content|
-|400|The submitted request is malformed.|No Content|
-|401|You are not allowed to perform this operation.|No Content|
+|400|Bad Request|No Content|
+|401|Unauthorized|No Content|
 
 
 #### Tags
@@ -925,9 +935,9 @@ Get a lesson template by ID.
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success.|No Content|
-|400|The submitted request is malformed.|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|400|Bad Request|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -965,9 +975,9 @@ Modify a lesson template by ID.
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success.|No Content|
-|400|The submitted request is malformed.|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|400|Bad Request|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -993,9 +1003,9 @@ Delete a lesson template by ID.
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success.|No Content|
-|400|The submitted request is malformed.|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|400|Bad Request|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -1021,9 +1031,8 @@ Login method
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|401|The user has been deleted or invalid password.|No Content|
-|404|No user with a given email found.|No Content|
+|200|OK|No Content|
+|401|Unauthorized|No Content|
 
 
 #### Consumes
@@ -1046,7 +1055,8 @@ Logout
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
+|200|OK|No Content|
+|401|Unauthorized|No Content|
 
 
 #### Tags
@@ -1076,9 +1086,9 @@ Send a message
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -1103,9 +1113,9 @@ Gets a message by id
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|Message|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|Message|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -1130,10 +1140,10 @@ Deletes a message
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|400|The submitted request is malformed.|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|No Content|
+|400|Bad Request|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -1158,9 +1168,9 @@ Marks the message as read
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -1188,8 +1198,8 @@ Purchase a new lesson.
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success.|No Content|
-|400|The submitted request is malformed.|No Content|
-|401|You are not allowed to perform this operation.|No Content|
+|400|Bad Request|No Content|
+|401|Unauthorized|No Content|
 
 
 #### Tags
@@ -1214,8 +1224,8 @@ Gets resorts by params.
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|Resort array|
-|401|You are not allowed to perform this operation.|No Content|
+|200|OK|Resort array|
+|401|Unauthorized|No Content|
 
 
 #### Tags
@@ -1243,8 +1253,8 @@ Adds a new resort.
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|Resort array|
-|401|You are not allowed to perform this operation.|No Content|
+|200|OK|Resort array|
+|401|Unauthorized|No Content|
 
 
 #### Tags
@@ -1269,7 +1279,7 @@ Gets resort by id.
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|Resort|
+|200|OK|Resort|
 
 
 #### Tags
@@ -1298,9 +1308,9 @@ Modifies resort by id.
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|Resort not found.|No Content|
+|200|OK|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -1327,9 +1337,9 @@ Creates a new school
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|400|The submitted request is malformed.|No Content|
-|401|You are not allowed to perform this operation.|No Content|
+|200|OK|No Content|
+|400|Bad Request|No Content|
+|401|Unauthorized|No Content|
 
 
 #### Tags
@@ -1354,9 +1364,9 @@ Gets a school by ID
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|School|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|School|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -1401,10 +1411,10 @@ Modifies an existing school
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|400|The submitted request is malformed.|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|No Content|
+|400|Bad Request|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -1429,9 +1439,9 @@ Sends an activation request to skipodium, can only be sent by a school director,
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -1456,9 +1466,9 @@ Gets a list of school clients
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|User array|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|User array|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -1484,9 +1494,9 @@ Gets the list of all school clients.
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|User array|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|User array|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -1515,8 +1525,8 @@ Gets the stats for a user at school. Returns a custom JSON.
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success.|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -1541,9 +1551,9 @@ Gets all school employees
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|Employee array|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|Employee array|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -1568,9 +1578,9 @@ Gets all school feedbacks
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|Feedback array|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|Feedback array|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -1595,9 +1605,9 @@ Gets all generators of a school
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|Generator array|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|Generator array|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -1622,9 +1632,9 @@ Gets all school messages
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|Message array|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|Message array|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -1653,9 +1663,9 @@ Gets all transactions for a given school, for a given user ID
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|Transaction array|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|Transaction array|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -1683,8 +1693,9 @@ Signup method
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|401|The user has been deleted or invalid password.|No Content|
+|200|OK|No Content|
+|400|Bad Request|No Content|
+|401|Unauthorized|No Content|
 
 
 #### Tags
@@ -1709,9 +1720,9 @@ Gets a transaction by ID
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|Transaction|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|Transaction|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -1737,10 +1748,10 @@ Gets users according to parameters.
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|User array|
-|400|The submitted request is malformed.|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|User array|
+|400|Bad Request|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -1772,9 +1783,9 @@ Creates a new stub user.
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|400|The submitted request is malformed.|No Content|
-|401|You do not have sufficient access to perform this operation|No Content|
+|200|OK|No Content|
+|400|Bad Request|No Content|
+|401|Unauthorized|No Content|
 
 
 #### Tags
@@ -1800,8 +1811,8 @@ Resets a user's password
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|The password was reset and a confirmation email is sent.|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The email is not in the database.|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -1827,8 +1838,8 @@ Resets a user's password
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|The password was reset and a confirmation email is sent.|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The email is not in the database.|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -1854,8 +1865,8 @@ Verifies user using the provided token
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|User verified|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The token is not in the database.|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -1880,9 +1891,9 @@ Gets a user by ID
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|User array|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|User array|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -1917,10 +1928,10 @@ Updates a selected user
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|400|The submitted request is malformed.|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|No Content|
+|400|Bad Request|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -1945,9 +1956,9 @@ Deletes a user by ID
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -1973,8 +1984,8 @@ Gets all user employments. Returns an array of pairs {employee, school}.
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Sucess|No Content|
-|400|The submitted request was malformed.|No Content|
-|404|The requested resource does not exist.|No Content|
+|400|Bad Request|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -1999,9 +2010,9 @@ Gets all user feedbacks
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|Feedback array|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|Feedback array|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -2027,9 +2038,9 @@ Gets a number of random user feedbacks
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|Feedback array|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|Feedback array|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -2054,9 +2065,9 @@ Gets all user lessons
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|Lesson array|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|Lesson array|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -2081,9 +2092,9 @@ Gets all user messages.
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|Message array|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|Message array|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -2110,8 +2121,8 @@ Gets the user stats. Returns a custom JSON.
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success.|No Content|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags
@@ -2136,9 +2147,9 @@ Gets all user transactions, for a given school
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Success|Transaction array|
-|401|You are not allowed to perform this operation.|No Content|
-|404|The requested resource does not exist.|No Content|
+|200|OK|Transaction array|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags

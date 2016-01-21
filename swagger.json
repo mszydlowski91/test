@@ -66,10 +66,10 @@
 				"parameters": [],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					}
 				}
 			}
@@ -112,13 +112,10 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"400": {
-						"description": "The submitted request is malformed."
-					},
-					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Bad Request"
 					}
 				}
 			}
@@ -135,7 +132,7 @@
 				"parameters": [],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					}
 				}
 			}
@@ -152,7 +149,7 @@
 				"parameters": [],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					}
 				}
 			}
@@ -169,7 +166,7 @@
 				"parameters": [],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					}
 				}
 			}
@@ -198,13 +195,10 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"401": {
-						"description": "The user has been deleted or invalid password."
-					},
-					"404": {
-						"description": "No user with a given email found."
+						"description": "Unauthorized"
 					}
 				}
 			}
@@ -241,10 +235,13 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
+					},
+					"400": {
+						"description": "Bad Request"
 					},
 					"401": {
-						"description": "The user has been deleted or invalid password."
+						"description": "Unauthorized"
 					}
 				}
 			}
@@ -261,7 +258,10 @@
 				"parameters": [],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
+					},
+					"401": {
+						"description": "Unauthorized"
 					}
 				}
 			}
@@ -326,10 +326,13 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"400": {
-						"description": "The submitted request is malformed."
+						"description": "Bad Request"
+					},
+					"403": {
+						"description": "Forbidden"
 					}
 				}
 			},
@@ -374,10 +377,10 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"400": {
-						"description": "The submitted request is malformed."
+						"description": "Bad Request"
 					}
 				}
 			}
@@ -404,11 +407,11 @@
 							"$ref": "#/definitions/Employee"
 						}
 					},
-					"400": {
-						"description": "The submitted request was malformed."
+					"200": {
+						"description": "OK"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			},
@@ -464,16 +467,19 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"400": {
-						"description": "The submitted request is malformed."
+						"description": "Bad Request"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			},
@@ -493,13 +499,16 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -542,10 +551,13 @@
 						}
 					},
 					"400": {
-						"description": "The submitted request was malformed."
+						"description": "Bad Request"
+					},
+					"401": {
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -582,10 +594,13 @@
 						"description": "Sucess"
 					},
 					"400": {
-						"description": "The submitted request was malformed."
+						"description": "Bad Request"
+					},
+					"401": {
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -657,13 +672,10 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"400": {
-						"description": "The submitted request was malformed."
-					},
-					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Bad Request"
 					}
 				}
 			}
@@ -728,13 +740,16 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"400": {
-						"description": "The submitted request is malformed."
+						"description": "Bad Request"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
 					}
 				}
 			}
@@ -756,16 +771,19 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "OK",
 						"schema": {
 							"$ref": "#/definitions/Generator"
 						}
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			},
@@ -833,16 +851,19 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"400": {
-						"description": "The submitted request is malformed."
+						"description": "Bad Request"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			},
@@ -862,13 +883,16 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -957,7 +981,7 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "OK",
 						"schema": {
 							"type": "array",
 							"items": {
@@ -966,10 +990,13 @@
 						}
 					},
 					"400": {
-						"description": "The submitted request is malformed."
+						"description": "Bad Request"
+					},
+					"401": {
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "No lesson with given matching the provided parameters was found."
+						"description": "Not Found"
 					}
 				}
 			},
@@ -1098,13 +1125,16 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"400": {
-						"description": "The submitted request is malformed."
+						"description": "Bad Request"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
 					}
 				}
 			}
@@ -1127,16 +1157,16 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "OK",
 						"schema": {
 							"$ref": "#/definitions/Lesson"
 						}
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			},
@@ -1265,16 +1295,19 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"400": {
-						"description": "The submitted request is malformed."
+						"description": "Bad Request"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			},
@@ -1295,13 +1328,16 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -1323,16 +1359,16 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "OK",
 						"schema": {
 							"$ref": "#/definitions/User"
 						}
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -1359,13 +1395,13 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -1392,13 +1428,13 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -1428,10 +1464,10 @@
 						"description": "The instructor has been changed."
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -1469,10 +1505,10 @@
 						"description": "Success."
 					},
 					"400": {
-						"description": "The submitted request is malformed."
+						"description": "Bad Request"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					}
 				}
 			}
@@ -1515,10 +1551,10 @@
 						"description": "Success."
 					},
 					"400": {
-						"description": "The submitted request is malformed."
+						"description": "Bad Request"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					}
 				}
 			}
@@ -1610,10 +1646,10 @@
 						"description": "Success."
 					},
 					"400": {
-						"description": "The submitted request is malformed."
+						"description": "Bad Request"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					}
 				}
 			}
@@ -1638,13 +1674,13 @@
 						"description": "Success."
 					},
 					"400": {
-						"description": "The submitted request is malformed."
+						"description": "Bad Request"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			},
@@ -1739,13 +1775,13 @@
 						"description": "Success."
 					},
 					"400": {
-						"description": "The submitted request is malformed."
+						"description": "Bad Request"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			},
@@ -1768,13 +1804,13 @@
 						"description": "Success."
 					},
 					"400": {
-						"description": "The submitted request is malformed."
+						"description": "Bad Request"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -1821,13 +1857,13 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -1849,16 +1885,16 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "OK",
 						"schema": {
 							"$ref": "#/definitions/Message"
 						}
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			},
@@ -1878,16 +1914,16 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"400": {
-						"description": "The submitted request is malformed."
+						"description": "Bad Request"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -1909,13 +1945,13 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -1967,13 +2003,13 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"400": {
-						"description": "The submitted request is malformed."
+						"description": "Bad Request"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					}
 				}
 			}
@@ -2005,13 +2041,13 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"400": {
-						"description": "The submitted request is malformed."
+						"description": "Bad Request"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					}
 				}
 			}
@@ -2033,16 +2069,16 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "OK",
 						"schema": {
 							"$ref": "#/definitions/School"
 						}
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			},
@@ -2164,16 +2200,16 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"400": {
-						"description": "The submitted request is malformed."
+						"description": "Bad Request"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -2195,7 +2231,7 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "OK",
 						"schema": {
 							"type": "array",
 							"items": {
@@ -2204,10 +2240,10 @@
 						}
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -2229,13 +2265,13 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 
@@ -2258,7 +2294,7 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "OK",
 						"schema": {
 							"type": "array",
 							"items": {
@@ -2267,10 +2303,10 @@
 						}
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -2298,7 +2334,7 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "OK",
 						"schema": {
 							"type": "array",
 							"items": {
@@ -2307,10 +2343,10 @@
 						}
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -2352,10 +2388,10 @@
 						"description": "Success."
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -2377,7 +2413,7 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "OK",
 						"schema": {
 							"type": "array",
 							"items": {
@@ -2386,10 +2422,10 @@
 						}
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -2411,7 +2447,7 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "OK",
 						"schema": {
 							"type": "array",
 							"items": {
@@ -2420,10 +2456,10 @@
 						}
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -2445,7 +2481,7 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "OK",
 						"schema": {
 							"type": "array",
 							"items": {
@@ -2454,10 +2490,10 @@
 						}
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -2501,7 +2537,7 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "OK",
 						"schema": {
 							"type": "array",
 							"items": {
@@ -2510,10 +2546,10 @@
 						}
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -2530,13 +2566,13 @@
 				"parameters": [],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -2558,16 +2594,16 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "OK",
 						"schema": {
 							"$ref": "#/definitions/Transaction"
 						}
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -2594,7 +2630,7 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "OK",
 						"schema": {
 							"type": "array",
 							"items": {
@@ -2603,13 +2639,13 @@
 						}
 					},
 					"400": {
-						"description": "The submitted request is malformed."
+						"description": "Bad Request"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -2674,13 +2710,13 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"400": {
-						"description": "The submitted request is malformed."
+						"description": "Bad Request"
 					},
 					"401": {
-						"description": "You do not have sufficient access to perform this operation"
+						"description": "Unauthorized"
 					}
 				}
 			}
@@ -2703,7 +2739,7 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "OK",
 						"schema": {
 							"type": "array",
 							"items": {
@@ -2712,10 +2748,10 @@
 						}
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			},
@@ -2787,16 +2823,16 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"400": {
-						"description": "The submitted request is malformed."
+						"description": "Bad Request"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			},
@@ -2817,13 +2853,13 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -2853,10 +2889,10 @@
 						"description": "Success."
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -2881,10 +2917,10 @@
 						"description": "Sucess"
 					},
 					"400": {
-						"description": "The submitted request was malformed."
+						"description": "Bad Request"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -2906,7 +2942,7 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "OK",
 						"schema": {
 							"type": "array",
 							"items": {
@@ -2915,10 +2951,10 @@
 						}
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -2946,7 +2982,7 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "OK",
 						"schema": {
 							"type": "array",
 							"items": {
@@ -2955,10 +2991,10 @@
 						}
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -2980,7 +3016,7 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "OK",
 						"schema": {
 							"type": "array",
 							"items": {
@@ -2989,10 +3025,10 @@
 						}
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 
 				}
@@ -3016,7 +3052,7 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "OK",
 						"schema": {
 							"type": "array",
 							"items": {
@@ -3025,10 +3061,10 @@
 						}
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -3050,7 +3086,7 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "OK",
 						"schema": {
 							"type": "array",
 							"items": {
@@ -3059,10 +3095,10 @@
 						}
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The requested resource does not exist."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -3087,10 +3123,10 @@
 						"description": "The password was reset and a confirmation email is sent."
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The email is not in the database."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -3115,10 +3151,10 @@
 						"description": "The password was reset and a confirmation email is sent."
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The email is not in the database."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -3143,10 +3179,10 @@
 						"description": "User verified"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "The token is not in the database."
+						"description": "Not Found"
 					}
 				}
 			}
@@ -3169,7 +3205,7 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "OK",
 						"schema": {
 							"type": "array",
 							"items": {
@@ -3178,7 +3214,7 @@
 						}
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					}
 				}
 			},
@@ -3213,7 +3249,7 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "OK",
 						"schema": {
 							"type": "array",
 							"items": {
@@ -3222,7 +3258,7 @@
 						}
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					}
 				}
 			}
@@ -3244,17 +3280,17 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "OK",
 						"schema": {
 							"$ref": "#/definitions/Resort"
 						}
 					}
 				},
 				"401": {
-					"description": "You are not allowed to perform this operation."
+					"description": "Unauthorized"
 				},
 				"404": {
-					"description": "Resort not found."
+					"description": "Not Found"
 				}
 			},
 			"put": {
@@ -3293,13 +3329,13 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"
+						"description": "OK"
 					},
 					"401": {
-						"description": "You are not allowed to perform this operation."
+						"description": "Unauthorized"
 					},
 					"404": {
-						"description": "Resort not found."
+						"description": "Not Found"
 					}
 				}
 			}
