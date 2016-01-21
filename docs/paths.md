@@ -336,7 +336,6 @@ Gets the times off of the employee.
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|employeeId||true|string||
-|QueryParameter|month|Month to get the times off for (alternatively use timeFrom/timeTo)|false|string||
 |QueryParameter|timeFrom|Lower time bound (alternatively use month)|false|string||
 |QueryParameter|timeTo|Upper time bound (alternatively use month)|false|string||
 
@@ -1217,7 +1216,62 @@ Gets resorts by params.
 |----|----|----|
 |200|Success|Resort array|
 |401|You are not allowed to perform this operation.|No Content|
-|404|The email is not in the database.|No Content|
+
+
+#### Tags
+
+* Resorts
+
+### GET /resort/:id
+```
+GET /resort/:id
+```
+
+#### Description
+
+Gets resort by id.
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|id||true|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|Resort|
+
+
+#### Tags
+
+* Resorts
+
+### PUT /resort/:id
+```
+PUT /resort/:id
+```
+
+#### Description
+
+Modifies resort by id.
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|id||true|string||
+|FormDataParameter|name||false|string||
+|FormDataParameter|photoURL||false|string||
+|FormDataParameter|lat||false|string||
+|FormDataParameter|lng||false|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|No Content|
+|401|You are not allowed to perform this operation.|No Content|
+|404|Resort not found.|No Content|
 
 
 #### Tags
@@ -1588,6 +1642,8 @@ Gets all transactions for a given school, for a given user ID
 |PathParameter|schoolId||true|string||
 |QueryParameter|userId||false|string||
 |QueryParameter|lessonId||false|string||
+|QueryParameter|timeFrom|Format: 2015-11-01T10:30:00.000Z|false|string||
+|QueryParameter|timeTo|Format: 2015-11-01T10:30:00.000Z|false|string||
 
 
 #### Responses
@@ -1769,6 +1825,33 @@ Resets a user's password
 |200|The password was reset and a confirmation email is sent.|No Content|
 |401|You are not allowed to perform this operation.|No Content|
 |404|The email is not in the database.|No Content|
+
+
+#### Tags
+
+* Users
+
+### GET /user/{token}/verify
+```
+GET /user/{token}/verify
+```
+
+#### Description
+
+Verifies user using the provided token
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|token||true|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|User verified|No Content|
+|401|You are not allowed to perform this operation.|No Content|
+|404|The token is not in the database.|No Content|
 
 
 #### Tags

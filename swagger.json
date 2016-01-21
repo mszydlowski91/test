@@ -519,12 +519,6 @@
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "month",
-					"in": "query",
-					"description": "Month to get the times off for (alternatively use timeFrom/timeTo)",
-					"required": false,
-					"type": "string"
-				}, {
 					"name": "timeFrom",
 					"in": "query",
 					"description": "Lower time bound (alternatively use month)",
@@ -2623,6 +2617,18 @@
 					"in": "query",
 					"required": false,
 					"type": "string"
+				}, {
+					"name": "timeFrom",
+					"in": "query",
+					"description": "Format: 2015-11-01T10:30:00.000Z",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "timeTo",
+					"in": "query",
+					"description": "Format: 2015-11-01T10:30:00.000Z",
+					"required": false,
+					"type": "string"
 				}],
 				"responses": {
 					"200": {
@@ -3248,6 +3254,34 @@
 				}
 			}
 		},
+		"/user/{token}/verify": {
+			"get": {
+				"tags": [
+					"Users"
+				],
+				"summary": "Verifies user using the provided token",
+				"description": "Verifies user using the provided token",
+				"consumes": [],
+				"produces": [],
+				"parameters": [{
+					"name": "token",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
+				"responses": {
+					"200": {
+						"description": "User verified"
+					},
+					"401": {
+						"description": "You are not allowed to perform this operation."
+					},
+					"404": {
+						"description": "The token is not in the database."
+					}
+				}
+			}
+		},
 		"/resort": {
 			"get": {
 				"tags": [
@@ -3276,9 +3310,83 @@
 					},
 					"401": {
 						"description": "You are not allowed to perform this operation."
+					}
+				}
+			}
+		},
+		"/resort/:id": {
+			"get": {
+				"tags": [
+					"Resorts"
+				],
+				"summary": "Gets resort by id.",
+				"description": "Gets resort by id.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [{
+					"name": "id",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"$ref": "#/definitions/Resort"
+						}
+					}
+				},
+				"401": {
+					"description": "You are not allowed to perform this operation."
+				},
+				"404": {
+					"description": "Resort not found."
+				}
+			},
+			"put": {
+				"tags": [
+					"Resorts"
+				],
+				"summary": "Modifies resort by id.",
+				"description": "Modifies resort by id.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [{
+					"name": "id",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "name",
+					"in": "formData",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "photoURL",
+					"in": "formData",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "lat",
+					"in": "formData",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "lng",
+					"in": "formData",
+					"required": false,
+					"type": "string"
+				}],
+				"responses": {
+					"200": {
+						"description": "Success"
+					},
+					"401": {
+						"description": "You are not allowed to perform this operation."
 					},
 					"404": {
-						"description": "The email is not in the database."
+						"description": "Resort not found."
 					}
 				}
 			}
