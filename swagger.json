@@ -780,7 +780,7 @@
 				"parameters": [{
 					"name": "generatorId",
 					"in": "path",
-					"required": false,
+					"required": true,
 					"type": "string"
 				}, {
 					"name": "name",
@@ -1988,67 +1988,7 @@
 				"consumes": [],
 				"produces": [],
 				"parameters": [{
-					"name": "userName",
-					"in": "formData",
-					"required": true,
-					"type": "string"
-				}, {
-					"name": "userSurname",
-					"in": "formData",
-					"required": true,
-					"type": "string"
-				}, {
-					"name": "userEmail",
-					"in": "formData",
-					"required": true,
-					"type": "string"
-				}, {
-					"name": "addressCity",
-					"in": "formData",
-					"required": true,
-					"type": "string"
-				}, {
-					"name": "addressCountry",
-					"in": "formData",
-					"required": true,
-					"type": "string"
-				}, {
-					"name": "addressStreet",
-					"in": "formData",
-					"required": true,
-					"type": "string"
-				}, {
-					"name": "addressStreetNum",
-					"in": "formData",
-					"required": true,
-					"type": "string"
-				}, {
-					"name": "addressZipCode",
-					"in": "formData",
-					"required": true,
-					"type": "string"
-				}, {
-					"name": "addressState",
-					"in": "formData",
-					"required": true,
-					"type": "string"
-				}, {
-					"name": "bankDetailsAccountNumber",
-					"in": "formData",
-					"required": true,
-					"type": "string"
-				}, {
-					"name": "bankDetailsCurrency",
-					"in": "formData",
-					"required": true,
-					"type": "string"
-				}, {
 					"name": "email",
-					"in": "formData",
-					"required": true,
-					"type": "string"
-				}, {
-					"name": "logo",
 					"in": "formData",
 					"required": true,
 					"type": "string"
@@ -2058,78 +1998,7 @@
 					"required": true,
 					"type": "string"
 				}, {
-					"name": "royaltyPercent",
-					"in": "formData",
-					"required": true,
-					"type": "string"
-				}, {
-					"name": "resortId",
-					"in": "formData",
-					"description": "ID of an existing resort",
-					"required": false,
-					"type": "string"
-				}, {
-					"name": "resortName",
-					"in": "formData",
-					"description": "Resort name (if ID not specified)",
-					"required": false,
-					"type": "string"
-				}, {
-					"name": "resortLat",
-					"in": "formData",
-					"description": "Resort lat (if ID not specified)",
-					"required": false,
-					"type": "string"
-				}, {
-					"name": "resortLng",
-					"in": "formData",
-					"description": "Resort lng (if ID not specified)",
-					"required": false,
-					"type": "string"
-				}, {
-					"name": "openingHours",
-					"in": "formData",
-					"description": "See examples",
-					"required": true,
-					"type": "string"
-				}, {
-					"name": "defaultMeetingPoints",
-					"in": "formData",
-					"description": "See examples",
-					"required": true,
-					"type": "string"
-				}, {
-					"name": "contactsFacebook",
-					"in": "formData",
-					"required": false,
-					"type": "string"
-				}, {
-					"name": "contactsTwitter",
-					"in": "formData",
-					"required": false,
-					"type": "string"
-				}, {
-					"name": "contactsGoogleplus",
-					"in": "formData",
-					"required": false,
-					"type": "string"
-				}, {
-					"name": "contactsPhone",
-					"in": "formData",
-					"required": false,
-					"type": "string"
-				}, {
-					"name": "contactsMail",
-					"in": "formData",
-					"required": false,
-					"type": "string"
-				}, {
-					"name": "contactsSiteUrl",
-					"in": "formData",
-					"required": false,
-					"type": "string"
-				}, {
-					"name": "manuallySetRating",
+					"name": "currency",
 					"in": "formData",
 					"required": false,
 					"type": "string"
@@ -3312,9 +3181,53 @@
 						"description": "You are not allowed to perform this operation."
 					}
 				}
+			},
+			"post": {
+				"tags": [
+					"Resorts"
+				],
+				"summary": "Adds a new resort.",
+				"description": "Adds a new resort.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [{
+					"name": "name",
+					"in": "formData",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "photoURL",
+					"in": "formData",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "lat",
+					"in": "formData",
+					"required": true,
+					"type": "number"
+				}, {
+					"name": "lng",
+					"in": "formData",
+					"required": true,
+					"type": "number"
+				}],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Resort"
+							}
+						}
+					},
+					"401": {
+						"description": "You are not allowed to perform this operation."
+					}
+				}
 			}
 		},
-		"/resort/:id": {
+		"/resort/{id}": {
 			"get": {
 				"tags": [
 					"Resorts"
@@ -3371,12 +3284,12 @@
 					"name": "lat",
 					"in": "formData",
 					"required": false,
-					"type": "string"
+					"type": "number"
 				}, {
 					"name": "lng",
 					"in": "formData",
 					"required": false,
-					"type": "string"
+					"type": "number"
 				}],
 				"responses": {
 					"200": {

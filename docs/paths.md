@@ -458,7 +458,7 @@ Edits an existing generator
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|PathParameter|generatorId||false|string||
+|PathParameter|generatorId||true|string||
 |FormDataParameter|name|Name of the new generator.|false|string||
 |FormDataParameter|priority|Generator priority.|false|string||
 |FormDataParameter|generatorType|Generator type (lessonGenerator or bundleGenerator).|false|string||
@@ -1222,9 +1222,38 @@ Gets resorts by params.
 
 * Resorts
 
-### GET /resort/:id
+### POST /resort
 ```
-GET /resort/:id
+POST /resort
+```
+
+#### Description
+
+Adds a new resort.
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|FormDataParameter|name||true|string||
+|FormDataParameter|photoURL||false|string||
+|FormDataParameter|lat||true|number||
+|FormDataParameter|lng||true|number||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|Resort array|
+|401|You are not allowed to perform this operation.|No Content|
+
+
+#### Tags
+
+* Resorts
+
+### GET /resort/{id}
+```
+GET /resort/{id}
 ```
 
 #### Description
@@ -1247,9 +1276,9 @@ Gets resort by id.
 
 * Resorts
 
-### PUT /resort/:id
+### PUT /resort/{id}
 ```
-PUT /resort/:id
+PUT /resort/{id}
 ```
 
 #### Description
@@ -1262,8 +1291,8 @@ Modifies resort by id.
 |PathParameter|id||true|string||
 |FormDataParameter|name||false|string||
 |FormDataParameter|photoURL||false|string||
-|FormDataParameter|lat||false|string||
-|FormDataParameter|lng||false|string||
+|FormDataParameter|lat||false|number||
+|FormDataParameter|lng||false|number||
 
 
 #### Responses
@@ -1290,34 +1319,9 @@ Creates a new school
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|FormDataParameter|userName||true|string||
-|FormDataParameter|userSurname||true|string||
-|FormDataParameter|userEmail||true|string||
-|FormDataParameter|addressCity||true|string||
-|FormDataParameter|addressCountry||true|string||
-|FormDataParameter|addressStreet||true|string||
-|FormDataParameter|addressStreetNum||true|string||
-|FormDataParameter|addressZipCode||true|string||
-|FormDataParameter|addressState||true|string||
-|FormDataParameter|bankDetailsAccountNumber||true|string||
-|FormDataParameter|bankDetailsCurrency||true|string||
 |FormDataParameter|email||true|string||
-|FormDataParameter|logo||true|string||
 |FormDataParameter|name||true|string||
-|FormDataParameter|royaltyPercent||true|string||
-|FormDataParameter|resortId|ID of an existing resort|false|string||
-|FormDataParameter|resortName|Resort name (if ID not specified)|false|string||
-|FormDataParameter|resortLat|Resort lat (if ID not specified)|false|string||
-|FormDataParameter|resortLng|Resort lng (if ID not specified)|false|string||
-|FormDataParameter|openingHours|See examples|true|string||
-|FormDataParameter|defaultMeetingPoints|See examples|true|string||
-|FormDataParameter|contactsFacebook||false|string||
-|FormDataParameter|contactsTwitter||false|string||
-|FormDataParameter|contactsGoogleplus||false|string||
-|FormDataParameter|contactsPhone||false|string||
-|FormDataParameter|contactsMail||false|string||
-|FormDataParameter|contactsSiteUrl||false|string||
-|FormDataParameter|manuallySetRating||false|string||
+|FormDataParameter|currency||false|string||
 
 
 #### Responses
