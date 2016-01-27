@@ -139,8 +139,8 @@ Object representing a skiing resort.
 
 |Name|Description|Required|Schema|Default|
 |----|----|----|----|----|
-|name|The name of the resort|true|string||
-|coords|Resort's location|true|Address||
+|name|The name of the resort. Must be unique|true|string||
+|coords|Resort's location|false|Address||
 |pictureURL|Resort picture URL.|false|string||
 
 
@@ -160,7 +160,7 @@ Information about a given school
 |logo|An url  with the school logo file|true|string||
 |name|The name of the school|true|string||
 |openingHours|School working time (internal object with start and end hour).|true|string (date) array||
-|resort|The resort the school belongs to.|true|Resort||
+|resort|The resort the school belongs to.|false|Resort||
 |manuallySetRating|School's rating|false|number (double)||
 |enabled|Says whether the school lesson is enabled (e.g. whether its lessons appear for users).|true|boolean||
 |active|Says whether the school is active.|true|boolean||

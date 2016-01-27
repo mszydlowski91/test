@@ -6,7 +6,7 @@
 	"produces": [
 		"application/json"
 	],
-	"host": "localhost:8080",
+	"host": "api.adam.skipodium.com",
 	"info": {
 		"description": "REST-ful API used to communicate with the Skipodium backend.",
 		"version": "1.0.0",
@@ -402,7 +402,7 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Sucess",
+						"description": "Success",
 						"schema": {
 							"$ref": "#/definitions/Employee"
 						}
@@ -542,13 +542,86 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Sucess",
+						"description": "Success",
 						"schema": {
 							"type": "array",
 							"items": {
 								"$ref": "#/definitions/TimeInterval"
 							}
 						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			}
+		},
+		"/employee/{employeeId}/timeOff": {
+			"put": {
+				"tags": [
+					"Employees"
+				],
+				"summary": "Adds timeOffs for the employee.",
+				"description": "Adds timeOffs for the employee.",
+				"consumes": [],
+				"produces": [],
+				"parameters": [{
+					"name": "employeeId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "startDate",
+					"in": "formData",
+					"description": "Start date of the generated time offs, format: YYYY-MM-DD",
+					"required": true,
+					"type": "string"
+				},  {
+					"name": "endDate",
+					"in": "formData",
+					"description": "End date of the generated time offs, format: YYYY-MM-DD",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "startTime",
+					"in": "formData",
+					"description": "Start time of the generated time offs, format: HH-MM-SS",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "endTime",
+					"in": "formData",
+					"description": "End time of the generated time offs, format: HH-MM-SS",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "repeatMode",
+					"in": "formData",
+					"description": "Repeat pattern enum - weekly, daily, or weekday.",
+					"required": true,
+					"type": "string"
+				}, {
+					"name": "repeatEvery",
+					"in": "formData",
+					"description": "If weekly or daily mode - says that it repeats every N days/weeks.",
+					"required": false,
+					"type": "string"
+				}, {
+					"name": "repeatOn",
+					"in": "formData",
+					"description": "Selects weekdays to repeat on - weekly mode only (JSON array of weekday indexes)",
+					"required": false,
+					"type": "string"
+				}],
+				"responses": {
+					"200": {
+						"description": "Success"					
 					},
 					"400": {
 						"description": "Bad Request"
@@ -591,7 +664,7 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Sucess"
+						"description": "Success"
 					},
 					"400": {
 						"description": "Bad Request"
@@ -2248,6 +2321,40 @@
 				}
 			}
 		},
+		"/school/{schoolId}/accept/{accept}": {
+			"put": {
+				"tags": [
+					"Schools"
+				],
+				"summary": "Sends an activation request to skipodium",
+				"description": "Sends an activation request to skipodium, can only be sent by a school director, upon success an email will be sent to skipodium managment to manually activate the school",
+				"consumes": [],
+				"produces": [],
+				"parameters": [{
+					"name": "schoolId",
+					"in": "path",
+					"required": true,
+					"type": "string"
+				},{
+					"name": "accept",
+					"in": "path",
+					"required": true,
+					"type": "boolean"
+				}],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+
+			}
+		},
 		"/school/{schoolId}/activate": {
 			"put": {
 				"tags": [
@@ -2914,7 +3021,7 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Sucess"
+						"description": "Success"
 					},
 					"400": {
 						"description": "Bad Request"
@@ -3229,6 +3336,7 @@
 				"parameters": [{
 					"name": "name",
 					"in": "formData",
+					"description" : "Resort name - must be unique",
 					"required": true,
 					"type": "string"
 				}, {
@@ -3239,12 +3347,12 @@
 				}, {
 					"name": "lat",
 					"in": "formData",
-					"required": true,
+					"required": false,
 					"type": "number"
 				}, {
 					"name": "lng",
 					"in": "formData",
-					"required": true,
+					"required": false,
 					"type": "number"
 				}],
 				"responses": {
@@ -3895,14 +4003,13 @@
 		},
 		"Resort": {
 			"required": [
-				"coords",
 				"name"
 			],
 			"properties": {
 				"name": {
 					"type": "string",
 					"example": "sample name",
-					"description": "The name of the resort"
+					"description": "The name of the resort. Must be unique"
 				},
 				"coords": {
 					"description": "Resort's location",
@@ -3929,7 +4036,6 @@
 				"logo",
 				"name",
 				"openingHours",
-				"resort",
 				"royaltyPercent"
 			],
 			"properties": {

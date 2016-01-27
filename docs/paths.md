@@ -315,7 +315,42 @@ Gets the stats of the employee. Returns a custom JSON.
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Sucess|No Content|
+|200|Success|No Content|
+|400|Bad Request|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
+
+
+#### Tags
+
+* Employees
+
+### PUT /employee/{employeeId}/timeOff
+```
+PUT /employee/{employeeId}/timeOff
+```
+
+#### Description
+
+Adds timeOffs for the employee.
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|employeeId||true|string||
+|FormDataParameter|startDate|Start date of the generated time offs, format: YYYY-MM-DD|true|string||
+|FormDataParameter|endDate|End date of the generated time offs, format: YYYY-MM-DD|true|string||
+|FormDataParameter|startTime|Start time of the generated time offs, format: HH-MM-SS|true|string||
+|FormDataParameter|endTime|End time of the generated time offs, format: HH-MM-SS|true|string||
+|FormDataParameter|repeatMode|Repeat pattern enum - weekly, daily, or weekday.|true|string||
+|FormDataParameter|repeatEvery|If weekly or daily mode - says that it repeats every N days/weeks.|false|string||
+|FormDataParameter|repeatOn|Selects weekdays to repeat on - weekly mode only (JSON array of weekday indexes)|false|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|No Content|
 |400|Bad Request|No Content|
 |401|Unauthorized|No Content|
 |404|Not Found|No Content|
@@ -345,7 +380,7 @@ Gets the times off of the employee.
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Sucess|TimeInterval array|
+|200|Success|TimeInterval array|
 |400|Bad Request|No Content|
 |401|Unauthorized|No Content|
 |404|Not Found|No Content|
@@ -1244,10 +1279,10 @@ Adds a new resort.
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|FormDataParameter|name||true|string||
+|FormDataParameter|name|Resort name - must be unique|true|string||
 |FormDataParameter|photoURL||false|string||
-|FormDataParameter|lat||true|number||
-|FormDataParameter|lng||true|number||
+|FormDataParameter|lat||false|number||
+|FormDataParameter|lng||false|number||
 
 
 #### Responses
@@ -1413,6 +1448,34 @@ Modifies an existing school
 |----|----|----|
 |200|OK|No Content|
 |400|Bad Request|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
+
+
+#### Tags
+
+* Schools
+
+### PUT /school/{schoolId}/accept/{accept}
+```
+PUT /school/{schoolId}/accept/{accept}
+```
+
+#### Description
+
+Sends an activation request to skipodium, can only be sent by a school director, upon success an email will be sent to skipodium managment to manually activate the school
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|schoolId||true|string||
+|PathParameter|accept||true|boolean||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|No Content|
 |401|Unauthorized|No Content|
 |404|Not Found|No Content|
 
@@ -1983,7 +2046,7 @@ Gets all user employments. Returns an array of pairs {employee, school}.
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|Sucess|No Content|
+|200|Success|No Content|
 |400|Bad Request|No Content|
 |404|Not Found|No Content|
 
