@@ -147,9 +147,10 @@ Gets employees by params
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |QueryParameter|language|Language|false|string||
-|QueryParameter|specialty|Specialty|false|string||
-|QueryParameter|permissions|Permission|false|string||
-|QueryParameter|expertise|Expertise|false|string||
+|QueryParameter|specialtyType|Specialty - see MOCKUP API|false|string||
+|QueryParameter|expertise|Expertise - see MOCKUP API|false|string||
+|QueryParameter|level|Level - see MOCKUP API|false|string||
+|QueryParameter|permissions|Permission - see MOCKUP API|false|string||
 |QueryParameter|schoolId|School id|false|string||
 
 
@@ -181,7 +182,7 @@ Adds a new employee
 |FormDataParameter|email|Email of the employee user (if created from scratch with user).|false|string||
 |FormDataParameter|userId|ID of the user the employee will be assigned to (if created for an existing user).|false|string||
 |FormDataParameter|schoolId|ID of the school of the new employee.|true|string||
-|FormDataParameter|permissions|See examples |true|string||
+|FormDataParameter|permissions|JSON array - see MOCKUP API|true|string||
 |FormDataParameter|salary|Employee salary.|true|string||
 |FormDataParameter|comment|Comment about the employee.|false|string||
 
@@ -241,10 +242,10 @@ Modifies an existing employee.
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|employeeId||true|string||
-|FormDataParameter|permissions|A list of employee permissions. JSON array.|false|string||
-|FormDataParameter|specialties|A list of specialties, JSON array of objects (see example).|false|string||
-|FormDataParameter|timesOff|A list of employee times off, JSON array of objects (see example).|false|string||
-|FormDataParameter|schedule|Employee time off schedule, JSON object (see example).|false|string||
+|FormDataParameter|permissions|A list of employee permissions. JSON array - see MOCKUP API.|false|string||
+|FormDataParameter|specialties|A list of specialties, JSON array of objects - see MOCKUP API.|false|string||
+|FormDataParameter|timesOff|A list of employee times off, JSON array of objects - see MOCKUP API.|false|string||
+|FormDataParameter|schedule|Employee time off schedule, JSON object - see MOCKUP API.|false|string||
 |FormDataParameter|salary|Employee salary.|false|string||
 |FormDataParameter|comment|Comment about the employee.|false|string||
 
@@ -295,6 +296,34 @@ Schedules an employee for deletion.
 
 * Employees
 
+### PUT /employee/{employeeId}/employment/{accept}
+```
+PUT /employee/{employeeId}/employment/{accept}
+```
+
+#### Description
+
+Manages accept employment request.
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|employeeId||true|string||
+|PathParameter|accept||true|boolean||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
+
+
+#### Tags
+
+* Employees
+
 ### GET /employee/{employeeId}/stats
 ```
 GET /employee/{employeeId}/stats
@@ -308,8 +337,8 @@ Gets the stats of the employee. Returns a custom JSON.
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|employeeId||true|string||
-|QueryParameter|timeFrom|Date from which to search.|false|string||
-|QueryParameter|timeTo|Date till which to search.|false|string||
+|QueryParameter|timeFrom|Date from which to search: 2015-11-11T16:11:32.714Z|false|string||
+|QueryParameter|timeTo|Date till which to search: 2016-11-11T16:11:32.714Z|false|string||
 
 
 #### Responses
@@ -340,8 +369,8 @@ Adds timeOffs for the employee.
 |PathParameter|employeeId||true|string||
 |FormDataParameter|startDate|Start date of the generated time offs, format: YYYY-MM-DD|true|string||
 |FormDataParameter|endDate|End date of the generated time offs, format: YYYY-MM-DD|true|string||
-|FormDataParameter|startTime|Start time of the generated time offs, format: HH-MM-SS|true|string||
-|FormDataParameter|endTime|End time of the generated time offs, format: HH-MM-SS|true|string||
+|FormDataParameter|startTime|Start time of the generated time offs, format: HH:MM:SS|true|string||
+|FormDataParameter|endTime|End time of the generated time offs, format: HH:MM:SS|true|string||
 |FormDataParameter|repeatMode|Repeat pattern enum - weekly, daily, or weekday.|true|string||
 |FormDataParameter|repeatEvery|If weekly or daily mode - says that it repeats every N days/weeks.|false|string||
 |FormDataParameter|repeatOn|Selects weekdays to repeat on - weekly mode only (JSON array of weekday indexes)|false|string||
@@ -373,8 +402,8 @@ Gets the times off of the employee.
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|employeeId||true|string||
-|QueryParameter|timeFrom|Lower time bound (alternatively use month)|false|string||
-|QueryParameter|timeTo|Upper time bound (alternatively use month)|false|string||
+|QueryParameter|timeFrom|Lower time bound: 2015-11-11T16:11:32.714Z|false|string||
+|QueryParameter|timeTo|Upper time bound: 2016-11-11T16:11:32.714Z|false|string||
 
 
 #### Responses
@@ -436,13 +465,13 @@ Creates a new generator
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |FormDataParameter|name|Name of the new generator.|true|string||
-|FormDataParameter|priority|Generator priority.|true|string||
+|FormDataParameter|priority|Generator priority (number).|true|string||
 |FormDataParameter|generatorType|Generator type (lessonGenerator or bundleGenerator).|true|string||
 |FormDataParameter|lessonTemplateId|ID of the lesson template used by the generator.|true|string||
 |FormDataParameter|schoolId|ID of the school that owns the generator.|true|string||
 |FormDataParameter|comment|Comment about the generator.|false|string||
-|FormDataParameter|instructorIds|Array of instructor IDs for this generator.|true|string||
-|FormDataParameter|schedule|Generator schedule object.|true|string||
+|FormDataParameter|instructorIds|Array of instructor IDs for this generator - see MOCKUP - API.|true|string||
+|FormDataParameter|schedules|Generator schedules - see MOCKUP - API.|true|string||
 
 
 #### Responses
@@ -505,8 +534,8 @@ Edits an existing generator
 |FormDataParameter|lessonTemplateId|ID of the lesson template used by the generator.|false|string||
 |FormDataParameter|schoolId|ID of the school that owns the generator.|false|string||
 |FormDataParameter|comment|Comment about the generator.|false|string||
-|FormDataParameter|instructorIds|Array of instructor IDs for this generator.|false|string||
-|FormDataParameter|schedule|Generator schedule object.|false|string||
+|FormDataParameter|instructorIds|Array of instructor IDs for this generator- see MOCKUP - API.|false|string||
+|FormDataParameter|schedules|Generator schedules - see MOCKUP - API.|false|string||
 
 
 #### Responses
@@ -563,15 +592,15 @@ Gets lessons by parameters
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|QueryParameter|timeFrom|Date from which to search.|false|string||
-|QueryParameter|timeTo|Date till which to search.|false|string||
+|QueryParameter|timeFrom|Date from which to search: 2015-11-11T16:11:32.714Z.|false|string||
+|QueryParameter|timeTo|Date till which to search: 2015-11-11T16:11:32.714Z.|false|string||
 |QueryParameter|numParticipants|Target number of participants.|false|string||
-|QueryParameter|specialty|Target specialty.|false|string||
+|QueryParameter|specialty|Target specialty - see MOCKUP - API.|false|string||
+|QueryParameter|expertise|Expertise - see MOCKUP - API.|false|string||
+|QueryParameter|level|Level - see MOCKUP - API.|false|string||
 |QueryParameter|minPrice|Minimum price.|false|string||
 |QueryParameter|maxPrice|Maximum price.|false|string||
-|QueryParameter|expertise|Expertises (can be multiple, separate them by a comma).|false|string||
 |QueryParameter|age|Target age.|false|string||
-|QueryParameter|level||false|string||
 |QueryParameter|instructorId|Instructor id|false|string||
 |QueryParameter|instructorBonusFlag|Instructor bonus flag|false|boolean||
 |QueryParameter|schoolId|School id|false|string||
@@ -602,12 +631,12 @@ Creates a new lesson
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|FormDataParameter|timeFrom|Lesson start time.|true|string||
-|FormDataParameter|timeTo|Lesson end time.|true|string||
+|FormDataParameter|timeFrom|Lesson start time: 2015-11-11T16:11:32.714Z|true|string||
+|FormDataParameter|timeTo|Lesson end time: 2015-11-11T16:11:32.714Z.|true|string||
 |FormDataParameter|minParticipants|Min number of participants.|false|string||
 |FormDataParameter|maxParticipants|Max number of participants.|false|string||
-|FormDataParameter|specialties|Lesson specialties.|false|string||
-|FormDataParameter|prices|Lesson prices for consecutive participant numbers.|true|string||
+|FormDataParameter|specialties|Lesson specialties - see MOCKUP - API.|false|string||
+|FormDataParameter|prices|Lesson prices for consecutive participant numbers: [10, 100]|true|string||
 |FormDataParameter|minAge|Min age.|false|string||
 |FormDataParameter|maxAge|Max age.|false|string||
 |FormDataParameter|instructorId|Instructor id|false|string||
@@ -617,9 +646,9 @@ Creates a new lesson
 |FormDataParameter|clientSource|user/school/whiteLabel|true|string||
 |FormDataParameter|comment|Comment about the lesson.|false|string||
 |FormDataParameter|generatorId|ID of the generator that created the lesson.|false|string||
-|FormDataParameter|geoName|Name of the meeting point.|false|string||
-|FormDataParameter|geoLat|Latitude of the meeting point.|false|string||
-|FormDataParameter|geoLng|Longitude of the meeting point.|false|string||
+|FormDataParameter|geoName|Name of the meeting point.|true|string||
+|FormDataParameter|geoLat|Latitude of the meeting point.|true|string||
+|FormDataParameter|geoLng|Longitude of the meeting point.|true|string||
 |FormDataParameter|private|Says whether the lesson is private.|false|boolean||
 
 
@@ -676,12 +705,12 @@ Modifies an existing lesson
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|lessonId|ID of the lesson to work with.|true|string||
-|FormDataParameter|timeFrom|Date from which to search.|false|string||
-|FormDataParameter|timeTo|Date till which to search.|false|string||
+|FormDataParameter|timeFrom|New time from: 2015-11-11T16:11:32.714Z|false|string||
+|FormDataParameter|timeTo|New time to: 2015-11-11T16:11:32.714Z|false|string||
 |FormDataParameter|minParticipants|Min number of participants.|false|string||
 |FormDataParameter|maxParticipants|Max number of participants.|false|string||
-|FormDataParameter|specialties|Lesson specialties.|false|string||
-|FormDataParameter|prices|Lesson prices for consecutive participant numbers.|false|string||
+|FormDataParameter|specialties|Lesson specialties - see MOCKUP - API.|false|string||
+|FormDataParameter|prices|Lesson prices for consecutive participant numbers - see MOCKUP-API.|false|string||
 |FormDataParameter|minAge|Min age.|false|string||
 |FormDataParameter|maxAge|Max age.|false|string||
 |FormDataParameter|instructorId|Instructor id|false|string||
@@ -691,9 +720,9 @@ Modifies an existing lesson
 |FormDataParameter|clientSource|user/school/whiteLabel|false|string||
 |FormDataParameter|comment|Comment about the lesson.|false|string||
 |FormDataParameter|generatorId|ID of the generator that created the lesson.|false|string||
-|FormDataParameter|meetingPoint|Meeting point JSON.|false|string||
+|FormDataParameter|meetingPoint|Meeting point JSON - see MOCKUP-API.|false|string||
 |FormDataParameter|private|Says whether the lesson is private.|false|boolean||
-|FormDataParameter|participants|Lesson participants.|false|string||
+|FormDataParameter|participants|Lesson participant IDs - see MOCKUP-API.|false|string||
 
 
 #### Responses
@@ -808,7 +837,7 @@ Manually purchase a new lesson by a school manager or instructor.
 |PathParameter|lessonId||true|string||
 |FormDataParameter|clientId|A list of IDs of users the lesson was bought for (JSON array).|true|string||
 |FormDataParameter|amount|The amount of money the purchasing person paid.|true|number||
-|FormDataParameter|paymentMethod|The amount of money the purchasing person paid.|false|string||
+|FormDataParameter|paymentMethod|The selected payment method (bankTransfer,creditCard, debitCard or cash).|false|string||
 
 
 #### Responses
@@ -891,15 +920,16 @@ Returns a list of entries: {imageUrl, firstName, surname, lowestPrice, specialti
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
-|QueryParameter|resort|Resort|false|string||
-|QueryParameter|timeFrom|Date from which to search.|false|string||
-|QueryParameter|timeTo|Date till which to search.|false|string||
+|QueryParameter|resortId|ID of the resort to look in|false|string||
+|QueryParameter|timeFrom|Date from which to search: 2015-11-11T16:11:32.714Z|false|string||
+|QueryParameter|timeTo|Date till which to search: 2016-11-11T16:11:32.714Z|false|string||
 |QueryParameter|numParticipants|Target number of participants.|false|string||
-|QueryParameter|specialty|Target specialty.|false|string||
+|QueryParameter|specialtyType|Target specialty, see MOCKUP - API|false|string||
+|QueryParameter|expertises|Expertises, see MOCKUP - API|false|string||
+|QueryParameter|level|Level, see MOCKUP - API|false|string||
 |QueryParameter|minPrice|Minimum price.|false|string||
 |QueryParameter|maxPrice|Maximum price.|false|string||
 |QueryParameter|language|Language.|false|string||
-|QueryParameter|expertise|Expertises (can be multiple, separate them by a comma).|false|string||
 
 
 #### Responses
@@ -933,9 +963,9 @@ Add a new lesson template.
 |FormDataParameter|maxParticipants|Maximum participant count for the produced lessons.|false|string||
 |FormDataParameter|name|Name of the lesson template.|true|string||
 |FormDataParameter|lessonName|Name of the lessons produced.|true|string||
-|FormDataParameter|meetingPoint|Meeting point JSON (see example, like in POST /lesson).|true|string||
-|FormDataParameter|specialties|Produced lessons' specialties (JSON object array, see POST /lesson example).|false|string||
-|FormDataParameter|prices|Produced lessons' prices for consecutive participant numbers (JSON array, see POST /lesson example)|true|string||
+|FormDataParameter|meetingPoint|Meeting point JSON (see MOCKUP-API).|true|string||
+|FormDataParameter|specialties|Produced lessons' specialties (JSON object array, see MOCKUP-API).|false|string||
+|FormDataParameter|prices|Produced lessons' prices for consecutive participant numbers: [10, 100]|true|string||
 |FormDataParameter|schoolId|Produced lessons' school id|true|string||
 
 
@@ -1000,9 +1030,9 @@ Modify a lesson template by ID.
 |FormDataParameter|maxParticipants|Maximum participant count for the produced lessons.|false|string||
 |FormDataParameter|name|Name of the lesson template.|false|string||
 |FormDataParameter|lessonName|Name of the lessons produced.|false|string||
-|FormDataParameter|meetingPoint|Meeting point JSON (see example, like in POST /lesson).|false|string||
-|FormDataParameter|specialties|Produced lessons' specialties (JSON object array, see POST /lesson example).|false|string||
-|FormDataParameter|prices|Produced lessons' prices for consecutive participant numbers (JSON array, see POST /lesson example)|false|string||
+|FormDataParameter|meetingPoint|Meeting point JSON (see MOCKUP-API).|false|string||
+|FormDataParameter|specialties|Produced lessons' specialties (see MOCKUP-API).|false|string||
+|FormDataParameter|prices|Produced lessons' prices for consecutive participant numbers: [10, 100]|false|string||
 |FormDataParameter|schoolId|Produced lessons' school id|false|string||
 
 
@@ -1366,7 +1396,9 @@ Creates a new school
 |----|----|----|----|----|----|
 |FormDataParameter|email||true|string||
 |FormDataParameter|name||true|string||
-|FormDataParameter|currency||false|string||
+|FormDataParameter|siteUrl||false|string||
+|FormDataParameter|country||false|string||
+|FormDataParameter|resort|Resort name|false|string||
 
 
 #### Responses
@@ -1428,12 +1460,12 @@ Modifies an existing school
 |FormDataParameter|addressZipCode||false|string||
 |FormDataParameter|addressState||false|string||
 |FormDataParameter|email||false|string||
-|FormDataParameter|logo||false|string||
+|FormDataParameter|logo|This tool does not support uploading files.|false|string||
 |FormDataParameter|name||false|string||
 |FormDataParameter|royaltyPercent||false|string||
 |FormDataParameter|resortId||false|string||
-|FormDataParameter|openingHours|See examples|false|string||
-|FormDataParameter|defaultMeetingPoints|See examples|false|string||
+|FormDataParameter|openingHours|See MOCKUP-API|false|string||
+|FormDataParameter|defaultMeetingPoints|See MOCKUP-API|false|string||
 |FormDataParameter|contactsFacebook||false|string||
 |FormDataParameter|contactsTwitter||false|string||
 |FormDataParameter|contactsGoogleplus||false|string||
@@ -1834,10 +1866,10 @@ Creates a new stub user.
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |FormDataParameter|email|The email of the stub user|true|string||
-|FormDataParameter|name|The name of the stub user|false|string||
-|FormDataParameter|surname|The lastName of the stub user|false|string||
-|FormDataParameter|schoolId|The ID of the school creating the stub user|false|string||
-|FormDataParameter|birthDate|The birthdate of the stub user|false|string||
+|FormDataParameter|name|The name of the stub user|true|string||
+|FormDataParameter|surname|The lastName of the stub user|true|string||
+|FormDataParameter|schoolId|The ID of the school creating the stub user|true|string||
+|FormDataParameter|birthDate|E.g. 1991-04-04T10:00:00.000Z|false|string||
 |FormDataParameter|address|The address of the stub user|false|string||
 |FormDataParameter|nationality|The nationality of the stub user|false|string||
 |FormDataParameter|vatCode|The VAT ID of the stub user|false|string||
@@ -1882,9 +1914,9 @@ Resets a user's password
 
 * Users
 
-### GET /user/{token}/newPassword
+### POST /user/{token}/newPassword
 ```
-GET /user/{token}/newPassword
+POST /user/{token}/newPassword
 ```
 
 #### Description
@@ -1895,6 +1927,7 @@ Resets a user's password
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|token||true|string||
+|FormDataParameter|newpassword||true|string||
 
 
 #### Responses
@@ -1909,9 +1942,9 @@ Resets a user's password
 
 * Users
 
-### GET /user/{token}/verify
+### PUT /user/{token}/verify
 ```
-GET /user/{token}/verify
+PUT /user/{token}/verify
 ```
 
 #### Description
@@ -1980,9 +2013,9 @@ Updates a selected user
 |FormDataParameter|email||false|string||
 |FormDataParameter|surname||false|string||
 |FormDataParameter|phoneNumber||false|string||
-|FormDataParameter|languages|See examples|false|string||
+|FormDataParameter|languages|See MOCKUP-API|false|string||
 |FormDataParameter|photoURL||false|string||
-|FormDataParameter|birthDate||false|string||
+|FormDataParameter|birthDate|E.g: 1991-04-04T10:00:00.000Z|false|string||
 |FormDataParameter|address||false|string||
 |FormDataParameter|nationality||false|string||
 |FormDataParameter|vatCode||false|string||

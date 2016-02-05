@@ -119,10 +119,11 @@ Types and type-specific fields: <br>
 |deleted|Says whether the message has been deleted. If true - it is scheduled for permanent deletion.|true|boolean||
 |formerInstructorId|The Id of the instructor previously assigned to this lesson.|false|string||
 |fromId|Entity type and ID of the person / school which sent this message|true|EntityID||
-|important|Whether it is in the 'important' category.|true|boolean||
+|important|Whether it is in the 'important' category.|false|boolean||
 |lessonId|The id of the lesson that was changed|false|string||
 |memberId|ID of the member assigning or unassigning the lesson.|false|string||
 |message|The content of the message|true|string||
+|messageType|Type of message - request, notification etc.|true|string||
 |oldRole|The previous role of the user who changed|false|string||
 |participantId|Person for whom the lesson was booked/unbooked for.|false|string||
 |productId|Id of added/removed/changed  lesson / bundle|false|string||
@@ -130,7 +131,6 @@ Types and type-specific fields: <br>
 |role|The role of the person requesting the lesson|false|string||
 |timesOff|A list of periods where the instructor will not be available|false|TimeInterval||
 |toId|Entity type and ID of the user/school that is the receiver of this message.|true|EntityID||
-|type|Type of message - request, notification etc.|true|string||
 
 
 ### Resort
