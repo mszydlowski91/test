@@ -1345,6 +1345,8 @@ Gets resort by id.
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|OK|Resort|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
 
 
 #### Tags

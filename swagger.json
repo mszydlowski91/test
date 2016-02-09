@@ -3455,13 +3455,13 @@
 						"schema": {
 							"$ref": "#/definitions/Resort"
 						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"404": {
+						"description": "Not Found"
 					}
-				},
-				"401": {
-					"description": "Unauthorized"
-				},
-				"404": {
-					"description": "Not Found"
 				}
 			},
 			"put": {
@@ -4400,7 +4400,7 @@
 					"type": "string",
 					"example": "40000",
 					"description": "User's vat code"
-				}				
+				}
 			}
 		},
 		"Address": {
