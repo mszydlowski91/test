@@ -6,7 +6,7 @@
 	"produces": [
 		"application/json"
 	],
-	"host": "api.adam.skipodium.com",
+	"host": "localhost:8080",
 	"info": {
 		"description": "REST-ful API used to communicate with the Skipodium backend.",
 		"version": "1.0.0",
@@ -591,7 +591,7 @@
 				"responses": {
 					"200": {
 						"description": "Success"
-					},					
+					},
 					"401": {
 						"description": "Unauthorized"
 					},
@@ -621,7 +621,7 @@
 					"description": "Start date of the generated time offs, format: YYYY-MM-DD",
 					"required": true,
 					"type": "string"
-				},  {
+				}, {
 					"name": "endDate",
 					"in": "formData",
 					"description": "End date of the generated time offs, format: YYYY-MM-DD",
@@ -660,7 +660,7 @@
 				}],
 				"responses": {
 					"200": {
-						"description": "Success"					
+						"description": "Success"
 					},
 					"400": {
 						"description": "Bad Request"
@@ -960,7 +960,7 @@
 					"description": "Array of instructor IDs for this generator- see MOCKUP - API.",
 					"required": false,
 					"type": "string"
-				},  {
+				}, {
 					"name": "schedules",
 					"in": "formData",
 					"description": "Generator schedules - see MOCKUP - API.",
@@ -1051,13 +1051,13 @@
 				}, {
 					"name": "expertise",
 					"in": "query",
-					"description": "Expertise - see MOCKUP - API.", 
+					"description": "Expertise - see MOCKUP - API.",
 					"required": false,
 					"type": "string"
 				}, {
 					"name": "level",
 					"in": "query",
-					"description": "Level - see MOCKUP - API.", 
+					"description": "Level - see MOCKUP - API.",
 					"required": false,
 					"type": "string"
 				}, {
@@ -1305,7 +1305,7 @@
 				}, {
 					"name": "timeFrom",
 					"in": "formData",
-					"description": "New time from: 2015-11-11T16:11:32.714Z", 
+					"description": "New time from: 2015-11-11T16:11:32.714Z",
 					"required": false,
 					"type": "string"
 				}, {
@@ -2156,15 +2156,15 @@
 					"in": "formData",
 					"required": false,
 					"type": "string"
-				},{
+				}, {
 					"name": "country",
 					"in": "formData",
 					"required": false,
 					"type": "string"
-				},{
+				}, {
 					"name": "resort",
 					"in": "formData",
-					"description" : "Resort name",
+					"description": "Resort name",
 					"required": false,
 					"type": "string"
 				}],
@@ -2262,7 +2262,7 @@
 				}, {
 					"name": "logo",
 					"in": "formData",
-					"description" : "This tool does not support uploading files.",
+					"description": "This tool does not support uploading files.",
 					"required": false,
 					"type": "string"
 				}, {
@@ -2392,7 +2392,7 @@
 					"in": "path",
 					"required": true,
 					"type": "string"
-				},{
+				}, {
 					"name": "accept",
 					"in": "path",
 					"required": true,
@@ -3310,7 +3310,7 @@
 					"in": "path",
 					"required": true,
 					"type": "string"
-				},{
+				}, {
 					"name": "newpassword",
 					"in": "formData",
 					"required": true,
@@ -3399,7 +3399,7 @@
 				"parameters": [{
 					"name": "name",
 					"in": "formData",
-					"description" : "Resort name - must be unique",
+					"description": "Resort name - must be unique",
 					"required": true,
 					"type": "string"
 				}, {
@@ -3516,9 +3516,9 @@
 		"Employee": {
 			"required": [
 				"_id",
+				"active",
 				"deleted",
 				"permissions",
-				"timesOff",
 				"userId",
 				"schoolId",
 				"salary"
@@ -3528,9 +3528,20 @@
 					"type": "string",
 					"example": "sample _id"
 				},
-				"userId": {
-					"description": "The corresponding `User`, stored as ID, but will be fetched as an entire embedded object at backend side.",
-					"$ref": "#/definitions/User"
+				"active": {
+					"type": "boolean",
+					"example": "false",
+					"description": "Says whether the employee has confirmed his membership in the school."
+				},
+				"comment": {
+					"type": "string",
+					"example": "sample comment",
+					"description": "Employee comment."
+				},
+				"deleted": {
+					"type": "boolean",
+					"example": "false",
+					"description": "Says whether the employee was deleted."
 				},
 				"permissions": {
 					"type": "array",
@@ -3540,12 +3551,21 @@
 						"example": "sample permissions"
 					}
 				},
-				"timesOff": {
-					"type": "array",
-					"description": "Time intervals during which the user is unavailable",
-					"items": {
-						"$ref": "#/definitions/TimeInterval"
-					}
+				"rating": {
+					"type": "number",
+					"format": "double",
+					"example": "1.0",
+					"description": "Empoloyee's average rating"
+				},
+				"salary": {
+					"type": "number",
+					"format": "double",
+					"example": "1.1",
+					"description": "Salary"
+				},
+				"schedule": {
+					"description": "The employee's time off schedule.",
+					"$ref": "#/definitions/Schedule"
 				},
 				"schoolId": {
 					"description": "The school the employee works at.",
@@ -3559,21 +3579,16 @@
 						"$ref": "#/definitions/Specialty"
 					}
 				},
-				"deleted": {
-					"type": "boolean",
-					"example": "false",
-					"description": "Says whether the employee was deleted."
+				"timesOff": {
+					"type": "array",
+					"description": "Time intervals during which the employee is unavailable",
+					"items": {
+						"$ref": "#/definitions/TimeInterval"
+					}
 				},
-				"comment": {
-					"type": "string",
-					"example": "sample comment",
-					"description": "Employee comment."
-				},
-				"salary": {
-					"type": "number",
-					"format": "double",
-					"example": "1.1",
-					"description": "Salary"
+				"userId": {
+					"description": "The corresponding `User`, stored as ID, but will be fetched as an entire embedded object at backend side.",
+					"$ref": "#/definitions/User"
 				}
 			},
 			"description": "School employee"
@@ -3583,6 +3598,7 @@
 				"_id",
 				"fromId",
 				"lessonId",
+				"schoolId",
 				"rating",
 				"toId",
 				"deleted"
@@ -3592,23 +3608,31 @@
 					"type": "string",
 					"example": "1"
 				},
-				"fromId": {
-					"description": "ID and entity type of the sender.",
-					"$ref": "#/definitions/EntityID"
+				"absences": {
+					"type": "array",
+					"description": "A list of users who didn't show up for the lesson in case it didn't occur after all.",
+					"items": {
+						"type": "string",
+						"$ref": "#/definitions/User"
+					}
+				},
+				"comment": {
+					"type": "string",
+					"example": "sample comment",
+					"description": "A note on the lesson in case of special situations (e.g. if it didn't happen for whatever reason)."
 				},
 				"deleted": {
 					"type": "boolean",
 					"example": "false",
 					"description": "Whether the feedback has been deleted or not."
 				},
-				"lessonId": {
-					"type": "string",
-					"example": "1",
-					"description": "ID of the lesson the feedback refers to."
-				},
-				"toId": {
-					"description": "ID and entity type of the receiver.",
+				"fromId": {
+					"description": "ID and entity type of the sender.",
 					"$ref": "#/definitions/EntityID"
+				},
+				"lessonId": {
+					"$ref": "#/definitions/Lesson",
+					"description": "ID of the lesson the feedback refers to."
 				},
 				"message": {
 					"type": "string",
@@ -3621,18 +3645,13 @@
 					"example": "1.1",
 					"description": "The rating of the feedback"
 				},
-				"absences": {
-					"type": "array",
-					"description": "A list of users who didn't show up for the lesson in case it didn't occur after all.",
-					"items": {
-						"type": "string",
-						"example": "sample absences"
-					}
+				"schoolId": {
+					"$ref": "#/definitions/School",
+					"description": "ID of the school the feedback refers to."
 				},
-				"comment": {
-					"type": "string",
-					"example": "sample comment",
-					"description": "A note on the lesson in case of special situations (e.g. if it didn't happen for whatever reason)."
+				"toId": {
+					"description": "ID and entity type of the receiver.",
+					"$ref": "#/definitions/EntityID"
 				}
 			},
 			"description": "Entity representing a feedback (user to instructor, instructor to user or user to school)"
@@ -3641,14 +3660,13 @@
 			"required": [
 				"_id",
 				"deleted",
-				"lessonTemplates",
+				"instructorIds",
 				"lessonTemplateId",
 				"generatedLessons",
 				"name",
 				"priority",
-				"publicFlag",
+				"schedules",
 				"schoolId",
-				"times",
 				"generatorType"
 			],
 			"properties": {
@@ -3675,24 +3693,27 @@
 						"example": "1"
 					}
 				},
-				"name": {
-					"type": "string",
-					"example": "sample name",
-					"description": "Name of the generator."
-				},
 				"generatorType": {
 					"type": "string",
 					"example": "sample type",
 					"description": "Determines whether it is a lesson or a bundle generator."
 				},
-				"lessonTemplates": {
+				"instructorIds": {
 					"type": "array",
-					"description": "Templates used to create new lessons.",
+					"description": "A list of instructors to use for generated lessons.",
 					"items": {
 						"type": "string",
-						"example": "templ",
-						"$ref": "#/definitions/LessonTemplate"
+						"$ref": "#/definitions/Employee"
 					}
+				},
+				"lessonTemplateId": {
+					"description": "Template used to generate bundles.",
+					"$ref": "#/definitions/LessonTemplate"
+				},
+				"name": {
+					"type": "string",
+					"example": "sample name",
+					"description": "Name of the generator."
 				},
 				"priority": {
 					"type": "integer",
@@ -3700,58 +3721,40 @@
 					"example": "1",
 					"description": "The generator priority (starting from 1, 2, 3, ...), determines the generator precedence in case of overlapping lessons."
 				},
-				"lessonTemplateId": {
-					"description": "Template used to generate bundles.",
-					"$ref": "#/definitions/LessonTemplate"
+				"schedules": {
+					"type": "array",
+					"description": "A list of lesson generation schedules.",
+					"items": {
+						"type": "string",
+						"$ref": "#/definitions/Schedule"
+					}
 				},
 				"schoolId": {
 					"type": "string",
 					"example": "sample schoolId",
 					"description": "ID of the school the generator belongs to."
-				},
-				"times": {
-					"description": "List of time intervals for which the lessons / bundles will be generated.",
-					"$ref": "#/definitions/TimeInterval"
-				},
-				"publicFlag": {
-					"type": "boolean",
-					"example": "false",
-					"description": "Decides whether the generated lessons and bundles are public."
 				}
 			}
 		},
 		"Lesson": {
 			"required": [
 				"_id",
-				"booked",
-				"private",
 				"clientSource",
 				"deleted",
-				"instructorId",
+				"instructorBonusFlag",
 				"meetingPoint",
 				"name",
+				"online",
 				"participants",
-				"schoolId"
+				"schoolId",
+				"prices",
+				"timeFrom",
+				"timeTo"
 			],
 			"properties": {
 				"_id": {
 					"type": "string",
 					"example": "1"
-				},
-				"booked": {
-					"type": "boolean",
-					"example": "false",
-					"description": "Whether it is booked or not"
-				},
-				"private": {
-					"type": "boolean",
-					"example": "false",
-					"description": "Whether it's booked by one or multiple persons"
-				},
-				"bundleId": {
-					"type": "string",
-					"example": "1",
-					"description": "Id of the bundle containing the lesson"
 				},
 				"clientSource": {
 					"type": "string",
@@ -3768,15 +3771,10 @@
 					"example": "false",
 					"description": "Says whether the lesson has been deleted. If true - it is scheduled for permanent deletion."
 				},
-				"timeFrom": {
+				"generatorId": {
 					"type": "string",
-					"format": "date",
-					"description": "Lesson start time"
-				},
-				"timeTo": {
-					"type": "string",
-					"format": "date",
-					"description": "Lesson end time"
+					"example": "sample generatorId",
+					"description": "ID of the generator the lesson comes from (if any)."
 				},
 				"instructorBonusFlag": {
 					"type": "boolean",
@@ -3821,6 +3819,11 @@
 					"example": "sample name",
 					"description": "Name of the lesson."
 				},
+				"online": {
+					"type": "boolean",
+					"example": "false",
+					"description": "Whether the lesson is online or not"
+				},
 				"participants": {
 					"type": "array",
 					"description": "List of participants  attending this lesson",
@@ -3828,6 +3831,11 @@
 						"type": "string",
 						"example": "sample participants"
 					}
+				},
+				"previousInstructorId": {
+					"type": "string",
+					"example": "sample previousInstructorId",
+					"description": "Id of the previous instructor"
 				},
 				"prices": {
 					"type": "array",
@@ -3837,6 +3845,11 @@
 						"format": "double",
 						"example": "1.1"
 					}
+				},
+				"private": {
+					"type": "boolean",
+					"example": "false",
+					"description": "Whether it's booked by one or multiple persons"
 				},
 				"schoolId": {
 					"type": "string",
@@ -3851,45 +3864,71 @@
 						"$ref": "#/definitions/Specialty"
 					}
 				},
-				"previousInstructorId": {
+				"timeFrom": {
 					"type": "string",
-					"example": "sample previousInstructorId",
-					"description": "Id of the previous instructor"
+					"format": "date",
+					"description": "Lesson start time"
 				},
-				"generatorId": {
+				"timeTo": {
 					"type": "string",
-					"example": "sample generatorId",
-					"description": "ID of the generator the lesson comes from (if any)."
+					"format": "date",
+					"description": "Lesson end time"
 				}
 			}
 		},
 		"LessonTemplate": {
 			"required": [
 				"_id",
-				"groupFlag",
+				"instructorBonusFlag",
+				"lessonName",
+				"meetingPoint",
 				"schoolId",
 				"name",
-				"prices"
+				"prices",
+				"private",
+				"specialties"
 			],
 			"properties": {
 				"_id": {
 					"type": "string",
 					"example": "sample _id"
 				},
-				"name": {
+				"comment": {
 					"type": "string",
-					"example": "sample name",
-					"description": "Template name."
+					"example": "sample comment",
+					"description": "A brief description of the template."
 				},
-				"groupFlag": {
+				"instructorBonusFlag": {
 					"type": "boolean",
 					"example": "false",
-					"description": "Determines whether it is an individual or a group lesson."
+					"description": "Decides whether an instructor will receive bonus for the generated lessons."
 				},
-				"schoolId": {
+				"lessonName": {
 					"type": "string",
-					"example": "sample school",
-					"description": "School assigned to generated lessons."
+					"example": "sample name",
+					"description": "Name of the generated lessons."
+				},
+				"maxAge": {
+					"type": "integer",
+					"format": "int32",
+					"example": "1",
+					"description": "Maximum age of the lessons (for group lessons)."
+				},
+				"maxParticipants": {
+					"type": "integer",
+					"format": "int32",
+					"example": "1",
+					"description": "Maximum amount of participants (for a group lesson)."
+				},
+				"meetingPoint": {
+					"description": "A meeting point for generated lessons.",
+					"$ref": "#/definitions/MeetingPoint"
+				},
+				"minAge": {
+					"type": "integer",
+					"format": "int32",
+					"example": "1",
+					"description": "Minimum age of the lessons (for group lessons)."
 				},
 				"minParticipants": {
 					"type": "integer",
@@ -3897,11 +3936,10 @@
 					"example": "1",
 					"description": "Minimum amount of participants (for group lessons)."
 				},
-				"maxParticipants": {
-					"type": "integer",
-					"format": "int32",
-					"example": "1",
-					"description": "Maximum amount of participants (for a group lesson)."
+				"name": {
+					"type": "string",
+					"example": "sample name",
+					"description": "Template name."
 				},
 				"prices": {
 					"type": "array",
@@ -3912,17 +3950,15 @@
 						"example": "1.1"
 					}
 				},
-				"minAge": {
-					"type": "integer",
-					"format": "int32",
-					"example": "1",
-					"description": "Minimum age of the lessons (for group lessons)."
+				"private": {
+					"type": "boolean",
+					"example": "false",
+					"description": "Decides whether the generated lessons will be private."
 				},
-				"maxAge": {
-					"type": "integer",
-					"format": "int32",
-					"example": "1",
-					"description": "Maximum age of the lessons (for group lessons)."
+				"schoolId": {
+					"type": "string",
+					"example": "sample school",
+					"description": "School assigned to generated lessons."
 				},
 				"specialties": {
 					"type": "array",
@@ -3931,16 +3967,6 @@
 						"type": "string",
 						"$ref": "#/definitions/Specialty"
 					}
-				},
-				"instructorBonusFlag": {
-					"type": "boolean",
-					"example": "false",
-					"description": "Decides whether an instructor will receive bonus for the generated lessons."
-				},
-				"comment": {
-					"type": "string",
-					"example": "sample comment",
-					"description": "A brief description of the template."
 				}
 			}
 		},
@@ -3952,8 +3978,7 @@
 				"message",
 				"messageType",
 				"read",
-				"timestamp",
-				"toId"			
+				"toId"
 			],
 			"properties": {
 				"_id": {
@@ -3964,11 +3989,6 @@
 					"type": "boolean",
 					"example": "false",
 					"description": "Whether the request was accepted."
-				},
-				"instructorId": {
-					"type": "string",
-					"example": "sample assignedInstructorId",
-					"description": "The id of the newly assigned instructor."
 				},
 				"bookerId": {
 					"type": "string",
@@ -3982,11 +4002,6 @@
 						"type": "string",
 						"example": "sample changedFields"
 					}
-				},
-				"timestamp": {
-					"type": "string",
-					"format": "date",
-					"description": "The time of this message creation"
 				},
 				"deleted": {
 					"type": "boolean",
@@ -4007,9 +4022,12 @@
 					"example": "false",
 					"description": "Whether it is in the 'important' category."
 				},
+				"instructorId": {
+					"$ref": "#/definitions/Employee",
+					"description": "The id of the newly assigned instructor."
+				},
 				"lessonId": {
-					"type": "string",
-					"example": "sample lessonId",
+					"$ref": "#/definitions/Lesson",
 					"description": "The id of the lesson that was changed"
 				},
 				"memberId": {
@@ -4059,7 +4077,7 @@
 				"toId": {
 					"description": "Entity type and ID of the user/school that is the receiver of this message.",
 					"$ref": "#/definitions/EntityID"
-				}				
+				}
 			},
 			"description": "A generic Message entity, having all possible fields that could appear in any message type. <br>\nTypes and type-specific fields: <br>\n - time off request: timesOff, timeOffRepeats<br>\n - lesson request: role, accepted<br>\n - lesson booked/unbooked: lessonId, bookerId, participantId<br>\n - assigned lesson: memberId, instructorId, lessonId<br>\n - unassigned lesson: memberId, lessonId, formerInstructorId<br>\n - product added/removed/changed: productId, changedFields<br>\n - membership accepted/refused: requestId, memberId<br>\n - membership over/changed: memberId, oldRole<br>"
 		},
@@ -4089,21 +4107,20 @@
 			"required": [
 				"_id",
 				"active",
-				"address",
 				"bankDetails",
-				"defaultMeetingPoints",
 				"deleted",
 				"email",
-				"enabled",
-				"logo",
-				"name",
-				"openingHours",
-				"royaltyPercent"
+				"name"
 			],
 			"properties": {
 				"_id": {
 					"type": "string",
 					"example": "1"
+				},
+				"active": {
+					"type": "boolean",
+					"example": "false",
+					"description": "Says whether the school is active."
 				},
 				"address": {
 					"description": "School address",
@@ -4143,6 +4160,12 @@
 					"example": "sample logo",
 					"description": "An url  with the school logo file"
 				},
+				"manuallySetRating": {
+					"type": "number",
+					"format": "double",
+					"example": "1.1",
+					"description": "School's rating"
+				},
 				"name": {
 					"type": "string",
 					"example": "sample name",
@@ -4156,25 +4179,15 @@
 					},
 					"description": "School working time (internal object with start and end hour)."
 				},
-				"resort": {
-					"$ref": "#/definitions/Resort",
-					"description": "The resort the school belongs to."
-				},
-				"manuallySetRating": {
+				"rating": {
 					"type": "number",
 					"format": "double",
 					"example": "1.1",
-					"description": "School's rating"
+					"description": "School's average rating"
 				},
-				"enabled": {
-					"type": "boolean",
-					"example": "false",
-					"description": "Says whether the school lesson is enabled (e.g. whether its lessons appear for users)."
-				},
-				"active": {
-					"type": "boolean",
-					"example": "false",
-					"description": "Says whether the school is active."
+				"resortId": {
+					"$ref": "#/definitions/Resort",
+					"description": "The resort the school belongs to."
 				},
 				"royaltyPercent": {
 					"type": "number",
@@ -4282,7 +4295,7 @@
 					"description": "ID of the user of stub user who booked this lesson"
 				}
 			},
-			"description": "An entity representing a single transaction made by a user or  a school."
+			"description": "[WILL BE CHANGED AFTER PURCHASING IS FINISHED] An entity representing a single transaction made by a user or  a school."
 		},
 		"User": {
 			"required": [
@@ -4315,15 +4328,10 @@
 						"example": "sample auth"
 					}
 				},
-				"createdAt": {
+				"birthdate": {
 					"type": "string",
-					"format": "date",
-					"description": "Time the user has been created."
-				},
-				"updatedAt": {
-					"type": "string",
-					"format": "date",
-					"description": "Time the user has been updated."
+					"example": "sample birthdate",
+					"description": "User's birthdate."
 				},
 				"deleted": {
 					"type": "boolean",
@@ -4348,6 +4356,15 @@
 					"example": "sample name",
 					"description": "The user's name."
 				},
+				"nationality": {
+					"type": "string",
+					"example": "Italy",
+					"description": "The user's nationality."
+				},
+				"ownerSchoolId": {
+					"description": "School owning the stub user",
+					"$ref": "#/definitions/School"
+				},
 				"phoneNumber": {
 					"type": "string",
 					"example": "sample phoneNumber",
@@ -4357,6 +4374,17 @@
 					"type": "string",
 					"example": "sample photoURL",
 					"description": "URL of user's avatar."
+				},
+				"rating": {
+					"type": "number",
+					"format": "double",
+					"example": "1.1",
+					"description": "User's average rating"
+				},
+				"refferalToken": {
+					"type": "string",
+					"example": "sample refferalToken",
+					"description": "The token assigned to a user when he will try to generate referal links"
 				},
 				"resetPasswordToken": {
 					"type": "string",
@@ -4368,11 +4396,11 @@
 					"example": "sample surname",
 					"description": "The user's surname."
 				},
-				"refferalToken": {
+				"vatCode": {
 					"type": "string",
-					"example": "sample refferalToken",
-					"description": "The token assigned to a user when he will try to generate referal links"
-				}
+					"example": "40000",
+					"description": "User's vat code"
+				}				
 			}
 		},
 		"Address": {
@@ -4570,7 +4598,6 @@
 			},
 			"description": "An entity representing a schedule."
 		},
-
 		"TimeInterval": {
 			"required": [
 				"timeFrom",
