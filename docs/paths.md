@@ -117,6 +117,8 @@ Sends a message to Skipodium support
 |FormDataParameter|newsletter|Newsletter flag.|true|boolean||
 |FormDataParameter|subject|Message topic.|true|string||
 |FormDataParameter|message|Message content.|true|string||
+|FormDataParameter|name|Name|true|string||
+|FormDataParameter|surname|Surname|true|string||
 
 
 #### Responses
@@ -129,6 +131,32 @@ Sends a message to Skipodium support
 #### Consumes
 
 * application/x-www-form-urlencoded
+
+#### Tags
+
+* Default
+
+### PUT /downForMaintenance/{isDownForMaintenance}
+```
+PUT /downForMaintenance/{isDownForMaintenance}
+```
+
+#### Description
+
+Sets/unsets the server to maintenance state, blocking purchasing. Admin access only.
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|isDownForMaintenance|Down for maintenance flag.|true|boolean||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|No Content|
+|401|Unauthorized|No Content|
+
 
 #### Tags
 
@@ -221,8 +249,9 @@ Gets an employee by ID
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
-|200|OK|No Content|
-|404|Not Found|No Content|
+|200|Success - returns an employee with associated school and user data(depends on the person asking)|No Content|
+|400|Bad request - returned when the provided id is in invalid format|No Content|
+|404|Not Found - returned when an employee with the given id is not found|No Content|
 
 
 #### Tags
@@ -723,6 +752,7 @@ Modifies an existing lesson
 |FormDataParameter|meetingPoint|Meeting point JSON - see MOCKUP-API.|false|string||
 |FormDataParameter|private|Says whether the lesson is private.|false|boolean||
 |FormDataParameter|participants|Lesson participant IDs - see MOCKUP-API.|false|string||
+|FormDataParameter|online||false|boolean||
 
 
 #### Responses
@@ -837,7 +867,7 @@ Manually purchase a new lesson by a school manager or instructor.
 |PathParameter|lessonId||true|string||
 |FormDataParameter|clientId|A list of IDs of users the lesson was bought for (JSON array).|true|string||
 |FormDataParameter|amount|The amount of money the purchasing person paid.|true|number||
-|FormDataParameter|paymentMethod|The selected payment method (bankTransfer,creditCard, debitCard or cash).|false|string||
+|FormDataParameter|paymentMethod|The selected payment method (bankTransfer,creditCard, debitCard or cash).|true|string||
 
 
 #### Responses
@@ -921,8 +951,7 @@ Returns a list of entries: {imageUrl, firstName, surname, lowestPrice, specialti
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |QueryParameter|resortId|ID of the resort to look in|false|string||
-|QueryParameter|timeFrom|Date from which to search: 2015-11-11T16:11:32.714Z|false|string||
-|QueryParameter|timeTo|Date till which to search: 2016-11-11T16:11:32.714Z|false|string||
+|QueryParameter|date|Day for which to search: 2015-11-11T00:00:00.000Z|false|string||
 |QueryParameter|numParticipants|Target number of participants.|false|string||
 |QueryParameter|specialtyType|Target specialty, see MOCKUP - API|false|string||
 |QueryParameter|expertises|Expertises, see MOCKUP - API|false|string||
@@ -930,6 +959,8 @@ Returns a list of entries: {imageUrl, firstName, surname, lowestPrice, specialti
 |QueryParameter|minPrice|Minimum price.|false|string||
 |QueryParameter|maxPrice|Maximum price.|false|string||
 |QueryParameter|language|Language.|false|string||
+|QueryParameter|private|Group or private lesson.|false|boolean||
+|QueryParameter|schoolId|ID of the school to look for instructors in.|false|string||
 
 
 #### Responses
@@ -1256,14 +1287,21 @@ Purchase a new lesson.
 |----|----|----|----|----|----|
 |FormDataParameter|lessons|A list of lessons to buy with their respective participants.|true|string||
 |FormDataParameter|participants|A list of participants with their respective lesson IDs.|true|string||
-|FormDataParameter|paymentNonce|Braintree payment method nonce received from the Braintree server.|false|string||
+|FormDataParameter|paymentNonce|Braintree payment method nonce received from the Braintree server.|true|string||
+|FormDataParameter|firstName|Billing information - first name.|true|string||
+|FormDataParameter|lastName|Billing information - last name.|true|string||
+|FormDataParameter|streetAddress|Billing information - address.|true|string||
+|FormDataParameter|city|Billing information - city.|true|string||
+|FormDataParameter|postalCode|Billing information - postal code.|false|string||
+|FormDataParameter|country|Billing information - country.|true|string||
+|FormDataParameter|state|Billing information - state/region.|false|string||
 
 
 #### Responses
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|Success.|No Content|
-|400|Bad Request|No Content|
+|400| Request|No Content|
 |401|Unauthorized|No Content|
 
 
@@ -1310,7 +1348,6 @@ Adds a new resort.
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |FormDataParameter|name|Resort name - must be unique|true|string||
-|FormDataParameter|photoURL||false|string||
 |FormDataParameter|lat||false|number||
 |FormDataParameter|lng||false|number||
 
@@ -1383,6 +1420,33 @@ Modifies resort by id.
 #### Tags
 
 * Resorts
+
+### GET /school
+```
+GET /school
+```
+
+#### Description
+
+Gets schools by params
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|QueryParameter|email||false|string||
+|QueryParameter|name||false|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|OK|No Content|
+|400|Bad Request|No Content|
+
+
+#### Tags
+
+* Schools
 
 ### POST /school
 ```
@@ -1459,7 +1523,7 @@ Modifies an existing school
 |FormDataParameter|addressCountry||false|string||
 |FormDataParameter|addressStreet||false|string||
 |FormDataParameter|addressStreetNum||false|string||
-|FormDataParameter|addressZipCode||false|string||
+|FormDataParameter|addressZipcode||false|string||
 |FormDataParameter|addressState||false|string||
 |FormDataParameter|email||false|string||
 |FormDataParameter|logo|This tool does not support uploading files.|false|string||
@@ -1497,7 +1561,7 @@ PUT /school/{schoolId}/accept/{accept}
 
 #### Description
 
-Sends an activation request to skipodium, can only be sent by a school director, upon success an email will be sent to skipodium managment to manually activate the school
+Accepts an activation request
 
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
@@ -1525,7 +1589,7 @@ PUT /school/{schoolId}/activate
 
 #### Description
 
-Sends an activation request to skipodium, can only be sent by a school director, upon success an email will be sent to skipodium managment to manually activate the school
+Sends an activation request to skp, can only be sent by a school director, upon success an email will be sent to skp management to manually activate the school
 
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
@@ -1791,7 +1855,7 @@ Signup method
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|OK|No Content|
-|400|Bad Request|No Content|
+|400|Bad Request. Messages: User validation failed, userExists|No Content|
 |401|Unauthorized|No Content|
 
 
@@ -1825,6 +1889,33 @@ Gets a transaction by ID
 #### Tags
 
 * Payments
+
+### PUT /unbook/{lessonId}
+```
+PUT /unbook/{lessonId}
+```
+
+#### Description
+
+Revert a Skipodium booking.
+
+#### Parameters
+|Type|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|----|
+|PathParameter|lessonId|ID of any lesson present in booking to cancel.|true|string||
+
+
+#### Responses
+|HTTP Code|Description|Schema|
+|----|----|----|
+|200|Success.|No Content|
+|401|Unauthorized|No Content|
+|404|Not Found|No Content|
+
+
+#### Tags
+
+* Lessons
 
 ### GET /user
 ```

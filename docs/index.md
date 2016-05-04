@@ -1,6 +1,6 @@
-# Skipodium API
+# API
 
-REST-ful API used to communicate with the Skipodium backend.
+REST-ful API used to communicate with the backend.
 
 ### Version information
 Version: 1.0.0
@@ -10,7 +10,7 @@ Contact: Blue Brick API Team
 Contact Email: adam.domagalski@blue-brick.com
 
 ### URI scheme
-Host: localhost:8080
+Host: api.adam.skipodium.com
 
 ### Tags
 
