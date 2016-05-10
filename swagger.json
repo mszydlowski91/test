@@ -12,7 +12,7 @@
 		"version": "1.0.0",
 		"title": "API",
 		"contact": {
-			"name": "Blue Brick API Team",
+			"name": "Blue Brick API Team", 
 			"url": "",
 			"email": "adam.domagalski@blue-brick.com"
 		}
