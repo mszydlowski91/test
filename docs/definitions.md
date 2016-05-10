@@ -57,7 +57,7 @@ Entity representing a feedback (user to instructor, instructor to user or user t
 |Name|Description|Required|Schema|Default|
 |----|----|----|----|----|
 |_id||true|string||
-|clientSource|Skipodium user, manually booked by school, white label etc|true|string||
+|clientSource|Registered user, manually booked by school, white label etc|true|string||
 |comment|A brief comment about the lesson.|false|string||
 |deleted|Says whether the lesson has been deleted. If true - it is scheduled for permanent deletion.|true|boolean||
 |generatorId|ID of the generator the lesson comes from (if any).|false|string||

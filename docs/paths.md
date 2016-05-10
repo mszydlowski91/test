@@ -108,7 +108,7 @@ POST /contact
 
 #### Description
 
-Sends a message to Skipodium support
+Sends a message to support
 
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
@@ -561,7 +561,6 @@ Edits an existing generator
 |FormDataParameter|priority|Generator priority.|false|string||
 |FormDataParameter|generatorType|Generator type (lessonGenerator or bundleGenerator).|false|string||
 |FormDataParameter|lessonTemplateId|ID of the lesson template used by the generator.|false|string||
-|FormDataParameter|schoolId|ID of the school that owns the generator.|false|string||
 |FormDataParameter|comment|Comment about the generator.|false|string||
 |FormDataParameter|instructorIds|Array of instructor IDs for this generator- see MOCKUP - API.|false|string||
 |FormDataParameter|schedules|Generator schedules - see MOCKUP - API.|false|string||
@@ -1589,7 +1588,7 @@ PUT /school/{schoolId}/activate
 
 #### Description
 
-Sends an activation request to skp, can only be sent by a school director, upon success an email will be sent to skp management to manually activate the school
+Sends an activation request
 
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
@@ -1897,7 +1896,7 @@ PUT /unbook/{lessonId}
 
 #### Description
 
-Revert a Skipodium booking.
+Revert an external booking.
 
 #### Parameters
 |Type|Name|Description|Required|Schema|Default|
@@ -2027,33 +2026,6 @@ Resets a user's password
 |HTTP Code|Description|Schema|
 |----|----|----|
 |200|The password was reset and a confirmation email is sent.|No Content|
-|401|Unauthorized|No Content|
-|404|Not Found|No Content|
-
-
-#### Tags
-
-* Users
-
-### PUT /user/{token}/verify
-```
-PUT /user/{token}/verify
-```
-
-#### Description
-
-Verifies user using the provided token
-
-#### Parameters
-|Type|Name|Description|Required|Schema|Default|
-|----|----|----|----|----|----|
-|PathParameter|token||true|string||
-
-
-#### Responses
-|HTTP Code|Description|Schema|
-|----|----|----|
-|200|User verified|No Content|
 |401|Unauthorized|No Content|
 |404|Not Found|No Content|
 
@@ -2249,6 +2221,7 @@ Gets all user lessons
 |Type|Name|Description|Required|Schema|Default|
 |----|----|----|----|----|----|
 |PathParameter|userId||true|string||
+|FormDataParameter|schoolId||false|string||
 
 
 #### Responses

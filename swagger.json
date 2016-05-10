@@ -6,7 +6,7 @@
 	"produces": [
 		"application/json"
 	],
-	"host": "api.adam.skipodium.com",
+	"host": "localhost:8080",
 	"info": {
 		"description": "REST-ful API used to communicate with the backend.",
 		"version": "1.0.0",
@@ -79,8 +79,8 @@
 				"tags": [
 					"Default"
 				],
-				"summary": "Sends a message to Skipodium support",
-				"description": "Sends a message to Skipodium support",
+				"summary": "Sends a message to support",
+				"description": "Sends a message to support",
 				"consumes": [
 					"application/x-www-form-urlencoded"
 				],
@@ -986,12 +986,6 @@
 					"required": false,
 					"type": "string"
 				}, {
-					"name": "schoolId",
-					"in": "formData",
-					"description": "ID of the school that owns the generator.",
-					"required": false,
-					"type": "string"
-				}, {
 					"name": "comment",
 					"in": "formData",
 					"description": "Comment about the generator.",
@@ -1729,8 +1723,8 @@
 				"tags": [
 					"Lessons"
 				],
-				"summary": "Revert a Skipodium booking.",
-				"description": "Revert a Skipodium booking.",
+				"summary": "Revert an external booking.",
+				"description": "Revert an external booking.",
 				"consumes": [],
 				"produces": [],
 				"parameters": [{
@@ -2534,7 +2528,7 @@
 					"Schools"
 				],
 				"summary": "Accepts an activation request",
-				"description":  "Accepts an activation request",
+				"description": "Accepts an activation request",
 				"consumes": [],
 				"produces": [],
 				"parameters": [{
@@ -2567,8 +2561,8 @@
 				"tags": [
 					"Schools"
 				],
-				"summary": "Sends an activation request to skp",
-				"description": "Sends an activation request to skp, can only be sent by a school director, upon success an email will be sent to skp management to manually activate the school",
+				"summary": "Sends an activation request",
+				"description": "Sends an activation request",
 				"consumes": [],
 				"produces": [],
 				"parameters": [{
@@ -3328,7 +3322,12 @@
 					"in": "path",
 					"required": true,
 					"type": "string"
-				}],
+				}, {
+                    "name": "schoolId",
+                    "in": "formData",
+                    "required": false,
+                    "type": "string"
+                }],
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -3469,34 +3468,6 @@
 				"responses": {
 					"200": {
 						"description": "The password was reset and a confirmation email is sent."
-					},
-					"401": {
-						"description": "Unauthorized"
-					},
-					"404": {
-						"description": "Not Found"
-					}
-				}
-			}
-		},
-		"/user/{token}/verify": {
-			"put": {
-				"tags": [
-					"Users"
-				],
-				"summary": "Verifies user using the provided token",
-				"description": "Verifies user using the provided token",
-				"consumes": [],
-				"produces": [],
-				"parameters": [{
-					"name": "token",
-					"in": "path",
-					"required": true,
-					"type": "string"
-				}],
-				"responses": {
-					"200": {
-						"description": "User verified"
 					},
 					"401": {
 						"description": "Unauthorized"
@@ -3904,7 +3875,7 @@
 				"clientSource": {
 					"type": "string",
 					"example": "sample clientSource",
-					"description": "Skipodium user, manually booked by school, white label etc"
+					"description": "Registered user, manually booked by school, white label etc"
 				},
 				"comment": {
 					"type": "string",
